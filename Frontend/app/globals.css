@@ -1,26 +1,66 @@
 @import "tailwindcss";
+@import "./styles/components.css";
 
 :root {
-  --background: #ffffff;
-  --foreground: #171717;
+  --background: var(--color-neutral-white);
+  --foreground: var(--color-neutral-black);
 }
 
-@theme inline {
-  --color-background: var(--background);
-  --color-foreground: var(--foreground);
-  --font-sans: var(--font-geist-sans);
-  --font-mono: var(--font-geist-mono);
+/* Tailwind v4 design tokens - her "bor" dit theme nu */
+@theme {
+  /* FONT FAMILY */
+  --font-ui: "Helvetica Now Display", system-ui, sans-serif;
+
+  /* FONT SIZE (giver text-h1, text-h2, ...) */
+  --text-h1: 1.5rem;     /* 24px */
+  --text-h2: 1.25rem;    /* 20px */
+  --text-h3: 1.125rem;   /* 18px */
+  --text-subtitle: 1rem; /* 16px */
+  --text-body: 1rem;     /* 16px */
+
+  /* COLORS -> giver fx bg-primary-crocus, text-neutral-black osv. */
+  --color-primary-crocus: #FFCF70;
+  --color-primary-blackberry: #4D3F54;
+
+  --color-neutral-black: #1E1E1E;
+  --color-neutral-white: #FFFFFF;
+  --color-neutral-light: #F7F6F6;
+  --color-neutral-grey: #555555;
+  --color-neutral-glacier: #EDEDED;
+
+  --color-secondary-darkgreyred: #575252;
+  --color-secondary-darkcyanblue: #3F4D54;
+  --color-secondary-darkblue: #3F4254;
+  --color-secondary-darkpinkred: #543F40;
+  --color-secondary-darkorange: #5D4C43;
+
+  --color-accent-maroon: #800000;
+  --color-accent-aquamarine: #40826D;
+
+  /* SPACING SCALE (base unit: 1px = 0.0625rem) */
+  --spacing: 0.0625rem;
+
+  /* BORDER RADIUS */
+  --radius-chip: 9999px;
+  --radius-pill: 9999px;
+  --radius-card: 24px;
+  --radius-button: 16px;
+
+  /* ICON SIZE */
+  --spacing-icon: 1.25rem;
+  --container-icon: 1.25rem;
+
 }
 
 @media (prefers-color-scheme: dark) {
   :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
+  --background: var(--color-neutral-black);
+  --foreground: var(--color-neutral-white);
   }
 }
 
 body {
   background: var(--background);
   color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+  @apply font-ui;
 }

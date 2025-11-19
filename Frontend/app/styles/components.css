@@ -1,29 +1,26 @@
-@import 'tailwind' preflight;
-@tailwind utilities;
-
 /* -------------------------------
    TYPOGRAPHY
 -------------------------------- */
 @layer components {
   .heading-1 {
-    @apply text-h1 font-semibold text-neutral-black font-ui;
+    @apply text-h1 font-semibold text-neutral-black font-ui leading-snug;
   }
   .heading-2 {
-    @apply text-h2 font-semibold text-neutral-black font-ui;
+    @apply text-h2 font-semibold text-neutral-black font-ui leading-snug;
   }
   .heading-3 {
-    @apply text-h3 font-semibold text-neutral-black font-ui;
+    @apply text-h3 font-semibold text-neutral-black font-ui leading-snug;
   }
 
   .subtitle {
-    @apply text-subtitle font-regular text-neutral-grey font-ui;
+    @apply text-subtitle font-normal text-neutral-grey font-ui leading-normal;
   }
 
   .body-regular {
-    @apply text-body font-regular font-ui text-neutral-grey;
+    @apply text-body font-normal font-ui text-neutral-grey leading-normal;
   }
   .body-semibold {
-    @apply text-body font-semibold font-ui text-neutral-black;
+    @apply text-body font-semibold font-ui text-neutral-black leading-normal;
   }
 
   /* -------------------------------
@@ -33,19 +30,20 @@
     @apply inline-flex items-center justify-center gap-2 
            px-16 py-10 rounded-button
            font-semibold font-ui text-body
-           transition-colors duration-150;
+           transition-colors duration-150
+           cursor-pointer;
   }
 
   .btn-primary {
-    @apply btn bg-primary-crocus text-neutral-black hover:bg-secondary-darkorange;
+    @apply bg-primary-crocus text-neutral-black hover:bg-secondary-darkorange;
   }
 
   .btn-secondary {
-    @apply btn bg-secondary-darkcyanblue text-neutral-white hover:bg-secondary-darkblue;
+    @apply bg-secondary-darkcyanblue text-neutral-white hover:bg-secondary-darkblue;
   }
 
   .btn-tertiary {
-    @apply btn bg-transparent text-secondary-darkcyanblue hover:bg-neutral-glacier;
+    @apply bg-transparent text-secondary-darkcyanblue hover:bg-neutral-glacier;
   }
 
   /* Icon-only buttons */
@@ -77,11 +75,11 @@
   }
 
   .tab-active {
-    @apply tab bg-neutral-black text-neutral-white;
+    @apply bg-neutral-black text-neutral-white;
   }
 
   .tab-default {
-    @apply tab bg-neutral-light text-neutral-grey hover:bg-neutral-glacier;
+    @apply bg-neutral-light text-neutral-grey hover:bg-neutral-glacier;
   }
 
   /* -------------------------------
@@ -94,7 +92,7 @@
   }
 
   .nav-item-active {
-    @apply nav-item text-neutral-black underline decoration-primary-crocus underline-offset-4;
+    @apply text-neutral-black underline decoration-primary-crocus underline-offset-4;
   }
 
   /* -------------------------------
