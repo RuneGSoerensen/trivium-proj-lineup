@@ -1,17 +1,18 @@
 import express from "express";
+import usersRouter from "./routes/users.js";
 import { requireAuth } from "./auth/auth.js";
-
-const server = express();
+const app = express();
 const PORT = process.env.PORT || 3000;
 
-server.get("/", (req, res) => {
+app.use(express.json());
+
+// Mount users router
+app.use("/user", usersRouter);
+
+app.get("/", (req, res) => {
   res.send("Server is running TRIVIUM");
 });
 
-server.get("/user", requireAuth, (req, res) => {
-  res.json({ message: "Authenticated request", userId: req.userId });
-});
-
-server.listen(PORT, () => {
-  console.log(`Server is running on port ${PORT}`);
+app.listen(PORT, () => {
+  console.log(`Server running on port ${PORT}`);
 });
