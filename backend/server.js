@@ -1,5 +1,5 @@
 import express from "express";
-import usersRouter from "./routes/users.js";
+import usersRouter from "./routes/user.js";
 import { requireAuth } from "./middelware/auth.js";
 const app = express();
 const PORT = process.env.PORT || 3000;
