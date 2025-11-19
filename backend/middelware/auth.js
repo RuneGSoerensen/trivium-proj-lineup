@@ -31,9 +31,11 @@ export async function requireAuth(req, res, next) {
 
     // Step 2: Extract the token from the "Bearer <token>" format
     // Split by space and take the second part
-    const token = authHeader.split(" ")[1];
+    const parts = authHeader.split(" ");
+    const scheme = parts[0];
+    const token = parts[1];
 
-    if (!token) {
+    if (scheme !== "Bearer" || !token) {
       return res.status(401).json({
         error: "Invalid authorization header format. Expected: Bearer <token>",
       });

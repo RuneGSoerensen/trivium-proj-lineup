@@ -25,8 +25,6 @@ export const createUser = async (req, res) => {
         is_musician,
         looking_for,
         business,
-        created_at,
-        updated_at
       )
       VALUES (
         ${id},
@@ -38,8 +36,6 @@ export const createUser = async (req, res) => {
         ${is_musician},
         ${looking_for},
         ${business},
-        CURRENT_TIMESTAMP,
-        CURRENT_TIMESTAMP
       )
       RETURNING *;
     `;
