@@ -1,8 +1,9 @@
-import sql from "../db.js";
+import sql from "../../db.js";
 
 export const createUser = async (req, res) => {
   const {
     id,
+    email,
     name,
     birthdate,
     city,
@@ -15,7 +16,8 @@ export const createUser = async (req, res) => {
   try {
     const [user] = await sql`
       INSERT INTO users (
-        id,
+        id, 
+        email,
         name,
         birthdate,
         city,
@@ -28,6 +30,7 @@ export const createUser = async (req, res) => {
       )
       VALUES (
         ${id},
+        ${email},
         ${name},
         ${birthdate},
         ${city},
