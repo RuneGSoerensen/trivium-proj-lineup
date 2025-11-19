@@ -4,9 +4,9 @@ import { Button } from "./components/ui/Button";
 export default function Home() {
   return (
     <main className="flex min-h-screen items-center justify-center">
-        <Button size="sm">Hej</Button>
-        <Button size="md" variant="secondary">Hej</Button>
-        <Button size="lg" variant="tertiary">Hej</Button>
+        <Button size="sm">Primary</Button>
+        <Button size="md" variant="secondary">Secondary</Button>
+        <Button size="lg" variant="tertiary">Tertiary</Button>
     </main>
   );
 }
