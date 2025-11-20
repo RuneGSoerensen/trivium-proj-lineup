@@ -1,6 +1,6 @@
 import Image from "next/image";
 import { Button } from "./components/ui/Button";
-import { Chip } from "./components/ui/Chip";
+import { Tag } from "./components/ui/Tag";
 import { TabItem, TabsList } from "./components/ui/Tabs";
 
 export default function Home() {
@@ -11,7 +11,7 @@ export default function Home() {
         Secondary
       </Button>
 
-      <Chip className="mr-2" variant="tag">Chip</Chip>
+      <Tag className="mr-2" variant="outlined">Tag</Tag>
 
       <TabsList>
         <TabItem>Overview</TabItem>

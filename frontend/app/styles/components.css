@@ -46,7 +46,6 @@
     @apply bg-default border-muted text-muted hover:bg-brand-primary-hover/50 hover:text-default;
   }
 
-
   /* Icon-only buttons */
   .btn-icon {
     @apply w-26 h-26 rounded-full flex items-center justify-center
@@ -56,13 +55,21 @@
   /* -------------------------------
      CHIPS
   -------------------------------- */
-  .trvm-chip {
+  .trvm-tag {
     @apply inline-flex items-center gap-2 px-10 py-4 rounded-chip
                bg-muted text-default text-[14px] font-semibold font-ui;
   }
 
-    .chip--tag {
+  .tag--default {
+    @apply border-muted;
+  }
+
+  .tag--outlined {
     @apply bg-default border-muted text-muted;
+  }
+
+  .tag--filled {
+    @apply bg-brand-primary text-default;
   }
 
   /* -------------------------------
@@ -92,7 +99,7 @@
   }
 
   .tab--active {
-      @apply text-default bg-brand-primary select-none cursor-pointer;
+    @apply text-default bg-brand-primary select-none cursor-pointer;
   }
 
   .tab--default {
