@@ -9,63 +9,99 @@
 
 /* Tailwind v4 design tokens */
 @theme {
-    /* FONT FAMILY */
-    --font-ui: "Helvetica Now Display", system-ui, sans-serif;
+  /* FONT FAMILY */
+  --font-ui: "Helvetica Now Display", system-ui, sans-serif;
 
-    /* FONT SIZE (giver text-h1, text-h2, ...) */
-    --text-h1: 1.5rem; /* 24px */
-    --text-h2: 1.25rem; /* 20px */
-    --text-h3: 1.125rem; /* 18px */
-    --text-subtitle: 1rem; /* 16px */
-    --text-body: 1rem; /* 16px */
+  /* FONT SIZE (giver text-h1, text-h2, ...) */
+  --text-h1: 1.5rem; /* 24px */
+  --text-h2: 1.25rem; /* 20px */
+  --text-h3: 1.125rem; /* 18px */
+  --text-subtitle: 1rem; /* 16px */
+  --text-body: 1rem; /* 16px */
 
-    /* COLORS -> giver fx bg-primary-crocus, text-neutral-black osv. */
-    --color-primary-crocus: #ffcf70;
-    --color-primary-blackberry: #4d3f54;
+  /* SEMANTIC COLORS */
+  --color-text-default: #1e1e1e; /* var neutral-black */
+  --color-text-inverse: #ffffff;
+  --color-text-muted: #555555;
+  --color-text-subtle: #ededed;
 
-    --color-neutral-black: #1e1e1e;
-    --color-neutral-white: #ffffff;
-    --color-neutral-light: #f7f6f6;
-    --color-neutral-grey: #555555;
-    --color-neutral-glacier: #ededed;
+  /* SURFACE / BACKGROUND */
+  --color-bg-default: #ffffff;
+  --color-bg-alt: #f7f6f6;
+  --color-bg-muted: #ededed;
+  --color-bg-inverse: #1e1e1e;
 
-    --color-secondary-darkgreyred: #575252;
-    --color-secondary-darkcyanblue: #3f4d54;
-    --color-secondary-darkblue: #3f4254;
-    --color-secondary-darkpinkred: #543f40;
-    --color-secondary-darkorange: #5d4c43;
+  /* BRAND */
+  --color-brand-primary: #ffcf70;
+  --color-brand-primary-dark: #4d3f54;
 
-    --color-accent-maroon: #800000;
-    --color-accent-aquamarine: #40826d;
+  /* SECONDARY */
+  --color-secondary-greyred: #575252;
+  --color-secondary-cyanblue: #3f4d54;
+  --color-secondary-blue: #3f4254;
+  --color-secondary-pinkred: #543f40;
+  --color-secondary-orange: #5d4c43;
 
-    /* SPACING SCALE (base unit: 1px = 0.0625rem) */
-    --spacing: 0.0625rem;
+  /* ACCENT */
+  --color-accent-maroon: #800000;
+  --color-accent-aquamarine: #40826d;
 
-    /* BORDER RADIUS */
-    --radius-chip: 9999px;
-    --radius-pill: 9999px;
-    --radius-card: 24px;
-    --radius-button: 16px;
+  /* SPACING SCALE (base unit: 1px = 0.0625rem) */
+  --spacing: 0.0625rem;
 
-    /* ICON SIZE */
-    --spacing-icon: 1.25rem;
-    --container-icon: 1.25rem;
+  /* BORDER RADIUS */
+  --radius-chip: 9999px;
+  --radius-pill: 9999px;
+  --radius-card: 24px;
+  --radius-button: 16px;
+
+  /* ICON SIZE */
+  --spacing-icon: 1.25rem;
+  --container-icon: 1.25rem;
+}
+
+/* Short semantic utilities */
+@utility text-default {
+  color: var(--color-text-default);
+}
+@utility text-inverse {
+  color: var(--color-text-inverse);
+}
+@utility text-muted {
+  color: var(--color-text-muted);
+}
+@utility text-subtle {
+  color: var(--color-text-subtle);
+}
+
+/* Background semantic utilities */
+@utility bg-default {
+  background-color: var(--color-bg-default);
+}
+@utility bg-alt {
+  background-color: var(--color-bg-alt);
+}
+@utility bg-muted {
+  background-color: var(--color-bg-muted);
+}
+@utility bg-inverse {
+  background-color: var(--color-bg-inverse);
 }
 
 :root {
-    --background: var(--color-neutral-white);
-    --foreground: var(--color-neutral-black);
+  --background: var(--color-bg-default);
+  --foreground: var(--color-text-default);
 }
 
 @media (prefers-color-scheme: dark) {
-    :root {
-        --background: var(--color-neutral-black);
-        --foreground: var(--color-neutral-white);
-    }
+  :root {
+    --background: var(--color-bg-inverse);
+    --foreground: var(--color-text-inverse);
+  }
 }
 
 body {
-    background: var(--background);
-    color: var(--foreground);
-    @apply font-ui;
+  background: var(--background);
+  color: var(--foreground);
+  @apply font-ui;
 }

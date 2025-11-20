@@ -26,7 +26,7 @@ export const TabsList = ({ children, variant, className, ...rest }) => {
   return (
     <div
       className={clsx(
-        "tab",
+        "tabs-list",
         children.length > 1 && "tabs--multiple",
         variantClass(variant),
         className,

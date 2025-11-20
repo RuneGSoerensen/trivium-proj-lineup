@@ -27,7 +27,7 @@ export const Button = ({
   return (
     <button
       className={clsx(
-        "tri-btn",
+        "trvm-btn",
         variantClass[variant],
         sizeClass[size],
         fullWidth && "w-full justify-center",
