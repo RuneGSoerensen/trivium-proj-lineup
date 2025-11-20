@@ -1,13 +1,9 @@
 import FlyonuiScript from "./components/FlyonuiScript";
 import "./globals.css";
 
-import {
-  Helvetica,
-  HelveticaNowDisplay,
-  HelveticaNowText,
-} from "next/font/google";
-
-const font = Helvetica({ subsets: ["latin"] });
+import "./styles/fonts.css";
+const font = { variable: "InterVariable",
+};  
 
 export const metadata = {
   title: "Create Next App",
