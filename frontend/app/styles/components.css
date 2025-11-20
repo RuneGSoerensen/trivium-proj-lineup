@@ -42,13 +42,10 @@
     @apply bg-secondary-cyanblue text-inverse hover:bg-secondary-blue;
   }
 
-  .btn-tertiary {
-    @apply bg-transparent text-secondary-cyanblue hover:bg-muted;
+  .btn-outlined {
+    @apply bg-default border-muted text-muted hover:bg-brand-primary-hover/50 hover:text-default;
   }
 
-  .btn-tag {
-    @apply bg-alt border text-muted active:bg-brand-primary/50;
-  }
 
   /* Icon-only buttons */
   .btn-icon {
@@ -62,6 +59,10 @@
   .trvm-chip {
     @apply inline-flex items-center gap-2 px-10 py-4 rounded-chip
                bg-muted text-default text-[14px] font-semibold font-ui;
+  }
+
+    .chip--tag {
+    @apply bg-default border-muted text-muted;
   }
 
   /* -------------------------------

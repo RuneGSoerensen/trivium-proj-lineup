@@ -7,13 +7,11 @@ export default function Home() {
   return (
     <main className="flex min-h-screen items-center justify-center ">
       <Button className="mr-2">Primary</Button>
-      <Button className="mr-2" variant="secondary">
+      <Button className="mr-2" variant="outlined">
         Secondary
       </Button>
-      <Button className="mr-2" variant="tag">
-        Tag
-      </Button>
-      <Chip className="mr-2">Chip</Chip>
+
+      <Chip className="mr-2" variant="tag">Chip</Chip>
 
       <TabsList>
         <TabItem>Overview</TabItem>

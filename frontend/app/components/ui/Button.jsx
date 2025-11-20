@@ -5,8 +5,7 @@ import clsx from "clsx";
 const variantClass = {
   primary: "btn-primary",
   secondary: "btn-secondary",
-  tertiary: "btn-tertiary",
-  tag: "btn-tag",
+  outlined: "btn-outlined",
 };
 
 const sizeClass = {
