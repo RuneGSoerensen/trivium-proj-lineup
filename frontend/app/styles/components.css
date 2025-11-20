@@ -105,4 +105,21 @@
   .toggle-dot {
     @apply w-16 h-16 bg-neutral-white rounded-full shadow;
   }
+
+  /* Bottom navigation Link Gradient Border */
+  .nav-link-gradient-border {
+    position: relative;
+    border: 1px solid transparent;
+    background-image: linear-gradient(rgba(52, 53, 53), rgba(52, 53, 53)),
+      linear-gradient(
+        120deg,
+        rgb(52, 53, 53),
+        rgb(52, 53, 53),
+        rgba(212, 212, 216, 0.6),
+        rgb(52, 53, 53),
+        rgb(52, 53, 53)
+      );
+    background-origin: border-box;
+    background-clip: padding-box, border-box;
+  }
 }
