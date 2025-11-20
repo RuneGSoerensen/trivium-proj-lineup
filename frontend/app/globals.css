@@ -22,8 +22,9 @@
   /* SEMANTIC COLORS */
   --color-text-default: #1e1e1e; /* var neutral-black */
   --color-text-inverse: #ffffff;
-  --color-text-muted: #555555;
+  --color-text-muted: #828282;
   --color-text-subtle: #ededed;
+  --color-text-brand: var(--color-brand-primary);
 
   /* SURFACE / BACKGROUND */
   --color-bg-default: #ffffff;
@@ -33,6 +34,7 @@
 
   /* BRAND */
   --color-brand-primary: #ffcf70;
+  --color-brand-primary-hover: #E8BD69;
   --color-brand-primary-dark: #4d3f54;
 
   /* SECONDARY */
@@ -73,10 +75,13 @@
 @utility text-subtle {
   color: var(--color-text-subtle);
 }
+@utility text-brand {
+  color: var(--color-text-brand);
+}
 
 /* Background semantic utilities */
 @utility bg-default {
-  background-color: var(--color-bg-default);
+    background-color: var(--color-bg-default);
 }
 @utility bg-alt {
   background-color: var(--color-bg-alt);
@@ -87,18 +92,31 @@
 @utility bg-inverse {
   background-color: var(--color-bg-inverse);
 }
+@utility bg-brand-primary {
+  background-color: var(--color-brand-primary);
+}
+@utility bg-secondary-orange {
+  background-color: var(--color-brand-primary-hover);
+}
+@utility bg-secondary-cyanblue {
+  background-color: var(--color-secondary-cyanblue);
+}
+@utility bg-secondary-blue {
+  background-color: var(--color-secondary-blue);
+}
+
 
 :root {
   --background: var(--color-bg-default);
   --foreground: var(--color-text-default);
 }
 
-@media (prefers-color-scheme: dark) {
+/* @media (prefers-color-scheme: dark) {
   :root {
     --background: var(--color-bg-inverse);
     --foreground: var(--color-text-inverse);
   }
-}
+} */
 
 body {
   background: var(--background);

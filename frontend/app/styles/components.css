@@ -2,136 +2,136 @@
    TYPOGRAPHY
 -------------------------------- */
 @layer components {
-    .heading-1 {
-        @apply text-h1 font-semibold text-default font-ui leading-snug;
-    }
-    .heading-2 {
-        @apply text-h2 font-semibold text-default font-ui leading-snug;
-    }
-    .heading-3 {
-        @apply text-h3 font-semibold text-default font-ui leading-snug;
-    }
+  .heading-1 {
+    @apply text-h1 font-semibold text-default font-ui leading-snug;
+  }
+  .heading-2 {
+    @apply text-h2 font-semibold text-default font-ui leading-snug;
+  }
+  .heading-3 {
+    @apply text-h3 font-semibold text-default font-ui leading-snug;
+  }
 
-    .subtitle {
-        @apply text-subtitle font-normal text-muted font-ui leading-normal;
-    }
+  .subtitle {
+    @apply text-subtitle font-normal text-muted font-ui leading-normal;
+  }
 
-    .body-regular {
-        @apply text-body font-normal font-ui text-muted leading-normal;
-    }
-    .body-semibold {
-        @apply text-body font-semibold font-ui text-default leading-normal;
-    }
+  .body-regular {
+    @apply text-body font-normal font-ui text-muted leading-normal;
+  }
+  .body-semibold {
+    @apply text-body font-semibold font-ui text-default leading-normal;
+  }
 
-    /* -------------------------------
+  /* -------------------------------
      BUTTONS
   -------------------------------- */
-    .trvm-btn {
-        @apply inline-flex items-center justify-center gap-2
+  .trvm-btn {
+    @apply inline-flex items-center justify-center gap-2
            px-16 py-10 rounded-button
            font-semibold font-ui text-body
            transition-colors duration-150
            cursor-pointer;
-    }
+  }
 
-    .btn-primary {
-        @apply bg-brand-primary text-default hover:bg-secondary-orange;
-    }
+  .btn-primary {
+    @apply bg-brand-primary text-default hover:bg-secondary-orange;
+  }
 
-    .btn-secondary {
-        @apply bg-secondary-cyanblue text-inverse hover:bg-secondary-blue;
-    }
+  .btn-secondary {
+    @apply bg-secondary-cyanblue text-inverse hover:bg-secondary-blue;
+  }
 
-    .btn-tertiary {
-        @apply bg-transparent text-secondary-cyanblue hover:bg-muted;
-    }
+  .btn-tertiary {
+    @apply bg-transparent text-secondary-cyanblue hover:bg-muted;
+  }
 
-    /* Icon-only buttons */
-    .btn-icon {
-        @apply w-26 h-26 rounded-full flex items-center justify-center
+  .btn-tag {
+    @apply bg-alt border text-muted active:bg-brand-primary/50;
+  }
+
+  /* Icon-only buttons */
+  .btn-icon {
+    @apply w-26 h-26 rounded-full flex items-center justify-center
            bg-alt hover:bg-muted;
-    }
+  }
 
-    /* -------------------------------
+  /* -------------------------------
      CHIPS
   -------------------------------- */
-    .chip {
-        @apply inline-flex items-center gap-2 px-10 py-4 rounded-chip
-           bg-muted text-default text-[14px] font-semibold;
-    }
+  .trvm-chip {
+    @apply inline-flex items-center gap-2 px-10 py-4 rounded-chip
+               bg-muted text-default text-[14px] font-semibold font-ui;
+  }
 
-    /* -------------------------------
+  /* -------------------------------
      CARDS
   -------------------------------- */
 
-
-    .trv-card {
+  .trvm-card {
     @apply bg-default rounded-card p-20;
   }
 
-  /* Chip oven på FlyonUI badge/pill hvis du vil */
-  .trv-chip {
-    @apply inline-flex items-center gap-2 px-10 py-4 rounded-chip
-           bg-muted text-default text-[14px] font-semibold;
-  }
-
   /* Tabs: typografi til FlyonUI tabs/pills */
-  .trv-tab-label {
+  .trvm-tab-label {
     @apply text-body font-semibold font-ui;
   }
 
   /* Navigation label */
-  .trv-nav-label {
+  .trvm-nav-label {
     @apply text-body font-semibold text-muted font-ui;
   }
 
-    /* -------------------------------
+  /* -------------------------------
      TABS
   -------------------------------- */
-    .tab {
-        @apply px-14 py-6 rounded-pill text-body font-semibold;
-    }
 
-    .tab-active {
-        @apply bg-inverse text-inverse;
-    }
+  .trvm-tab {
+    @apply px-14 py-4 rounded-pill text-body font-semibold font-ui;
+  }
 
-    .tab-default {
-        @apply bg-alt text-muted hover:bg-muted;
-    }
+  .tab--active {
+      @apply text-default bg-brand-primary select-none cursor-pointer;
+  }
 
-    .tab-disabled {
-        @apply bg-alt text-muted cursor-not-allowed;
-    }
+  .tab--default {
+    @apply text-muted cursor-pointer hover:bg-brand-primary transition-colors duration-100 hover:text-default;
+  }
 
-    .tabs--multiple {
-        @apply flex gap-8;
-    }
-    .tabs-list {
-        @apply inline-flex bg-alt rounded-pill p-4;
-    }
+  .tab--disabled {
+    @apply text-muted cursor-not-allowed;
+  }
 
-    /* -------------------------------
+  .tabs--multiple {
+    @apply flex gap-8;
+  }
+  .tabs--list {
+    @apply inline-flex bg-alt rounded-pill px-8 py-6;
+  }
+  .tab-separator {
+    @apply w-2 bg-muted rounded-full my-8 select-none;
+  }
+  /* -------------------------------
      NAVIGATION
   -------------------------------- */
-    .nav-item {
-        @apply flex items-center gap-6 text-body font-semibold
+  .nav-item {
+    @apply flex items-center gap-6 text-body font-semibold
            text-muted px-10 py-6
            hover:text-default;
-    }
+  }
 
-    .nav-item-active {
-        @apply text-default underline decoration-brand-primary underline-offset-4;
-    }
+  .nav-item-active {
+    @apply text-default underline decoration-brand-primary underline-offset-4;
+  }
 
-    /* -------------------------------
+  /* -------------------------------
      INTERACTIVE ELEMENTS (toggles)
   -------------------------------- */
-    .toggle {
-        @apply inline-flex items-center justify-between w-40 h-20 bg-muted rounded-pill p-2;
-    }
+  .toggle {
+    @apply inline-flex items-center justify-between w-40 h-20 bg-muted rounded-pill p-2;
+  }
 
-    .toggle-dot {
-        @apply w-16 h-16 bg-default rounded-full shadow;
-    }
+  .toggle-dot {
+    @apply w-16 h-16 bg-default rounded-full shadow;
+  }
 }

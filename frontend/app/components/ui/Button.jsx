@@ -6,6 +6,7 @@ const variantClass = {
   primary: "btn-primary",
   secondary: "btn-secondary",
   tertiary: "btn-tertiary",
+  tag: "btn-tag",
 };
 
 const sizeClass = {

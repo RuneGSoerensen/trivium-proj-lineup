@@ -5,17 +5,13 @@ import { usePathname } from "next/navigation";
 import { useEffect } from "react";
 
 // Optional third-party libraries
-import $ from "jquery";
-import _ from "lodash";
-import noUiSlider from "nouislider";
-import DataTable from "datatables.net-dt";
-import "dropzone/dist/dropzone-min.js";
+// import $ from "jquery";
+// import _ from "lodash";
+// import noUiSlider from "nouislider";
 
-window.$ = $;
-window._ = _;
-window.jQuery = $;
-window.DataTable = DataTable;
-window.noUiSlider = noUiSlider;
+// window._ = _;
+// window.jQuery = $;
+// window.noUiSlider = noUiSlider;
 
 async function loadFlyonUI() {
   return import("flyonui/flyonui");
