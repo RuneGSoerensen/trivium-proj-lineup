@@ -3,31 +3,31 @@
 -------------------------------- */
 @layer components {
   .heading-1 {
-    @apply text-h1 font-semibold text-neutral-black font-ui leading-snug;
+    @apply text-h1 font-semibold text-default font-ui leading-snug;
   }
   .heading-2 {
-    @apply text-h2 font-semibold text-neutral-black font-ui leading-snug;
+    @apply text-h2 font-semibold text-default font-ui leading-snug;
   }
   .heading-3 {
-    @apply text-h3 font-semibold text-neutral-black font-ui leading-snug;
+    @apply text-h3 font-semibold text-default font-ui leading-snug;
   }
 
   .subtitle {
-    @apply text-subtitle font-normal text-neutral-grey font-ui leading-normal;
+    @apply text-subtitle font-normal text-muted font-ui leading-normal;
   }
 
   .body-regular {
-    @apply text-body font-normal font-ui text-neutral-grey leading-normal;
+    @apply text-body font-normal font-ui text-muted leading-normal;
   }
   .body-semibold {
-    @apply text-body font-semibold font-ui text-neutral-black leading-normal;
+    @apply text-body font-semibold font-ui text-default leading-normal;
   }
 
   /* -------------------------------
      BUTTONS
   -------------------------------- */
-  .btn {
-    @apply inline-flex items-center justify-center gap-2 
+  .trvm-btn {
+    @apply inline-flex items-center justify-center gap-2
            px-16 py-10 rounded-button
            font-semibold font-ui text-body
            transition-colors duration-150
@@ -35,75 +35,112 @@
   }
 
   .btn-primary {
-    @apply bg-primary-crocus text-neutral-black hover:bg-secondary-darkorange;
+    @apply bg-brand-primary text-default hover:bg-secondary-orange;
   }
 
   .btn-secondary {
-    @apply bg-secondary-darkcyanblue text-neutral-white hover:bg-secondary-darkblue;
+    @apply bg-secondary-cyanblue text-inverse hover:bg-secondary-blue;
   }
 
-  .btn-tertiary {
-    @apply bg-transparent text-secondary-darkcyanblue hover:bg-neutral-glacier;
+  .btn-outlined {
+    @apply bg-default border-muted text-muted hover:bg-brand-primary-hover/50 hover:text-default;
   }
 
   /* Icon-only buttons */
   .btn-icon {
     @apply w-26 h-26 rounded-full flex items-center justify-center
-           bg-neutral-light hover:bg-neutral-glacier;
+           bg-alt hover:bg-muted;
   }
 
   /* -------------------------------
      CHIPS
   -------------------------------- */
-  .chip {
+  .trvm-tag {
     @apply inline-flex items-center gap-2 px-10 py-4 rounded-chip
-           bg-neutral-glacier text-neutral-black text-[14px] font-semibold;
+               bg-muted text-default text-[14px] font-semibold font-ui;
+  }
+
+  .tag--default {
+    @apply border-muted;
+  }
+
+  .tag--outlined {
+    @apply bg-default border-muted text-muted;
+  }
+
+  .tag--filled {
+    @apply bg-brand-primary text-default;
   }
 
   /* -------------------------------
      CARDS
   -------------------------------- */
-  .card {
-    @apply bg-neutral-white rounded-card shadow-md p-20;
+
+  .trvm-card {
+    @apply bg-default rounded-card p-20;
+  }
+
+  /* Tabs: typografi til FlyonUI tabs/pills */
+  .trvm-tab-label {
+    @apply text-body font-semibold font-ui;
+  }
+
+  /* Navigation label */
+  .trvm-nav-label {
+    @apply text-body font-semibold text-muted font-ui;
   }
 
   /* -------------------------------
      TABS
   -------------------------------- */
-  .tab {
-    @apply px-14 py-6 rounded-pill text-body font-semibold;
+
+  .trvm-tab {
+    @apply px-14 py-4 rounded-pill text-body font-semibold font-ui;
   }
 
-  .tab-active {
-    @apply bg-neutral-black text-neutral-white;
+  .tab--active {
+    @apply text-default bg-brand-primary select-none cursor-pointer;
   }
 
-  .tab-default {
-    @apply bg-neutral-light text-neutral-grey hover:bg-neutral-glacier;
+  .tab--default {
+    @apply text-muted cursor-pointer hover:bg-brand-primary transition-colors duration-100 hover:text-default;
   }
 
+  .tab--disabled {
+    @apply text-muted cursor-not-allowed;
+  }
+
+  .tabs--multiple {
+    @apply flex gap-8;
+  }
+  .tabs--list {
+    @apply inline-flex bg-alt rounded-pill px-8 py-6;
+  }
+  .tab-separator {
+    @apply w-2 bg-muted rounded-full my-8 select-none;
+  }
   /* -------------------------------
      NAVIGATION
   -------------------------------- */
   .nav-item {
-    @apply flex items-center gap-6 text-body font-semibold 
-           text-neutral-grey px-10 py-6
-           hover:text-neutral-black;
+    @apply flex items-center gap-6 text-body font-semibold
+           text-muted px-10 py-6
+           hover:text-default;
   }
 
   .nav-item-active {
-    @apply text-neutral-black underline decoration-primary-crocus underline-offset-4;
+    @apply text-default underline decoration-brand-primary underline-offset-4;
   }
 
   /* -------------------------------
      INTERACTIVE ELEMENTS (toggles)
   -------------------------------- */
   .toggle {
-    @apply inline-flex items-center justify-between w-40 h-20 bg-neutral-glacier rounded-pill p-2;
+    @apply inline-flex items-center justify-between w-40 h-20 bg-muted rounded-pill p-2;
   }
 
   .toggle-dot {
-    @apply w-16 h-16 bg-neutral-white rounded-full shadow;
+    @apply w-16 h-16 bg-default rounded-full shadow;
   }
 
   /* Bottom navigation Link Gradient Border */
