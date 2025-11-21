@@ -1,0 +1,42 @@
+@layer components {
+  /* -------------------------------
+     BUTTONS
+  -------------------------------- */
+  .trvm-btn {
+    @apply inline-flex items-center justify-center gap-2
+           px-10 py-8 rounded-button
+           font-semibold font-ui text-body
+           transition-colors duration-150
+           cursor-pointer w-fit;
+  }
+
+  /* Icon-only buttons */
+  .trvm-btn-icon {
+    @apply rounded-full flex items-center justify-center
+           bg-alt hover:bg-muted btn-size-low;
+  }
+
+  .btn-icon--high {
+    @apply btn-size-high;
+  }
+  .btn-icon--medium {
+    @apply btn-size-medium;
+  }
+  .btn-icon--low {
+    @apply btn-size-low;
+  }
+
+}
+
+  .btn-row-mobile {
+    column-gap: var(--spacing-button-medium);
+  }
+
+  @media (max-width: 768px) {
+    .btn-row-mobile--dense {
+      column-gap: var(--spacing-button-high);
+    }
+    .btn-row-mobile--loose {
+      column-gap: var(--spacing-button-low);
+    }
+  }

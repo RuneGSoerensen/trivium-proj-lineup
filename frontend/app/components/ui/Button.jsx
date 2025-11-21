@@ -6,9 +6,9 @@ import clsx from "clsx";
 const variantClass = {
   primary: "btn-primary",
   secondary: "btn-secondary",
-  outlined: "btn-outlined",
 };
 
+// Made for mobile first design
 const sizeClass = {
   sm: "px-10 py-4 text-[14px]",
   md: "px-16 py-10 text-body",
@@ -18,7 +18,6 @@ const sizeClass = {
 const Button = ({
   variant = "primary",
   size = "md",
-  onClick = () => {},
   leftIcon,
   rightIcon,
   fullWidth,
@@ -27,14 +26,13 @@ const Button = ({
   ...rest
 }) => {
   return (
-    <button type="button" onClick={onClick}
+    <button
       className={clsx(
         "trvm-btn",
         variantClass[variant],
         sizeClass[size],
         fullWidth && "w-full justify-center",
         className,
-        onClick && "cursor-pointer"
       )}
       {...rest}
     >
@@ -45,4 +43,20 @@ const Button = ({
   );
 };
 
-export default Button;
+const IconButton = ({ icon, variant = "primary", size = "md", className, ...rest }) => {
+  return (
+    <button
+      className={clsx(
+        "trvm-btn-icon",
+        variantClass[variant],
+        sizeClass[size],
+        className,
+      )}
+      {...rest}
+    >
+      {icon}
+    </button>
+  );
+};
+
+export { Button, IconButton };

@@ -4,7 +4,7 @@
 import React from "react";
 import clsx from "clsx";
 import Image from "next/image";
-import Button from './Button';
+import { Button } from "./Button";
 
 export function ServiceCard({
   // top bar
@@ -58,7 +58,7 @@ export function ServiceCard({
 
           {onBookmarkClick && (
             <Button
-              className="btn btn-circle btn-ghost btn-xs bg-bg-inverse/70 text-inverse"
+              className="btn btn-circle btn-ghost btn-xs bg-inverse text-inverse"
               onClick={(e) => {
                 e.stopPropagation();
                 onBookmarkClick();
