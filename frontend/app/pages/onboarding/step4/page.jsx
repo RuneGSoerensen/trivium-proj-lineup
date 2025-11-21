@@ -1,6 +1,6 @@
 "use client";
 
-import { useOnboarding } from "@/context/UserOnboardingContext";
+import { useOnboarding } from "@/app/utils/userOnobardingContext";
 import { useRouter } from "next/navigation";
 
 export default function Step4() {
@@ -8,7 +8,7 @@ export default function Step4() {
   const { userData, updateUser } = useOnboarding();
 
   const handleNext = () => {
-    router.push("pages/onboarding/step2");
+    router.push("/pages/onboarding/step5");
   };
 
   return (
