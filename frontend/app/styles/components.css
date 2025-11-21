@@ -35,7 +35,7 @@
   }
 
   .btn-primary {
-    @apply bg-brand-primary text-default hover:bg-secondary-orange;
+    @apply bg-brand-primary text-default hover:bg-secondary-orange border-button;
   }
 
   .btn-secondary {

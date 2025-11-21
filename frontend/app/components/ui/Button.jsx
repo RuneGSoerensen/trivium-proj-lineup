@@ -1,4 +1,5 @@
 // app/components/ui/Button.jsx
+'use client';
 import React from "react";
 import clsx from "clsx";
 
@@ -14,9 +15,10 @@ const sizeClass = {
   lg: "px-20 py-14 text-[18px]",
 };
 
-export const Button = ({
+const Button = ({
   variant = "primary",
   size = "md",
+  onClick = () => {},
   leftIcon,
   rightIcon,
   fullWidth,
@@ -25,13 +27,14 @@ export const Button = ({
   ...rest
 }) => {
   return (
-    <button
+    <button type="button" onClick={onClick}
       className={clsx(
         "trvm-btn",
         variantClass[variant],
         sizeClass[size],
         fullWidth && "w-full justify-center",
         className,
+        onClick && "cursor-pointer"
       )}
       {...rest}
     >
@@ -41,3 +44,5 @@ export const Button = ({
     </button>
   );
 };
+
+export default Button;

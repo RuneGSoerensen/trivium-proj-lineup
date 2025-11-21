@@ -19,22 +19,22 @@
   --text-body: 1rem; /* 16px */
 
   /* SEMANTIC COLORS */
-  --color-text-default: #1e1e1e; /* var neutral-black */
-  --color-text-inverse: #ffffff;
-  --color-text-muted: #828282;
-  --color-text-subtle: #ededed;
+  --color-text-default: rgb(30, 30, 30); /* var neutral-black */
+  --color-text-inverse: rgb(255, 255, 255);
+  --color-text-muted: rgb(130, 130, 130);
+  --color-text-subtle: rgb(237, 237, 237);
   --color-text-brand: var(--color-brand-primary);
 
   /* SURFACE / BACKGROUND */
-  --color-bg-default: #ffffff;
-  --color-bg-alt: #f7f6f6;
-  --color-bg-muted: #ededed;
-  --color-bg-inverse: #1e1e1e;
+  --color-bg-default: rgb(255, 255, 255);
+  --color-bg-alt: rgb(247, 246, 246);
+  --color-bg-muted: rgb(237, 237, 237);
+  --color-bg-inverse: rgb(30, 30, 30);
 
   /* BRAND */
-  --color-brand-primary: #ffcf70;
-  --color-brand-primary-hover: #E8BD69;
-  --color-brand-primary-dark: #4d3f54;
+  --color-brand-primary: rgb(255, 207, 112);
+  --color-brand-primary-hover: rgba(232, 189, 105, 0.5);
+  --color-brand-primary-dark: rgb(77, 63, 84);
 
   /* SECONDARY */
   --color-secondary-greyred: #575252;
@@ -77,6 +77,13 @@
 @utility text-brand {
   color: var(--color-text-brand);
 }
+@utility font-ui {
+  font-family: var(--font-ui);
+}
+@utility text-body {
+  font-family: var(--font-ui);
+  font-size: var(--text-body);
+}
 
 /* Background semantic utilities */
 @utility bg-default {
@@ -95,7 +102,7 @@
   background-color: var(--color-brand-primary);
 }
 @utility bg-secondary-orange {
-  background-color: var(--color-brand-primary-hover);
+  background-color: --alpha(var(--color-brand-primary-hover)/50%);
 }
 @utility bg-secondary-cyanblue {
   background-color: var(--color-secondary-cyanblue);
@@ -106,6 +113,10 @@
 
 @utility border-muted {
   border: 1px solid var(--color-text-muted);
+}
+
+@utility border-button {
+  border: 1px solid var(--color-bg-inverse);
 }
 
 
