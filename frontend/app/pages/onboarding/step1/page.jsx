@@ -13,9 +13,9 @@ export default function Step1() {
 
   return (
     <div>
-      <h1>Step 1 Basic Info</h1>
+      <h1>Step 1 Introduction to app here</h1>
 
-      <button onClick={handleNext}>Next</button>
+      <button onClick={handleNext}>Continue</button>
     </div>
   );
 }
