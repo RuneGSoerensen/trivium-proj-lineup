@@ -20,7 +20,8 @@ export default function Step2() {
     const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
     return emailRegex.test(email);
   };
-
+  // change the inputs onChange to a submit function instead, this makes it so that it doesnt update your useOnboarding states until you press continue
+  //then call the function when pressing continue ;)
   return (
     <section className="trvm-card max-w-xl mx-auto flex flex-col gap-20 items-center text-center">
       <h1 className="heading-1 mb-4">Sign up</h1>

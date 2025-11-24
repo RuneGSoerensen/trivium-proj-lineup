@@ -16,7 +16,9 @@ export default function Step6() {
       body: JSON.stringify(userData),
     });
   };
-
+// cant undo membership type selection
+// also here is where you would call supa base auth to create the user with email and password then use the returned user id to store the rest of the data in your users table
+// and use that to call the backend to update the user data in the database
   return (
     <section className="trvm-card max-w-xl mx-auto flex flex-col text-c">
       <h1>Final step - Membership type:</h1>

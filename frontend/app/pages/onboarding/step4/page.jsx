@@ -11,7 +11,8 @@ export default function Step4() {
   const handleNext = () => {
     router.push("/pages/onboarding/step5");
   };
-
+ // change the inputs onChange to a submit function instead, this makes it so that it doesnt update your useOnboarding states until you press continue
+  //then call the function when pressing continue ;)
   return (
     <section className="trvm-card max-w-xl mx-auto flex flex-col text-c">
       <h1 className="heading-1 mb-4">Step 4 — Personal details</h1>
@@ -30,7 +31,7 @@ export default function Step4() {
         value={userData.phone_nr}
         onChange={(e) => updateUser({ phone_nr: e.target.value })}
       />
-
+{/* change year of birth input to a date picker if possible */}
       <input
         className="w-full border-muted rounded-button p-4 mb-4"
         placeholder="Year of Birth"
