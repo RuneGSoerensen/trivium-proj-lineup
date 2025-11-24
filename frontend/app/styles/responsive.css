@@ -1,0 +1,32 @@
+@import "./util/type.css";
+@import "./util/button.css";
+@import "./util/tag.css";
+@import "./util/cards.css";
+@import "./util/tab.css";
+@import "./util/nav.css";
+
+@media (min-width: 1024px) {
+  main {
+    flex-direction: row;
+  }
+  .trvm-btn {
+    @apply px-16 py-8 text-h3 w-full max-w-fit;
+  }
+
+  .trvm-card {
+    @apply p-16;
+  }
+
+  .trvm-tag {
+    @apply px-12 py-6 text-body;
+  }
+  .trvm-tab {
+    @apply px-16 py-6 text-body;
+  }
+
+  .nav--item {
+    @apply px-16 py-8 text-h3;
+  }
+}
+
+

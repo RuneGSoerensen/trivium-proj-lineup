@@ -1,20 +1,21 @@
 // app/components/ui/Button.jsx
+'use client';
 import React from "react";
 import clsx from "clsx";
 
 const variantClass = {
   primary: "btn-primary",
   secondary: "btn-secondary",
-  outlined: "btn-outlined",
 };
 
+// Made for mobile first design
 const sizeClass = {
   sm: "px-10 py-4 text-[14px]",
   md: "px-16 py-10 text-body",
   lg: "px-20 py-14 text-[18px]",
 };
 
-export const Button = ({
+const Button = ({
   variant = "primary",
   size = "md",
   leftIcon,
@@ -41,3 +42,21 @@ export const Button = ({
     </button>
   );
 };
+
+const IconButton = ({ icon, variant = "primary", size = "md", className, ...rest }) => {
+  return (
+    <button
+      className={clsx(
+        "trvm-btn-icon",
+        variantClass[variant],
+        sizeClass[size],
+        className,
+      )}
+      {...rest}
+    >
+      {icon}
+    </button>
+  );
+};
+
+export { Button, IconButton };

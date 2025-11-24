@@ -4,14 +4,14 @@
 @import "flyonui/variants.css";
 @source "./node_modules/flyonui/flyonui.js";
 
-@import "./styles/components.css";
+@import "./styles/responsive.css";
 
 /* Tailwind v4 design tokens */
 @theme {
   /* FONT FAMILY */
   --font-ui: "Helvetica Now Display", system-ui, sans-serif;
 
-  /* FONT SIZE (giver text-h1, text-h2, ...) */
+  /* FONT SIZE  */
   --text-h1: 1.5rem; /* 24px */
   --text-h2: 1.25rem; /* 20px */
   --text-h3: 1.125rem; /* 18px */
@@ -19,22 +19,22 @@
   --text-body: 1rem; /* 16px */
 
   /* SEMANTIC COLORS */
-  --color-text-default: #1e1e1e; /* var neutral-black */
-  --color-text-inverse: #ffffff;
-  --color-text-muted: #828282;
-  --color-text-subtle: #ededed;
+  --color-text-default: rgb(30, 30, 30); /* var neutral-black */
+  --color-text-inverse: rgb(255, 255, 255);
+  --color-text-muted: rgb(130, 130, 130);
+  --color-text-subtle: rgb(237, 237, 237);
   --color-text-brand: var(--color-brand-primary);
 
   /* SURFACE / BACKGROUND */
-  --color-bg-default: #ffffff;
-  --color-bg-alt: #f7f6f6;
-  --color-bg-muted: #ededed;
-  --color-bg-inverse: #1e1e1e;
+  --color-bg-default: rgb(255, 255, 255);
+  --color-bg-alt: rgb(247, 246, 246);
+  --color-bg-muted: rgb(237, 237, 237);
+  --color-bg-inverse: rgb(30, 30, 30);
 
   /* BRAND */
-  --color-brand-primary: #ffcf70;
-  --color-brand-primary-hover: #E8BD69;
-  --color-brand-primary-dark: #4d3f54;
+  --color-brand-primary: rgb(255, 207, 112);
+  --color-brand-primary-hover: rgba(232, 189, 105);
+  --color-brand-primary-dark: rgb(77, 63, 84);
 
   /* SECONDARY */
   --color-secondary-greyred: #575252;
@@ -59,9 +59,20 @@
   /* ICON SIZE */
   --spacing-icon: 1.25rem;
   --container-icon: 1.25rem;
+
+  /* MOBILE BUTTON SIZES (based on priority) */
+  --size-button-low: 42px;
+  --size-button-medium: 60px;
+  --size-button-high: 72px;
+
+  /* MOBILE BUTTON SPACING (center-to-center distance) */
+  --spacing-button-low: 36px;
+  --spacing-button-medium: 24px;
+  --spacing-button-high: 12px;
 }
 
 /* Short semantic utilities */
+/* Text color semantic utilities */
 @utility text-default {
   color: var(--color-text-default);
 }
@@ -77,10 +88,36 @@
 @utility text-brand {
   color: var(--color-text-brand);
 }
+@utility font-ui {
+  font-family: var(--font-ui);
+}
+
+/* Text size utilities */
+@utility text-h1 {
+  font-family: var(--font-ui);
+  font-size: var(--text-h1);
+  font-weight: 600;
+}
+@utility text-h2 {
+  font-family: var(--font-ui);
+  font-size: var(--text-h2);
+}
+@utility text-h3 {
+  font-family: var(--font-ui);
+  font-size: var(--text-h3);
+}
+@utility text-subtitle {
+  font-family: var(--font-ui);
+  font-size: var(--text-subtitle);
+}
+@utility text-body {
+  font-family: var(--font-ui);
+  font-size: var(--text-body-lg);
+}
 
 /* Background semantic utilities */
 @utility bg-default {
-    background-color: var(--color-bg-default);
+  background-color: var(--color-bg-default);
 }
 @utility bg-alt {
   background-color: var(--color-bg-alt);
@@ -95,7 +132,7 @@
   background-color: var(--color-brand-primary);
 }
 @utility bg-secondary-orange {
-  background-color: var(--color-brand-primary-hover);
+  background-color: var(--color-secondary-orange);
 }
 @utility bg-secondary-cyanblue {
   background-color: var(--color-secondary-cyanblue);
@@ -104,14 +141,35 @@
   background-color: var(--color-secondary-blue);
 }
 
+/* Border semantic utilities */
 @utility border-muted {
   border: 1px solid var(--color-text-muted);
 }
 
+@utility btn-primary {
+  @apply bg-brand-primary text-default hover:bg-brand-primary-hover;
+}
 
+@utility btn-secondary {
+  @apply bg-default border-muted text-muted hover:bg-brand-primary-hover/50 hover:text-default;
+}
+
+/* Button size utilities */
+@utility btn-size-low {
+  width: var(--size-button-low);
+  height: var(--size-button-low);
+}
+@utility btn-size-medium {
+  width: var(--size-button-medium);
+  height: var(--size-button-medium);
+}
+@utility btn-size-high {
+  width: var(--size-button-high);
+  height: var(--size-button-high);
+}
 
 :root {
-  --background: var(--color-bg-default);
+  --background: var(--color-bg-muted);
   --foreground: var(--color-text-default);
 }
 
@@ -122,8 +180,26 @@
   }
 } */
 
-body {
+/*Styles for page layout*/
+  .trvm-page {
+    @apply flex flex-col justify-center items-center xl:flex-row h-full w-full gap-8 p-8;
+  }
+
+
+main {
   background: var(--background);
   color: var(--foreground);
-  @apply font-ui;
+  transition: all 300ms ease-in-out;
+  overflow-x: hidden;
+  padding-inline: 32px;
+  display:flex;
+  flex-direction: column;
+}
+
+html,
+body,
+#__next,
+main {
+  width: 100%;
+  height: 100%;
 }

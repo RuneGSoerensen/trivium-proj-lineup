@@ -10,9 +10,10 @@ export const metadata = {
 export default function RootLayout({ children }) {
   return (
     <html lang="en">
-      <body className="bg-default text-default font-ui">
+      <body>
+        <main>
         {children}
-        <FlyonuiScript />
+        </main>
       </body>
     </html>
   );
