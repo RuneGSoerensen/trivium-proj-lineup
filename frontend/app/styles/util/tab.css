@@ -16,7 +16,7 @@
   }
 
   .tab--disabled {
-    @apply text-muted cursor-not-allowed;
+    @apply text-muted cursor-not-allowed pointer-events-none;
   }
 
   .tabs--multiple {
