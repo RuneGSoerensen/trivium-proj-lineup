@@ -10,9 +10,14 @@ const variantClass = {
 
 // Made for mobile first design
 const sizeClass = {
-  sm: "px-10 py-4 text-[14px]",
-  md: "px-16 py-10 text-body",
-  lg: "px-20 py-14 text-[18px]",
+  sm: "px-8 py-4 text-[14px]",
+  md: "px-10 py-8 text-body",
+  lg: "px-20 py-16 text-[18px]",
+};
+
+const widthClass = {
+  full: "w-full justify-center",
+  fit: "w-fit sm:max-w-fit",
 };
 
 const Button = ({
@@ -23,6 +28,7 @@ const Button = ({
   fullWidth,
   className,
   children,
+  widthClass = "full",
   ...rest
 }) => {
   return (
