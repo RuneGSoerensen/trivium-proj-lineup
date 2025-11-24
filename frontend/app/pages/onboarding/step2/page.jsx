@@ -4,6 +4,7 @@ import React, { useState } from "react";
 import { useOnboarding } from "@/app/utils/userOnobardingContext";
 import { useRouter } from "next/navigation";
 import { Button } from "@/app/components/ui/Button";
+import Link from "next/link";
 
 export default function Step2() {
   const router = useRouter();
@@ -94,6 +95,17 @@ export default function Step2() {
           >
             Sign up with Apple
           </Button>
+        </div>
+        <div className="flex flex-col gap-10 items-center mt-20">
+          <p>
+            Already have an account{" "}
+            <Link className="text-cyan-500" href="/login">
+              Log in
+            </Link>
+          </p>
+          <Link className="underline" href="/home">
+            Skip for now
+          </Link>
         </div>
       </div>
     </section>
