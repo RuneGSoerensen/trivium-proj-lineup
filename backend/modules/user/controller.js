@@ -77,7 +77,6 @@ export const getUserData = async (req, res) => {
     json_agg(DISTINCT jsonb_build_object('question', q.question, 'answer', uq.answer)) AS questions
 
 FROM users u
-LEFT JOIN socials s ON s.user_id = u.id
 LEFT JOIN user_genres ug ON ug.user_id = u.id
 LEFT JOIN genres g ON g.id = ug.genre_id
 LEFT JOIN looking_for lf ON lf.user_id = u.id
