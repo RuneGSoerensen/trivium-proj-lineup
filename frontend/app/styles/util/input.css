@@ -10,4 +10,15 @@
   .trvm-input--error {
     @apply border-error focus:border-error;
   } 
+
+.input--icon {
+    @apply pl-48;
+  }
+
+  .input--disabled {
+    @apply bg-muted text-muted cursor-not-allowed pointer-events-none;
+  }
+
+
+
 }

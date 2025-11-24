@@ -30,7 +30,7 @@ export default function TestPage() {
                 <TabItem>Settings</TabItem>
             </TabsList>
 
-            <Input placeholder="Enter your name" label="Name" />
+            <Input variant="disabled" placeholder="Enter your name" label="Name" />
 
 
             <ServiceCard
