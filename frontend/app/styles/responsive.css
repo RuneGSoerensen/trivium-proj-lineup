@@ -10,7 +10,7 @@
     flex-direction: row;
   }
   .trvm-btn {
-    @apply px-16 py-8 text-h3 w-fit;
+    @apply px-16 py-8 text-h3 w-full max-w-fit;
   }
 
   .trvm-card {

@@ -7,7 +7,7 @@
            px-10 py-8 rounded-button
            font-semibold font-ui text-body
            transition-colors duration-150
-           cursor-pointer w-fit;
+           cursor-pointer w-full max-w-md xl:max-w-xl;
   }
 
   /* Icon-only buttons */
