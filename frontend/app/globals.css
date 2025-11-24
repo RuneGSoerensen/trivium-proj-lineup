@@ -16,12 +16,13 @@
   --text-h2: 1.25rem; /* 20px */
   --text-h3: 1.125rem; /* 18px */
   --text-subtitle: 1rem; /* 16px */
-  --text-body: 1rem; /* 16px */
+  --text-body: clamp(1rem, 2vw + .5rem, 1.5rem); /* 16px - 24px */
+  --text-body-lg: 1.25rem; /* 20px */
 
   /* SEMANTIC COLORS */
   --color-text-default: rgb(30, 30, 30); /* var neutral-black */
   --color-text-inverse: rgb(255, 255, 255);
-  --color-text-muted: rgb(130, 130, 130);
+  --color-text-muted: rgba(130, 130, 130);
   --color-text-subtle: rgb(237, 237, 237);
   --color-text-brand: var(--color-brand-primary);
 
@@ -143,15 +144,28 @@
 
 /* Border semantic utilities */
 @utility border-muted {
-  border: 1px solid var(--color-text-muted);
+  border: 1px solid --alpha(var(--color-text-muted) / 40%);
 }
 
+@utility border-brand {
+  border: 1px solid var(--color-brand-primary);
+}
+
+@utility border-muted{
+  border: 1px solid --alpha(var(--color-text-muted) / 20%);
+}
+
+@utility ring-brand {
+  box-shadow: 0 0 0 3px var(--color-brand-primary);
+}
+
+/* Button semantic utilities */
 @utility btn-primary {
-  @apply bg-brand-primary text-default hover:bg-brand-primary-hover;
+  @apply bg-brand-primary border-muted text-default hover:bg-brand-primary-hover;
 }
 
 @utility btn-secondary {
-  @apply bg-default border-muted text-muted hover:bg-brand-primary-hover/50 hover:text-default;
+  @apply bg-default border-muted text-default hover:bg-brand-primary-hover/50 hover:text-default;
 }
 
 /* Button size utilities */
@@ -166,6 +180,10 @@
 @utility btn-size-high {
   width: var(--size-button-high);
   height: var(--size-button-high);
+}
+
+@utility rounded-tabs {
+  border-radius: 45px 45px 0 0;  
 }
 
 :root {

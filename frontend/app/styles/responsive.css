@@ -4,7 +4,9 @@
 @import "./util/cards.css";
 @import "./util/tab.css";
 @import "./util/nav.css";
+@import "./util/input.css";
 
+/*desktop layout*/
 @media (min-width: 1024px) {
   main {
     flex-direction: row;

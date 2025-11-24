@@ -14,7 +14,7 @@ export function ServiceCard({
   // footer
   ctaLabel = "Read more", location, timeAgo, // fx "4h ago"
   // interaktion
-  onClick = () => {}, onBookmarkClick = () => {}, className,
+  onClick = () => { }, onBookmarkClick = () => { }, className,
 }) {
   const clickable = typeof onClick === "function";
 
@@ -62,7 +62,7 @@ export function ServiceCard({
               onClick={(e) => {
                 e.stopPropagation();
                 onBookmarkClick();
-              } }
+              }}
               aria-label="Save"
             >
               ?
@@ -99,12 +99,14 @@ export function ServiceCard({
         {/* Footer */}
         <footer className="flex items-center justify-between pt-1">
           <Button
+            widthClass="fit"
+            size="sm"
             variant="primary"
             onClick={(e) => {
               if (!clickable) return;
               e.stopPropagation();
               onClick?.();
-            } }
+            }}
           >
             {ctaLabel}
           </Button>

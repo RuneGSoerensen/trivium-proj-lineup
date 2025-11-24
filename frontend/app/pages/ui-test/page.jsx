@@ -2,6 +2,7 @@
 
 import { Button, IconButton } from "@/app/components/ui/Button";
 import { ServiceCard } from "@/app/components/ui/Card";
+import Input from "@/app/components/ui/Input";
 import { TabItem, TabsList } from "@/app/components/ui/Tabs";
 import { Tag } from "@/app/components/ui/Tag";
 import Image from "next/image";
@@ -28,6 +29,8 @@ export default function TestPage() {
                 <TabItem>Details</TabItem>
                 <TabItem>Settings</TabItem>
             </TabsList>
+
+            <Input placeholder="Enter your name" label="Name" />
 
 
             <ServiceCard
