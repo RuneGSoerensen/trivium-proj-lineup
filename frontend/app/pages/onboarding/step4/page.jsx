@@ -1,5 +1,6 @@
 "use client";
 
+import React, { useState } from "react";
 import { useOnboarding } from "@/app/utils/userOnobardingContext";
 import { useRouter } from "next/navigation";
 import { Button } from "@/app/components/ui/Button";
@@ -8,11 +9,25 @@ export default function Step4() {
   const router = useRouter();
   const { userData, updateUser } = useOnboarding();
 
+  // Local useState for form Inputs
+  const [formData, setFormData] = useState({
+    name: userData.name || "",
+    phone_number: userData.phone_number || "",
+    birthdate: userData.birthdate || "",
+    city: userData.city || "",
+    business_name: userData.business_name || "",
+  });
+
   const handleNext = () => {
+    updateUser({
+      name: formData.name,
+      phone_number: formData.phone_number,
+      birthdate: formData.birthdate,
+      city: formData.city,
+      business_name: formData.business_name,
+    });
     router.push("/pages/onboarding/step5");
   };
- // change the inputs onChange to a submit function instead, this makes it so that it doesnt update your useOnboarding states until you press continue
-  //then call the function when pressing continue ;)
   return (
     <section className="trvm-card max-w-xl mx-auto flex flex-col text-c">
       <h1 className="heading-1 mb-4">Step 4 — Personal details</h1>
@@ -21,36 +36,42 @@ export default function Step4() {
       <input
         className="w-full border-muted rounded-button p-4 mb-4"
         placeholder="Enter your name & last name"
-        value={userData.name}
-        onChange={(e) => updateUser({ name: e.target.value })}
+        value={formData.name}
+        onChange={(e) => setFormData({ ...formData, name: e.target.value })}
       />
 
       <input
         className="w-full border-muted rounded-button p-4 mb-4"
         placeholder="Enter your phone number"
-        value={userData.phone_nr}
-        onChange={(e) => updateUser({ phone_nr: e.target.value })}
+        value={formData.phone_number}
+        onChange={(e) =>
+          setFormData({ ...formData, phone_number: e.target.value })
+        }
       />
-{/* change year of birth input to a date picker if possible */}
+      {/* change year of birth input to a date picker if possible */}
       <input
         className="w-full border-muted rounded-button p-4 mb-4"
         placeholder="Year of Birth"
-        value={userData.birthdate}
-        onChange={(e) => updateUser({ birthdate: e.target.value })}
+        value={formData.birthdate}
+        onChange={(e) =>
+          setFormData({ ...formData, birthdate: e.target.value })
+        }
       />
 
       <input
         className="w-full border-muted rounded-button p-4 mb-6"
         placeholder="Enter your city"
-        value={userData.city}
-        onChange={(e) => updateUser({ city: e.target.value })}
+        value={formData.city}
+        onChange={(e) => setFormData({ ...formData, city: e.target.value })}
       />
 
       <input
         className="w-full border-muted rounded-button p-4 mb-6"
         placeholder="Name of your business"
-        value={userData.business_name}
-        onChange={(e) => updateUser({ business_name: e.target.value })}
+        value={formData.business_name}
+        onChange={(e) =>
+          setFormData({ ...formData, business_name: e.target.value })
+        }
       />
 
       <div className="mt-6">

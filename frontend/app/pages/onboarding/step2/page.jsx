@@ -12,7 +12,24 @@ export default function Step2() {
   const [emailTouched, setEmailTouched] = useState(false);
   const [emailError, setEmailError] = useState("");
 
+  // Local useState for form Inputs
+  const [formData, setFormData] = useState({
+    email: userData.email || "",
+    password: userData.password || "",
+    confirmPassword: userData.confirmPassword || "",
+  });
+
   const handleNext = () => {
+    // Submit function, updates context and reroutes user to next step
+    if (!validateEmail(formData.email)) {
+      setEmailError("Please enter a valid email address");
+      return;
+    }
+    updateUser({
+      email: formData.email,
+      password: formData.password,
+      confirmPassword: formData.confirmPassword,
+    });
     router.push("/pages/onboarding/step3");
   };
 
@@ -21,7 +38,8 @@ export default function Step2() {
     return emailRegex.test(email);
   };
   // change the inputs onChange to a submit function instead, this makes it so that it doesnt update your useOnboarding states until you press continue
-  //then call the function when pressing continue ;)
+  // then call the function when pressing continue ;)
+  // Put this function inside the handleNext function
   return (
     <section className="trvm-card max-w-xl mx-auto flex flex-col gap-20 items-center text-center">
       <h1 className="heading-1 mb-4">Sign up</h1>
@@ -33,34 +51,37 @@ export default function Step2() {
         className="w-2/3 border-subtle rounded p-4 mb-4 placeholder:text-center"
         placeholder="Enter your email"
         type="email"
-        value={userData.email}
+        value={formData.email}
         onChange={(e) => {
-          updateUser({ email: e.target.value });
+          setFormData({ ...formData, email: e.target.value });
           if (emailTouched && validateEmail(e.target.value)) setEmailError("");
         }}
         onBlur={() => {
           setEmailTouched(true);
-          if (!validateEmail(userData.email))
+          if (!validateEmail(formData.email))
             setEmailError("Please enter a valid email address");
           else setEmailError("");
         }}
       />
+      {/* Consider using a span instead of a p tag */}
       {emailError && <p className="text-red-500 text-sm mt-1">{emailError}</p>}
 
       <input
         className="w-2/3 border-subtle rounded p-4 mb-6 placeholder:text-center"
         placeholder="Enter your password"
         type="password"
-        value={userData.password}
-        onChange={(e) => updateUser({ password: e.target.value })}
+        value={formData.password}
+        onChange={(e) => setFormData({ ...formData, password: e.target.value })}
       />
 
       <input
         className="w-2/3 border-subtle rounded p-4 mb-6 placeholder:text-center"
         placeholder="Confirm your password"
         type="password"
-        value={userData.confirmPassword}
-        onChange={(e) => updateUser({ confirmPassword: e.target.value })}
+        value={formData.confirmPassword}
+        onChange={(e) =>
+          setFormData({ ...formData, confirmPassword: e.target.value })
+        }
       />
 
       <div className="mt-6 mb-10">
@@ -69,8 +90,8 @@ export default function Step2() {
           size="sm"
           onClick={handleNext}
           className="mb-15 rounded-full"
-          disabled={!validateEmail(userData.email) || !userData.password}
-          aria-disabled={!validateEmail(userData.email) || !userData.password}
+          disabled={!validateEmail(formData.email) || !formData.password}
+          aria-disabled={!validateEmail(formData.email) || !formData.password}
         >
           Continue
         </Button>

@@ -1,5 +1,6 @@
 "use client";
 
+import React, { useState } from "react";
 import { useOnboarding } from "@/app/utils/userOnobardingContext";
 import { useRouter } from "next/navigation";
 import { Button } from "@/app/components/ui/Button";
@@ -8,7 +9,13 @@ export default function Step3() {
   const router = useRouter();
   const { userData, updateUser } = useOnboarding();
 
+  // Local useState for form Input
+  const [formData, setFormData] = useState({
+    is_musician: userData.is_musician ?? null,
+  });
+
   const handleNext = () => {
+    updateUser({ is_musician: formData.is_musician });
     router.push("/pages/onboarding/step4");
   };
 
@@ -22,8 +29,8 @@ export default function Step3() {
             type="checkbox"
             className="checkbox"
             id="musicianTrue"
-            checked={!!userData?.is_musician}
-            onChange={() => updateUser({ is_musician: true })}
+            checked={formData.is_musician === true}
+            onChange={() => setFormData({ is_musician: true })}
           />
           <label className="label-text text-base" htmlFor="musicianTrue">
             I am a musician
@@ -36,8 +43,8 @@ export default function Step3() {
             type="checkbox"
             className="checkbox"
             id="musicianFalse"
-            checked={!userData?.is_musician}
-            onChange={() => updateUser({ is_musician: false })}
+            checked={formData.is_musician === false}
+            onChange={() => setFormData({ is_musician: false })}
           />
           <label className="label-text text-base" htmlFor="musicianFalse">
             Not a musician

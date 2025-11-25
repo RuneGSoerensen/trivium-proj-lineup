@@ -1,8 +1,18 @@
 import express from "express";
+import cors from "cors";
 import usersRouter from "./routes/user.js";
 import { requireAuth } from "./middelware/auth.js";
 const app = express();
-const PORT = process.env.PORT || 3000;
+const PORT = process.env.PORT || 3001;
+
+// Before production this needs to be changed to a valid url, or something more secure.
+app.use(
+  cors({
+    origin: "http://localhost:3000", // Adjust this to your frontend's origin
+    methods: ["GET", "POST", "PUT", "DELETE"],
+    allowedHeaders: ["Content-Type", "Authorization"],
+  })
+);
 
 app.use(express.json());
 

@@ -3,7 +3,7 @@
 import { createContext, useContext, useState } from "react";
 
 const UserOnboardingContext = createContext();
-
+// Implement current step tracking and user data management
 export function UserOnboardingProvider({ children }) {
   const [userData, setUserData] = useState({
     id: "",
@@ -12,8 +12,8 @@ export function UserOnboardingProvider({ children }) {
     password: "",
     birthdate: "",
     city: "",
-    phone_nr: "",
-    looking_for: "",
+    phone_number: "",
+    looking_for: null,
     is_musician: false,
     business: null,
     created_at: "",
@@ -34,7 +34,7 @@ export function UserOnboardingProvider({ children }) {
     setUserData((prev) => {
       const newData = {
         ...prev,
-        looking_for: prev.looking_for === value ? "" : value,
+        looking_for: prev.looking_for === value ? null : value,
       };
       console.log("selectLookingFor - updated userData:", newData);
       console.log("selectLookingFor - looking_for:", newData.looking_for);

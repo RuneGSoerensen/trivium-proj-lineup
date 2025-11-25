@@ -1,20 +1,28 @@
 "use client";
 
+import React, { useState } from "react";
 import { useOnboarding } from "@/app/utils/userOnobardingContext";
 import { useRouter } from "next/navigation";
 import { Button } from "@/app/components/ui/Button";
 
 export default function LookingForOptions() {
   const router = useRouter();
+  const { userData, updateUser } = useOnboarding();
+
+  // Local useState for form Input
+  const [formData, setFormData] = useState({
+    looking_for: userData.looking_for || null,
+  });
+
   const handleNext = () => {
+    updateUser({ looking_for: formData.looking_for });
     router.push("/pages/onboarding/step6");
   };
-  const { userData, selectLookingFor } = useOnboarding();
   const options = [
-    { key: "connect", label: "Connect to fellow musicians" },
-    { key: "promote", label: "Promote my music" },
-    { key: "find_band", label: "Find a band to play with" },
-    { key: "services", label: "Find services for my music" },
+    { key: 1, label: "Connect to fellow musicians" },
+    { key: 2, label: "Promote my music" },
+    { key: 3, label: "Find a band to play with" },
+    { key: 4, label: "Find services for my music" },
   ];
 
   return (
@@ -28,8 +36,8 @@ export default function LookingForOptions() {
               type="checkbox"
               className="checkbox"
               id={`lookingfor_${opt.key}`}
-              checked={userData?.looking_for === opt.key}
-              onChange={() => selectLookingFor(opt.key)}
+              checked={formData.looking_for === opt.key}
+              onChange={() => setFormData({ looking_for: opt.key })}
             />
             <label
               className="label-text text-base"
