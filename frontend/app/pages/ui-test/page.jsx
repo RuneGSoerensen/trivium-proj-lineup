@@ -1,21 +1,21 @@
 'use client';
 
-import { Button, IconButton } from "@/app/components/ui/Button";
-import { ServiceCard } from "@/app/components/ui/Card";
-import Input from "@/app/components/ui/Input";
-import { TabItem, TabsList } from "@/app/components/ui/Tabs";
-import { Tag } from "@/app/components/ui/Tag";
+import { Button, IconButton } from "@/app/components/ui/Button/Button";
+import { ServiceCard } from "@/app/components/ui/Card/Card";
+import Input from "@/app/components/ui/Input/Input";
+import { TabItem, TabsList } from "@/app/components/ui/Tab/Tab";
+import { Tag } from "@/app/components/ui/Tag/Tag";
 import Image from "next/image";
 import { Angry } from "lucide-react";
-import { AngryIcon } from "lucide-react";
+import { Apple } from "lucide-react";
 
 export default function TestPage() {
 
 
     return (
         <article className="trvm-page">
-            <Button rightIcon={<Angry />} rightIconSize="sm" rightIconStroke="sm">Primary</Button>
-            <Button leftIcon={<AngryIcon />} variant="secondary" onClick={() => alert("Clicked!")}>
+            <Button rightIcon={<Angry />} rightIconSize="md" rightIconStroke="sm">Primary</Button>
+            <Button leftIcon={<Apple fill="inherit" />} variant="secondary" onClick={() => alert("Clicked!")}>
                 Secondary
             </Button>
 

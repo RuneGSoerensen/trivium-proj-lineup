@@ -1,10 +1,8 @@
-@import "./util/type.css";
-@import "./util/button.css";
-@import "./util/tag.css";
-@import "./util/cards.css";
-@import "./util/tab.css";
-@import "./util/nav.css";
-@import "./util/input.css";
+@import "../components/ui/Button/button.css";
+@import "../components/ui/Tag/tag.css";
+@import "../components/ui/Card/card.css";
+@import "../components/ui/Tab/tab.css";
+@import "../components/ui/Input/input.css";
 
 /*desktop layout*/
 @media (min-width: 1024px) {
