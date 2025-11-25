@@ -35,7 +35,7 @@ const TabItem = ({ children, isActive = false, disabled = false, onClick, classN
   );
 };
 
-const TabsList = ({children, variant, className, ...rest }) => {
+const TabsList = ({children, variant, className = "tabs--list", ...rest }) => {
   const items = React.Children.toArray(children);
   const [activeIndex, setActiveIndex] = useState(0);
   return (

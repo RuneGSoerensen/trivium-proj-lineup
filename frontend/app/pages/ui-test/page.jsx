@@ -10,22 +10,21 @@ import { Angry } from "lucide-react";
 import { AngryIcon } from "lucide-react";
 
 export default function TestPage() {
-    //Temporary icon import for IconButton
 
 
     return (
         <article className="trvm-page">
-            <Button rightIcon={<AngryIcon />} rightIconSize="sm" rightIconStroke="sm">Primary</Button>
+            <Button rightIcon={<Angry />} rightIconSize="sm" rightIconStroke="sm">Primary</Button>
             <Button leftIcon={<AngryIcon />} variant="secondary" onClick={() => alert("Clicked!")}>
                 Secondary
             </Button>
 
             <IconButton stroke="sm" icon={<Angry/>} />
 
-            <Tag checkable={true} onCheckableChange={(checked) => console.log("Tag checked:", checked)} className="mr-2">Tag</Tag>
+            <Tag checkable={true} onCheckableChange={(checked) => console.log("Tag checked:", checked)} className="mr-2">Checkable tag</Tag>
             <Tag variant="outlined">Tag</Tag>
 
-            <TabsList className="tabs--list">
+            <TabsList>
                 <TabItem>Overview</TabItem>
                 <TabItem>Details</TabItem>
                 <TabItem>Settings</TabItem>

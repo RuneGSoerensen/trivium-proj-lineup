@@ -30,8 +30,8 @@
   .tag--checkable:has(input:checked) {
     @apply border-brand-primary text-default;
   }
-  .tag--checkable:has(input:checked) .checkbox:checked {
-    @apply text-default bg-brand-primary;
+  .tag--checkable:has(input:checked) .checkbox {
+    @apply text-default bg-brand-primary fill-accent-aquamarine;
   }
 
   /* .tag--checkable.text-label {

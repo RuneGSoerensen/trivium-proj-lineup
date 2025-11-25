@@ -23,9 +23,9 @@
     @apply px-12 py-18 gap-8 sm:flex-row;
   }
   .tabs--list {
-    @apply inline-flex bg-alt rounded-tabs p-24 max-h-full max-w-md xl:max-w-xl;
+    @apply inline-flex bg-alt rounded-tabs max-h-full max-w-md xl:max-w-xl;
   }
   .tab-separator {
-    @apply bg-muted rounded-full select-none w-2 h-full;
+    @apply bg-muted rounded-full select-none w-10 h-full;
   }
 }
