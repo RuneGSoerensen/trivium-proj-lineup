@@ -8,27 +8,31 @@
 
 /*desktop layout*/
 @media (min-width: 1024px) {
-  main {
-    flex-direction: row;
-  }
-  .trvm-btn {
-    @apply px-16 py-8 text-h3 w-full max-w-fit;
-  }
+  @layer components {
+    main {
+      flex-direction: row;
+    }
+    /*BUTTON*/
+    .trvm-btn {
+      @apply btn-spc-high text-h3 w-full max-w-fit;
+    }
 
-  .trvm-card {
-    @apply p-16;
-  }
+    .trvm-card {
+      @apply p-16;
+    }
 
-  .trvm-tag {
-    @apply px-12 py-6 text-body;
-  }
-  .trvm-tab {
-    @apply px-16 py-6 text-body;
-  }
+    .trvm-tag {
+      @apply px-12 py-6 text-body;
+    }
+    .tabs--list {
+      @apply px-16 py-12 w-full;
+    }
+    .tabs--list .trvm-tab {
+      @apply px-16 py-8 text-body w-full;
+    }
 
-  .nav--item {
-    @apply px-16 py-8 text-h3;
+    .nav--item {
+      @apply px-16 py-8 text-h3;
+    }
   }
 }
-
-

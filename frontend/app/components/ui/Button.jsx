@@ -49,6 +49,7 @@ const Button = ({
   );
 };
 
+/* NOTE - iconbutton is a bit janky, needs improvement */
 const IconButton = ({ icon, variant = "primary", size = "md", className, ...rest }) => {
   return (
     <button

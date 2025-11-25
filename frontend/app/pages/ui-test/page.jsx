@@ -9,9 +9,7 @@ import Image from "next/image";
 
 export default function TestPage() {
     //Temporary icon import for IconButton
-    const iconSrc = (
-        <Image src="/icons/plus.svg" alt="Add" width={14} height={14} />
-    );
+
 
     return (
         <article className="trvm-page">
@@ -20,11 +18,14 @@ export default function TestPage() {
                 Secondary
             </Button>
 
-            <IconButton icon={iconSrc} variant="primary" size="sm" />
+            <IconButton variant="primary" size="sm">
+                Hello
+            </IconButton>
 
-            <Tag className="mr-2" variant="outlined">Tag</Tag>
+            <Tag checkable={true} onCheckableChange={(checked) => console.log("Tag checked:", checked)} className="mr-2">Tag</Tag>
+            <Tag variant="outlined">Tag</Tag>
 
-            <TabsList>
+            <TabsList className="tabs--list">
                 <TabItem>Overview</TabItem>
                 <TabItem>Details</TabItem>
                 <TabItem>Settings</TabItem>

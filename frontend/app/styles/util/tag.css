@@ -3,8 +3,8 @@
      CHIPS
   -------------------------------- */
   .trvm-tag {
-    @apply inline-flex items-center gap-2 px-10 py-4 rounded-chip
-               bg-muted text-default text-[14px] font-semibold font-ui;
+    @apply inline-flex items-center gap-2 px-18 py-10 rounded-chip
+               bg-muted text-default text-body font-normal font-ui;
   }
 
   .tag--default {
@@ -19,4 +19,22 @@
     @apply bg-brand-primary text-default;
   }
 
+  .tag--checkable {
+    @apply flex gap-10 px-16 cursor-pointer bg-default text-default border-2 border-muted;
+  }
+
+  .tag--checkable .checkbox {
+    @apply bg-default border border-brand-primary;
+  }
+
+  .tag--checkable:has(input:checked) {
+    @apply border-brand-primary text-default;
+  }
+  .tag--checkable:has(input:checked) .checkbox:checked {
+    @apply text-default bg-brand-primary;
+  }
+
+  /* .tag--checkable.text-label {
+    @apply flex items-center gap-2 text-default;
+    } */
 }

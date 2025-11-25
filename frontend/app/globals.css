@@ -16,7 +16,7 @@
   --text-h2: 1.25rem; /* 20px */
   --text-h3: 1.125rem; /* 18px */
   --text-subtitle: 1rem; /* 16px */
-  --text-body: clamp(1rem, 2vw + .5rem, 1.5rem); /* 16px - 24px */
+  --text-body: clamp(1rem, 2vw + .5rem, 1.3rem); /* 16px - 24px */
   --text-body-lg: 1.25rem; /* 20px */
 
   /* SEMANTIC COLORS */
@@ -143,29 +143,14 @@
 }
 
 /* Border semantic utilities */
-@utility border-muted {
-  border: 1px solid --alpha(var(--color-text-muted) / 40%);
-}
-
 @utility border-brand {
   border: 1px solid var(--color-brand-primary);
 }
-
 @utility border-muted{
   border: 1px solid --alpha(var(--color-text-muted) / 20%);
 }
-
 @utility ring-brand {
   box-shadow: 0 0 0 3px var(--color-brand-primary);
-}
-
-/* Button semantic utilities */
-@utility btn-primary {
-  @apply bg-brand-primary border-muted text-default hover:bg-brand-primary-hover;
-}
-
-@utility btn-secondary {
-  @apply bg-default border-muted text-default hover:bg-brand-primary-hover/50 hover:text-default;
 }
 
 /* Button size utilities */
@@ -182,8 +167,32 @@
   height: var(--size-button-high);
 }
 
+@utility btn-spc-low {
+  padding-block: calc(var(--spacing-button-low) - 2px) !important;
+  padding-inline: var(--spacing-button-low) !important;
+}
+@utility btn-spc-medium {
+  padding-block: calc(var(--spacing-button-medium) - 2px) !important;
+  padding-inline: var(--spacing-button-medium) !important;
+}
+@utility btn-spc-high {
+  padding-block: calc(var(--spacing-button-high) - 2px) !important;
+  padding-inline: var(--spacing-button-high) !important;
+}
+
 @utility rounded-tabs {
   border-radius: 45px 45px 0 0;  
+}
+
+@utility input-color {
+  background-color: var(--color-bg-alt);
+  color: var(--color-text-default);
+  border: 1px solid var(--color-text-muted);  
+}
+
+@utility input-checkbox {
+  background-color: var(--color-brand-primary);
+  border: 1px solid var(--color-text-muted);  
 }
 
 :root {
@@ -200,7 +209,7 @@
 
 /*Styles for page layout*/
   .trvm-page {
-    @apply flex flex-col justify-center items-center xl:flex-row h-full w-full gap-8 p-8;
+    @apply flex flex-col justify-center items-center xl:flex-row h-full w-full gap-8 p-32;
   }
 
 
@@ -209,7 +218,6 @@ main {
   color: var(--foreground);
   transition: all 300ms ease-in-out;
   overflow-x: hidden;
-  padding-inline: 32px;
   display:flex;
   flex-direction: column;
 }

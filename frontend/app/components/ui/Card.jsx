@@ -57,7 +57,7 @@ export function ServiceCard({
           </div>
 
           {onBookmarkClick && (
-            <Button
+            <Button 
               className="btn btn-circle btn-ghost btn-xs bg-inverse text-inverse"
               onClick={(e) => {
                 e.stopPropagation();

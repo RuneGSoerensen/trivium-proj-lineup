@@ -42,7 +42,6 @@ const TabsList = ({children, variant, className, ...rest }) => {
     <TabsContext.Provider value={{ insideTabs: true, activeIndex }}>
       <div
         className={clsx(
-          "tabs--list",
           items.length > 1 && "tabs--multiple",
           variantClass(variant),
           className,

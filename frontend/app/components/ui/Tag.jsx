@@ -1,19 +1,106 @@
-// src/components/ui/Chip.jsx
-import React from "react";
+'use client';
+
+import React, { useId, useState } from "react";
 import clsx from "clsx";
 
-const variantClass = {
-  default: "tag--default",
-  outlined: "tag--outlined",
-  filled: "tag--filled",
+const variantClass = (variant) => {
+  switch (variant) {
+    case "default":
+      return "tag--default";
+    case "filled":
+      return "tag--filled";
+    case "outlined":
+      return "tag--outlined";
+    case "checkable":
+      return "tag--checkable";
+    default:
+      return "tag--default";
+  }
 };
 
-const Tag = ({ icon, variant = "default", className, children, ...rest }) => {
+
+const Tag = ({
+  icon,
+  variant = "default",
+  className,
+  children,
+  checkable = false,
+  checked,
+  defaultChecked = false,
+  onCheckChange,
+  onCheckableChange,
+  checkboxProps = {},
+  ...rest
+}) => {
+  const generatedCheckboxId = useId();
+  const {
+    className: checkboxClassName,
+    onChange: checkboxOnChange,
+    id: checkboxIdProp,
+    ...restCheckboxProps
+  } = checkboxProps;
+  const checkboxId = checkboxIdProp ?? generatedCheckboxId;
+  const [internalChecked, setInternalChecked] = useState(defaultChecked);
+  const isControlled = typeof checked === "boolean";
+  const isChecked = checkable ? (isControlled ? checked : internalChecked) : false;
+
+  const handleCheckboxChange = (event) => {
+    if (!checkable) return;
+
+    const nextChecked = event.target.checked;
+
+    if (!isControlled) {
+      setInternalChecked(nextChecked);
+    }
+
+    if (typeof onCheckChange === "function") {
+      onCheckChange(nextChecked);
+    }
+
+    if (typeof onCheckableChange === "function") {
+      onCheckableChange(nextChecked);
+    }
+
+    if (typeof checkboxOnChange === "function") {
+      checkboxOnChange(event);
+    }
+  };
+
+  const TagElement = checkable ? "label" : "span";
+
   return (
-    <span className={clsx("trvm-tag", variantClass[variant], className)} {...rest}>
-      {icon && <span className="w-icon h-icon">{icon}</span>}
-      {children}
-    </span>
+    <TagElement
+      className={clsx(
+        "trvm-tag",
+        variantClass(variant),
+        checkable && "tag--checkable group",
+        className
+      )}
+      htmlFor={checkable ? checkboxId : undefined}
+      {...rest}
+    >
+      {checkable ? (
+        <>
+          <input
+            id={checkboxId}
+            type="checkbox"
+            className={clsx("checkbox checkbox-sm peer", checkboxClassName)}
+            checked={isChecked}
+            onChange={handleCheckboxChange}
+            {...restCheckboxProps}
+          />
+          <span className="text-label text-body flex items-center gap-2">
+            {icon && <span className="w-icon h-icon">{icon}</span>}
+            {children}
+          </span>
+        </>
+      ) : (
+        <>
+          {icon && <span className="w-icon h-icon">{icon}</span>}
+          {children}
+        </>
+      )}
+    </TagElement>
   );
 };
 
