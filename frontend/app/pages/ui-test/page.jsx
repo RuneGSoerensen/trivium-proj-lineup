@@ -6,6 +6,8 @@ import Input from "@/app/components/ui/Input";
 import { TabItem, TabsList } from "@/app/components/ui/Tabs";
 import { Tag } from "@/app/components/ui/Tag";
 import Image from "next/image";
+import { Angry } from "lucide-react";
+import { AngryIcon } from "lucide-react";
 
 export default function TestPage() {
     //Temporary icon import for IconButton
@@ -13,14 +15,12 @@ export default function TestPage() {
 
     return (
         <article className="trvm-page">
-            <Button>Primary</Button>
+            <Button rightIcon="">Primary</Button>
             <Button variant="secondary" onClick={() => alert("Clicked!")}>
                 Secondary
             </Button>
 
-            <IconButton variant="primary" size="sm">
-                Hello
-            </IconButton>
+            <IconButton stroke="sm" icon={<AngryIcon/>} />
 
             <Tag checkable={true} onCheckableChange={(checked) => console.log("Tag checked:", checked)} className="mr-2">Tag</Tag>
             <Tag variant="outlined">Tag</Tag>

@@ -20,6 +20,18 @@ const widthClass = {
   fit: "w-fit sm:max-w-fit",
 };
 
+const iconSz = {
+  sm: "w-16 h-16",
+  md: "w-20 h-20",
+  lg: "w-24 h-24",
+};
+
+const strokeW = {
+  sm: "stroke-[1.5px]",
+  md: "stroke-[2px]",
+  lg: "stroke-[2.5px]",
+};
+
 const Button = ({
   variant = "primary",
   size = "md",
@@ -50,18 +62,22 @@ const Button = ({
 };
 
 /* NOTE - iconbutton is a bit janky, needs improvement */
-const IconButton = ({ icon, variant = "primary", size = "md", className, ...rest }) => {
+const IconButton = ({ icon, className, variant, size ="md", stroke ="sm", ...rest }) => {
   return (
     <button
       className={clsx(
         "trvm-btn-icon",
-        variantClass[variant],
-        sizeClass[size],
         className,
+        icon,
+        iconSz[size],
+        strokeW[stroke],
+        // variantClass[variant],
       )}
       {...rest}
     >
+    <span>
       {icon}
+    </span>
     </button>
   );
 };

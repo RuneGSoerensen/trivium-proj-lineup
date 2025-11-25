@@ -72,6 +72,13 @@
   --spacing-button-high: 12px;
 }
 
+.lucide {
+  color: inherit;
+  width: inherit;
+  height: inherit;
+  stroke-width: inherit;
+}
+
 /* Short semantic utilities */
 /* Text color semantic utilities */
 @utility text-default {
@@ -194,6 +201,7 @@
   background-color: var(--color-brand-primary);
   border: 1px solid var(--color-text-muted);  
 }
+
 
 :root {
   --background: var(--color-bg-muted);

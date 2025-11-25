@@ -19,7 +19,8 @@
   } */
   /* Icon-only buttons */
   .trvm-btn-icon {
-    @apply px-24 py-12 w-42 h-42 rounded-full text-body text-inverse font-ui flex items-center justify-center bg-secondary-cyanblue hover:bg-secondary-blue;
+    @apply p-24 flex rounded-full text-inverse items-center justify-center bg-secondary-cyanblue hover:bg-secondary-blue;
+
   }
 
   .btn-icon--high {
