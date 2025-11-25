@@ -32,11 +32,18 @@ const strokeW = {
   lg: "stroke-[2.5px]",
 };
 
+const resolveIconSize = (size = "md") => iconSz[size] ?? size;
+const resolveStroke = (stroke = "md") => strokeW[stroke] ?? stroke;
+
 const Button = ({
   variant = "primary",
   size = "md",
-  iconSz = "md",
-  strokeW = "md",
+  iconSize = "md",
+  iconStroke = "md",
+  leftIconSize,
+  rightIconSize,
+  leftIconStroke,
+  rightIconStroke,
   leftIcon,
   rightIcon,
   fullWidth,
@@ -51,22 +58,28 @@ const Button = ({
         "trvm-btn",
         variantClass[variant],
         sizeClass[size],
-        iconSz[iconSz],
-        strokeW[strokeW],
         fullWidth && "w-full justify-center",
         className,
       )}
       {...rest}
     >
-      {leftIcon && <span>{leftIcon}</span>}
+      {leftIcon && (
+        <span className={clsx(resolveIconSize(leftIconSize ?? iconSize), resolveStroke(leftIconStroke ?? iconStroke))}>
+          {leftIcon}
+        </span>
+      )}
       <span>{children}</span>
-      {rightIcon && <span>{rightIcon}</span>}
+      {rightIcon && (
+        <span className={clsx(resolveIconSize(rightIconSize ?? iconSize), resolveStroke(rightIconStroke ?? iconStroke))}>
+          {rightIcon}
+        </span>
+      )}
     </button>
   );
 };
 
 /* NOTE - iconbutton is a bit janky, needs improvement */
-const IconButton = ({ icon, className, variant, size ="md", stroke ="sm", ...rest }) => {
+const IconButton = ({ icon, className, variant, size = "md", stroke = "sm", ...rest }) => {
   return (
     <button
       className={clsx(
@@ -79,9 +92,9 @@ const IconButton = ({ icon, className, variant, size ="md", stroke ="sm", ...res
       )}
       {...rest}
     >
-    <span>
-      {icon}
-    </span>
+      <span>
+        {icon}
+      </span>
     </button>
   );
 };

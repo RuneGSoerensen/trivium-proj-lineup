@@ -15,7 +15,7 @@ export default function TestPage() {
 
     return (
         <article className="trvm-page">
-            <Button strokeW="md" iconSz="lg" rightIcon={<AngryIcon />}>Primary</Button>
+            <Button rightIcon={<AngryIcon />} rightIconSize="sm" rightIconStroke="sm">Primary</Button>
             <Button leftIcon={<AngryIcon />} variant="secondary" onClick={() => alert("Clicked!")}>
                 Secondary
             </Button>
