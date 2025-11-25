@@ -64,7 +64,7 @@ export default function Step6() {
 
       const result = await response.json();
       console.log("User created successfully in backend:", result);
-      router.push("/welcome");
+      router.push("/");
     } catch (error) {
       console.error("Unexpected error during user creation:", error);
     }
