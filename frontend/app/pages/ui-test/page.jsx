@@ -15,12 +15,12 @@ export default function TestPage() {
 
     return (
         <article className="trvm-page">
-            <Button rightIcon="">Primary</Button>
-            <Button variant="secondary" onClick={() => alert("Clicked!")}>
+            <Button strokeW="md" iconSz="lg" rightIcon={<AngryIcon />}>Primary</Button>
+            <Button leftIcon={<AngryIcon />} variant="secondary" onClick={() => alert("Clicked!")}>
                 Secondary
             </Button>
 
-            <IconButton stroke="sm" icon={<AngryIcon/>} />
+            <IconButton stroke="sm" icon={<Angry/>} />
 
             <Tag checkable={true} onCheckableChange={(checked) => console.log("Tag checked:", checked)} className="mr-2">Tag</Tag>
             <Tag variant="outlined">Tag</Tag>

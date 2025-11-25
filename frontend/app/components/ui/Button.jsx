@@ -35,6 +35,8 @@ const strokeW = {
 const Button = ({
   variant = "primary",
   size = "md",
+  iconSz = "md",
+  strokeW = "md",
   leftIcon,
   rightIcon,
   fullWidth,
@@ -49,14 +51,16 @@ const Button = ({
         "trvm-btn",
         variantClass[variant],
         sizeClass[size],
+        iconSz[iconSz],
+        strokeW[strokeW],
         fullWidth && "w-full justify-center",
         className,
       )}
       {...rest}
     >
-      {leftIcon && <span className="w-icon h-icon">{leftIcon}</span>}
+      {leftIcon && <span>{leftIcon}</span>}
       <span>{children}</span>
-      {rightIcon && <span className="w-icon h-icon">{rightIcon}</span>}
+      {rightIcon && <span>{rightIcon}</span>}
     </button>
   );
 };
