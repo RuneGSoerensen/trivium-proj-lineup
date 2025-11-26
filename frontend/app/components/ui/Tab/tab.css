@@ -4,11 +4,11 @@
   -------------------------------- */
 
   .trvm-tab {
-    @apply px-14 py-20 w-full flex items-center justify-center min-h-5 truncate max-w-md rounded-pill text-body font-semibold font-ui;
+    @apply px-14 py-8 w-full flex items-center justify-center min-h-5 truncate max-w-md rounded-pill text-body font-normal font-ui;
   }
 
   .tab--active {
-    @apply select-none cursor-pointer text-default transition-colors duration-100;
+    @apply select-none font-semibold cursor-pointer text-default transition-colors duration-100;
   }
 
   .tab--default {
@@ -20,7 +20,7 @@
   }
 
   .tabs--multiple {
-    @apply px-12 py-18 gap-8 sm:flex-row;
+    @apply px-18 py-16 gap-8 sm:flex-row;
   }
   .tabs--list {
     @apply inline-flex bg-alt rounded-tabs max-h-full max-w-md xl:max-w-xl;

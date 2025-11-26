@@ -18,6 +18,7 @@ export default function TestPage() {
             <Button leftIcon={<Apple fill="inherit" />} variant="secondary" onClick={() => alert("Clicked!")}>
                 Secondary
             </Button>
+            <Button variant="glass">Glass Button</Button>
 
             <IconButton stroke="sm" icon={<Angry/>} />
 
@@ -30,7 +31,7 @@ export default function TestPage() {
                 <TabItem>Settings</TabItem>
             </TabsList>
 
-            <Input variant="disabled" placeholder="Enter your name" label="Name" />
+            <Input placeholder="Enter your name" label="Name" />
 
 
             <ServiceCard

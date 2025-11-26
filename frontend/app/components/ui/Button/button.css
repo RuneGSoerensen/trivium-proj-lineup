@@ -14,12 +14,16 @@
   .btn-secondary {
     @apply bg-default border-muted text-default hover:bg-brand-primary-hover/50 hover:text-default;
   }
+
+  .btn-glass {
+    @apply glass;
+  }
   /* .btn-icon {
     @apply btn-spc-low text-body;
   } */
   /* Icon-only buttons */
   .trvm-btn-icon {
-    @apply p-24 flex rounded-full text-inverse items-center justify-center bg-secondary-cyanblue hover:bg-secondary-blue;
+    @apply p-24 flex btn-circle text-inverse items-center justify-center bg-secondary-cyanblue hover:bg-secondary-blue;
 
   }
 
