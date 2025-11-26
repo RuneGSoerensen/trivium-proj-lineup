@@ -18,7 +18,6 @@ const toggleTheme = () => {
 };
 export default function TestPage() {
 
-
     return (
         <article>
             <Button rightIcon={<Angry />} rightIconSize="md" rightIconStroke="sm">Primary</Button>
@@ -26,8 +25,6 @@ export default function TestPage() {
                 Secondary
             </Button>
             <Button variant="glass">Glass Button</Button>
-
-            <IconButton stroke="sm" icon={<Angry />} />
 
             <Tag checkable={true} onCheckableChange={(checked) => console.log("Tag checked:", checked)} className="mr-2">Checkable tag</Tag>
             <Tag variant="outlined">Tag</Tag>

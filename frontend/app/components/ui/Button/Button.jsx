@@ -113,52 +113,6 @@ const Button = ({
   );
 };
 
-/* NOTE - iconbutton is a bit janky, needs improvement */
-const IconButton = ({ icon, className, variant, size = "md", stroke = "sm", ...rest }) => {
-  return (
-    <button
-      className={clsx(
-        "trvm-btn-icon",
-        className,
-        iconSz[size],
-        strokeW[stroke],
-        // variantClass[variant],
-      )}
-      {...rest}
-    >
-      <span>
-        {icon}
-      </span>
-    </button>
-  );
-};
 
-const DropdownButton = ({ children, className, ...rest }) => {
-  return (
-    <button
-      className={clsx(
-        "trvm-dropdown-btn",
-        className,
-      )}
-      {...rest}
-    >
-      {children}
-    </button>
-  );
-};
 
-const ToggleButton = ({ children, className, ...rest }) => {
-  return (
-    <button
-      className={clsx(
-        "trvm-toggle-btn",
-        className,
-      )}
-      {...rest}
-    >
-      {children}
-    </button>
-  );
-};
-
-export { Button, IconButton, DropdownButton, ToggleButton };
+export { Button };

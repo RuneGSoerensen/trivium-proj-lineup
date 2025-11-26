@@ -22,8 +22,8 @@ export default function RootLayout({ children }) {
           />
         </header>
           {children}
-        <footer className="w-full flex justify-center py-4">
-          {/* <Navigation /> */}
+        <footer className="w-full flex justify-center py-4 pb-12">
+          <Navigation />
         </footer>
       </body>
     </html>
