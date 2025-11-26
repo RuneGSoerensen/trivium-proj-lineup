@@ -3,7 +3,7 @@
 import React, { useState, useEffect } from "react";
 import { useOnboarding } from "@/app/utils/userOnobardingContext";
 import { useRouter } from "next/navigation";
-import { Button } from "@/app/components/ui/Button/Button";
+import { Button } from "@/app/components/ui/button/Button";
 import Link from "next/link";
 
 export default function Step2() {

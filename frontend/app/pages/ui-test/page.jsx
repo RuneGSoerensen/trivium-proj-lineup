@@ -18,16 +18,26 @@ const toggleTheme = () => {
 };
 export default function TestPage() {
 
-
     return (
-        <article>
+        <article className="space-y-12">
             <Button rightIcon={<Angry />} rightIconSize="md" rightIconStroke="sm">Primary</Button>
             <Button leftIcon={<Apple fill="inherit" />} variant="secondary" onClick={() => alert("Clicked!")}>
                 Secondary
             </Button>
             <Button variant="glass">Glass Button</Button>
 
-            <IconButton stroke="sm" icon={<Angry />} />
+            <Button
+                type="dropdown"
+                rightIcon={<ChevronDownIcon />}
+                dropdownitems={
+                    <ul className="flex flex-col">
+                        <li className="py-4 hover:bg-base-200 px-4 rounded">Item 1</li>
+                        <li className="py-4 hover:bg-base-200 px-4 rounded">Item 2</li>
+                        <li className="py-4 hover:bg-base-200 px-4 rounded">Item 3</li>
+                    </ul>
+                }
+            />
+
 
             <Tag checkable={true} onCheckableChange={(checked) => console.log("Tag checked:", checked)} className="mr-2">Checkable tag</Tag>
             <Tag variant="outlined">Tag</Tag>
