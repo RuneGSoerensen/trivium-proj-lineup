@@ -18,9 +18,7 @@
   .btn-glass {
     @apply glass;
   }
-  /* .btn-icon {
-    @apply btn-spc-low text-body;
-  } */
+
   /* Icon-only buttons */
   .trvm-btn-icon {
     @apply p-24 flex btn-circle text-inverse items-center justify-center bg-secondary-cyanblue hover:bg-secondary-blue;

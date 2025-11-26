@@ -18,7 +18,6 @@ const variantClass = (variant) => {
   }
 };
 
-
 const Tag = ({
   icon,
   variant = "default",
@@ -95,10 +94,10 @@ const Tag = ({
           </span>
         </>
       ) : (
-        <>
+        <div className="w-fit">
           {icon && <span className="w-icon h-icon">{icon}</span>}
           {children}
-        </>
+        </div>
       )}
     </TagElement>
   );
