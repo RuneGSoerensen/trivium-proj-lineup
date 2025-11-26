@@ -1,0 +1,31 @@
+@layer components {
+  /* -------------------------------
+     TABS
+  -------------------------------- */
+
+  .trvm-tab {
+    @apply px-14 py-8 w-full flex items-center justify-center min-h-5 truncate max-w-md rounded-pill text-body font-normal font-ui;
+  }
+
+  .tab--active {
+    @apply select-none font-semibold cursor-pointer text-default transition-colors duration-100;
+  }
+
+  .tab--default {
+    @apply text-muted cursor-pointer transition-colors duration-100 hover:text-default;
+  }
+
+  .tab--disabled {
+    @apply text-muted cursor-not-allowed pointer-events-none;
+  }
+
+  .tabs--multiple {
+    @apply px-18 py-16 gap-8 sm:flex-row;
+  }
+  .tabs--list {
+    @apply inline-flex bg-alt rounded-tabs max-h-full max-w-md xl:max-w-xl;
+  }
+  .tab-separator {
+    @apply bg-muted rounded-full select-none w-10 h-full;
+  }
+}

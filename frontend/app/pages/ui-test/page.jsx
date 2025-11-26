@@ -1,28 +1,29 @@
 'use client';
 
-import { Button, IconButton } from "@/app/components/ui/Button";
-import { ServiceCard } from "@/app/components/ui/Card";
-import Input from "@/app/components/ui/Input";
-import { TabItem, TabsList } from "@/app/components/ui/Tabs";
-import { Tag } from "@/app/components/ui/Tag";
+import { Button, IconButton } from "@/app/components/ui/Button/Button";
+import { ServiceCard } from "@/app/components/ui/Card/Card";
+import Input from "@/app/components/ui/Input/Input";
+import { TabItem, TabsList } from "@/app/components/ui/Tab/Tab";
+import { Tag } from "@/app/components/ui/Tag/Tag";
 import Image from "next/image";
+import { Angry } from "lucide-react";
+import { Apple } from "lucide-react";
 
 export default function TestPage() {
-    //Temporary icon import for IconButton
-    const iconSrc = (
-        <Image src="/icons/plus.svg" alt="Add" width={14} height={14} />
-    );
+
 
     return (
         <article className="trvm-page">
-            <Button>Primary</Button>
-            <Button variant="secondary" onClick={() => alert("Clicked!")}>
+            <Button rightIcon={<Angry />} rightIconSize="md" rightIconStroke="sm">Primary</Button>
+            <Button leftIcon={<Apple fill="inherit" />} variant="secondary" onClick={() => alert("Clicked!")}>
                 Secondary
             </Button>
+            <Button variant="glass">Glass Button</Button>
 
-            <IconButton icon={iconSrc} variant="primary" size="sm" />
+            <IconButton stroke="sm" icon={<Angry/>} />
 
-            <Tag className="mr-2" variant="outlined">Tag</Tag>
+            <Tag checkable={true} onCheckableChange={(checked) => console.log("Tag checked:", checked)} className="mr-2">Checkable tag</Tag>
+            <Tag variant="outlined">Tag</Tag>
 
             <TabsList>
                 <TabItem>Overview</TabItem>
@@ -30,7 +31,7 @@ export default function TestPage() {
                 <TabItem>Settings</TabItem>
             </TabsList>
 
-            <Input variant="disabled" placeholder="Enter your name" label="Name" />
+            <Input placeholder="Enter your name" label="Name" />
 
 
             <ServiceCard

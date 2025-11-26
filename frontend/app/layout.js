@@ -11,7 +11,8 @@ export default function RootLayout({ children }) {
   return (
     <html lang="en">
       <body>
-        <main>
+        {/* NOTE - mockup-phone css class can be removed once the layout is finalized */}
+        <main className="trvm-page mockup-phone">
           {children}
           {/* <Navigation /> */}
         </main>
