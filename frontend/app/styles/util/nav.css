@@ -1,0 +1,32 @@
+@layer components {
+
+  /* -------------------------------
+     NAVIGATION
+  -------------------------------- */
+  .nav-item {
+    @apply flex items-center gap-6 text-body font-semibold
+           text-muted px-10 py-6
+           hover:text-default;
+  }
+
+  .nav-item-active {
+    @apply text-default underline decoration-brand-primary underline-offset-4;
+  }
+
+  /* Bottom navigation Link Gradient Border */
+  .nav-link-gradient-border {
+    position: relative;
+    border: 1px solid transparent;
+    background-image: linear-gradient(rgba(52, 53, 53), rgba(52, 53, 53)),
+      linear-gradient(
+        120deg,
+        rgb(52, 53, 53),
+        rgb(52, 53, 53),
+        rgba(212, 212, 216, 0.6),
+        rgb(52, 53, 53),
+        rgb(52, 53, 53)
+      );
+    background-origin: border-box;
+    background-clip: padding-box, border-box;
+  }
+}

@@ -10,6 +10,7 @@ app.use(express.json());
 // Mount users router
 app.use("/users", usersRouter);
 app.use("/edit", editUserRouter);
+
 app.get("/", (req, res) => {
   res.send("Server is running TRIVIUM");
 });

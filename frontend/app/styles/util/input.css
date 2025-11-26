@@ -1,0 +1,24 @@
+@layer components {
+  /* -------------------------------
+     INPUTS
+  -------------------------------- */
+
+  .trvm-input {
+    @apply input w-full max-w-md bg-default text-default border-muted rounded-lg px-12 py-24 placeholder:text-muted focus:outline-bg-muted focus:ring-1 focus:ring-brand transition-all duration-100;
+  }
+
+  .trvm-input--error {
+    @apply border-error focus:border-error;
+  } 
+
+.input--icon {
+    @apply pl-48;
+  }
+
+  .input--disabled {
+    @apply bg-muted text-muted cursor-not-allowed pointer-events-none;
+  }
+
+
+
+}

@@ -1,0 +1,20 @@
+@layer components {
+  /* -------------------------------
+     CARDS
+  -------------------------------- */
+
+  .trvm-card {
+    @apply bg-default rounded-card p-20 w-full max-w-md xl:max-w-xl;
+  }
+
+  /* Tabs: typografi til FlyonUI tabs/pills */
+  .trvm-tab-label {
+    @apply text-body font-semibold font-ui;
+  }
+
+  /* Navigation label */
+  .trvm-nav-label {
+    @apply text-body font-semibold text-muted font-ui;
+  }
+
+}
