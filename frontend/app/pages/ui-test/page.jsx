@@ -20,7 +20,7 @@ export default function TestPage() {
 
     return (
         <article className="space-y-12">
-            <Button rightIcon={<Angry />} rightIconSize="md" rightIconStroke="sm">Primary</Button>
+            <Button rightIcon={<Angry />}>Primary</Button>
             <Button leftIcon={<Apple fill="inherit" />} variant="secondary" onClick={() => alert("Clicked!")}>
                 Secondary
             </Button>

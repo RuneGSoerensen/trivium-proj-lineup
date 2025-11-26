@@ -2,6 +2,17 @@
 'use client';
 import React, { useState } from "react";
 import clsx from "clsx";
+import { set } from "lodash";
+
+/**
+ * Button component with multiple types and variants.
+ * Types: default, icon, toggle, dropdown
+ * Variants: primary, secondary, glass
+ * Sizes: sm, md, lg
+ * Props for icons: leftIcon, rightIcon, iconSize, iconStroke
+ * fullWidth: boolean
+ * className: additional classes
+ */
 
 const variantClass = {
   primary: "btn-primary",
@@ -11,9 +22,7 @@ const variantClass = {
 
 // Made for mobile first design
 const sizeClass = {
-  sm: "px-8 py-4 text-[14px]",
-  md: "px-10 py-8 text-body",
-  lg: "px-20 py-16 text-[18px]",
+
 };
 
 const widthClass = {
@@ -42,10 +51,6 @@ export const Button = ({
   size = "md",
   iconSize = "md",
   iconStroke = "md",
-  leftIconSize,
-  rightIconSize,
-  leftIconStroke,
-  rightIconStroke,
   leftIcon,
   rightIcon,
   fullWidth,
@@ -56,7 +61,9 @@ export const Button = ({
   ...rest
 }) => {
   const [open, setOpen] = useState(false);
+
   const isDropdown = type === "dropdown";
+  
   const handleClick = (e) => {
     if (isDropdown) {
       e.preventDefault();
@@ -66,6 +73,7 @@ export const Button = ({
       rest.onClick(e);
     }
   };
+
   const base = "trvm-btn";
 
   const typeClass = {
@@ -97,8 +105,8 @@ export const Button = ({
         {leftIcon && (
           <span
             className={clsx(
-              resolveIconSize(leftIconSize ?? iconSize),
-              resolveStroke(leftIconStroke ?? iconStroke)
+              resolveIconSize(iconSize),
+              resolveStroke(iconStroke)
             )}
           >
             {leftIcon}
@@ -116,8 +124,8 @@ export const Button = ({
         {rightIcon && (
           <span
             className={clsx(
-              resolveIconSize(rightIconSize ?? iconSize),
-              resolveStroke(rightIconStroke ?? iconStroke)
+              resolveIconSize(iconSize),
+              resolveStroke(iconStroke)
             )}
           >
             {rightIcon}
