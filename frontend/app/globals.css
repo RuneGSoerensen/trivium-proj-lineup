@@ -1,11 +1,78 @@
 @import "tailwindcss";
-
-@plugin "flyonui";
 @import "flyonui/variants.css";
 @source "./node_modules/flyonui/flyonui.js";
-
 @import "./styles/responsive.css";
 
+@plugin "flyonui";
+@plugin "flyonui/theme" {
+  name: "lineup-light";
+  default: false;
+  prefersdark: false;
+  color-scheme: light;
+
+  --color-base-100: #ffffff;
+  --color-base-200: #f7f6f6;
+  --color-base-300: #ededed;
+  --color-base-content: #1e1e1e;
+
+  --color-primary: #ffcf70;
+  --color-primary-content: #1e1e1e;
+
+  --color-secondary: #3f4d54;
+  --color-secondary-content: #f7f6f6;
+
+  --color-accent: #40826d;
+  --color-accent-content: #f7f6f6;
+
+  --color-neutral: #575252;
+  --color-neutral-content: #f7f6f6;
+
+  --color-info: #3f4254;
+  --color-info-content: #f7f6f6;
+  --color-success: #40826d;
+  --color-success-content: #f7f6f6;
+  --color-warning: #e8bd69;
+  --color-warning-content: #1e1e1e;
+  --color-error: #800000;
+  --color-error-content: #f7f6f6;
+}
+@plugin "flyonui/theme" {
+  name: "lineup-dark";
+  default: false;
+  prefersdark: true;
+  color-scheme: dark;
+
+  /* Dark base surfaces */
+  --color-base-100: #121212;
+  --color-base-200: #181818;
+  --color-base-300: #262626;
+  --color-base-content: #f7f6f6;
+
+  /* Brand / primary stays the same, just with dark content */
+  --color-primary: #ffcf70;
+  --color-primary-content: #121212;
+
+  /* Secondary and accent slightly lifted for dark backgrounds */
+  --color-secondary: #7b8a92;
+  --color-secondary-content: #121212;
+
+  --color-accent: #57a38a;
+  --color-accent-content: #121212;
+
+  /* Neutral / text-muted colors */
+  --color-neutral: #a0a0a0;
+  --color-neutral-content: #121212;
+
+  /* Status colors tuned for dark surfaces */
+  --color-info: #7f8aa8;
+  --color-info-content: #121212;
+  --color-success: #6bbf99;
+  --color-success-content: #121212;
+  --color-warning: #e8bd69;
+  --color-warning-content: #121212;
+  --color-error: #ff6b6b;
+  --color-error-content: #121212;
+}
 /* Tailwind v4 design tokens */
 @theme {
   /* FONT FAMILY */
@@ -16,26 +83,12 @@
   --text-h2: 1.25rem; /* 20px */
   --text-h3: 1.125rem; /* 18px */
   --text-subtitle: 1rem; /* 16px */
-  --text-body: clamp(1rem, 2vw + .5rem, 1.5rem); /* 16px - 24px */
+  --text-body: clamp(1rem, 2vw + 0.5rem, 1.3rem); /* 16px - 24px */
   --text-body-lg: 1.25rem; /* 20px */
 
-  /* SEMANTIC COLORS */
-  --color-text-default: rgb(30, 30, 30); /* var neutral-black */
-  --color-text-inverse: rgb(255, 255, 255);
-  --color-text-muted: rgba(130, 130, 130);
-  --color-text-subtle: rgb(237, 237, 237);
-  --color-text-brand: var(--color-brand-primary);
-
-  /* SURFACE / BACKGROUND */
-  --color-bg-default: rgb(255, 255, 255);
-  --color-bg-alt: rgb(247, 246, 246);
-  --color-bg-muted: rgb(237, 237, 237);
-  --color-bg-inverse: rgb(30, 30, 30);
-
-  /* BRAND */
-  --color-brand-primary: rgb(255, 207, 112);
-  --color-brand-primary-hover: rgba(232, 189, 105);
-  --color-brand-primary-dark: rgb(77, 63, 84);
+  --color-primary-hover: rgba(232, 190, 105, 0.7);
+  --color-primary-dark: rgb(77, 63, 84);
+  --color-muted: rgba(130, 130, 130, 0.7);
 
   /* SECONDARY */
   --color-secondary-greyred: #575252;
@@ -72,22 +125,29 @@
   --spacing-button-high: 12px;
 }
 
+.lucide {
+  color: inherit;
+  width: inherit;
+  height: inherit;
+  stroke-width: inherit;
+}
+
 /* Short semantic utilities */
 /* Text color semantic utilities */
 @utility text-default {
-  color: var(--color-text-default);
+  color: var(--color-base-default);
 }
 @utility text-inverse {
-  color: var(--color-text-inverse);
+  color: var(--color-base-100);
 }
 @utility text-muted {
-  color: var(--color-text-muted);
+  color: --alpha(var(--color-base-content) / 20%);
 }
 @utility text-subtle {
-  color: var(--color-text-subtle);
+  color: var(--color-base-300);
 }
 @utility text-brand {
-  color: var(--color-text-brand);
+  color: var(--color-primary);
 }
 @utility font-ui {
   font-family: var(--font-ui);
@@ -118,19 +178,22 @@
 
 /* Background semantic utilities */
 @utility bg-default {
-  background-color: var(--color-bg-default);
+  background-color: var(--color-base-100);
 }
 @utility bg-alt {
-  background-color: var(--color-bg-alt);
+  background-color: var(--color-base-200);
 }
 @utility bg-muted {
-  background-color: var(--color-bg-muted);
+  background-color: var(--color-base-300);
 }
 @utility bg-inverse {
-  background-color: var(--color-bg-inverse);
+  background-color: var(--color-base-content);
 }
 @utility bg-brand-primary {
-  background-color: var(--color-brand-primary);
+  background-color: var(--color-primary);
+}
+@utility bg-brand-primary-hover {
+  background-color: var(--color-primary-hover);
 }
 @utility bg-secondary-orange {
   background-color: var(--color-secondary-orange);
@@ -143,29 +206,14 @@
 }
 
 /* Border semantic utilities */
-@utility border-muted {
-  border: 1px solid --alpha(var(--color-text-muted) / 40%);
-}
-
 @utility border-brand {
-  border: 1px solid var(--color-brand-primary);
+  border: 1px solid var(--color-primary);
 }
-
 @utility border-muted{
-  border: 1px solid --alpha(var(--color-text-muted) / 20%);
+  border: 1px solid --alpha(var(--color-text-muted) / 50%);
 }
-
 @utility ring-brand {
-  box-shadow: 0 0 0 3px var(--color-brand-primary);
-}
-
-/* Button semantic utilities */
-@utility btn-primary {
-  @apply bg-brand-primary border-muted text-default hover:bg-brand-primary-hover;
-}
-
-@utility btn-secondary {
-  @apply bg-default border-muted text-default hover:bg-brand-primary-hover/50 hover:text-default;
+  box-shadow: 0 0 0 3px var(--color-primary);
 }
 
 /* Button size utilities */
@@ -182,25 +230,51 @@
   height: var(--size-button-high);
 }
 
+@utility btn-spc-low {
+  padding-block: calc(var(--spacing-button-low) - 2px) !important;
+  padding-inline: var(--spacing-button-low) !important;
+}
+@utility btn-spc-medium {
+  padding-block: calc(var(--spacing-button-medium) - 2px) !important;
+  padding-inline: var(--spacing-button-medium) !important;
+}
+@utility btn-spc-high {
+  padding-block: calc(var(--spacing-button-high) - 2px) !important;
+  padding-inline: var(--spacing-button-high) !important;
+}
+
 @utility rounded-tabs {
-  border-radius: 45px 45px 0 0;  
+  border-radius: 45px 45px 0 0;
+}
+
+@utility input-color {
+  background-color: var(--color-base-200);
+  color: var(--color-base-default);
+  border: 1px solid
+    var(color-mix(in srgb, var(--color-base-content) 60%, transparent));
+}
+
+@utility input-checkbox {
+  background-color: var(--color-primary);
+  border: 1px solid
+    var(color-mix(in srgb, var(--color-base-content) 60%, transparent));
 }
 
 :root {
-  --background: var(--color-bg-muted);
-  --foreground: var(--color-text-default);
+  --background: var(--color-base-100);
+  --foreground: var(--color-base-content);
 }
 
 /* @media (prefers-color-scheme: dark) {
   :root {
-    --background: var(--color-bg-inverse);
-    --foreground: var(--color-text-inverse);
+    --background: var(--color-base-content);
+    --foreground: var(--color-base-100);
   }
 } */
 
 /*Styles for page layout*/
   .trvm-page {
-    @apply flex flex-col justify-center items-center xl:flex-row h-full w-full gap-8 p-8;
+    @apply inline-flex flex-col justify-start items-center xl:flex-row h-full w-full gap-8 p-24;
   }
 
 
@@ -209,9 +283,12 @@ main {
   color: var(--foreground);
   transition: all 300ms ease-in-out;
   overflow-x: hidden;
-  padding-inline: 32px;
-  display:flex;
+  height: 100%;
+  width: 100%;
+  align-items: center;
   flex-direction: column;
+  display:inline-flex;
+  padding:32px;
 }
 
 html,
