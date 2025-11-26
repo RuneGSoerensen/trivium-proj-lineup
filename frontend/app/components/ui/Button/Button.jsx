@@ -36,7 +36,7 @@ const strokeW = {
 const resolveIconSize = (size = "md") => iconSz[size] ?? size;
 const resolveStroke = (stroke = "md") => strokeW[stroke] ?? stroke;
 
-const Button = ({
+export const Button = ({
   type = "default", // default | icon | toggle | dropdown
   variant = "primary",
   size = "md",
@@ -135,7 +135,3 @@ const Button = ({
     </div>
   );
 };
-
-
-
-export { Button };
