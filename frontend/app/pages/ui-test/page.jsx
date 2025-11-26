@@ -26,6 +26,19 @@ export default function TestPage() {
             </Button>
             <Button variant="glass">Glass Button</Button>
 
+            <Button
+                type="dropdown"
+                rightIcon={<ChevronDownIcon />}
+                dropdownItems={
+                    <ul className="flex flex-col">
+                        <li className="py-4 hover:bg-base-200 px-4 rounded">Item 1</li>
+                        <li className="py-4 hover:bg-base-200 px-4 rounded">Item 2</li>
+                        <li className="py-4 hover:bg-base-200 px-4 rounded">Item 3</li>
+                    </ul>
+                }
+            />
+
+
             <Tag checkable={true} onCheckableChange={(checked) => console.log("Tag checked:", checked)} className="mr-2">Checkable tag</Tag>
             <Tag variant="outlined">Tag</Tag>
 

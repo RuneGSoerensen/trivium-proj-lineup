@@ -1,6 +1,6 @@
 // app/components/ui/Button.jsx
 'use client';
-import React from "react";
+import React, { useState } from "react";
 import clsx from "clsx";
 
 const variantClass = {
@@ -55,6 +55,17 @@ const Button = ({
   widthClass = "full",
   ...rest
 }) => {
+  const [open, setOpen] = useState(false);
+  const isDropdown = type === "dropdown";
+  const handleClick = (e) => {
+    if (isDropdown) {
+      e.preventDefault();
+      setOpen((prev) => !prev);
+    }
+    if (rest.onClick) {
+      rest.onClick(e);
+    }
+  };
   const base = "trvm-btn";
 
   const typeClass = {
@@ -67,49 +78,61 @@ const Button = ({
   const showLabel = type !== "icon"; //icon button
 
   return (
-    <button
-      className={clsx(
-        base,
-        typeClass,
-        variantClass[variant],
-        sizeClass[size],
-        fullWidth && "w-full justify-center",
-        className,
-      )}
-      aria-pressed={type === "toggle" ? active : undefined}
-      {...rest}
-    >
-      {/* LEFT ICON */}
-      {leftIcon && (
-        <span
-          className={clsx(
-            resolveIconSize(leftIconSize ?? iconSize),
-            resolveStroke(leftIconStroke ?? iconStroke)
-          )}
-        >
-          {leftIcon}
-        </span>
-      )}
+    <div className={clsx(isDropdown && "relative inline-block w-full")}>
+      <button
+        aria-expanded={isDropdown ? open : undefined}
+        onClick={handleClick}
+        className={clsx(
+          base,
+          typeClass,
+          variantClass[variant],
+          sizeClass[size],
+          fullWidth && "w-full justify-center",
+          className,
+        )}
+        aria-pressed={type === "toggle" ? active : undefined}
+        {...rest}
+      >
+        {/* LEFT ICON */}
+        {leftIcon && (
+          <span
+            className={clsx(
+              resolveIconSize(leftIconSize ?? iconSize),
+              resolveStroke(leftIconStroke ?? iconStroke)
+            )}
+          >
+            {leftIcon}
+          </span>
+        )}
 
-      {/* LABEL / TEKST – skjules for icon-type */}
-      {showLabel && children && (
-        <span>
-          {children}
-        </span>
-      )}
+        {/* LABEL / TEKST – skjules for icon-type */}
+        {showLabel && children && (
+          <span>
+            {children}
+          </span>
+        )}
 
-      {/* RIGHT ICON */}
-      {rightIcon && (
-        <span
-          className={clsx(
-            resolveIconSize(rightIconSize ?? iconSize),
-            resolveStroke(rightIconStroke ?? iconStroke)
-          )}
-        >
-          {rightIcon}
-        </span>
+        {/* RIGHT ICON */}
+        {rightIcon && (
+          <span
+            className={clsx(
+              resolveIconSize(rightIconSize ?? iconSize),
+              resolveStroke(rightIconStroke ?? iconStroke)
+            )}
+          >
+            {rightIcon}
+          </span>
+        )}
+      </button>
+      {/* DROPDOWN CONTENT */}
+     { isDropdown && open && (
+      <div className="absolute top-full left-0 mt-4 w-full bg-base-100 border border-muted rounded-lg shadow-lg p-8 z-50">
+        {rest.dropdownItems || (
+          <p className="text-muted">No items provided</p>
+        )}
+      </div>
       )}
-    </button>
+    </div>
   );
 };
 
