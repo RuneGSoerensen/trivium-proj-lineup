@@ -44,7 +44,8 @@ function Carousel({ slides = [], heightClass = "h-80", className, slideClassName
                     ))}
                 </div>
             </div>
-
+            {/* TODO - Add functionality to buttons and pagination. Refine button placement and content size */}
+<div className="absolute inset-0 flex items-center justify-between pointer-events-none">
             <Button
                 variant="secondary"
                 type="icon"
@@ -66,7 +67,7 @@ function Carousel({ slides = [], heightClass = "h-80", className, slideClassName
             >
                 <span className="sr-only">Next</span>
             </Button>
-
+</div>
             <div className="carousel-pagination absolute bottom-3 end-0 start-0 flex justify-center gap-8" />
         </div>
     );
