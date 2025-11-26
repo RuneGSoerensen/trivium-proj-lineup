@@ -3,6 +3,8 @@
 import { useOnboarding } from "@/app/utils/userOnobardingContext";
 import { useRouter } from "next/navigation";
 import { supabase } from "@/app/utils/supabaseClient";
+import { setAuthToken } from "@/app/utils/auth";
+import { createUser } from "@/app/utils/api";
 import { useState } from "react";
 
 export default function Step6() {
@@ -29,10 +31,19 @@ export default function Step6() {
       }
 
       const userId = authData.user?.id;
-      if (!userId) {
-        console.error("no user Id returned from supabase auth");
+      const session = authData.session;
+
+      if (!userId || !session?.access_token) {
+        console.error("No user ID or access token returned from Supabase Auth");
         return;
       }
+
+      // Store JWT token and userId in localStorage
+      setAuthToken(session.access_token, userId);
+      console.log("Auth data stored in localStorage:", {
+        userId,
+        tokenLength: session.access_token.length,
+      });
 
       const updatedUserData = {
         id: userId,
@@ -46,24 +57,12 @@ export default function Step6() {
         business: userData.business_name,
       };
 
-      console.log("Sending user data:", updatedUserData); // Add this line
+      console.log("Sending user data:", updatedUserData);
 
-      const response = await fetch("http://localhost:3001/user/create", {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify(updatedUserData),
-      });
-
-      if (!response.ok) {
-        const errorData = await response.json();
-        console.error("Error creating user in backend:", errorData);
-        return;
-      }
-
-      const result = await response.json();
+      // Create user in backend
+      const result = await createUser(updatedUserData);
       console.log("User created successfully in backend:", result);
+
       router.push("/");
     } catch (error) {
       console.error("Unexpected error during user creation:", error);
