@@ -37,6 +37,7 @@ const resolveIconSize = (size = "md") => iconSz[size] ?? size;
 const resolveStroke = (stroke = "md") => strokeW[stroke] ?? stroke;
 
 const Button = ({
+  type = "default", // default | icon | toggle | dropdown
   variant = "primary",
   size = "md",
   iconSize = "md",
@@ -50,28 +51,61 @@ const Button = ({
   fullWidth,
   className,
   children,
+  active = false, // toggle button state
   widthClass = "full",
   ...rest
 }) => {
+  const base = "trvm-btn";
+
+  const typeClass = {
+    default: "",
+    icon: "trvm-btn-icon",
+    toggle: active ? "trvm-toggle-btn-active" : "trvm-toggle-btn",
+    dropdown: "trvm-dropdown-btn",
+  }[type] || "";
+
+  const showLabel = type !== "icon"; //icon button
+
   return (
     <button
       className={clsx(
-        "trvm-btn",
+        base,
+        typeClass,
         variantClass[variant],
         sizeClass[size],
         fullWidth && "w-full justify-center",
         className,
       )}
+      aria-pressed={type === "toggle" ? active : undefined}
       {...rest}
     >
+      {/* LEFT ICON */}
       {leftIcon && (
-        <span className={clsx(resolveIconSize(leftIconSize ?? iconSize), resolveStroke(leftIconStroke ?? iconStroke))}>
+        <span
+          className={clsx(
+            resolveIconSize(leftIconSize ?? iconSize),
+            resolveStroke(leftIconStroke ?? iconStroke)
+          )}
+        >
           {leftIcon}
         </span>
       )}
-      <span>{children}</span>
+
+      {/* LABEL / TEKST – skjules for icon-type */}
+      {showLabel && children && (
+        <span>
+          {children}
+        </span>
+      )}
+
+      {/* RIGHT ICON */}
       {rightIcon && (
-        <span className={clsx(resolveIconSize(rightIconSize ?? iconSize), resolveStroke(rightIconStroke ?? iconStroke))}>
+        <span
+          className={clsx(
+            resolveIconSize(rightIconSize ?? iconSize),
+            resolveStroke(rightIconStroke ?? iconStroke)
+          )}
+        >
           {rightIcon}
         </span>
       )}
@@ -86,7 +120,6 @@ const IconButton = ({ icon, className, variant, size = "md", stroke = "sm", ...r
       className={clsx(
         "trvm-btn-icon",
         className,
-        icon,
         iconSz[size],
         strokeW[stroke],
         // variantClass[variant],
@@ -100,4 +133,32 @@ const IconButton = ({ icon, className, variant, size = "md", stroke = "sm", ...r
   );
 };
 
-export { Button, IconButton };
+const DropdownButton = ({ children, className, ...rest }) => {
+  return (
+    <button
+      className={clsx(
+        "trvm-dropdown-btn",
+        className,
+      )}
+      {...rest}
+    >
+      {children}
+    </button>
+  );
+};
+
+const ToggleButton = ({ children, className, ...rest }) => {
+  return (
+    <button
+      className={clsx(
+        "trvm-toggle-btn",
+        className,
+      )}
+      {...rest}
+    >
+      {children}
+    </button>
+  );
+};
+
+export { Button, IconButton, DropdownButton, ToggleButton };

@@ -6,21 +6,28 @@ import Input from "@/app/components/ui/Input/Input";
 import { TabItem, TabsList } from "@/app/components/ui/Tab/Tab";
 import { Tag } from "@/app/components/ui/Tag/Tag";
 import Image from "next/image";
-import { Angry } from "lucide-react";
-import { Apple } from "lucide-react";
+import { Angry, ArrowLeftCircle, Apple, MoreVertical, MoonIcon, ChevronDownIcon } from "lucide-react";
+import React from "react";
 
+const documentElement = typeof window !== "undefined" ? window.document.documentElement : null;
+const dataTheme = documentElement ? documentElement.getAttribute("data-theme") : null;
+const isDark = dataTheme === "lineup-dark";
+const toggleTheme = () => {
+    const newTheme = isDark ? "lineup-light" : "lineup-dark";
+    document.documentElement.setAttribute("data-theme", newTheme);
+};
 export default function TestPage() {
 
 
     return (
-        <article className="trvm-page">
+        <article>
             <Button rightIcon={<Angry />} rightIconSize="md" rightIconStroke="sm">Primary</Button>
             <Button leftIcon={<Apple fill="inherit" />} variant="secondary" onClick={() => alert("Clicked!")}>
                 Secondary
             </Button>
             <Button variant="glass">Glass Button</Button>
 
-            <IconButton stroke="sm" icon={<Angry/>} />
+            <IconButton stroke="sm" icon={<Angry />} />
 
             <Tag checkable={true} onCheckableChange={(checked) => console.log("Tag checked:", checked)} className="mr-2">Checkable tag</Tag>
             <Tag variant="outlined">Tag</Tag>
