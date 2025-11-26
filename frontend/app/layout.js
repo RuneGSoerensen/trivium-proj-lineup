@@ -12,6 +12,7 @@ export default function RootLayout({ children }) {
   return (
     <html lang="en" data-theme="lineup-light">
       <FlyonuiScript />
+      <body className="trvm-page mockup-phone min-h-screen">
         <header className="w-full flex justify-center py-4">
           <Image
             src="/images/lineup-logo-big.png"
@@ -20,12 +21,11 @@ export default function RootLayout({ children }) {
             height={50}
           />
         </header>
-      <body className="trvm-page mockup-phone bg-muted flex flex-col min-h-screen">
           {children}
-      </body>
         <footer className="w-full flex justify-center py-4">
           {/* <Navigation /> */}
         </footer>
+      </body>
     </html>
   );
 }
