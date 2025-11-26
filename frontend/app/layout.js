@@ -9,8 +9,9 @@ export const metadata = {
 
 export default function RootLayout({ children }) {
   return (
-    <html lang="en">
+    <html lang="en" data-theme="lineup-light">
       <body>
+        <FlyonuiScript />
         {/* NOTE - mockup-phone css class can be removed once the layout is finalized */}
         <main className="trvm-page mockup-phone">
           {children}
