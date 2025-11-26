@@ -4,7 +4,7 @@
 import React from "react";
 import clsx from "clsx";
 import Image from "next/image";
-import { Button } from "./Button";
+import { Button } from "../Button/Button";
 
 export function ServiceCard({
   // top bar
@@ -14,7 +14,7 @@ export function ServiceCard({
   // footer
   ctaLabel = "Read more", location, timeAgo, // fx "4h ago"
   // interaktion
-  onClick = () => {}, onBookmarkClick = () => {}, className,
+  onClick = () => { }, onBookmarkClick = () => { }, className,
 }) {
   const clickable = typeof onClick === "function";
 
@@ -57,12 +57,12 @@ export function ServiceCard({
           </div>
 
           {onBookmarkClick && (
-            <Button
+            <Button 
               className="btn btn-circle btn-ghost btn-xs bg-inverse text-inverse"
               onClick={(e) => {
                 e.stopPropagation();
                 onBookmarkClick();
-              } }
+              }}
               aria-label="Save"
             >
               ?
@@ -99,12 +99,14 @@ export function ServiceCard({
         {/* Footer */}
         <footer className="flex items-center justify-between pt-1">
           <Button
+            widthClass="fit"
+            size="sm"
             variant="primary"
             onClick={(e) => {
               if (!clickable) return;
               e.stopPropagation();
               onClick?.();
-            } }
+            }}
           >
             {ctaLabel}
           </Button>

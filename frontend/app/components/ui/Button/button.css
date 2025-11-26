@@ -1,0 +1,72 @@
+@layer components {
+  /* -------------------------------
+     BUTTONS
+  -------------------------------- */
+  .trvm-btn {
+    @apply inline-flex items-center justify-center gap-8 rounded-button
+           font-semibold font-ui text-body
+           transition-colors duration-150
+           cursor-pointer w-full max-w-md xl:max-w-xl;
+  }
+  .btn-primary {
+    @apply bg-brand-primary text-default hover:bg-brand-primary-hover ;
+  }
+  .btn-secondary {
+    @apply bg-default border-muted text-default hover:bg-brand-primary-hover focus:bg-brand-primary-hover;
+  }
+
+  .btn-glass {
+    @apply glass;
+  }
+  /* .btn-icon {
+    @apply btn-spc-low text-body;
+  } */
+  /* Icon-only buttons */
+  .trvm-btn-icon {
+    @apply p-24 flex btn-circle text-inverse items-center justify-center bg-secondary-cyanblue hover:bg-secondary-blue;
+
+  }
+
+  .btn-icon--high {
+    @apply btn-size-high;
+  }
+  .btn-icon--medium {
+    @apply btn-size-medium;
+  }
+  .btn-icon--low {
+    @apply btn-size-low;
+  }
+
+  /* NOTE - Will return to at later point
+@utility btn-primary {
+  @apply bg-brand-primary border-muted text-default hover:bg-brand-primary-hover;
+}
+
+@utility btn-secondary {
+  @apply bg-default border-muted text-default hover:bg-brand-primary-hover/50 hover:text-default;
+}*/
+
+  /* -------------------------------
+     INTERACTIVE ELEMENTS (toggles)
+  -------------------------------- */
+  .toggle {
+    @apply inline-flex items-center justify-between w-40 h-20 bg-muted rounded-pill p-2;
+  }
+
+  .toggle-dot {
+    @apply w-16 h-16 bg-default rounded-full shadow;
+  }
+}
+
+.btn-row-mobile {
+  column-gap: var(--spacing-button-medium);
+}
+
+@media (max-width: 768px) {
+  .btn-row-mobile--dense {
+    column-gap: var(--spacing-button-high);
+  }
+  .btn-row-mobile--loose {
+    column-gap: var(--spacing-button-low);
+  }
+}
