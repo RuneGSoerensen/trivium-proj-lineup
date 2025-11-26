@@ -7,7 +7,7 @@ const PORT = process.env.PORT || 3000;
 app.use(express.json());
 
 // Mount users router
-app.use("/user", usersRouter);
+app.use("/users", usersRouter);
 
 app.get("/", (req, res) => {
   res.send("Server is running TRIVIUM");
