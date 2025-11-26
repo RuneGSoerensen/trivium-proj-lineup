@@ -11,6 +11,8 @@ export default function Step6() {
   const router = useRouter();
   const { userData, updateUser } = useOnboarding();
   const [selectedMembership, setSelectedMembership] = useState(null);
+  const [errorMessage, setErrorMessage] = useState(null);
+  const [isSubmitting, setIsSubmitting] = useState(false);
 
   const handleMembershipChange = (membership) => {
     setSelectedMembership(
@@ -19,6 +21,8 @@ export default function Step6() {
   };
 
   const handleSubmit = async () => {
+    setErrorMessage(null);
+    setIsSubmitting(true);
     try {
       const { data: authData, error: authError } = await supabase.auth.signUp({
         email: userData.email,
@@ -27,6 +31,9 @@ export default function Step6() {
 
       if (authError) {
         console.error("Error creating user in Supabase Auth:", authError);
+        setErrorMessage(
+          authError.message || "Failed to sign up. Please try again."
+        );
         return;
       }
 
@@ -35,6 +42,7 @@ export default function Step6() {
 
       if (!userId || !session?.access_token) {
         console.error("No user ID or access token returned from Supabase Auth");
+        setErrorMessage("Authentication failed. No access token received.");
         return;
       }
 
@@ -66,6 +74,11 @@ export default function Step6() {
       router.push("/");
     } catch (error) {
       console.error("Unexpected error during user creation:", error);
+      setErrorMessage(
+        error.message || "An unexpected error occurred. Please try again."
+      );
+    } finally {
+      setIsSubmitting(false);
     }
   };
   // all in all, looks pretty good!, if Victoria makes ui
@@ -99,7 +112,14 @@ export default function Step6() {
         </label>
       </div>
 
-      <button onClick={handleSubmit}>Finish</button>
+      {errorMessage && (
+        <p className="text-red-500 mt-2" role="alert">
+          {errorMessage}
+        </p>
+      )}
+      <button className="btn" onClick={handleSubmit} disabled={isSubmitting}>
+        {isSubmitting ? "Submitting..." : "Finish"}
+      </button>
     </section>
   );
 }

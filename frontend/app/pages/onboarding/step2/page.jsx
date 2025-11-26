@@ -11,6 +11,8 @@ export default function Step2() {
   const { userData, updateUser } = useOnboarding();
   const [emailTouched, setEmailTouched] = useState(false);
   const [emailError, setEmailError] = useState("");
+  const [confirmTouched, setConfirmTouched] = useState(false);
+  const [passwordMatchError, setPasswordMatchError] = useState("");
 
   // Local useState for form Inputs
   const [formData, setFormData] = useState({
@@ -23,6 +25,10 @@ export default function Step2() {
     // Submit function, updates context and reroutes user to next step
     if (!validateEmail(formData.email)) {
       setEmailError("Please enter a valid email address");
+      return;
+    }
+    if (formData.password !== formData.confirmPassword) {
+      setPasswordMatchError("Passwords do not match");
       return;
     }
     updateUser({
@@ -71,7 +77,17 @@ export default function Step2() {
         placeholder="Enter your password"
         type="password"
         value={formData.password}
-        onChange={(e) => setFormData({ ...formData, password: e.target.value })}
+        onChange={(e) => {
+          const newPassword = e.target.value;
+          setFormData({ ...formData, password: newPassword });
+          if (confirmTouched) {
+            if (newPassword !== formData.confirmPassword) {
+              setPasswordMatchError("Passwords do not match");
+            } else {
+              setPasswordMatchError("");
+            }
+          }
+        }}
       />
 
       <input
@@ -79,10 +95,30 @@ export default function Step2() {
         placeholder="Confirm your password"
         type="password"
         value={formData.confirmPassword}
-        onChange={(e) =>
-          setFormData({ ...formData, confirmPassword: e.target.value })
-        }
+        onChange={(e) => {
+          const newConfirm = e.target.value;
+          setFormData({ ...formData, confirmPassword: newConfirm });
+          if (confirmTouched) {
+            if (formData.password !== newConfirm) {
+              setPasswordMatchError("Passwords do not match");
+            } else {
+              setPasswordMatchError("");
+            }
+          }
+        }}
+        onBlur={() => {
+          setConfirmTouched(true);
+          if (formData.password !== formData.confirmPassword) {
+            setPasswordMatchError("Passwords do not match");
+          } else {
+            setPasswordMatchError("");
+          }
+        }}
       />
+
+      {passwordMatchError && (
+        <p className="text-red-500 text-sm -mt-4 mb-6">{passwordMatchError}</p>
+      )}
 
       <div className="mt-6 mb-10">
         <Button
@@ -90,8 +126,18 @@ export default function Step2() {
           size="sm"
           onClick={handleNext}
           className="mb-15 rounded-full"
-          disabled={!validateEmail(formData.email) || !formData.password}
-          aria-disabled={!validateEmail(formData.email) || !formData.password}
+          disabled={
+            !validateEmail(formData.email) ||
+            !formData.password ||
+            !formData.confirmPassword ||
+            formData.password !== formData.confirmPassword
+          }
+          aria-disabled={
+            !validateEmail(formData.email) ||
+            !formData.password ||
+            !formData.confirmPassword ||
+            formData.password !== formData.confirmPassword
+          }
         >
           Continue
         </Button>
