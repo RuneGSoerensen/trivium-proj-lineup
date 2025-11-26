@@ -24,7 +24,7 @@ export const createUser = async (req, res) => {
         phone_number,
         is_musician,
         looking_for,
-        business,
+        business
       )
       VALUES (
         ${id},
@@ -35,7 +35,7 @@ export const createUser = async (req, res) => {
         ${phone_number},
         ${is_musician},
         ${looking_for},
-        ${business},
+        ${business}
       )
       RETURNING *;
     `;
