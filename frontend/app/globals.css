@@ -274,7 +274,7 @@
 
 /*Styles for page layout*/
   .trvm-page {
-    @apply bg-default inline-flex flex-col justify-start items-center xl:flex-row h-full w-full gap-8 p-24;
+    @apply inline-flex flex-col justify-start items-center space-y-4 xl:flex-row h-full w-full gap-8 p-24 bg-default;
   }
 
 

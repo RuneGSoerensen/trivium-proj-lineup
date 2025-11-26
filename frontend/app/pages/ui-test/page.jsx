@@ -19,7 +19,7 @@ const toggleTheme = () => {
 export default function TestPage() {
 
     return (
-        <article>
+        <article className="space-y-12">
             <Button rightIcon={<Angry />} rightIconSize="md" rightIconStroke="sm">Primary</Button>
             <Button leftIcon={<Apple fill="inherit" />} variant="secondary" onClick={() => alert("Clicked!")}>
                 Secondary
@@ -29,7 +29,7 @@ export default function TestPage() {
             <Button
                 type="dropdown"
                 rightIcon={<ChevronDownIcon />}
-                dropdownItems={
+                dropdownitems={
                     <ul className="flex flex-col">
                         <li className="py-4 hover:bg-base-200 px-4 rounded">Item 1</li>
                         <li className="py-4 hover:bg-base-200 px-4 rounded">Item 2</li>
