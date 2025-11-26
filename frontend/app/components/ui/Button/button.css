@@ -9,10 +9,10 @@
            cursor-pointer w-full max-w-md xl:max-w-xl;
   }
   .btn-primary {
-    @apply bg-brand-primary text-default hover:bg-brand-primary-hover;
+    @apply bg-brand-primary text-default hover:bg-brand-primary-hover ;
   }
   .btn-secondary {
-    @apply bg-default border-muted text-default hover:bg-brand-primary-hover/50 hover:text-default;
+    @apply bg-default border-muted text-default hover:bg-brand-primary-hover focus:bg-brand-primary-hover;
   }
 
   .btn-glass {

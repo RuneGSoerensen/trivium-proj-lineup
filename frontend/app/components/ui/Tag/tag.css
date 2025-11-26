@@ -24,11 +24,11 @@
   }
 
   .tag--checkable .checkbox {
-    @apply bg-default border border-brand-primary;
+    @apply bg-default border border-brand;
   }
 
   .tag--checkable:has(input:checked) {
-    @apply border-brand-primary text-default;
+    @apply border-brand text-default;
   }
   .tag--checkable:has(input:checked) .checkbox {
     @apply text-default bg-brand-primary fill-accent-aquamarine;
