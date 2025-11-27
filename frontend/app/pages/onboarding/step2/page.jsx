@@ -5,6 +5,7 @@ import { useOnboarding } from "@utils/userOnobardingContext";
 import { useRouter } from "next/navigation";
 import Link from "next/link";
 import { Button } from "@ui/Button/Button";
+import Input from "@ui/Input/Input";
 
 export default function Step2() {
   const router = useRouter();
@@ -31,6 +32,7 @@ export default function Step2() {
   const handleNext = () => {
     // Submit function, updates context and reroutes user to next step
     if (!validateEmail(formData.email)) {
+      setEmailTouched(true);
       setEmailError("Please enter a valid email address");
       return;
     }
@@ -43,6 +45,9 @@ export default function Step2() {
       password: formData.password,
       confirmPassword: formData.confirmPassword,
     });
+
+    console.log("Form Data Submitted:", formData);
+
     advanceStep();
     router.push("/pages/onboarding/step3");
   };
@@ -55,85 +60,107 @@ export default function Step2() {
   // then call the function when pressing continue ;)
   // Put this function inside the handleNext function
   return (
-    <section className="trvm-card max-w-xl mx-auto flex flex-col gap-20 items-center text-center">
-      <h1 className="heading-1 mb-4">Sign up</h1>
-      <p className="subtitle mb-6 w-2/3">
-        By continueing you agree to LineUp! Terms of use and Privacy Policy.
+    <section className="max-w-xl mx-auto mt-12 flex flex-col gap-14 items-center text-center">
+      <h1 className="text-h1">Sign up</h1>
+      <p className="subtitle mb-6 w-full">
+        By continuing you agree to LineUp! <br /> Terms of use and Privacy Policy.
       </p>
 
-      <input
-        className="w-2/3 border-muted rounded p-4 mb-4 placeholder:text-center"
-        placeholder="Enter your email"
-        type="email"
-        value={formData.email}
-        onChange={(e) => {
-          setFormData({ ...formData, email: e.target.value });
-          if (emailTouched && validateEmail(e.target.value)) setEmailError("");
+      <form
+        className="flex flex-col gap-8"
+        onSubmit={(e) => {
+          e.preventDefault();
+          handleNext();
         }}
-        onBlur={() => {
-          setEmailTouched(true);
-          if (!validateEmail(formData.email))
-            setEmailError("Please enter a valid email address");
-          else setEmailError("");
-        }}
-      />
-      {/* Consider using a span instead of a p tag */}
-      {emailError && <p className="text-red-500 text-sm mt-1">{emailError}</p>}
+        value={formData}
+      >
+        <Input
+          variant={emailTouched && !!emailError ? "error" : "default"}
+          className="w-full border-muted rounded mb-4 placeholder:text-center"
+          placeholder="Enter your email"
+          type="email"
+          value={formData.email}
+          onChange={(e) => {
+            setFormData({ ...formData, email: e.target.value });
+            if (emailTouched) {
+              if (!validateEmail(e.target.value)) {
+                setEmailError("Please enter a valid email address");
+              } else {
+                setEmailError("");
+              }
+            }
+          }}
+          onBlur={() => {
+            setEmailTouched(true);
+            if (!validateEmail(formData.email)) {
+              setEmailError("Please enter a valid email address");
+            } else setEmailError("");
+          }}
+          hasMessage={emailTouched && !!emailError}
+          message={emailError}
+        />
 
-      <input
-        className="w-2/3 border-muted rounded p-4 mb-6 placeholder:text-center"
-        placeholder="Enter your password"
-        type="password"
-        value={formData.password}
-        onChange={(e) => {
-          const newPassword = e.target.value;
-          setFormData({ ...formData, password: newPassword });
-          if (confirmTouched) {
-            if (newPassword !== formData.confirmPassword) {
+
+        <Input
+          variant={confirmTouched && !!passwordMatchError ? "error" : "default"}
+          className="w-full border-muted rounded mb-6 placeholder:text-center"
+          placeholder="Enter your password"
+          type="password"
+          value={formData.password}
+          onChange={(e) => {
+            const newPassword = e.target.value;
+            setFormData({ ...formData, password: newPassword });
+            if (confirmTouched) {
+              if (newPassword !== formData.confirmPassword) {
+                setPasswordMatchError("Passwords do not match");
+              } else {
+                setPasswordMatchError("");
+              }
+            }
+          }}
+        />
+
+        <Input
+          variant={confirmTouched && !!passwordMatchError ? "error" : "default"}
+          className="w-full border-muted rounded mb-6 placeholder:text-center"
+          placeholder="Confirm your password"
+          type="password"
+          value={formData.confirmPassword}
+          onChange={(e) => {
+            setFormData({ ...formData, confirmPassword: e.target.value });
+            if (confirmTouched) {
+              if (formData.password !== e.target.value) {
+                setPasswordMatchError("Passwords do not match");
+              } else {
+                setPasswordMatchError("");
+              }
+            }
+          }}
+          onBlur={() => {
+            setConfirmTouched(true);
+            if (formData.password !== formData.confirmPassword) {
               setPasswordMatchError("Passwords do not match");
             } else {
               setPasswordMatchError("");
             }
-          }
-        }}
-      />
+          }}
+          hasMessage={confirmTouched && !!passwordMatchError}
+          message={passwordMatchError}
+        />
 
-      <input
-        className="w-2/3 border-muted rounded p-4 mb-6 placeholder:text-center"
-        placeholder="Confirm your password"
-        type="password"
-        value={formData.confirmPassword}
-        onChange={(e) => {
-          const newConfirm = e.target.value;
-          setFormData({ ...formData, confirmPassword: newConfirm });
-          if (confirmTouched) {
-            if (formData.password !== newConfirm) {
-              setPasswordMatchError("Passwords do not match");
-            } else {
-              setPasswordMatchError("");
-            }
-          }
-        }}
-        onBlur={() => {
-          setConfirmTouched(true);
-          if (formData.password !== formData.confirmPassword) {
-            setPasswordMatchError("Passwords do not match");
-          } else {
-            setPasswordMatchError("");
-          }
-        }}
-      />
+      </form>
+      {(emailTouched && !!emailError) || (confirmTouched && !!passwordMatchError) ? (
+        <span className="sr-only" role="alert">
+          {emailError || passwordMatchError}
+        </span>
+      ) : null}
 
-      {passwordMatchError && (
-        <p className="text-red-500 text-sm -mt-4 mb-6">{passwordMatchError}</p>
-      )}
-
-      <div className="mt-6 mb-10">
+      <div className="flex flex-col items-center justify-center mt-6 mb-10">
         <Button
+          type="submit"
           variant="primary"
-          size="sm"
           onClick={handleNext}
-          className="mb-15 rounded-full"
+          className="mb-14 rounded-full w-fit"
           disabled={
             !validateEmail(formData.email) ||
             !formData.password ||
@@ -151,10 +178,10 @@ export default function Step2() {
         </Button>
 
         <p>or</p>
-        <div className="flex flex-col gap-20 items-center mt-20">
+        <div className="flex flex-col gap-10 items-center mt-20">
           <Button
             variant="secondary"
-            size="sm"
+            size="md"
             onClick={() => {
               /* google signup */
             }}
@@ -164,7 +191,7 @@ export default function Step2() {
 
           <Button
             variant="secondary"
-            size="sm"
+            size="md"
             onClick={() => {
               /* apple signup */
             }}
@@ -174,12 +201,13 @@ export default function Step2() {
         </div>
         <div className="flex flex-col gap-10 items-center mt-20">
           <p>
-            Already have an account{" "}
-            <Link className="text-cyan-500" href="/login">
-              Log in
-            </Link>
+            Already have an account?{" "}
           </p>
-          <Link className="underline" href="/home">
+          <Link className="text-cyan-500" href="/login">
+            Log in
+          </Link>
+
+          <Link className="underline text-sm p-12 text-muted" href="/home">
             Skip for now
           </Link>
         </div>

@@ -12,24 +12,35 @@ const variantClass = (variant) => {
             return "input--disabled";
         case "default":
             return "input--default";
+        case "error":
+            return "input--error";
         default:
             return "trvm-input";
     };
 };
 
-const Input = ({ variant, value, onChange, placeholder, type = "text", className }) => {
+const Input = ({ variant, value, onChange = () => { }, placeholder, type = "text", className, hasMessage = false, message, ...rest }) => {
     return (
-        <input
-            className={clsx(
-                "trvm-input",
-                variantClass(variant),
-                className,
+        <div className='w-full gap-4 flex flex-col'>
+            <input
+                className={clsx(
+                    "trvm-input",
+                    variantClass(variant === "error" && hasMessage ? "error" : variant),
+                    className,
+                    hasMessage && "input--error"
+                )}
+                value={value}
+                onChange={onChange}
+                placeholder={placeholder}
+                type={type}
+                aria-invalid={hasMessage}
+                aria-describedby={hasMessage ? "input-error" : undefined}
+                {...rest}
+            />
+            {hasMessage && (
+                <p className="text-error">{message}</p>
             )}
-            value={value}
-            onChange={onChange}
-            placeholder={placeholder}
-            type={type}
-        />
+        </div>
     );
 }
 
@@ -38,6 +49,8 @@ Input.propTypes = {
     value: PropTypes.string,
     /** Input onChange handler */
     onChange: PropTypes.func,
+    /** Input onBlur handler */
+    onBlur: PropTypes.func,
     /** Placeholder text */
     placeholder: PropTypes.string,
     /** Input type */
@@ -45,6 +58,10 @@ Input.propTypes = {
     /** Additional class names */
     className: PropTypes.string,
     variant: PropTypes.oneOf(['active', 'disabled', 'default']),
+    /** Whether to show an inline message */
+    hasMessage: PropTypes.bool,
+    /** Inline message text */
+    message: PropTypes.string,
 }
 
 export default Input
