@@ -5,11 +5,11 @@
       "@/*": ["./*"],
       "@app/*": ["../app/*"],
       "@comps/*": ["../app/components/*"],
-      "@ui/*": ["..ui/*"],
+      "@ui/*": ["../app/components/ui/*"],
       "@utils/*": ["../app/utils/*"],
       "@images/*": ["../images/*"],
       "@pages/*": ["../app/pages/*"],
-      "@styles/*": ["../styles/*"]  
+      "@styles/*": ["../styles/*"]
     }
   }
 }
