@@ -59,6 +59,7 @@ export default function LoginPage() {
             <Input
               id="email"
               type="email"
+              aria-label="Email"
               value={email}
               onChange={(e) => setEmail(e.target.value)}
               required
@@ -71,6 +72,7 @@ export default function LoginPage() {
             <Input
               id="password"
               type="password"
+              aria-label="Password"
               value={password}
               onChange={(e) => setPassword(e.target.value)}
               required
@@ -94,6 +96,7 @@ export default function LoginPage() {
           <span>or</span>
         </div>
         <div className="space-y-20">
+          {/* These will be implemented later */}
           <Button variant="secondary">Continue with Google</Button>
           <Button variant="secondary">Continue with Apple</Button>
         </div>
