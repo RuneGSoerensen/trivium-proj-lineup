@@ -1,11 +1,11 @@
 "use client";
 
-import { useOnboarding } from "@/app/utils/userOnobardingContext";
+import { useOnboarding } from "@utils/userOnobardingContext";
 import { useRouter } from "next/navigation";
-import { supabase } from "@/app/utils/supabaseClient";
-import { setAuthToken } from "@/app/utils/auth";
-import { createUser } from "@/app/utils/api";
-import { useState, useEffect } from "react";
+import { supabase } from "@utils/supabaseClient";
+import { setAuthToken } from "@utils/auth";
+import { createUser } from "@utils/api";
+import { useState } from "react";
 
 export default function Step6() {
   const router = useRouter();

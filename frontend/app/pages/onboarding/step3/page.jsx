@@ -1,9 +1,9 @@
 "use client";
 
 import React, { useState, useEffect } from "react";
-import { useOnboarding } from "@/app/utils/userOnobardingContext";
+import { useOnboarding } from "@utils/userOnobardingContext";
 import { useRouter } from "next/navigation";
-import { Button } from "@/app/components/ui/Button/Button";
+import { Button } from "@ui/Button/Button";
 
 export default function Step3() {
   const router = useRouter();

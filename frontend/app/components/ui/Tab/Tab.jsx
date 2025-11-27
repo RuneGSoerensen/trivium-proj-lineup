@@ -4,6 +4,14 @@ import clsx from "clsx";
 
 const TabsContext = createContext(null);
 
+const useTabsContext = () => {
+  const ctx = useContext(TabsContext);
+  if (!ctx) {
+    throw new Error("Tabs components must be used inside <Tabs>.");
+  }
+  return ctx;
+};
+
 const variantClass = (variant) => {
   switch (variant) {
     case "active":
@@ -17,17 +25,33 @@ const variantClass = (variant) => {
   }
 };
 
-const TabItem = ({ children, isActive = false, disabled = false, onClick, className, ...rest }) => {
-  const ctx = useContext(TabsContext);
-  if (!ctx) {
-    throw new Error("TabItem must be used inside <TabsList>. It cannot be used standalone.");
-  }
+const Tabs = ({ children, defaultIndex = 0 }) => {
+  const [activeIndex, setActiveIndex] = useState(defaultIndex);
+
+  return (
+    <TabsContext.Provider value={{ activeIndex, setActiveIndex }}>
+      {children}
+    </TabsContext.Provider>
+  );
+};
+
+const TabItem = ({ children, disabled = false, onClick, className, index, ...rest }) => {
+  const { activeIndex, setActiveIndex } = useTabsContext();
+  const isActive = index === activeIndex;
   const variant = disabled ? "disabled" : isActive ? "active" : "default";
+
   return (
     <button
       type="button"
       className={clsx("trvm-tab", variantClass(variant), className, variant)}
-      onClick={disabled ? undefined : onClick}
+      onClick={
+        disabled
+          ? undefined
+          : () => {
+              setActiveIndex(index);
+              onClick?.();
+            }
+      }
       {...rest}
     >
       {children}
@@ -35,46 +59,54 @@ const TabItem = ({ children, isActive = false, disabled = false, onClick, classN
   );
 };
 
-const TabsList = ({children, variant, className = "tabs--list", ...rest }) => {
+const TabsList = ({ children, variant, className = "tabs--list", ...rest }) => {
   const items = React.Children.toArray(children);
-  const [activeIndex, setActiveIndex] = useState(0);
   return (
-    <TabsContext.Provider value={{ insideTabs: true, activeIndex }}>
-      <div
-        className={clsx(
-          items.length > 1 && "tabs--multiple",
-          variantClass(variant),
-          className,
-          rest.className
-        )}
-      >
-        {items.map((child, index) => {
-          if (!React.isValidElement(child)) return null;
+    <div
+      className={clsx(
+        items.length > 1 && "tabs--multiple",
+        variantClass(variant),
+        className,
+        rest.className
+      )}
+    >
+      {items.map((child, index) => {
+        if (!React.isValidElement(child)) return null;
 
-          const isActive = index === activeIndex;
-
-          return (
-            <Fragment key={index}>
-              {React.cloneElement(child, {
-                isActive,
-                onClick: () => {
-                  console.log("Tab clicked:", index);
-                  setActiveIndex(index);
-                  if (typeof child.props.onClick === "function") {
-                    child.props.onClick();
-                  }
-                },
-              })}
-              {index < items.length - 1 && <div className="tab-separator" />}
-            </Fragment>
-          );
-        })}
-      </div>
-    </TabsContext.Provider>
+        return (
+          <Fragment key={index}>
+            {React.cloneElement(child, { index })}
+            {index < items.length - 1 && <div className="tab-separator" />}
+          </Fragment>
+        );
+      })}
+    </div>
   );
 };
 
-export { TabsList, TabItem };
+const TabContent = ({ children, className, isActive = false, ...rest }) => {
+  if (!isActive) return null;
+  return (
+    <div className={clsx("tab-content", className)} {...rest}>
+      {children}
+    </div>
+  );
+};
 
+const TabContentList = ({ children, className }) => {
+  const { activeIndex } = useTabsContext();
+  const items = React.Children.toArray(children);
+
+  return (
+    <div className={className}>
+      {items.map((child, index) => {
+        if (!React.isValidElement(child)) return null;
+        return React.cloneElement(child, { isActive: index === activeIndex, key: index });
+      })}
+    </div>
+  );
+};
+
+export { Tabs, TabsList, TabItem, TabContent, TabContentList };
 
 

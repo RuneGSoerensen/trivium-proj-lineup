@@ -1,8 +1,8 @@
 "use client";
 
-import { UserOnboardingProvider } from "@/app/utils/userOnobardingContext";
+import { UserOnboardingProvider } from "@utils/userOnobardingContext";
 import { usePathname } from "next/navigation";
-import ProgressBar from "@/app/components/onboarding-components/progress";
+import ProgressBar from "@ui/Progressbar/progress";
 
 export default function OnboardingLayout({ children }) {
   const pathname = usePathname() || "";
@@ -18,7 +18,7 @@ export default function OnboardingLayout({ children }) {
 
   return (
     <UserOnboardingProvider>
-      <div className="flex flex-col items-center gap-8 py-8">
+      <div className="flex flex-col items-center gap-8 py-8 w-full h-full max-w-3xl justify-center">
         <ProgressBar
           value={progressValue}
           label={`Onboarding step ${currentStep}`}
