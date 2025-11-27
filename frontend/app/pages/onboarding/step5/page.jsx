@@ -11,7 +11,7 @@ export default function LookingForOptions() {
   const stepNumber = 5;
   useEffect(() => {
     if (!canAccessStep(stepNumber)) {
-      router.push("/pages/onboarding/step1");
+      router.push("/pages/onboarding/step5");
     }
   }, [canAccessStep, stepNumber, router]);
   // Local useState for form Input

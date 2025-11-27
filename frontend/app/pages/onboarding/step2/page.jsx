@@ -17,7 +17,7 @@ export default function Step2() {
 
   useEffect(() => {
     if (!canAccessStep(stepNumber)) {
-      router.push("/pages/onboarding/step1");
+      router.push("/pages/onboarding/step2");
     }
   }, [canAccessStep, stepNumber, router]);
 
