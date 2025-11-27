@@ -2,6 +2,17 @@
 'use client';
 import React, { useState } from "react";
 import clsx from "clsx";
+import { set } from "lodash";
+
+/**
+ * Button component with multiple types and variants.
+ * Types: default, icon, toggle, dropdown
+ * Variants: primary, secondary, glass
+ * Sizes: sm, md, lg
+ * Props for icons: leftIcon, rightIcon, iconSize, iconStroke
+ * fullWidth: boolean
+ * className: additional classes
+ */
 
 const variantClass = {
   primary: "btn-primary",
@@ -11,9 +22,9 @@ const variantClass = {
 
 // Made for mobile first design
 const sizeClass = {
-  sm: "px-8 py-4 text-[14px]",
-  md: "px-10 py-8 text-body",
-  lg: "px-20 py-16 text-[18px]",
+  sm: "py-6 px-16 text-sm",
+  md: "py-8 px-24 text-base",
+  lg: "py-12 px-32 text-lg",
 };
 
 const widthClass = {
@@ -40,23 +51,20 @@ export const Button = ({
   type = "default", // default | icon | toggle | dropdown
   variant = "primary",
   size = "md",
+  width = "full",
   iconSize = "md",
   iconStroke = "md",
-  leftIconSize,
-  rightIconSize,
-  leftIconStroke,
-  rightIconStroke,
   leftIcon,
   rightIcon,
-  fullWidth,
   className,
   children,
   active = false, // toggle button state
-  widthClass = "full",
   ...rest
 }) => {
   const [open, setOpen] = useState(false);
+
   const isDropdown = type === "dropdown";
+
   const handleClick = (e) => {
     if (isDropdown) {
       e.preventDefault();
@@ -66,6 +74,7 @@ export const Button = ({
       rest.onClick(e);
     }
   };
+
   const base = "trvm-btn";
 
   const typeClass = {
@@ -87,7 +96,7 @@ export const Button = ({
           typeClass,
           variantClass[variant],
           sizeClass[size],
-          fullWidth && "w-full justify-center",
+          widthClass[width],
           className,
         )}
         aria-pressed={type === "toggle" ? active : undefined}
@@ -97,8 +106,8 @@ export const Button = ({
         {leftIcon && (
           <span
             className={clsx(
-              resolveIconSize(leftIconSize ?? iconSize),
-              resolveStroke(leftIconStroke ?? iconStroke)
+              resolveIconSize(iconSize),
+              resolveStroke(iconStroke)
             )}
           >
             {leftIcon}
@@ -116,8 +125,8 @@ export const Button = ({
         {rightIcon && (
           <span
             className={clsx(
-              resolveIconSize(rightIconSize ?? iconSize),
-              resolveStroke(rightIconStroke ?? iconStroke)
+              resolveIconSize(iconSize),
+              resolveStroke(iconStroke)
             )}
           >
             {rightIcon}
@@ -125,12 +134,12 @@ export const Button = ({
         )}
       </button>
       {/* DROPDOWN CONTENT */}
-     { isDropdown && open && (
-      <div className="absolute top-full left-0 mt-4 w-full bg-base-100 border border-muted rounded-lg shadow-lg p-8 z-50">
-        {rest.dropdownitems || (
-          <p className="text-muted">No items provided</p>
-        )}
-      </div>
+      {isDropdown && open && (
+        <div className="absolute top-full left-0 mt-4 w-full bg-base-100 border border-muted rounded-lg shadow-lg p-8 z-50">
+          {rest.dropdownitems || (
+            <p className="text-muted">No items provided</p>
+          )}
+        </div>
       )}
     </div>
   );

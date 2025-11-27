@@ -3,8 +3,8 @@
 import React, { useState } from "react";
 import { useOnboarding } from "@/app/utils/userOnobardingContext";
 import { useRouter } from "next/navigation";
-import { Button } from "@/app/components/ui/button/Button";
 import Link from "next/link";
+import { Button } from "@/app/components/ui/Button/Button";
 
 export default function Step2() {
   const router = useRouter();
@@ -54,7 +54,7 @@ export default function Step2() {
       </p>
 
       <input
-        className="w-2/3 border-subtle rounded p-4 mb-4 placeholder:text-center"
+        className="w-2/3 border-muted rounded p-4 mb-4 placeholder:text-center"
         placeholder="Enter your email"
         type="email"
         value={formData.email}
@@ -73,7 +73,7 @@ export default function Step2() {
       {emailError && <p className="text-red-500 text-sm mt-1">{emailError}</p>}
 
       <input
-        className="w-2/3 border-subtle rounded p-4 mb-6 placeholder:text-center"
+        className="w-2/3 border-muted rounded p-4 mb-6 placeholder:text-center"
         placeholder="Enter your password"
         type="password"
         value={formData.password}
@@ -91,7 +91,7 @@ export default function Step2() {
       />
 
       <input
-        className="w-2/3 border-subtle rounded p-4 mb-6 placeholder:text-center"
+        className="w-2/3 border-muted rounded p-4 mb-6 placeholder:text-center"
         placeholder="Confirm your password"
         type="password"
         value={formData.confirmPassword}
