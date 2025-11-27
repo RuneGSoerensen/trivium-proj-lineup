@@ -22,7 +22,9 @@ const variantClass = {
 
 // Made for mobile first design
 const sizeClass = {
-
+  sm: "py-6 px-16 text-sm",
+  md: "py-8 px-24 text-base",
+  lg: "py-12 px-32 text-lg",
 };
 
 const widthClass = {
@@ -49,21 +51,20 @@ export const Button = ({
   type = "default", // default | icon | toggle | dropdown
   variant = "primary",
   size = "md",
+  width = "full",
   iconSize = "md",
   iconStroke = "md",
   leftIcon,
   rightIcon,
-  fullWidth,
   className,
   children,
   active = false, // toggle button state
-  widthClass = "full",
   ...rest
 }) => {
   const [open, setOpen] = useState(false);
 
   const isDropdown = type === "dropdown";
-  
+
   const handleClick = (e) => {
     if (isDropdown) {
       e.preventDefault();
@@ -95,7 +96,7 @@ export const Button = ({
           typeClass,
           variantClass[variant],
           sizeClass[size],
-          fullWidth && "w-full justify-center",
+          widthClass[width],
           className,
         )}
         aria-pressed={type === "toggle" ? active : undefined}
@@ -133,12 +134,12 @@ export const Button = ({
         )}
       </button>
       {/* DROPDOWN CONTENT */}
-     { isDropdown && open && (
-      <div className="absolute top-full left-0 mt-4 w-full bg-base-100 border border-muted rounded-lg shadow-lg p-8 z-50">
-        {rest.dropdownitems || (
-          <p className="text-muted">No items provided</p>
-        )}
-      </div>
+      {isDropdown && open && (
+        <div className="absolute top-full left-0 mt-4 w-full bg-base-100 border border-muted rounded-lg shadow-lg p-8 z-50">
+          {rest.dropdownitems || (
+            <p className="text-muted">No items provided</p>
+          )}
+        </div>
       )}
     </div>
   );

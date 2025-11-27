@@ -24,7 +24,7 @@ export default function TestPage() {
             <Button leftIcon={<Apple fill="inherit" />} variant="secondary" onClick={() => alert("Clicked!")}>
                 Secondary
             </Button>
-            <Button variant="glass">Glass Button</Button>
+            <Button size="sm" variant="primary">Glass Button</Button>
 
             <Button
                 type="dropdown"
@@ -40,7 +40,7 @@ export default function TestPage() {
 
 
             <Tag checkable={true} onCheckableChange={(checked) => console.log("Tag checked:", checked)} className="mr-2">Checkable tag</Tag>
-            <Tag variant="outlined">Tag</Tag>
+            <Tag>Tag</Tag>
 
             <TabsList>
                 <TabItem>Overview</TabItem>
