@@ -3,6 +3,7 @@
 @import "../components/ui/Card/card.css";
 @import "../components/ui/Tab/tab.css";
 @import "../components/ui/Input/input.css";
+@import "../components/ui/Carousel/carousel.css";
 
 /*desktop layout*/
 @media (min-width: 1024px) {

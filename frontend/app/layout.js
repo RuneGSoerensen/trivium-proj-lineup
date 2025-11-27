@@ -13,13 +13,19 @@ export default function RootLayout({ children }) {
     <html lang="en" data-theme="lineup-light">
       <FlyonuiScript />
       <body className="trvm-page mockup-phone min-h-screen">
-        <header className="w-full flex justify-center py-4">
-          <Image
-            src="/images/lineup-logo-big.png"
-            alt="Lineup Logo"
-            width={150}
-            height={50}
-          />
+        <header className="w-full flex flex-col">
+          {/* Logo as temporary header*/}
+          <div className="w-full flex justify-center py-2">
+            <Image
+              src="/images/lineup-logo-big.png"
+              alt="Lineup Logo"
+              width={150}
+              height={50}
+            />
+          </div>
+
+
+          {/* <Navbar /> */}
         </header>
           {children}
         <footer className="w-full flex justify-center py-4">
