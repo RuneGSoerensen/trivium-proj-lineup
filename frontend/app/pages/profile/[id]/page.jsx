@@ -3,10 +3,10 @@
 import { useState, useEffect } from "react";
 import { useParams, useRouter } from "next/navigation";
 import Image from "next/image";
-import { Button } from "@/app/components/ui/Button/Button";
-import{ Tag }from "@/app/components/ui/Tag/Tag.jsx";
-
-import { NoteCard } from "@/app/components/profile/note-card";
+import { Button } from "@ui/Button/Button";
+import NoteCard from "@/components/profile/noteCard";
+import { TabContent, TabContentList, TabItem, Tabs, TabsList } from "@ui/Tab/Tab";
+import { Tag } from "@ui/Tag/Tag.jsx";
 const HARD_ARTISTS = [
   "https://images.unsplash.com/photo-1544005313-94ddf0286df2?w=200&q=80",
   "https://images.unsplash.com/photo-1545996124-0d0d3a3a80b4?w=200&q=80",
@@ -41,7 +41,7 @@ export default function ProfilePage() {
       if (!res.ok) throw new Error("Failed to load user");
 
       const { user: userData } = await res.json();
-
+console.log("Fetched user data:", userData);
       const currentUser = localStorage.getItem("userId");
       setCurrentUserId(currentUser);
 
@@ -92,6 +92,7 @@ export default function ProfilePage() {
       }
 
       setLoading(false);
+      
     } catch (error) {
       console.error("Error loading profile:", error);
       setLoading(false);
@@ -187,7 +188,7 @@ export default function ProfilePage() {
       </div>
     );
   return (
-    <div className="min-h-screen bg-background pb-20  ">
+    <div className="min-h-screen   pb-20  ">
       {/* Profile Header */}
       <div
         className="relative px-4 pt-8 pb-6 rounded-3xl"
@@ -218,8 +219,8 @@ export default function ProfilePage() {
               )}
             </div>
             <div className="text-center">
-              <p className="text-[24px] font-bold">{profile.following_count}</p>
-              <p className="text-[13px] opacity-80">Following</p>
+              <p className="text-[24px] font-bold">{profile.followers_count}</p>
+              <p className="text-[13px] opacity-80">Notes</p>
             </div>
           </div>
 
@@ -266,7 +267,16 @@ export default function ProfilePage() {
       </div>
 
       {/* Tabs */}
-     <div className="min-h-screen bg-background pb-20 px-4 py-6 space-y-6">
+             <Tabs>
+                <TabsList className="bg-white">
+                    <TabItem>About</TabItem>
+                    
+                    <TabItem>Notes</TabItem>
+
+                </TabsList>
+                <TabContentList className="mt-4">
+                    <TabContent>
+                        <div className="min-h-screen bg-background pb-20 px-4 py-6 space-y-6">
 
         {/* About */}
         <div className=" m-4 ">
@@ -513,17 +523,41 @@ export default function ProfilePage() {
                   {q.question || "Question"}
                 </h3>
               </div>
-              <p className=" mt-3 mb-4 ">{q.answer || ""}</p>
+              <p className=" mt-3 mb-4 font-light">{q.answer || ""}</p>
        
             </div>
           ))}
         </div>
-
-  
-  
-
-    
+          <div className="flex flex-col">
+            <label htmlFor="questionInput" className="text-lg p-10">Ask me a question</label>
+            <div className="w-full border-1 rounded-full flex flex">
+            <input type="text" id="questionInput"  className="w-full  p-20" placeholder="Type your question here..."/>
+         <Image src={"/placeholder-image.png"} width={40} height={40} alt="Placeholder" />
+         </div>
+          </div>
     </div>
+                    </TabContent>
+          <TabContent>
+            <div className="space-y-4">
+              {notes && notes.length > 0 ? (
+                notes.map((n) => (
+                  <NoteCard
+                    key={n.id}
+                    note={n}
+                    onLike={handleLike}
+                    onComment={handleComment}
+                    showComments={true}
+                  />
+                ))
+              ) : (
+                <div className="text-muted p-4">No notes yet.</div>
+              )}
+            </div>
+
+          </TabContent>
+                </TabContentList>
+            </Tabs>
+   
     </div>
   );
 }

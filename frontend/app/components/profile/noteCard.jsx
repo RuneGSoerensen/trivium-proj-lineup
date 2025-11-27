@@ -2,9 +2,10 @@
 
 import { useState } from "react";
 import Image from "next/image";
-
-export function NoteCard({ note, onLike, onComment, showComments = false }) {
-  const [showCommentInput, setShowCommentInput] = useState(false);
+import { MoreHorizontal, Heart, MessageSquare, Upload, ArrowUp } from "lucide-react";
+import { Tag } from "@ui/Tag/Tag";
+export default function NoteCard({ note, onLike, onComment, showComments = false }) {
+ 
   const [commentText, setCommentText] = useState("");
   const [localLiked, setLocalLiked] = useState(note.is_liked);
   const [localLikesCount, setLocalLikesCount] = useState(note.likes_count);
@@ -37,14 +38,14 @@ export function NoteCard({ note, onLike, onComment, showComments = false }) {
   };
 
   return (
-    <div className="bg-default rounded-[24px] p-4 border-muted">
+    <div className=" p-4">
       {/* Header */}
       <div className="flex items-center gap-3 mb-3">
-        <div className="w-10 h-10 rounded-full bg-muted overflow-hidden flex-shrink-0">
-          {note.user.image_url ? (
+        <div className="w-20 h-20 rounded-full bg-muted overflow-hidden flex-shrink-0">
+          {note.user_image ? (
             <Image
-              src={note.user.image_url || "/placeholder.svg"}
-              alt={note.user.name}
+              src={note.user_image || "/placeholder.svg"}
+              alt={note.user_name}
               width={40}
               height={40}
               className="w-full h-full object-cover"
@@ -55,38 +56,24 @@ export function NoteCard({ note, onLike, onComment, showComments = false }) {
             </div>
           )}
         </div>
-        <div className="flex-1">
-          <p className="text-default font-semibold text-[15px]">
-            {note.user.name}
+        
+          <p className="text-muted text-[12px]">
+            {note.user_name}
           </p>
-          <p className="text-muted text-[13px]">
-            {formatTimeAgo(note.created_at)}
-          </p>
-        </div>
-        <button className="text-muted">
-          <svg
-            width="20"
-            height="20"
-            viewBox="0 0 24 24"
-            fill="none"
-            stroke="currentColor"
-            strokeWidth="2"
-          >
-            <circle cx="12" cy="5" r="1" />
-            <circle cx="12" cy="12" r="1" />
-            <circle cx="12" cy="19" r="1" />
-          </svg>
+   
+        <Tag>tag added her</Tag>
+        <button className="flex items-center ml-auto">
+          <MoreHorizontal size={ 20} />
         </button>
       </div>
 
-      {/* Content */}
-      <p className="text-default text-[15px] mb-3 leading-relaxed">
-        {note.content}
-      </p>
+
+               <p className=" text-h3 font-semibold mb-3 ml-4">{note.title ?? "overskrift skal være her"}</p>
+
 
       {/* Image */}
       {note.image_url && (
-        <div className="rounded-[16px] overflow-hidden mb-3">
+        <div className="rounded-[20px] overflow-hidden mb-3">
           <Image
             src={note.image_url || "/placeholder.svg"}
             alt="Post image"
@@ -96,80 +83,58 @@ export function NoteCard({ note, onLike, onComment, showComments = false }) {
           />
         </div>
       )}
+            {/* Content */}
+          <p className="text-muted font-light m-4">
+        {note.content}
+      </p>
 
       {/* Actions */}
-      <div className="flex items-center gap-5 text-muted text-[14px]">
+      <div className="flex items-center gap-16 text-muted text-[14px]">
         <button
           onClick={handleLike}
           className={`flex items-center gap-1.5 ${
             localLiked ? "text-red-500" : ""
           }`}
         >
-          <svg
-            width="18"
-            height="18"
-            viewBox="0 0 24 24"
+          <Heart
+            size={24}
+            className={localLiked ? "text-red-500" : "text-current"}
             fill={localLiked ? "currentColor" : "none"}
-            stroke="currentColor"
-            strokeWidth="2"
-          >
-            <path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z" />
-          </svg>
-          {localLikesCount > 0 && <span>{localLikesCount}</span>}
+            strokeWidth={4}
+          />
+        <span>{localLikesCount ?? "0"}</span>
         </button>
-        <button
-          onClick={() => setShowCommentInput(!showCommentInput)}
-          className="flex items-center gap-1.5"
-        >
-          <svg
-            width="18"
-            height="18"
-            viewBox="0 0 24 24"
-            fill="none"
-            stroke="currentColor"
-            strokeWidth="2"
-          >
-            <path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z" />
-          </svg>
-          {note.comments_count > 0 && <span>{note.comments_count}</span>}
-        </button>
+<div className="flex gap-4">
+          <MessageSquare size={24} className="text-current" strokeWidth={4} />
+<span>{note.comments_count ?? "0"}</span>
+    </div>
         <button className="flex items-center gap-1.5">
-          <svg
-            width="18"
-            height="18"
-            viewBox="0 0 24 24"
-            fill="none"
-            stroke="currentColor"
-            strokeWidth="2"
-          >
-            <path d="M4 12v8a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2v-8" />
-            <polyline points="16 6 12 2 8 6" />
-            <line x1="12" y1="2" x2="12" y2="15" />
-          </svg>
+          <Upload size={24} className="text-current" strokeWidth={4} />
         </button>
       </div>
 
       {/* Comment Input */}
-      {showCommentInput && (
+
         <div className="mt-3 pt-3 border-t border-muted/20">
-          <div className="flex gap-2">
+          <div className="flex gap-2 rounded-lg border-1 border-muted">
             <input
               type="text"
               placeholder="Leave a comment"
               value={commentText}
               onChange={(e) => setCommentText(e.target.value)}
-              className="flex-1 px-3 py-2 rounded-[12px] bg-muted border-none text-[14px] text-default placeholder:text-muted/60 focus:outline-none focus:ring-2 focus:ring-brand-primary"
+              className="flex-1 px-4 py-8   "
               onKeyDown={(e) => e.key === "Enter" && handleCommentSubmit()}
             />
             <button
               onClick={handleCommentSubmit}
-              className="px-4 py-2 rounded-[12px] bg-brand-primary text-default font-semibold text-[14px] hover:bg-brand-primary-hover"
+              className=" rounded-[8px] bg-brand-primary m-10"
             >
-              Post
+              
+              <ArrowUp size={24} strokeWidth={4} />
             </button>
           </div>
         </div>
-      )}
+ 
 
       {/* Comments List */}
       {showComments && note.comments && note.comments.length > 0 && (

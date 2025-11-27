@@ -14,6 +14,7 @@ export const getUserNotes = async (req, res) => {
         jsonb_build_object(
           'id', c.id,
           'content', c.content,
+          --add title here.
           'created_at', c.created_at,
           'user', jsonb_build_object(
             'id', cu.id,
