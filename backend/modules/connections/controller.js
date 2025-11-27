@@ -45,10 +45,12 @@ export const getStats = async (req, res) => {
 export const checkFollowing = async (req, res) => {
   const { followerId, profileId } = req.params;
 
-  const [row] = await sql`
-    SELECT * FROM connections
-    WHERE follower_id = ${followerId} AND following_id = ${profileId}
+  const [{ exists: is_following }] = await sql`
+    SELECT EXISTS(
+      SELECT 1 FROM connections
+      WHERE follower_id = ${followerId} AND following_id = ${profileId}
+    );
   `;
 
-  res.json({ is_following: !!row });
+  res.json({ is_following });
 };
