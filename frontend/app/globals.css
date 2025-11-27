@@ -322,10 +322,11 @@ main {
   color: var(--foreground);
   transition: all 300ms ease-in-out;
   overflow-x: hidden;
+  overflow-y: auto;
   align-items: center;
   flex-direction: column;
   display: inline-flex;
-  padding: 32px;
+  padding: 24px;
 }
 
 html,
@@ -334,4 +335,5 @@ body,
 main {
   width: 100%;
   height: 100%;
+  font-size: var(--text-body);
 }

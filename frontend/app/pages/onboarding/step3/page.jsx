@@ -1,14 +1,19 @@
 "use client";
 
-import React, { useState } from "react";
-import { useOnboarding } from "@/app/utils/userOnobardingContext";
+import React, { useState, useEffect } from "react";
+import { useOnboarding } from "@utils/userOnobardingContext";
 import { useRouter } from "next/navigation";
-import { Button } from "@/app/components/ui/Button/Button";
+import { Button } from "@ui/Button/Button";
 
 export default function Step3() {
   const router = useRouter();
-  const { userData, updateUser } = useOnboarding();
-
+  const { canAccessStep, advanceStep, userData, updateUser } = useOnboarding();
+  const stepNumber = 3;
+  useEffect(() => {
+    if (!canAccessStep(stepNumber)) {
+      router.push("/pages/onboarding/step1");
+    }
+  }, [canAccessStep, stepNumber, router]);
   // Local useState for form Input
   const [formData, setFormData] = useState({
     is_musician: userData.is_musician ?? null,
@@ -16,6 +21,7 @@ export default function Step3() {
 
   const handleNext = () => {
     updateUser({ is_musician: formData.is_musician });
+    advanceStep();
     router.push("/pages/onboarding/step4");
   };
 
