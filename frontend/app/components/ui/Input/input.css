@@ -4,7 +4,7 @@
   -------------------------------- */
 
   .trvm-input {
-    @apply input w-full max-w-md bg-default text-default border-muted rounded-lg px-12 py-24 placeholder:text-muted focus:outline-bg-muted focus:ring-1 focus:ring-brand transition-all duration-100;
+    @apply input w-full max-w-md bg-default text-default border-muted rounded-lg px-12 py-24 placeholder:text-muted focus:ring-1 focus:ring-brand transition-all duration-100;
   }
 
   .trvm-input--error {

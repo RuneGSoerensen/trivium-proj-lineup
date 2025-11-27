@@ -17,7 +17,7 @@ const variantClass = (variant) => {
     };
 };
 
-const Input = ({ variant, value, onChange, placeholder, type = "text", className = "trvm-btn" }) => {
+const Input = ({ variant, value, onChange, placeholder, type = "text", className }) => {
     return (
         <input
             className={clsx(
