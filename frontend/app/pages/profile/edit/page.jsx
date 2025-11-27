@@ -6,19 +6,7 @@ import { Tag } from "@/app/components/ui/Tag/Tag.jsx";
 import Image from "next/image";
 import {Button} from "@/app/components/ui/Button/Button.jsx";
 
-const HARD_ARTISTS = [
-  "https://images.unsplash.com/photo-1544005313-94ddf0286df2?w=200&q=80",
-  "https://images.unsplash.com/photo-1545996124-0d0d3a3a80b4?w=200&q=80",
-  "https://images.unsplash.com/photo-1547425260-76bcadfb4f2c?w=200&q=80",
-  "https://images.unsplash.com/photo-1544006659-f0b21884ce1d?w=200&q=80",
-  "https://images.unsplash.com/photo-1544005310-8d8d2c1a6f3f?w=200&q=80",
-];
 
-const HARD_SPOTIFY_LINK = "https://open.spotify.com/artist/placeholder";
-
-const HARD_VIDEOS = ["video 1", "video 2"];
-
-const HARD_PAST_COLLABS = ["Band A", "Band B"];
 
 function MultiSelectInput({
   options,

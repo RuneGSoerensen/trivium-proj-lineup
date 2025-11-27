@@ -3,8 +3,23 @@
 import { useState, useEffect } from "react";
 import { useParams, useRouter } from "next/navigation";
 import Image from "next/image";
-import { NoteCard } from "@/app/components/profile/note-card";
+import { Button } from "@/app/components/ui/Button/Button";
+import{ Tag }from "@/app/components/ui/Tag/Tag.jsx";
 
+import { NoteCard } from "@/app/components/profile/note-card";
+const HARD_ARTISTS = [
+  "https://images.unsplash.com/photo-1544005313-94ddf0286df2?w=200&q=80",
+  "https://images.unsplash.com/photo-1545996124-0d0d3a3a80b4?w=200&q=80",
+  "https://images.unsplash.com/photo-1547425260-76bcadfb4f2c?w=200&q=80",
+  "https://images.unsplash.com/photo-1544006659-f0b21884ce1d?w=200&q=80",
+  "https://images.unsplash.com/photo-1544005310-8d8d2c1a6f3f?w=200&q=80",
+];
+
+const HARD_SPOTIFY_LINK = "https://open.spotify.com/artist/placeholder";
+
+const HARD_VIDEOS = ["video 1", "video 2"];
+
+const HARD_PAST_COLLABS = ["Band A", "Band B"];
 export default function ProfilePage() {
   const params = useParams();
   const router = useRouter();
@@ -47,6 +62,20 @@ export default function ProfilePage() {
 
       setProfile({
         ...userData,
+        // fallbacks for UI-only fields so the profile page can display artists, music, videos, past collaborations
+        artists_i_like:
+          userData.artists_i_like && userData.artists_i_like.length > 0
+            ? userData.artists_i_like
+            : HARD_ARTISTS,
+        my_music: userData.my_music || HARD_SPOTIFY_LINK,
+        videos:
+          userData.videos && userData.videos.length > 0
+            ? userData.videos
+            : HARD_VIDEOS,
+        past_collaborations:
+          userData.past_collaborations && userData.past_collaborations.length > 0
+            ? userData.past_collaborations
+            : HARD_PAST_COLLABS,
         followers_count: statsData.followers_count || 0,
         following_count: statsData.following_count || 0,
         is_following: isFollowing,
@@ -158,31 +187,33 @@ export default function ProfilePage() {
       </div>
     );
   return (
-    <div className="min-h-screen bg-background pb-20">
+    <div className="min-h-screen bg-background pb-20  ">
       {/* Profile Header */}
       <div
-        className="relative px-4 pt-8 pb-6"
+        className="relative px-4 pt-8 pb-6 rounded-3xl"
         style={{ backgroundColor: profile.theme }}
       >
         <div className="flex flex-col items-center">
           {/* Stats */}
-          <div className="flex items-center gap-8 mb-4 text-inverse">
+          <div className="flex items-center gap-8 mb-4 text-inverse ">
             <div className="text-center">
               <p className="text-[24px] font-bold">{profile.followers_count}</p>
               <p className="text-[13px] opacity-80">Followers</p>
             </div>
-            <div className="w-24 h-24 rounded-full bg-default overflow-hidden border-4 border-white/20">
+            <div className=" rounded-full bg-default overflow-hidden border-4 border-white/20">
               {profile.image_url ? (
                 <Image
                   src={profile.image_url || "/placeholder.svg"}
                   alt={profile.name}
-                  width={96}
-                  height={96}
-                  className="w-full h-full object-cover"
+                  width={200}
+                  height={200}
+                  className=" fit-object-cover"
                 />
               ) : (
-                <div className="w-full h-full flex items-center justify-center text-muted text-[32px] font-bold">
-                  {profile.name.charAt(0).toUpperCase()}
+                <div className="w-full h-full flex items-center justify-center text-muted text-[32px] ">
+                  <p>{profile.name.charAt(0).toUpperCase()}</p>
+                  
+
                 </div>
               )}
             </div>
@@ -193,23 +224,32 @@ export default function ProfilePage() {
           </div>
 
           {/* Name */}
-          <h1 className="text-inverse text-[20px] font-bold mb-6">
+          <h1 className="text-inverse text-[20px] font-bold ">
             {profile.name}
+           
           </h1>
-
+              <p className="text-gray-200 text-xs mb-6"> {profile.bio}</p>
           {/* Action Buttons */}
           {profile.is_own_profile ? (
-            <button
+            <div className="flex ">
+            <Button
+
               onClick={() => router.push("/pages/profile/edit")}
-              className="w-full max-w-[200px] px-6 py-3 rounded-[16px] bg-default/20 backdrop-blur-sm text-inverse font-semibold text-[15px] border border-white/30"
+              
+              
             >
               Edit Profile
-            </button>
+            </Button>
+                 <Button
+          >
+              Share
+            </Button>
+            </div>
           ) : (
             <div className="flex gap-3">
               <button
                 onClick={handleFollow}
-                className={`px-8 py-3 rounded-[16px] font-semibold text-[15px] ${
+                className={`px-8 py-3 rounded-[16px] text-muted text-[15px] ${
                   profile.is_following
                     ? "bg-default/20 backdrop-blur-sm text-inverse border border-white/30"
                     : "bg-brand-primary text-default"
@@ -217,7 +257,7 @@ export default function ProfilePage() {
               >
                 {profile.is_following ? "Following" : "Follow"}
               </button>
-              <button className="px-8 py-3 rounded-[16px] bg-default/20 backdrop-blur-sm text-inverse font-semibold text-[15px] border border-white/30">
+              <button className="px-8 py-3 rounded-[16px] bg-default/20 backdrop-blur-sm text-inverse text-muted text-[15px] border border-white/30">
                 Message
               </button>
             </div>
@@ -226,200 +266,264 @@ export default function ProfilePage() {
       </div>
 
       {/* Tabs */}
-      <div className="flex bg-default border-b border-muted/20">
-        <button
-          onClick={() => setActiveTab("about")}
-          className={`flex-1 py-4 text-[15px] font-semibold ${
-            activeTab === "about"
-              ? "text-default border-b-2 border-brand-primary"
-              : "text-muted"
-          }`}
-        >
-          About
-        </button>
-        <button
-          onClick={() => setActiveTab("notes")}
-          className={`flex-1 py-4 text-[15px] font-semibold ${
-            activeTab === "notes"
-              ? "text-default border-b-2 border-brand-primary"
-              : "text-muted"
-          }`}
-        >
-          Notes
-        </button>
+     <div className="min-h-screen bg-background pb-20 px-4 py-6 space-y-6">
+
+        {/* About */}
+        <div className=" m-4 ">
+          <label className="text-default text-muted mb-8 ">About</label>
+          <div className="w-full ml-10">
+  <p>{profile.about}</p>
+          </div>
+        </div>
+    
+
+        {/* Looking For Tags */}
+        <div className="m-4 ">
+          <label className="text-default text-muted  mb-8 ">
+            What i am looking
+          </label>
+
+          {/* Pills for already selected tags */}
+          <div className="flex flex-wrap gap-2 mb-2">
+            {profile.looking_for_tags.map((tag) => (
+              <Tag
+                
+                key={tag}
+                colorScheme="info"
+                className="px-8 py-2 flex items-center gap-1"
+              >
+                {tag}
+
+  
+              </Tag>
+            ))}
+ 
+          </div>
+
+          {/* Dropdown to select more tags */}
+        </div>
+      
+
+        {/* Genres */}
+
+        <div className=" m-4 ">
+          <label className="text-default text-muted  mb-8 ">Genres</label>
+
+          <div className="flex flex-wrap gap-2 ml-10">
+            {profile.genres.map((g) => (
+                <Tag
+                
+                key={g}
+                colorScheme="info"
+                className="px-8 py-2 flex items-center gap-1"
+              >
+                {g}
+                
+              </Tag>
+            ))}
+
+           
+          </div>
+        </div>
+
+
+        {/* Theme */}
+       
+       
+     
+
+      {/* Social Links */}
+      <div className="bg-default rounded-[24px] p-10  border-gray-300 mt-20 pb-20">
+        <div className="flex items-center justify-between">
+          <label className="text-default text-muted  my-16 mx-4  ">
+            Social Media
+          </label>
+         
+        </div>
+
+       
+          <div className="flex items-center justify-center gap-10 mt-3 ">
+            <a
+              href={profile.socials.instagram || "#"}
+              target="_blank"
+              rel="noreferrer"
+              className="opacity-90 hover:opacity-100"
+            >
+              <Image
+                src="/icons/instagram.png"
+                alt="Instagram"
+                width={24}
+                height={24}
+                className="w-32 h-32"
+              />
+            </a>
+            <a
+              href={profile.socials.x || "#"}
+              target="_blank"
+              rel="noreferrer"
+              className="opacity-90 hover:opacity-100"
+            >
+              <Image
+                src="/icons/x.png"
+                alt="X"
+                width={24}
+                height={24}
+                className="w-32 h-32"
+              />
+            </a>
+            <a
+              href={profile.socials.youtube || "#"}
+              target="_blank"
+              rel="noreferrer"
+              className="opacity-90 hover:opacity-100"
+            >
+              <Image
+                src="/icons/youtube.png"
+                alt="YouTube"
+                width={24}
+                height={24}
+                className="w-32 h-32"
+              />
+            </a>
+            <a
+              href={profile.socials.tiktok || "#"}
+              target="_blank"
+              rel="noreferrer"
+              className="opacity-90 hover:opacity-100"
+            >
+              <Image
+                src="/icons/tiktok.png"
+                alt="TikTok"
+                width={24}
+                height={24}
+                className="w-32 h-32"
+              />
+            </a>
+            <a
+              href={profile.socials.facebook || "#"}
+              target="_blank"
+              rel="noreferrer"
+              className="opacity-90 hover:opacity-100"
+            >
+              <Image
+                src="/icons/facebook.png"
+                alt="Facebook"
+                width={24}
+                height={24}
+                className="w-32 h-32"
+              />
+            </a>
+          </div>
+        
+          <div className="flex items-center justify-between">
+          <label className="text-default text-muted  my-16 mx-4  ">
+            Artists i like
+          </label>
+         
+        </div>
+        <div className="flex items-center justify-center">
+      
+          {profile.artists_i_like.slice(0, 4).map((src, i) => (
+            <div
+              key={i}
+              className="w-50 h-50 rounded-full overflow-hidden border border-2 border-white "
+              style={{
+                marginLeft: i === 0 ? 0 : -20,
+                zIndex: i + 1,
+              }}
+            >
+              <img
+                src={src}
+                alt={`artist-${i}`}
+                className="w-full h-full object-cover position"
+              />
+            </div>
+          ))}
+
+          {profile.artists_i_like.length > 4 && (
+            <div
+              className="w-50 h-50 rounded-full bg-muted flex items-center justify-center text-default"
+              style={{
+                marginLeft: -20,
+                zIndex: 5,
+              }}
+            >
+              +{profile.artists_i_like.length - 4}
+            </div>
+          )}
+        </div>
       </div>
 
-      {/* Content */}
-      <div className="px-4 py-6">
-        {activeTab === "about" ? (
-          <div className="space-y-6">
-            {/* Bio */}
-            {profile.bio && (
-              <div className="bg-default rounded-[24px] p-5 border-muted">
-                <p className="text-default text-[15px] leading-relaxed">
-                  {profile.bio}
-                </p>
-              </div>
-            )}
+      {/* My music (spotify card) */}
 
-            {/* About */}
-            {profile.about && (
-              <div className="bg-default rounded-[24px] p-5 border-muted">
-                <h3 className="text-default font-semibold text-[16px] mb-2">
-                  About
-                </h3>
-                <p className="text-default text-[15px] leading-relaxed">
-                  {profile.about}
-                </p>
-              </div>
-            )}
-
-            {/* Genres */}
-            {profile.genres && profile.genres.length > 0 && (
-              <div className="bg-default rounded-[24px] p-5 border-muted">
-                <h3 className="text-default font-semibold text-[16px] mb-3">
-                  Genres
-                </h3>
-                <div className="flex flex-wrap gap-2">
-                  {profile.genres.map((genre, idx) => (
-                    <span
-                      key={idx}
-                      className="px-4 py-2 rounded-[12px] bg-muted text-default text-[14px] font-medium"
-                    >
-                      {genre}
-                    </span>
-                  ))}
-                </div>
-              </div>
-            )}
-
-            {/* Looking For */}
-            {profile.looking_for_tags &&
-              profile.looking_for_tags.length > 0 && (
-                <div className="bg-default rounded-[24px] p-5 border-muted">
-                  <h3 className="text-default font-semibold text-[16px] mb-3">
-                    Looking For
-                  </h3>
-                  <div className="flex flex-wrap gap-2">
-                    {profile.looking_for_tags.map((tag, idx) => (
-                      <span
-                        key={idx}
-                        className="px-4 py-2 rounded-[12px] bg-muted text-default text-[14px] font-medium"
-                      >
-                        {tag}
-                      </span>
-                    ))}
-                  </div>
-                </div>
-              )}
-
-            {/* Social Links */}
-            {profile.socials &&
-              profile.socials.length > 0 &&
-              profile.socials[0] && (
-                <div className="bg-default rounded-[24px] p-5 border-muted">
-                  <h3 className="text-default font-semibold text-[16px] mb-3">
-                    Social Media
-                  </h3>
-                  <div className="flex gap-4">
-                    {profile.socials[0].instagram && (
-                      <a
-                        href={profile.socials[0].instagram}
-                        target="_blank"
-                        rel="noopener noreferrer"
-                      >
-                        <div className="w-10 h-10 rounded-full bg-muted flex items-center justify-center">
-                          <span className="text-[20px]">📷</span>
-                        </div>
-                      </a>
-                    )}
-                    {profile.socials[0].x && (
-                      <a
-                        href={profile.socials[0].x}
-                        target="_blank"
-                        rel="noopener noreferrer"
-                      >
-                        <div className="w-10 h-10 rounded-full bg-muted flex items-center justify-center">
-                          <span className="text-[20px]">𝕏</span>
-                        </div>
-                      </a>
-                    )}
-                    {profile.socials[0].tiktok && (
-                      <a
-                        href={profile.socials[0].tiktok}
-                        target="_blank"
-                        rel="noopener noreferrer"
-                      >
-                        <div className="w-10 h-10 rounded-full bg-muted flex items-center justify-center">
-                          <span className="text-[20px]">🎵</span>
-                        </div>
-                      </a>
-                    )}
-                    {profile.socials[0].spotify && (
-                      <a
-                        href={profile.socials[0].spotify}
-                        target="_blank"
-                        rel="noopener noreferrer"
-                      >
-                        <div className="w-10 h-10 rounded-full bg-muted flex items-center justify-center">
-                          <span className="text-[20px]">🎧</span>
-                        </div>
-                      </a>
-                    )}
-                    {profile.socials[0].youtube && (
-                      <a
-                        href={profile.socials[0].youtube}
-                        target="_blank"
-                        rel="noopener noreferrer"
-                      >
-                        <div className="w-10 h-10 rounded-full bg-muted flex items-center justify-center">
-                          <span className="text-[20px]">▶️</span>
-                        </div>
-                      </a>
-                    )}
-                  </div>
-                </div>
-              )}
-
-            {/* Questions */}
-            {profile.questions && profile.questions.length > 0 && (
-              <div className="bg-default rounded-[24px] p-5 border-muted">
-                <h3 className="text-default font-semibold text-[16px] mb-4">
-                  Questions
-                </h3>
-                <div className="space-y-4">
-                  {profile.questions.map((q, idx) => (
-                    <div key={idx}>
-                      <p className="text-muted text-[14px] mb-1">
-                        {q.question}
-                      </p>
-                      <p className="text-default text-[15px]">{q.answer}</p>
-                    </div>
-                  ))}
-                </div>
-              </div>
-            )}
+       
+          <div className=" m-4">
+            <label className="text-default text-muted  my-16 mx-4 ">
+              My music
+            </label>
+            <p className="m-4">Spotify linked</p>
           </div>
-        ) : (
-          <div className="space-y-4">
-            {notes.length > 0 ? (
-              notes.map((note) => (
-                <NoteCard
-                  key={note.id}
-                  note={note}
-                  onLike={handleLike}
-                  onComment={handleComment}
-                  showComments={true}
-                />
-              ))
-            ) : (
-              <div className="bg-default rounded-[24px] p-8 border-muted text-center">
-                <p className="text-muted">No notes yet</p>
+     
+
+ 
+
+      {/* Videos */}
+
+        
+          <label className="text-default text-muted  my-16 mx-4 "> Videos</label>
+        
+        <div className="flex gap-2 flex-wrap">
+          {profile.videos.map((v, i) => (
+            <Tag
+              key={i}
+              className="px-8 py-2"
+              colorScheme="info"
+            >
+              <span className="">{v}</span>
+
+            </Tag>
+           
+          ))}
+        </div>
+       
+
+ 
+
+      {/* Past collaborations */}
+
+       <div className="flex items-center ">
+          <label className="text-default text-muted  my-16 mx-4 ">
+            Past collaborations
+          </label>
+   
+        </div>
+     
+  
+      {/* Questions */}
+
+        <div className="flex items-center justify-between">
+          <label className="text-default text-muted  my-16 mx-4 ">Questions</label>
+         
+        </div>
+        <div className="space-y-6">
+          {profile.questions.map((q, idx) => (
+            <div key={idx} className="p-6 bg-default ">
+              <div className="flex justify-between items-start">
+                <h3 className="text-default text-semi-bold ">
+                  {q.question || "Question"}
+                </h3>
               </div>
-            )}
-          </div>
-        )}
-      </div>
+              <p className=" mt-3 mb-4 ">{q.answer || ""}</p>
+       
+            </div>
+          ))}
+        </div>
+
+  
+  
+
+    
+    </div>
     </div>
   );
 }
