@@ -1,6 +1,6 @@
 "use client";
 
-import { UserOnboardingProvider } from "@/app/utils/userOnobardingContext";
+import { UserOnboardingProvider } from "@utils/userOnobardingContext";
 import { usePathname } from "next/navigation";
 import ProgressBar from "@/app/pages/onboarding/components/progress";
 
