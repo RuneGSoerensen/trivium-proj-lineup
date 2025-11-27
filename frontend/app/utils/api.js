@@ -11,7 +11,7 @@ const API_BASE_URL = "http://localhost:3001";
  * Create a new user (no authentication required)
  */
 export const createUser = async (userData) => {
-  const response = await fetch(`${API_BASE_URL}/user/create`, {
+  const response = await fetch(`${API_BASE_URL}/users/create`, {
     method: "POST",
     headers: {
       "Content-Type": "application/json",
