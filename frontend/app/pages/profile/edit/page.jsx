@@ -2,6 +2,7 @@
 
 import { useState, useEffect } from "react";
 import { useRouter } from "next/navigation";
+import { Tag } from "@/app/components/ui/Tag/Tag.jsx";
 import Image from "next/image";
 
 const HARD_ARTISTS = [
@@ -400,9 +401,11 @@ export default function EditProfilePage() {
           {/* Pills for already selected tags */}
           <div className="flex flex-wrap gap-2 mb-2">
             {formData.looking_for_tags.map((tag) => (
-              <span
+              <Tag
+                
                 key={tag}
-                className="px-3 py-1 rounded-full bg-blue-200 text-blue-800 flex items-center gap-1"
+                colorScheme="info"
+                className="px-8 py-2 flex items-center gap-1"
               >
                 {tag}
                 {showTagSelect && (
@@ -420,7 +423,7 @@ export default function EditProfilePage() {
                     ×
                   </button>
                 )}
-              </span>
+              </Tag>
             ))}
             <button
               onClick={() => setShowTagSelect((s) => !s)}
@@ -466,9 +469,11 @@ export default function EditProfilePage() {
 
           <div className="flex flex-wrap gap-2 ml-10">
             {formData.genres.map((g) => (
-              <span
+                <Tag
+                
                 key={g}
-                className="px-3 py-1 rounded-full bg-blue-200 text-blue-800 flex items-center gap-1"
+                colorScheme="info"
+                className="px-8 py-2 flex items-center gap-1"
               >
                 {g}
                 {showGenresEdit && (
@@ -484,7 +489,7 @@ export default function EditProfilePage() {
                     ×
                   </button>
                 )}
-              </span>
+              </Tag>
             ))}
 
             <button
@@ -746,37 +751,30 @@ export default function EditProfilePage() {
 
       {/* My music (spotify card) */}
       <div className="bg-default rounded-[24px] p-10 border-1 border-gray-300 mt-20 pb-20">
-        <div className="flex items-center justify-between">
-          <div>
+        <div className="flex flex-col ">
+          <p className="flex justify-end">Edit</p>
+          <div className="flex items-center gap-4">
             <label className="text-default font-semibold  my-16 mx-4 ">
               My music
             </label>
-            <p className="text-muted  mt-1">Spotify</p>
+            <p>Spotify linked</p>
           </div>
-          <div>
-            <a
-              href={formData.my_music}
-              target="_blank"
-              rel="noreferrer"
-              className="px-3 py-2 bg-brand-primary rounded-full text-default"
-            >
-              Open
-            </a>
-          </div>
+     
         </div>
       </div>
 
       {/* Videos */}
     <div className="bg-default rounded-[24px] p-10 border-1 border-gray-300 mt-20 pb-20">
-        <div className="flex items-center justify-between">
-          <label className="text-default font-semibold  my-16 mx-4 "> Videos</label>
-          <button
+             <button
             className="text-muted "
             onClick={() => alert("add video - later")}
           >
             Edit
           </button>
-        </div>
+      <div className="flex items-center justify-between">
+        
+          <label className="text-default font-semibold  my-16 mx-4 "> Videos</label>
+        
         <div className="flex gap-2 flex-wrap">
           {formData.videos.map((v, i) => (
             <div
@@ -795,8 +793,10 @@ export default function EditProfilePage() {
                 ×
               </button>
             </div>
+           
           ))}
         </div>
+         </div>
       </div>
 
       {/* Past collaborations */}

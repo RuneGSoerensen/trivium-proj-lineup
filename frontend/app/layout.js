@@ -1,5 +1,5 @@
 import Navigation from "./components/navigation/navigation.jsx";
-import FlyonuiScript from "./components/FlyonuiScript";
+import FlyonuiScript from "./components/FlyonuiScript.jsx";
 import "./globals.css";
 import Image from "next/image.js";
 
@@ -12,7 +12,7 @@ export default function RootLayout({ children }) {
   return (
     <html lang="en" data-theme="lineup-light">
       <FlyonuiScript />
-      <body className="trvm-page mockup-phone min-h-screen">
+      <body className="trvm-page min-h-screen">
         <header className="w-full flex flex-col">
           {/* Logo as temporary header*/}
           <div className="w-full flex justify-center py-2">
@@ -24,10 +24,9 @@ export default function RootLayout({ children }) {
             />
           </div>
 
-
           {/* <Navbar /> */}
         </header>
-          {children}
+        {children}
         <footer className="w-full flex justify-center py-4">
           {/* <Navigation /> */}
         </footer>
