@@ -3,7 +3,7 @@
      CHIPS
   -------------------------------- */
   .trvm-tag {
-    @apply inline-flex items-center gap-2 px-18 py-10 rounded-chip
+    @apply inline-flex items-center gap-2 px-18 py-6 rounded-chip
                bg-muted text-default text-body font-normal font-ui;
   }
 
