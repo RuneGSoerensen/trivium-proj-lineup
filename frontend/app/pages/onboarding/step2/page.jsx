@@ -1,19 +1,25 @@
 "use client";
 
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { useOnboarding } from "@/app/utils/userOnobardingContext";
 import { useRouter } from "next/navigation";
-
 import Link from "next/link";
 import { Button } from "@ui/Button/Button";
 
 export default function Step2() {
   const router = useRouter();
-  const { userData, updateUser } = useOnboarding();
+  const { canAccessStep, advanceStep, userData, updateUser } = useOnboarding();
   const [emailTouched, setEmailTouched] = useState(false);
   const [emailError, setEmailError] = useState("");
   const [confirmTouched, setConfirmTouched] = useState(false);
   const [passwordMatchError, setPasswordMatchError] = useState("");
+  const stepNumber = 2;
+
+  useEffect(() => {
+    if (!canAccessStep(stepNumber)) {
+      router.push("/pages/onboarding/step1");
+    }
+  }, [canAccessStep, stepNumber, router]);
 
   // Local useState for form Inputs
   const [formData, setFormData] = useState({
@@ -37,6 +43,7 @@ export default function Step2() {
       password: formData.password,
       confirmPassword: formData.confirmPassword,
     });
+    advanceStep();
     router.push("/pages/onboarding/step3");
   };
 

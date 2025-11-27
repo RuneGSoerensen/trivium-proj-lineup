@@ -2,7 +2,7 @@
 
 import { UserOnboardingProvider } from "@utils/userOnobardingContext";
 import { usePathname } from "next/navigation";
-import ProgressBar from "@pages/onboarding/components/progress";
+import ProgressBar from "@/app/pages/onboarding/components/progress";
 
 export default function OnboardingLayout({ children }) {
   const pathname = usePathname() || "";
