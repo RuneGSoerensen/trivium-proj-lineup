@@ -4,6 +4,7 @@ import { useState, useEffect } from "react";
 import { useRouter } from "next/navigation";
 import { Tag } from "@/app/components/ui/Tag/Tag.jsx";
 import Image from "next/image";
+import {Button} from "@/app/components/ui/Button/Button.jsx";
 
 const HARD_ARTISTS = [
   "https://images.unsplash.com/photo-1544005313-94ddf0286df2?w=200&q=80",
@@ -752,7 +753,7 @@ export default function EditProfilePage() {
       {/* My music (spotify card) */}
       <div className="bg-default rounded-[24px] p-10 border-1 border-gray-300 mt-20 pb-20">
         <div className="flex flex-col ">
-          <p className="flex justify-end">Edit</p>
+          <p className="flex justify-end text-muted">Edit</p>
           <div className="flex items-center gap-4">
             <label className="text-default font-semibold  my-16 mx-4 ">
               My music
@@ -764,22 +765,23 @@ export default function EditProfilePage() {
       </div>
 
       {/* Videos */}
-    <div className="bg-default rounded-[24px] p-10 border-1 border-gray-300 mt-20 pb-20">
-             <button
-            className="text-muted "
+    <div className="bg-default rounded-[24px] p-10 border-1 border-gray-300 mt-20 pb-20 flex flex-col">
+                      <button
+            className="text-muted self-end"
             onClick={() => alert("add video - later")}
           >
             Edit
           </button>
-      <div className="flex items-center justify-between">
+      <div className="flex items-center gap-4">
         
           <label className="text-default font-semibold  my-16 mx-4 "> Videos</label>
         
         <div className="flex gap-2 flex-wrap">
           {formData.videos.map((v, i) => (
-            <div
+            <Tag
               key={i}
-              className="px-3 py-1 rounded-full bg-alt border border-muted flex items-center gap-2"
+              className="px-8 py-2"
+              colorScheme="info"
             >
               <span className="">{v}</span>
               <button
@@ -792,85 +794,66 @@ export default function EditProfilePage() {
               >
                 ×
               </button>
-            </div>
+            </Tag>
            
           ))}
         </div>
          </div>
+
       </div>
 
       {/* Past collaborations */}
-    <div className="bg-default rounded-[24px] p-10 border-1 border-gray-300 mt-20 pb-20">
-        <div className="flex items-center justify-between">
-          <label className="text-default font-semibold  my-16 mx-4 ">
-            Past collaborations
-          </label>
-          <button
-            className="text-muted "
+    <div className="bg-default rounded-[24px] p-10 border-1 border-gray-300 mt-20 pb-20 flex flex-col ">
+              <button
+            className="text-muted self-end "
             onClick={() => alert("edit past collabs - later")}
           >
             Edit
           </button>
+       <div className="flex items-center ">
+          <label className="text-default font-semibold  my-16 mx-4 ">
+            Past collaborations
+          </label>
+   
         </div>
-        <div className="flex gap-2 flex-wrap">
-          {formData.past_collaborations.map((p, i) => (
-            <div
-              key={i}
-              className="px-3 py-1 rounded-full bg-alt border border-muted"
-            >
-              {p}
+     
+      </div>
+      {/* Questions */}
+      <div className="bg-default rounded-[24px] p-10 border-1 border-gray-300 mt-20 pb-20 flex flex-col">
+        <div className="flex items-center justify-between">
+          <label className="text-default font-semibold  my-16 mx-4 ">Questions</label>
+         
+        </div>
+        <div className="space-y-6">
+          {formData.questions.map((q, idx) => (
+            <div key={idx} className="p-6 bg-default ">
+              <div className="flex justify-between items-start">
+                <h3 className="text-default font-semibold ">
+                  {q.question || "Question"}
+                </h3>
+              </div>
+              <p className="text-default mt-3 mb-4 leading-relaxed">{q.answer || ""}</p>
+              <hr className="border-gray-200" />
             </div>
           ))}
         </div>
-      </div>
-      {/* Questions */}
-      <div className="bg-default rounded-[24px] p-10 border-1 border-gray-300 mt-20 pb-20">
-        <div className="flex items-center justify-between">
-          <label className="text-default font-semibold  my-16 mx-4 ">Questions</label>
-          <button
+         <button
+         
             onClick={addQuestion}
-            className="text-brand-primary font-semibold text-[14px]"
+            className="text-brand-primary p-16 self-center"
           >
             + Add Question
           </button>
-        </div>
-        <div className="space-y-4">
-          {formData.questions.map((q, idx) => (
-            <div key={idx} className="space-y-2 p-4 bg-muted/50 rounded-[16px]">
-              <input
-                type="text"
-                placeholder="Question"
-                value={q.question}
-                onChange={(e) =>
-                  updateQuestion(idx, "question", e.target.value)
-                }
-                className="w-full px-4 py-2 rounded-[12px] bg-default border-none text-[14px] text-default placeholder:text-muted/60 focus:outline-none focus:ring-2 focus:ring-brand-primary"
-              />
-              <input
-                type="text"
-                placeholder="Answer"
-                value={q.answer}
-                onChange={(e) => updateQuestion(idx, "answer", e.target.value)}
-                className="w-full px-4 py-2 rounded-[12px] bg-default border-none text-[14px] text-default placeholder:text-muted/60 focus:outline-none focus:ring-2 focus:ring-brand-primary"
-              />
-              <button
-                onClick={() => removeQuestion(idx)}
-                className="text-red-500  font-semibold"
-              >
-                Remove
-              </button>
-            </div>
-          ))}
-        </div>
       </div>
-      <div className="flex justify-end">
-        <button
+      <div className="flex justify-center p-16">
+        <Button
           onClick={handleSave}
           disabled={saving}
-          className="px-6 py-3 rounded-[12px] bg-brand-primary text-default font-semibold text-[15px] disabled:opacity-50"
+          className=""
         >
           {saving ? "Saving..." : "Save"}
-        </button>
+        </Button>
+
       </div>
     </div>
   );
