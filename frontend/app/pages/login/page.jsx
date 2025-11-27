@@ -2,7 +2,7 @@
 
 import { useState } from "react";
 import { useRouter } from "next/navigation";
-import { signInWithPassword } from "@/app/utils/supabaseClient";
+import { signInWithPassword } from "@utils/supabaseClient";
 
 export default function LoginPage() {
   const router = useRouter();

@@ -329,7 +329,7 @@ main {
   align-items: center;
   flex-direction: column;
   display:inline-flex;
-  padding:32px;
+  padding:24px;
 }
 
 html,
