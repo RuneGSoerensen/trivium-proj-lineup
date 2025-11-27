@@ -5,6 +5,8 @@ import { createContext, useContext, useState } from "react";
 const UserOnboardingContext = createContext();
 // Implement current step tracking and user data management
 export function UserOnboardingProvider({ children }) {
+  const [currentStep, setCurrentStep] = useState(1);
+  const [maxStepReached, setMaxStepReached] = useState(1);
   const [userData, setUserData] = useState({
     id: "",
     name: "",
@@ -42,9 +44,37 @@ export function UserOnboardingProvider({ children }) {
     });
   };
 
+  const goToStep = (step) => {
+    if (step <= maxStepReached) {
+      setCurrentStep(step);
+      return true;
+    }
+    return false;
+  };
+
+  const advanceStep = () => {
+    const nextStep = currentStep + 1;
+    setCurrentStep(nextStep);
+    setMaxStepReached(Math.max(maxStepReached, nextStep));
+  };
+
+  const canAccessStep = (step) => {
+    return step <= maxStepReached;
+  };
+
   return (
     <UserOnboardingContext.Provider
-      value={{ userData, updateUser, selectLookingFor }}
+      value={{
+        currentStep,
+        setCurrentStep,
+        userData,
+        updateUser,
+        selectLookingFor,
+        goToStep,
+        advanceStep,
+        canAccessStep,
+        maxStepReached,
+      }}
     >
       {children}
     </UserOnboardingContext.Provider>

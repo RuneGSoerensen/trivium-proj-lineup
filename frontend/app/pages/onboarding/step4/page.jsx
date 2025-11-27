@@ -1,14 +1,19 @@
 "use client";
 
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { useOnboarding } from "@/app/utils/userOnobardingContext";
 import { useRouter } from "next/navigation";
 import { Button } from "@/app/components/ui/Button/Button";
 
 export default function Step4() {
   const router = useRouter();
-  const { userData, updateUser } = useOnboarding();
-
+  const { canAccessStep, advanceStep, userData, updateUser } = useOnboarding();
+  const stepNumber = 4;
+  useEffect(() => {
+    if (!canAccessStep(stepNumber)) {
+      router.push("/pages/onboarding/step1");
+    }
+  }, [canAccessStep, stepNumber, router]);
   // Local useState for form Inputs
   const [formData, setFormData] = useState({
     name: userData.name || "",
@@ -26,6 +31,7 @@ export default function Step4() {
       city: formData.city,
       business_name: formData.business_name,
     });
+    advanceStep();
     router.push("/pages/onboarding/step5");
   };
   return (
