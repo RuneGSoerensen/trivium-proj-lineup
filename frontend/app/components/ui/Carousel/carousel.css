@@ -10,7 +10,7 @@
     @apply h-full flex transition-transform duration-300 ease-in-out;
   }
   .carousel-slide {
-    @apply flex-shrink-0 w-full h-full bg-accent-aquamarine;
+    @apply flex-shrink-0 w-full h-full ;
   }
 
   .carousel-btn {

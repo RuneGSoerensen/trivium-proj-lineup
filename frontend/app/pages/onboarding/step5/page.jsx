@@ -1,9 +1,9 @@
 "use client";
 
-import React, { useState, useEffect } from "react";
+import React, { useState } from "react";
 import { useOnboarding } from "@/app/utils/userOnobardingContext";
 import { useRouter } from "next/navigation";
-import { Button } from "@/app/components/ui/Button/Button";
+import { Button } from "@/app/components/ui/Button";
 
 export default function LookingForOptions() {
   const router = useRouter();

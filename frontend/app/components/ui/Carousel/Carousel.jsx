@@ -18,7 +18,10 @@ function Carousel({ slides = [], heightClass = "h-80", className, slideClassName
     if (!slides.length) return null;
 
     const handleClick = (direction) => {
-        direction === 'next' ? console.log('Next slide') : console.log('Previous slide');
+        slides.length > 1 && direction === 'next' && document.querySelector('[data-carousel] .carousel').dispatchEvent(new CustomEvent('carousel.next'));
+        slides.length > 1 && direction === 'prev' && document.querySelector('[data-carousel] .carousel').dispatchEvent(new CustomEvent('carousel.prev'));
+
+        return;
     };
 
     return (

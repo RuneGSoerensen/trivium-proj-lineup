@@ -1,10 +1,10 @@
 'use client';
 
-import { Button, IconButton } from "@/app/components/ui/Button/Button";
-import { ServiceCard } from "@/app/components/ui/Card/Card";
-import Input from "@/app/components/ui/Input/Input";
-import { TabItem, TabsList } from "@/app/components/ui/Tab/Tab";
-import { Tag } from "@/app/components/ui/Tag/Tag";
+import {Button} from "@ui/Button/Button";
+import { ServiceCard } from "@ui/Card/Card";
+import Input from "@ui/Input/Input";
+import { TabItem, TabsList } from "@ui/Tab/Tab";
+import { Tag } from "@ui/Tag/Tag";
 import Image from "next/image";
 import { Angry, ArrowLeftCircle, Apple, MoreVertical, MoonIcon, ChevronDownIcon } from "lucide-react";
 import React from "react";
@@ -24,7 +24,7 @@ export default function TestPage() {
             <Button leftIcon={<Apple fill="inherit" />} variant="secondary" onClick={() => alert("Clicked!")}>
                 Secondary
             </Button>
-            <Button size="sm" variant="primary">Glass Button</Button>
+            <Button size="sm" variant="glass">Glass Button</Button>
 
             <Button
                 type="dropdown"
