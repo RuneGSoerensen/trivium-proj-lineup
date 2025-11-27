@@ -5,7 +5,7 @@ import { useOnboarding } from "@/app/utils/userOnobardingContext";
 import { useRouter } from "next/navigation";
 
 import Link from "next/link";
-import { Button } from "@/app/components/ui/Button/Button";
+import { Button } from "@ui/Button/Button";
 
 export default function Step2() {
   const router = useRouter();
