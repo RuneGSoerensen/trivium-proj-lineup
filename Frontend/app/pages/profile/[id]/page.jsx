@@ -200,7 +200,7 @@ export default function ProfilePage() {
           {/* Action Buttons */}
           {profile.is_own_profile ? (
             <button
-              onClick={() => router.push("/profile/edit")}
+              onClick={() => router.push("/pages/profile/edit")}
               className="w-full max-w-[200px] px-6 py-3 rounded-[16px] bg-default/20 backdrop-blur-sm text-inverse font-semibold text-[15px] border border-white/30"
             >
               Edit Profile

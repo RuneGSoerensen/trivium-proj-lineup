@@ -60,7 +60,7 @@ export const getUser = async (req, res) => {
     u.image_url,
 
     (SELECT jsonb_agg(jsonb_build_object(
-        'spotify', s.spotify,
+        'facebook', s.facebook,
         'instagram', s.instagram,
         'x', s.x,
         'youtube', s.youtube,
@@ -122,14 +122,14 @@ export const updateUser = async (req, res) => {
     // socials (upsert)
     if (socials) {
       await sql`
-        INSERT INTO socials (user_id, instagram, x, tiktok, spotify, youtube)
-        VALUES (${id}, ${socials.instagram}, ${socials.x}, ${socials.tiktok}, ${socials.spotify}, ${socials.youtube})
+        INSERT INTO socials (user_id, instagram, x, tiktok, facebook, youtube)
+        VALUES (${id}, ${socials.instagram}, ${socials.x}, ${socials.tiktok}, ${socials.facebook}, ${socials.youtube})
         ON CONFLICT (user_id)
         DO UPDATE SET
           instagram = ${socials.instagram},
           x = ${socials.x},
           tiktok = ${socials.tiktok},
-          spotify = ${socials.spotify},
+          facebook = ${socials.facebook},
           youtube = ${socials.youtube};
       `;
     }

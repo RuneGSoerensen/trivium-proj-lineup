@@ -235,7 +235,7 @@ export default function EditProfilePage() {
 
       if (!res.ok) throw new Error("Failed to save profile");
 
-      router.push(`/profile/${userId}`);
+      router.push(`/pages/profile/${userId}`);
     } catch (error) {
       console.error("Error saving profile:", error);
       alert("Failed to save profile");
@@ -549,14 +549,14 @@ export default function EditProfilePage() {
       </div>
 
       {/* Social Links */}
-      <div className="bg-default rounded-[24px] p-10 border-1 border-gray-300 mt-20">
+      <div className="bg-default rounded-[24px] p-10 border-1 border-gray-300 mt-20 pb-20">
         <div className="flex items-center justify-between">
           <label className="text-default font-semibold  my-16 mx-4  ">
             Social Media
           </label>
           <button
             onClick={() => setShowSocialEdit((s) => !s)}
-            className="text-muted text-[13px]"
+            className="text-muted "
           >
             {showSocialEdit ? "Done" : "Edit"}
           </button>
@@ -701,9 +701,9 @@ export default function EditProfilePage() {
         )}
       </div>
       {/* Artists I like */}
-      <div className="bg-default rounded-[24px] p-4 border border-muted mb-4">
+      <div className="bg-default rounded-[24px] p-10 border-1 border-gray-300 mt-20 pb-20">
         <div className="flex items-center justify-between mb-3">
-          <label className="text-subtitle font-semibold">Artists I like</label>
+          <label className="text-default font-semibold  my-16 mx-4 ">Artists I like</label>
           <button
             className="text-muted "
             onClick={() => alert("edit artists - later")}
@@ -745,10 +745,10 @@ export default function EditProfilePage() {
       </div>
 
       {/* My music (spotify card) */}
-      <div className="bg-default rounded-[24px] p-4 border border-muted mb-4">
+      <div className="bg-default rounded-[24px] p-10 border-1 border-gray-300 mt-20 pb-20">
         <div className="flex items-center justify-between">
           <div>
-            <label className="text-subtitle block font-semibold">
+            <label className="text-default font-semibold  my-16 mx-4 ">
               My music
             </label>
             <p className="text-muted  mt-1">Spotify</p>
@@ -767,9 +767,9 @@ export default function EditProfilePage() {
       </div>
 
       {/* Videos */}
-      <div className="bg-default rounded-[24px] p-4 border border-muted mb-4">
-        <div className="flex items-center justify-between mb-3">
-          <label className="text-subtitle font-semibold">Videos</label>
+    <div className="bg-default rounded-[24px] p-10 border-1 border-gray-300 mt-20 pb-20">
+        <div className="flex items-center justify-between">
+          <label className="text-default font-semibold  my-16 mx-4 "> Videos</label>
           <button
             className="text-muted "
             onClick={() => alert("add video - later")}
@@ -800,9 +800,9 @@ export default function EditProfilePage() {
       </div>
 
       {/* Past collaborations */}
-      <div className="bg-default rounded-[24px] p-4 border border-muted mb-4">
-        <div className="flex items-center justify-between mb-3">
-          <label className="text-subtitle font-semibold">
+    <div className="bg-default rounded-[24px] p-10 border-1 border-gray-300 mt-20 pb-20">
+        <div className="flex items-center justify-between">
+          <label className="text-default font-semibold  my-16 mx-4 ">
             Past collaborations
           </label>
           <button
@@ -824,9 +824,9 @@ export default function EditProfilePage() {
         </div>
       </div>
       {/* Questions */}
-      <div className="bg-default rounded-[24px] p-5 border-muted">
-        <div className="flex items-center justify-between mb-3">
-          <label className="text-default font-semibold ">Questions</label>
+      <div className="bg-default rounded-[24px] p-10 border-1 border-gray-300 mt-20 pb-20">
+        <div className="flex items-center justify-between">
+          <label className="text-default font-semibold  my-16 mx-4 ">Questions</label>
           <button
             onClick={addQuestion}
             className="text-brand-primary font-semibold text-[14px]"
