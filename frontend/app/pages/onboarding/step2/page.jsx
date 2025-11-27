@@ -1,7 +1,7 @@
 "use client";
 
 import React, { useState, useEffect } from "react";
-import { useOnboarding } from "@/app/utils/userOnobardingContext";
+import { useOnboarding } from "@utils/userOnobardingContext";
 import { useRouter } from "next/navigation";
 import Link from "next/link";
 import { Button } from "@ui/Button/Button";

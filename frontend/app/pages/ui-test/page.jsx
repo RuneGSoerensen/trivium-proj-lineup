@@ -3,7 +3,7 @@
 import {Button} from "@ui/Button/Button";
 import { ServiceCard } from "@ui/Card/Card";
 import Input from "@ui/Input/Input";
-import { TabItem, TabsList } from "@ui/Tab/Tab";
+import { TabContent, TabContentList, TabItem, Tabs, TabsList } from "@ui/Tab/Tab";
 import { Tag } from "@ui/Tag/Tag";
 import Image from "next/image";
 import { Angry, ArrowLeftCircle, Apple, MoreVertical, MoonIcon, ChevronDownIcon } from "lucide-react";
@@ -42,11 +42,24 @@ export default function TestPage() {
             <Tag checkable={true} onCheckableChange={(checked) => console.log("Tag checked:", checked)} className="mr-2">Checkable tag</Tag>
             <Tag>Tag</Tag>
 
-            <TabsList>
-                <TabItem>Overview</TabItem>
-                <TabItem>Details</TabItem>
-                <TabItem>Settings</TabItem>
-            </TabsList>
+            <Tabs>
+                <TabsList>
+                    <TabItem>Overview</TabItem>
+                    <TabItem>Details</TabItem>
+                    <TabItem>Settings</TabItem>
+                </TabsList>
+                <TabContentList className="mt-4">
+                    <TabContent>
+                        <p>Overview content goes here.</p>
+                    </TabContent>
+                    <TabContent>
+                        <p>Details content goes here.</p>
+                    </TabContent>
+                    <TabContent>
+                        <p>Settings content goes here.</p>
+                    </TabContent>
+                </TabContentList>
+            </Tabs>
 
             <Input placeholder="Enter your name" label="Name" />
 
