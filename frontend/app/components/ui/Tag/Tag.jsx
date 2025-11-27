@@ -18,6 +18,21 @@ const variantClass = (variant) => {
   }
 };
 
+const colorSchemeClass = (colorScheme) => {
+  switch (colorScheme) {
+    case "info":
+      return "info-style";
+    case "red":
+      return "error-style";
+    case "green":
+      return "success-style";
+    case "yellow":
+      return "warning-style";
+    default:
+      return "background-color: var(--color-secondary); color: var(--color-secondary-content);";
+  }
+};
+
 const Tag = ({
   icon,
   variant = "default",
@@ -29,6 +44,7 @@ const Tag = ({
   onCheckChange,
   onCheckableChange,
   checkboxProps = {},
+  colorScheme = "default",
   ...rest
 }) => {
   const generatedCheckboxId = useId();
@@ -71,9 +87,10 @@ const Tag = ({
     <TagElement
       className={clsx(
         "trvm-tag",
-        variantClass(variant),
+        variantClass(variant) ,
         checkable && "tag--checkable group",
-        className
+        className,
+        colorSchemeClass(colorScheme)
       )}
       htmlFor={checkable ? checkboxId : undefined}
       {...rest}
