@@ -109,3 +109,38 @@ export const likeComment = async (req, res) => {
     res.status(500).json({ error: "Failed to toggle comment like" });
   }
 };
+
+export async function createNote(req, res) {
+  // Hardcoded to Morten. because yes.
+  const userId = "e63c9c36-2142-4a61-a152-118931631893";
+
+  const {
+    title,
+    content,
+    image_url,
+    people_user_ids,
+    tags,
+  } = req.body;
+
+  const [{ id: newNoteId }] = await sql`
+     INSERT INTO notes
+     (
+       user_id,
+       title,
+       content,
+       image_url
+     )
+       VALUES
+       (
+         ${userId},
+         ${title},
+         ${content},
+         ${image_url}
+       )
+       RETURNING notes.id;
+   `;
+
+  console.log(`got new note ID: ${newNoteId}`);
+
+  res.sendStatus(201);
+}
