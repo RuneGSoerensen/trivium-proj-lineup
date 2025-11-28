@@ -1,17 +1,18 @@
 import express from "express";
 import cors from "cors";
-import usersRouter from "./routes/user.js";
-import connectionsRouter from "./routes/connections.js";
-import notesRouter from "./routes/notes.js";
-import lookingForTagsRouter from "./routes/looking_for.js";
+import usersRouter from "./modules/user/router.js";
+import connectionsRouter from "./modules/connections/router.js";
+import notesRouter from "./modules/notes/router.js";
+import lookingForTagsRouter from "./modules/looking_for/router.js";
 import { requireAuth } from "./middelware/auth.js";
-import genreRouter from "./routes/genres.js";
+import genreRouter from "./modules/genres/router.js";
+import chatRouter from "./modules/chat/router.js";
 const app = express();
-const PORT = process.env.PORT || 3000;
+const PORT = process.env.PORT || 3300;
 // Before production this needs to be changed to a valid url, or something more secure.
 app.use(
   cors({
-    origin: ["http://localhost:3000", "http://localhost:3001"], // Adjust this to your frontend's origin
+    origin: ["http://localhost:3000", "http://localhost:3300"], // Adjust this to your frontend's origin
     methods: ["GET", "POST", "PUT", "DELETE", "PATCH"],
     allowedHeaders: ["Content-Type", "Authorization"],
   })
@@ -28,6 +29,7 @@ app.get("/", (req, res) => {
 });
 app.use("/genres", genreRouter);
 app.use("/looking_for_tags", lookingForTagsRouter);
+app.use("/chat", requireAuth, chatRouter);
 
 app.listen(PORT, () => {
   console.log(`Server running on port ${PORT}`);

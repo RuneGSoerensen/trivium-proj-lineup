@@ -14,6 +14,8 @@ const variantClass = (variant) => {
             return "input--default";
         case "error":
             return "input--error";
+        case "success":
+            return "input--success";
         default:
             return "trvm-input";
     };
@@ -39,7 +41,7 @@ const Input = ({ variant, value, onChange = () => { }, placeholder, type = "text
                 {...rest}
             />
             {hasMessage && (
-                <p id={`${inputId}-error`} className="text-error text-xs">{message}</p>
+                <p id={`${inputId}-error`} className="color-error text-sm">{message}</p>
             )}
         </div>
     );
@@ -58,7 +60,7 @@ Input.propTypes = {
     type: PropTypes.string,
     /** Additional class names */
     className: PropTypes.string,
-    variant: PropTypes.oneOf(['active', 'disabled', 'default']),
+    variant: PropTypes.oneOf(['active', 'disabled', 'default', 'error', 'success']),
     /** Whether to show an inline message */
     hasMessage: PropTypes.bool,
     /** Inline message text */

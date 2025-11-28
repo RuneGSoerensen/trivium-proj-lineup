@@ -4,6 +4,7 @@
 @import "./styles/responsive.css";
 
 @plugin "flyonui";
+
 @plugin "flyonui/theme" {
   name: "lineup-light";
   default: false;
@@ -36,6 +37,7 @@
   --color-error: #800000;
   --color-error-content: #f7f6f6;
 }
+
 @plugin "flyonui/theme" {
   name: "lineup-dark";
   default: false;
@@ -59,7 +61,7 @@
   --color-accent: #57a38a;
   --color-accent-content: #121212;
 
-  /* Neutral / text-muted colors */
+  /* Neutral / color-muted colors */
   --color-neutral: #a0a0a0;
   --color-neutral-content: #121212;
 
@@ -82,11 +84,11 @@
   --text-h1: 1.5rem; /* 24px */
   --text-h2: 1.25rem; /* 20px */
   --text-h3: 1.125rem; /* 18px */
-  --text-subtitle: 1rem; /* 16px */
-  --text-body: clamp(1rem, 2vw + 0.5rem, 1.3rem); /* 16px - 24px */
+  --text-subtitle: 0.875rem; /* 14px */
+  /* --text-body: clamp(1rem, 2vw + 0.5rem, 1.3rem); 16px - 24px */
   --text-body-lg: 1.25rem; /* 20px */
   --text-body-sm: 0.875rem; /* 14px */
-  --text-body-md: 1rem; /* 16px */
+  --text-body: 1rem; /* 16px */
 
   /* COLOR PALETTE */
   --color-primary-hover: rgba(232, 190, 105, 0.7);
@@ -137,31 +139,34 @@
 
 /* Short semantic utilities */
 /* Text color semantic utilities */
-@utility text-default {
+@utility color-default {
   color: var(--color-base-default);
 }
-@utility text-inverse {
+@utility color-inverse {
   color: var(--color-base-100);
 }
-@utility text-muted {
+@utility color-muted {
   color: --alpha(var(--color-base-content) / 20%);
 }
-@utility text-subtle {
+@utility color-subtle {
   color: var(--color-base-300);
 }
-@utility text-brand {
+@utility color-brand {
   color: var(--color-primary);
 }
-@utility text-error {
+@utility color-on-secondary {
+  color: var(--color-secondary-content);
+}
+@utility color-error {
   color: var(--color-error);
 }
-@utility text-success {
+@utility color-success {
   color: var(--color-success);
 }
-@utility text-warning {
+@utility color-warning {
   color: var(--color-warning);
 }
-@utility text-info {
+@utility color-info {
   color: var(--color-info);
 }
 @utility font-ui {
@@ -227,6 +232,9 @@
 @utility bg-brand-primary {
   background-color: var(--color-primary);
 }
+@utility bg-brand-secondary {
+  background-color: var(--color-secondary);
+}
 @utility bg-brand-primary-hover {
   background-color: var(--color-primary-hover);
 }
@@ -240,6 +248,14 @@
   background-color: var(--color-secondary-blue);
 }
 
+@utility primary-style {
+  background-color: var(--color-primary);
+  color: var(--color-primary-content);
+}
+@utility secondary-style {
+  background-color: var(--color-secondary);
+  color: var(--color-secondary-content);
+}
 @utility error-style {
   background-color: var(--color-error);
   color: var(--color-error-content);
@@ -254,15 +270,18 @@
 }
 @utility warning-style {
   background-color: var(--color-warning);
-  color: var(--color-warning-content);  
+  color: var(--color-warning-content);
 }
 
 /* Border semantic utilities */
 @utility border-brand {
   border: 1.5px solid var(--color-primary);
 }
-@utility border-muted{
+@utility border-muted {
   border: 1.5px solid --alpha(var(--color-base-content) / 20%);
+}
+@utility border-subtle {
+  border: 1.5px solid --alpha(var(--color-base-content) / 40%);
 }
 @utility ring-brand {
   box-shadow: 0 0 0 2px var(--color-primary);
@@ -304,14 +323,12 @@
 @utility input-color {
   background-color: var(--color-base-200);
   color: var(--color-base-content);
-  border: 1px solid
-    --alpha(var(--color-base-content) / 50%);
+  border: 1px solid --alpha(var(--color-base-content) / 50%);
 }
 
 @utility input-checkbox {
   background-color: var(--color-primary);
-  border: 1px solid
-    --alpha(var(--color-base-content) / 50%);
+  border: 1px solid --alpha(var(--color-base-content) / 50%);
 }
 
 :root {
@@ -327,21 +344,19 @@
 } */
 
 /*Styles for page layout*/
-  .trvm-page {
-    @apply grid grid-flow-row grid-cols-1 space-y-4 h-full w-full gap-8 p-24 bg-default;
-  }
-
-
-main {
-  background: var(--background);
+main.app-main {
+  background-color: var(--background);
   color: var(--foreground);
   transition: all 300ms ease-in-out;
-  overflow-x: hidden;
-  overflow-y:auto;
+  overflow: hidden auto;
   align-items: center;
   flex-direction: column;
-  display:flex;
-  padding:24px;
+  display: flex;
+  padding: 18px 24px;
+}
+
+main.app-main:has(> section.paddingNone) {
+  padding: 0;
 }
 
 html,

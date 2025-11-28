@@ -21,7 +21,7 @@ export function ServiceCard({
   return (
     <article
       className={clsx(
-        "card trvm-card sm:max-w-sm bg-default text-default border border-muted shadow-sm",
+        "card trvm-card sm:max-w-sm bg-default color-default border border-muted shadow-sm",
         clickable && "cursor-pointer",
         className
       )}
@@ -46,19 +46,19 @@ export function ServiceCard({
 
             <div className="flex flex-col leading-tight">
               {authorName && (
-                <span className="text-[13px] font-semibold text-default">
+                <span className="text-[13px] font-semibold color-default">
                   {authorName}
                 </span>
               )}
               {tag && (
-                <span className="text-[12px] text-muted">{tag}</span>
+                <span className="text-[12px] color-muted">{tag}</span>
               )}
             </div>
           </div>
 
           {onBookmarkClick && (
-            <Button 
-              className="btn btn-circle btn-ghost btn-xs bg-inverse text-inverse"
+            <Button
+              className="btn btn-circle btn-ghost btn-xs bg-inverse color-inverse"
               onClick={(e) => {
                 e.stopPropagation();
                 onBookmarkClick();
@@ -72,7 +72,7 @@ export function ServiceCard({
 
         {/* Title */}
         {title && (
-          <h3 className="text-h3 font-semibold text-default">
+          <h3 className="text-h3 font-semibold color-default">
             {title}
           </h3>
         )}
@@ -91,7 +91,7 @@ export function ServiceCard({
 
         {/* Description */}
         {description && (
-          <p className="text-[13px] leading-snug text-muted">
+          <p className="text-[13px] leading-snug color-muted">
             {description}
           </p>
         )}
@@ -99,7 +99,7 @@ export function ServiceCard({
         {/* Footer */}
         <footer className="flex items-center justify-between pt-1">
           <Button
-            widthClass="fit"
+            className="w-fit"
             size="sm"
             variant="primary"
             onClick={(e) => {
@@ -112,7 +112,7 @@ export function ServiceCard({
           </Button>
 
           {(location || timeAgo) && (
-            <span className="text-[12px] text-subtle">
+            <span className="text-[12px] color-subtle">
               {location && <span>{location}</span>}
               {location && timeAgo && <span className="mx-1">·</span>}
               {timeAgo && <span>{timeAgo}</span>}

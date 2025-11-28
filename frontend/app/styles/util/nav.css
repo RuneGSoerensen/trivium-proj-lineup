@@ -5,12 +5,12 @@
   -------------------------------- */
   .nav-item {
     @apply flex items-center gap-6 text-body font-semibold
-           text-muted px-10 py-6
-           hover:text-default;
+           color-muted px-10 py-6
+           hover:color-default;
   }
 
   .nav-item-active {
-    @apply text-default underline decoration-brand-primary underline-offset-4;
+    @apply color-default underline decoration-brand-primary underline-offset-4;
   }
 
   /* Bottom navigation Link Gradient Border */

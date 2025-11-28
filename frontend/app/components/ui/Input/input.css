@@ -4,11 +4,11 @@
   -------------------------------- */
 
   .trvm-input {
-    @apply input w-full h-full bg-default text-default border-muted rounded-lg px-12 py-14 placeholder:text-muted focus:ring-1 focus:ring-brand transition-all duration-100;
+    @apply input w-full h-full bg-default color-default border-muted rounded-lg px-12 py-14 placeholder:color-muted focus:ring-1 focus:ring-brand transition-all duration-100;
   }
 
   .input--error {
-    @apply border-error ring-error text-error;
+    @apply border-error ring-error color-error;
   }
 
   .input--icon {
@@ -16,7 +16,7 @@
   }
 
   .input--disabled {
-    @apply bg-muted text-muted cursor-not-allowed pointer-events-none;
+    @apply bg-muted color-muted cursor-not-allowed pointer-events-none;
   }
 
 }

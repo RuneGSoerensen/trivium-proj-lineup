@@ -37,3 +37,4 @@ export const signOut = async () => {
   clearAuthData();
   return { error };
 };
+

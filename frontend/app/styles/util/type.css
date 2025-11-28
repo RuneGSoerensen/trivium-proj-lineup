@@ -1,22 +1,22 @@
 @layer components {
   .heading-1 {
-    @apply text-h1 font-semibold text-default font-ui leading-snug;
+    @apply text-h1 font-semibold color-default font-ui leading-snug;
   }
   .heading-2 {
-    @apply text-h2 font-semibold text-default font-ui leading-snug;
+    @apply text-h2 font-semibold color-default font-ui leading-snug;
   }
   .heading-3 {
-    @apply text-h3 font-semibold text-default font-ui leading-snug;
+    @apply text-h3 font-semibold color-default font-ui leading-snug;
   }
 
   .subtitle {
-    @apply text-subtitle font-normal text-muted font-ui leading-normal;
+    @apply text-subtitle font-normal color-muted font-ui leading-normal;
   }
 
   .body-regular {
-    @apply text-body font-normal font-ui text-muted leading-normal;
+    @apply text-body font-normal font-ui color-muted leading-normal;
   }
   .body-semibold {
-    @apply text-body font-semibold font-ui text-default leading-normal;
+    @apply text-body font-semibold font-ui color-default leading-normal;
   }
 }
