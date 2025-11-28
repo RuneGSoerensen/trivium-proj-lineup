@@ -3,6 +3,9 @@
 import { useState } from "react";
 import { useRouter } from "next/navigation";
 import { signInWithPassword } from "@utils/supabaseClient";
+import { setAuthToken } from "@utils/auth";
+import Input from "@ui/Input/Input";
+import { Button } from "@ui/Button/Button";
 
 export default function LoginPage() {
   const router = useRouter();
@@ -30,6 +33,8 @@ export default function LoginPage() {
       }
 
       if (user && session) {
+        // Store JWT token and userId in localStorage
+        setAuthToken(session.access_token, user.id);
         console.log("Login successful!", {
           userId: user.id,
           email: user.email,
@@ -45,41 +50,34 @@ export default function LoginPage() {
   };
 
   return (
-    <div className="min-h-screen flex items-center justify-center">
+    <div className="flex items-center justify-center text-center">
       <div className="trvm-card max-w-md w-full">
-        <h1 className="text-2xl font-bold mb-6">Login</h1>
+        <h1 className="text-h1 font-bold mb-30">Login</h1>
 
-        <form onSubmit={handleLogin} className="space-y-4">
+        <form onSubmit={handleLogin} className="space-y-15">
           <div>
-            <label htmlFor="email" className="block text-sm font-medium mb-2">
-              Email
-            </label>
-            <input
+            <Input
               id="email"
               type="email"
+              aria-label="Email"
               value={email}
               onChange={(e) => setEmail(e.target.value)}
               required
-              className="input w-full"
-              placeholder="your@email.com"
+              className="input w-full text-center placeholder:text-center"
+              placeholder="Enter your email"
             />
           </div>
 
           <div>
-            <label
-              htmlFor="password"
-              className="block text-sm font-medium mb-2"
-            >
-              Password
-            </label>
-            <input
+            <Input
               id="password"
               type="password"
+              aria-label="Password"
               value={password}
               onChange={(e) => setPassword(e.target.value)}
               required
-              className="input w-full"
-              placeholder="••••••••"
+              className="input w-full text-center placeholder:text-center"
+              placeholder="Enter your password"
             />
           </div>
 
@@ -88,17 +86,22 @@ export default function LoginPage() {
               {error}
             </div>
           )}
-
-          <button
-            type="submit"
-            disabled={loading}
-            className="btn btn-primary w-full"
-          >
-            {loading ? "Logging in..." : "Login"}
-          </button>
+          <div className="flex justify-center">
+            <Button variant="primary" type="submit" disabled={loading}>
+              {loading ? "Logging in..." : "Continue"}
+            </Button>
+          </div>
         </form>
+        <div className="mt-10 mb-10">
+          <span>or</span>
+        </div>
+        <div className="space-y-20">
+          {/* These will be implemented later */}
+          <Button variant="secondary">Continue with Google</Button>
+          <Button variant="secondary">Continue with Apple</Button>
+        </div>
 
-        <p className="mt-4 text-center text-sm">
+        <p className="mt-25 text-center text-sm">
           Don&apos;t have an account?{" "}
           <a href="/pages/onboarding/step1" className="text-cyan-500">
             Sign up

@@ -9,7 +9,7 @@
       "@utils/*": ["../app/utils/*"],
       "@images/*": ["../images/*"],
       "@pages/*": ["../app/pages/*"],
-      "@styles/*": ["../styles/*"]  
+      "@styles/*": ["../styles/*"]
     }
   }
 }
