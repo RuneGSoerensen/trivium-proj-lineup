@@ -4,6 +4,8 @@ import React, { useState, useEffect } from "react";
 import { useOnboarding } from "@utils/userOnobardingContext";
 import { useRouter } from "next/navigation";
 import { Button } from "@ui/Button/Button";
+import Input from "@ui/Input/Input";
+import Image from "next/image";
 
 export default function Step3() {
   const router = useRouter();
@@ -26,44 +28,70 @@ export default function Step3() {
   };
 
   return (
-    <section className="trvm-card max-w-xl mx-auto flex flex-col text-c">
-      <h1 className="heading-1 mb-4">Step 3 — Musician Info</h1>
+    <div className="flex flex-col h-full justify-between">
+      <div className="flex flex-col gap-30 items-center justify-center flex-1">
+        <div className="mb-8">
+          <Image
+            src="/images/lineup-logo-letters-yellow.png"
+            alt="LineUp Letter style logo"
+            width={46}
+            height={29}
+          />
+        </div>
 
-      <div className="flex flex-col gap-2">
-        <div className="flex items-center gap-1">
-          <input
+        <div
+          className={`flex items-center flex-col gap-10 p-10 ${
+            formData.is_musician === true ? "border-subtle" : "border-muted"
+          } p-4 rounded-3xl text-center justify-center min-h-200 max-w-223`}
+        >
+          <label
+            className="label-text text-base font-semibold"
+            htmlFor="musicianTrue"
+          >
+            I am a musician
+          </label>
+          <p>I am a musician looking for collaboration and services.</p>
+          <Input
             type="checkbox"
-            className="checkbox"
+            className="checkbox mx-auto rounded-full checked:border-(--color-primary) checked:bg-brand-primary"
             id="musicianTrue"
             checked={formData.is_musician === true}
             onChange={() => setFormData({ is_musician: true })}
           />
-          <label className="label-text text-base" htmlFor="musicianTrue">
-            I am a musician
-          </label>
-          <p>I am a musician looking for collaboration and services.</p>
         </div>
 
-        <div className="flex items-center gap-1">
-          <input
+        <div
+          className={`flex items-center flex-col gap-10 p-10 ${
+            formData.is_musician === false ? "border-subtle" : "border-muted"
+          } p-4 rounded-3xl text-center justify-center min-h-200 max-w-223`}
+        >
+          <label
+            className="label-text text-base font-semibold"
+            htmlFor="musicianFalse"
+          >
+            Not a musician
+          </label>
+          <p>I want to provide services for musicians.</p>
+          <Input
             type="checkbox"
-            className="checkbox"
+            className="checkbox mx-auto rounded-full checked:border-(--color-primary) checked:bg-brand-primary"
             id="musicianFalse"
             checked={formData.is_musician === false}
             onChange={() => setFormData({ is_musician: false })}
           />
-          <label className="label-text text-base" htmlFor="musicianFalse">
-            Not a musician
-          </label>
-          <p>I want to provide services for musicians.</p>
         </div>
       </div>
 
-      <div className="mt-6">
-        <Button variant="primary" onClick={handleNext} className="ml-4">
+      <div className="items-end self-center pb-4">
+        <Button
+          variant="primary"
+          size="sm"
+          onClick={handleNext}
+          className="ml-4 w-fit"
+        >
           Continue
         </Button>
       </div>
-    </section>
+    </div>
   );
 }

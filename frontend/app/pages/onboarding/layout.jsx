@@ -24,12 +24,12 @@ export default function OnboardingLayout({ children }) {
 
   return (
     <UserOnboardingProvider>
+      <ProgressBar
+        value={progressValue}
+        label={`Onboarding step ${currentStep}`}
+        className="self-start"
+      />
       <div className="flex flex-col items-center w-full h-full max-w-3xl justify-center">
-        <ProgressBar
-          value={progressValue}
-          label={`Onboarding step ${currentStep}`}
-          className="self-start"
-        />
         {children}
       </div>
     </UserOnboardingProvider>
