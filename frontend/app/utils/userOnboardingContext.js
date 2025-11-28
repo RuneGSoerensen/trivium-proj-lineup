@@ -39,7 +39,6 @@ export function UserOnboardingProvider({ children }) {
       id: "",
       name: "",
       email: "",
-      password: "",
       birthdate: "",
       city: "",
       phone_number: "",
@@ -53,8 +52,10 @@ export function UserOnboardingProvider({ children }) {
   });
 
   // Save userData to localStorage whenever it changes (skip initial render)
+  // Exclude password and confirmPassword for security
   useEffect(() => {
-    saveToStorage(STORAGE_KEY_USER_DATA, userData);
+    const { password, confirmPassword, ...dataToStore } = userData;
+    saveToStorage(STORAGE_KEY_USER_DATA, dataToStore);
   }, [userData]);
 
   // Save maxStepReached to localStorage whenever it changes (skip initial render)
@@ -65,8 +66,6 @@ export function UserOnboardingProvider({ children }) {
   const updateUser = (updates) => {
     setUserData((prev) => {
       const newData = { ...prev, ...updates };
-      console.log("Updated userData:", newData);
-      console.log("Updated userData:", JSON.stringify(newData));
       return newData;
     });
   };
@@ -78,8 +77,6 @@ export function UserOnboardingProvider({ children }) {
         ...prev,
         looking_for: prev.looking_for === value ? null : value,
       };
-      console.log("selectLookingFor - updated userData:", newData);
-      console.log("selectLookingFor - looking_for:", newData.looking_for);
       return newData;
     });
   };
@@ -112,7 +109,6 @@ export function UserOnboardingProvider({ children }) {
       id: "",
       name: "",
       email: "",
-      password: "",
       birthdate: "",
       city: "",
       phone_number: "",

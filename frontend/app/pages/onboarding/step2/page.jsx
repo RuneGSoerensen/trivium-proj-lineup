@@ -23,10 +23,11 @@ export default function Step2() {
   }, [canAccessStep, stepNumber, router, maxStepReached]);
 
   // Local useState for form Inputs
+  // Password fields are never persisted to localStorage for security
   const [formData, setFormData] = useState({
     email: userData.email || "",
-    password: userData.password || "",
-    confirmPassword: userData.confirmPassword || "",
+    password: "",
+    confirmPassword: "",
   });
 
   const handleNext = () => {

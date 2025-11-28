@@ -82,12 +82,10 @@ export default function Step6() {
 
       // Mark as completed to prevent redirect in useEffect
       setIsCompleted(true);
-
-      // Clear onboarding data from localStorage (preserves userId and JWT token)
-      clearOnboardingData();
-
       // Use replace instead of push to prevent back navigation to onboarding
       router.replace("/");
+      // Clear onboarding data from localStorage (preserves userId and JWT token) after navigation starts
+      setTimeout(() => clearOnboardingData(), 100);
     } catch (error) {
       console.error("Unexpected error during user creation:", error);
       setErrorMessage(
