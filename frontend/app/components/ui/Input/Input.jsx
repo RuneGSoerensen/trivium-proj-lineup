@@ -26,8 +26,7 @@ const Input = ({ variant, value, onChange = () => { }, placeholder, type = "text
                 className={clsx(
                     "trvm-input",
                     variantClass(variant === "error" && hasMessage ? "error" : variant),
-                    className,
-                    hasMessage && "input--error"
+                    className
                 )}
                 value={value}
                 onChange={onChange}
