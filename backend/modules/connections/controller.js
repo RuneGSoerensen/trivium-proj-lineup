@@ -34,24 +34,23 @@ export const unfollow = async (req, res) => {
 export const getStats = async (req, res) => {
   const { id } = req.params;
 
-  const [[followers], [following]] = await Promise.all([
-    sql`SELECT COUNT(*) AS followers_count FROM connections WHERE following_id = ${id}`,
-    sql`SELECT COUNT(*) AS following_count FROM connections WHERE follower_id = ${id}`,
-  ]);
+  const [{ followers_count }] =
+    await sql`SELECT COUNT(*) AS followers_count FROM connections WHERE following_id = ${id}`;
 
   res.json({
-    followers_count: followers.followers_count,
-    following_count: following.following_count,
+    followers_count,
   });
 };
 
 export const checkFollowing = async (req, res) => {
   const { followerId, profileId } = req.params;
 
-  const [row] = await sql`
-    SELECT * FROM connections
-    WHERE follower_id = ${followerId} AND following_id = ${profileId}
+  const [{ exists: is_following }] = await sql`
+    SELECT EXISTS(
+      SELECT 1 FROM connections
+      WHERE follower_id = ${followerId} AND following_id = ${profileId}
+    );
   `;
 
-  res.json({ is_following: !!row });
+  res.json({ is_following });
 };
