@@ -4,7 +4,7 @@ import {
   unfollow,
   getStats,
   checkFollowing,
-} from "../modules/connections/controller.js";
+} from "./controller.js";
 
 const router = express.Router();
 
