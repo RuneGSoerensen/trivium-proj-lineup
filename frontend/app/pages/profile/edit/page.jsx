@@ -2,12 +2,22 @@
 
 import { useState, useEffect } from "react";
 import { useRouter } from "next/navigation";
-import { Tag } from "@/app/components/ui/Tag/Tag.jsx";
+import { Tag } from "@ui/Tag/Tag.jsx";
 import Image from "next/image";
-import {Button} from "@/app/components/ui/Button/Button.jsx";
+import { Button } from "@ui/Button/Button.jsx";
+const HARD_ARTISTS = [
+  "https://images.unsplash.com/photo-1544005313-94ddf0286df2?w=200&q=80",
+  "https://images.unsplash.com/photo-1545996124-0d0d3a3a80b4?w=200&q=80",
+  "https://images.unsplash.com/photo-1547425260-76bcadfb4f2c?w=200&q=80",
+  "https://images.unsplash.com/photo-1544006659-f0b21884ce1d?w=200&q=80",
+  "https://images.unsplash.com/photo-1544005310-8d8d2c1a6f3f?w=200&q=80",
+];
 
+const HARD_SPOTIFY_LINK = "https://open.spotify.com/artist/placeholder";
 
+const HARD_VIDEOS = ["video 1", "video 2"];
 
+const HARD_PAST_COLLABS = ["Band A", "Band B"];
 function MultiSelectInput({
   options,
   values,
@@ -391,7 +401,6 @@ export default function EditProfilePage() {
           <div className="flex flex-wrap gap-2 mb-2">
             {formData.looking_for_tags.map((tag) => (
               <Tag
-                
                 key={tag}
                 colorScheme="info"
                 className="px-8 py-2 flex items-center gap-1"
@@ -458,8 +467,7 @@ export default function EditProfilePage() {
 
           <div className="flex flex-wrap gap-2 ml-10">
             {formData.genres.map((g) => (
-                <Tag
-                
+              <Tag
                 key={g}
                 colorScheme="info"
                 className="px-8 py-2 flex items-center gap-1"
@@ -697,7 +705,9 @@ export default function EditProfilePage() {
       {/* Artists I like */}
       <div className="bg-default rounded-[24px] p-10 border-1 border-gray-300 mt-20 pb-20">
         <div className="flex items-center justify-between mb-3">
-          <label className="text-default font-semibold  my-16 mx-4 ">Artists I like</label>
+          <label className="text-default font-semibold  my-16 mx-4 ">
+            Artists I like
+          </label>
           <button
             className="text-muted "
             onClick={() => alert("edit artists - later")}
@@ -748,69 +758,63 @@ export default function EditProfilePage() {
             </label>
             <p>Spotify linked</p>
           </div>
-     
         </div>
       </div>
 
       {/* Videos */}
-    <div className="bg-default rounded-[24px] p-10 border-1 border-gray-300 mt-20 pb-20 flex flex-col">
-                      <button
-            className="text-muted self-end"
-            onClick={() => alert("add video - later")}
-          >
-            Edit
-          </button>
-      <div className="flex items-center gap-4">
-        
-          <label className="text-default font-semibold  my-16 mx-4 "> Videos</label>
-        
-        <div className="flex gap-2 flex-wrap">
-          {formData.videos.map((v, i) => (
-            <Tag
-              key={i}
-              className="px-8 py-2"
-              colorScheme="info"
-            >
-              <span className="">{v}</span>
-              <button
-                onClick={() =>
-                  setFormData((d) => ({
-                    ...d,
-                    videos: d.videos.filter((_, idx) => idx !== i),
-                  }))
-                }
-              >
-                ×
-              </button>
-            </Tag>
-           
-          ))}
-        </div>
-         </div>
+      <div className="bg-default rounded-[24px] p-10 border-1 border-gray-300 mt-20 pb-20 flex flex-col">
+        <button
+          className="text-muted self-end"
+          onClick={() => alert("add video - later")}
+        >
+          Edit
+        </button>
+        <div className="flex items-center gap-4">
+          <label className="text-default font-semibold  my-16 mx-4 ">
+            {" "}
+            Videos
+          </label>
 
+          <div className="flex gap-2 flex-wrap">
+            {formData.videos.map((v, i) => (
+              <Tag key={i} className="px-8 py-2" colorScheme="info">
+                <span className="">{v}</span>
+                <button
+                  onClick={() =>
+                    setFormData((d) => ({
+                      ...d,
+                      videos: d.videos.filter((_, idx) => idx !== i),
+                    }))
+                  }
+                >
+                  ×
+                </button>
+              </Tag>
+            ))}
+          </div>
+        </div>
       </div>
 
       {/* Past collaborations */}
-    <div className="bg-default rounded-[24px] p-10 border-1 border-gray-300 mt-20 pb-20 flex flex-col ">
-              <button
-            className="text-muted self-end "
-            onClick={() => alert("edit past collabs - later")}
-          >
-            Edit
-          </button>
-       <div className="flex items-center ">
+      <div className="bg-default rounded-[24px] p-10 border-1 border-gray-300 mt-20 pb-20 flex flex-col ">
+        <button
+          className="text-muted self-end "
+          onClick={() => alert("edit past collabs - later")}
+        >
+          Edit
+        </button>
+        <div className="flex items-center ">
           <label className="text-default font-semibold  my-16 mx-4 ">
             Past collaborations
           </label>
-   
         </div>
-     
       </div>
       {/* Questions */}
       <div className="bg-default rounded-[24px] p-10 border-1 border-gray-300 mt-20 pb-20 flex flex-col">
         <div className="flex items-center justify-between">
-          <label className="text-default font-semibold  my-16 mx-4 ">Questions</label>
-         
+          <label className="text-default font-semibold  my-16 mx-4 ">
+            Questions
+          </label>
         </div>
         <div className="space-y-6">
           {formData.questions.map((q, idx) => (
@@ -820,28 +824,24 @@ export default function EditProfilePage() {
                   {q.question || "Question"}
                 </h3>
               </div>
-              <p className="text-default mt-3 mb-4 leading-relaxed">{q.answer || ""}</p>
+              <p className="text-default mt-3 mb-4 leading-relaxed">
+                {q.answer || ""}
+              </p>
               <hr className="border-gray-200" />
             </div>
           ))}
         </div>
-         <button
-         
-            onClick={addQuestion}
-            className="text-brand-primary p-16 self-center"
-          >
-            + Add Question
-          </button>
+        <button
+          onClick={addQuestion}
+          className="text-brand-primary p-16 self-center"
+        >
+          + Add Question
+        </button>
       </div>
       <div className="flex justify-center p-16">
-        <Button
-          onClick={handleSave}
-          disabled={saving}
-          className=""
-        >
+        <Button onClick={handleSave} disabled={saving} className="">
           {saving ? "Saving..." : "Save"}
         </Button>
-
       </div>
     </div>
   );

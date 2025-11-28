@@ -5,7 +5,13 @@ import { useParams, useRouter } from "next/navigation";
 import Image from "next/image";
 import { Button } from "@ui/Button/Button";
 import NoteCard from "@/components/profile/noteCard";
-import { TabContent, TabContentList, TabItem, Tabs, TabsList } from "@ui/Tab/Tab";
+import {
+  TabContent,
+  TabContentList,
+  TabItem,
+  Tabs,
+  TabsList,
+} from "@ui/Tab/Tab";
 import { Tag } from "@ui/Tag/Tag.jsx";
 const HARD_ARTISTS = [
   "https://images.unsplash.com/photo-1544005313-94ddf0286df2?w=200&q=80",
@@ -41,7 +47,7 @@ export default function ProfilePage() {
       if (!res.ok) throw new Error("Failed to load user");
 
       const { user: userData } = await res.json();
-console.log("Fetched user data:", userData);
+      console.log("Fetched user data:", userData);
       const currentUser = localStorage.getItem("userId");
       setCurrentUserId(currentUser);
 
@@ -73,7 +79,8 @@ console.log("Fetched user data:", userData);
             ? userData.videos
             : HARD_VIDEOS,
         past_collaborations:
-          userData.past_collaborations && userData.past_collaborations.length > 0
+          userData.past_collaborations &&
+          userData.past_collaborations.length > 0
             ? userData.past_collaborations
             : HARD_PAST_COLLABS,
         followers_count: statsData.followers_count || 0,
@@ -92,7 +99,6 @@ console.log("Fetched user data:", userData);
       }
 
       setLoading(false);
-      
     } catch (error) {
       console.error("Error loading profile:", error);
       setLoading(false);
@@ -119,7 +125,7 @@ console.log("Fetched user data:", userData);
         await fetch(
           `${process.env.NEXT_PUBLIC_DATABASE_URL}/connections/follow`,
           {
-            method: "note",
+            method: "POST",
             headers: { "Content-Type": "application/json" },
             body: JSON.stringify({
               follower_id: currentUserId,
@@ -142,7 +148,7 @@ console.log("Fetched user data:", userData);
       await fetch(
         `${process.env.NEXT_PUBLIC_DATABASE_URL}/notes/${noteId}/like`,
         {
-          method: "note",
+          method: "POST",
           headers: { "Content-Type": "application/json" },
           body: JSON.stringify({ user_id: currentUserId }),
         }
@@ -154,23 +160,43 @@ console.log("Fetched user data:", userData);
     }
   };
 
-  const handleComment = async (noteId, content) => {
+  const handleComment = async (noteId, content, parent_comment_id = null) => {
     if (!currentUserId) return;
 
     try {
       await fetch(`${process.env.NEXT_PUBLIC_DATABASE_URL}/notes/comment`, {
-        method: "note",
+        method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({
           user_id: currentUserId,
           note_id: noteId,
           content,
+          parent_comment_id,
         }),
       });
 
       loadProfile();
     } catch (error) {
       console.error("Error adding comment:", error);
+    }
+  };
+
+  const handleCommentLike = async (commentId) => {
+    if (!currentUserId) return;
+
+    try {
+      await fetch(
+        `${process.env.NEXT_PUBLIC_DATABASE_URL}/notes/comment/${commentId}/like`,
+        {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({ user_id: currentUserId }),
+        }
+      );
+
+      loadProfile();
+    } catch (error) {
+      console.error("Error liking comment:", error);
     }
   };
 
@@ -213,8 +239,6 @@ console.log("Fetched user data:", userData);
               ) : (
                 <div className="w-full h-full flex items-center justify-center text-muted text-[32px] ">
                   <p>{profile.name.charAt(0).toUpperCase()}</p>
-                  
-
                 </div>
               )}
             </div>
@@ -227,24 +251,15 @@ console.log("Fetched user data:", userData);
           {/* Name */}
           <h1 className="text-inverse text-[20px] font-bold ">
             {profile.name}
-           
           </h1>
-              <p className="text-gray-200 text-xs mb-6"> {profile.bio}</p>
+          <p className="text-gray-200 text-xs mb-6"> {profile.bio}</p>
           {/* Action Buttons */}
           {profile.is_own_profile ? (
             <div className="flex ">
-            <Button
-
-              onClick={() => router.push("/pages/profile/edit")}
-              
-              
-            >
-              Edit Profile
-            </Button>
-                 <Button
-          >
-              Share
-            </Button>
+              <Button onClick={() => router.push("/pages/profile/edit")}>
+                Edit Profile
+              </Button>
+              <Button>Share</Button>
             </div>
           ) : (
             <div className="flex gap-3">
@@ -267,276 +282,255 @@ console.log("Fetched user data:", userData);
       </div>
 
       {/* Tabs */}
-             <Tabs>
-                <TabsList className="bg-white">
-                    <TabItem>About</TabItem>
-                    
-                    <TabItem>Notes</TabItem>
+      <Tabs>
+        <TabsList className="bg-white">
+          <TabItem>About</TabItem>
 
-                </TabsList>
-                <TabContentList className="mt-4">
-                    <TabContent>
-                        <div className="min-h-screen bg-background pb-20 px-4 py-6 space-y-6">
-
-        {/* About */}
-        <div className=" m-4 ">
-          <label className="text-default text-muted mb-8 ">About</label>
-          <div className="w-full ml-10">
-  <p>{profile.about}</p>
-          </div>
-        </div>
-    
-
-        {/* Looking For Tags */}
-        <div className="m-4 ">
-          <label className="text-default text-muted  mb-8 ">
-            What i am looking
-          </label>
-
-          {/* Pills for already selected tags */}
-          <div className="flex flex-wrap gap-2 mb-2">
-            {profile.looking_for_tags.map((tag) => (
-              <Tag
-                
-                key={tag}
-                colorScheme="info"
-                className="px-8 py-2 flex items-center gap-1"
-              >
-                {tag}
-
-  
-              </Tag>
-            ))}
- 
-          </div>
-
-          {/* Dropdown to select more tags */}
-        </div>
-      
-
-        {/* Genres */}
-
-        <div className=" m-4 ">
-          <label className="text-default text-muted  mb-8 ">Genres</label>
-
-          <div className="flex flex-wrap gap-2 ml-10">
-            {profile.genres.map((g) => (
-                <Tag
-                
-                key={g}
-                colorScheme="info"
-                className="px-8 py-2 flex items-center gap-1"
-              >
-                {g}
-                
-              </Tag>
-            ))}
-
-           
-          </div>
-        </div>
-
-
-        {/* Theme */}
-       
-       
-     
-
-      {/* Social Links */}
-      <div className="bg-default rounded-[24px] p-10  border-gray-300 mt-20 pb-20">
-        <div className="flex items-center justify-between">
-          <label className="text-default text-muted  my-16 mx-4  ">
-            Social Media
-          </label>
-         
-        </div>
-
-       
-          <div className="flex items-center justify-center gap-10 mt-3 ">
-            <a
-              href={profile.socials.instagram || "#"}
-              target="_blank"
-              rel="noreferrer"
-              className="opacity-90 hover:opacity-100"
-            >
-              <Image
-                src="/icons/instagram.png"
-                alt="Instagram"
-                width={24}
-                height={24}
-                className="w-32 h-32"
-              />
-            </a>
-            <a
-              href={profile.socials.x || "#"}
-              target="_blank"
-              rel="noreferrer"
-              className="opacity-90 hover:opacity-100"
-            >
-              <Image
-                src="/icons/x.png"
-                alt="X"
-                width={24}
-                height={24}
-                className="w-32 h-32"
-              />
-            </a>
-            <a
-              href={profile.socials.youtube || "#"}
-              target="_blank"
-              rel="noreferrer"
-              className="opacity-90 hover:opacity-100"
-            >
-              <Image
-                src="/icons/youtube.png"
-                alt="YouTube"
-                width={24}
-                height={24}
-                className="w-32 h-32"
-              />
-            </a>
-            <a
-              href={profile.socials.tiktok || "#"}
-              target="_blank"
-              rel="noreferrer"
-              className="opacity-90 hover:opacity-100"
-            >
-              <Image
-                src="/icons/tiktok.png"
-                alt="TikTok"
-                width={24}
-                height={24}
-                className="w-32 h-32"
-              />
-            </a>
-            <a
-              href={profile.socials.facebook || "#"}
-              target="_blank"
-              rel="noreferrer"
-              className="opacity-90 hover:opacity-100"
-            >
-              <Image
-                src="/icons/facebook.png"
-                alt="Facebook"
-                width={24}
-                height={24}
-                className="w-32 h-32"
-              />
-            </a>
-          </div>
-        
-          <div className="flex items-center justify-between">
-          <label className="text-default text-muted  my-16 mx-4  ">
-            Artists i like
-          </label>
-         
-        </div>
-        <div className="flex items-center justify-center">
-      
-          {profile.artists_i_like.slice(0, 4).map((src, i) => (
-            <div
-              key={i}
-              className="w-50 h-50 rounded-full overflow-hidden border border-2 border-white "
-              style={{
-                marginLeft: i === 0 ? 0 : -20,
-                zIndex: i + 1,
-              }}
-            >
-              <img
-                src={src}
-                alt={`artist-${i}`}
-                className="w-full h-full object-cover position"
-              />
-            </div>
-          ))}
-
-          {profile.artists_i_like.length > 4 && (
-            <div
-              className="w-50 h-50 rounded-full bg-muted flex items-center justify-center text-default"
-              style={{
-                marginLeft: -20,
-                zIndex: 5,
-              }}
-            >
-              +{profile.artists_i_like.length - 4}
-            </div>
-          )}
-        </div>
-      </div>
-
-      {/* My music (spotify card) */}
-
-       
-          <div className=" m-4">
-            <label className="text-default text-muted  my-16 mx-4 ">
-              My music
-            </label>
-            <p className="m-4">Spotify linked</p>
-          </div>
-     
-
- 
-
-      {/* Videos */}
-
-        
-          <label className="text-default text-muted  my-16 mx-4 "> Videos</label>
-        
-        <div className="flex gap-2 flex-wrap">
-          {profile.videos.map((v, i) => (
-            <Tag
-              key={i}
-              className="px-8 py-2"
-              colorScheme="info"
-            >
-              <span className="">{v}</span>
-
-            </Tag>
-           
-          ))}
-        </div>
-       
-
- 
-
-      {/* Past collaborations */}
-
-       <div className="flex items-center ">
-          <label className="text-default text-muted  my-16 mx-4 ">
-            Past collaborations
-          </label>
-   
-        </div>
-     
-  
-      {/* Questions */}
-
-        <div className="flex items-center justify-between">
-          <label className="text-default text-muted  my-16 mx-4 ">Questions</label>
-         
-        </div>
-        <div className="space-y-6">
-          {profile.questions.map((q, idx) => (
-            <div key={idx} className="p-6 bg-default ">
-              <div className="flex justify-between items-start">
-                <h3 className="text-default text-semi-bold ">
-                  {q.question || "Question"}
-                </h3>
+          <TabItem>Notes</TabItem>
+        </TabsList>
+        <TabContentList className="mt-4">
+          <TabContent>
+            <div className="min-h-screen bg-background pb-20 px-4 py-6 space-y-6">
+              {/* About */}
+              <div className=" m-4 ">
+                <label className="text-default text-muted mb-8 ">About</label>
+                <div className="w-full ml-10">
+                  <p>{profile.about}</p>
+                </div>
               </div>
-              <p className=" mt-3 mb-4 font-light">{q.answer || ""}</p>
-       
+
+              {/* Looking For Tags */}
+              <div className="m-4 ">
+                <label className="text-default text-muted  mb-8 ">
+                  What i am looking
+                </label>
+
+                {/* Pills for already selected tags */}
+                <div className="flex flex-wrap gap-2 mb-2">
+                  {profile.looking_for_tags.map((tag) => (
+                    <Tag
+                      key={tag}
+                      colorScheme="info"
+                      className="px-8 py-2 flex items-center gap-1"
+                    >
+                      {tag}
+                    </Tag>
+                  ))}
+                </div>
+
+                {/* Dropdown to select more tags */}
+              </div>
+
+              {/* Genres */}
+
+              <div className=" m-4 ">
+                <label className="text-default text-muted  mb-8 ">Genres</label>
+
+                <div className="flex flex-wrap gap-2 ml-10">
+                  {profile.genres.map((g) => (
+                    <Tag
+                      key={g}
+                      colorScheme="info"
+                      className="px-8 py-2 flex items-center gap-1"
+                    >
+                      {g}
+                    </Tag>
+                  ))}
+                </div>
+              </div>
+
+              {/* Theme */}
+
+              {/* Social Links */}
+              <div className="bg-default rounded-[24px] p-10  border-gray-300 mt-20 pb-20">
+                <div className="flex items-center justify-between">
+                  <label className="text-default text-muted  my-16 mx-4  ">
+                    Social Media
+                  </label>
+                </div>
+
+                <div className="flex items-center justify-center gap-10 mt-3 ">
+                  <a
+                    href={profile.socials.instagram || "#"}
+                    target="_blank"
+                    rel="noreferrer"
+                    className="opacity-90 hover:opacity-100"
+                  >
+                    <Image
+                      src="/icons/instagram.png"
+                      alt="Instagram"
+                      width={24}
+                      height={24}
+                      className="w-32 h-32"
+                    />
+                  </a>
+                  <a
+                    href={profile.socials.x || "#"}
+                    target="_blank"
+                    rel="noreferrer"
+                    className="opacity-90 hover:opacity-100"
+                  >
+                    <Image
+                      src="/icons/x.png"
+                      alt="X"
+                      width={24}
+                      height={24}
+                      className="w-32 h-32"
+                    />
+                  </a>
+                  <a
+                    href={profile.socials.youtube || "#"}
+                    target="_blank"
+                    rel="noreferrer"
+                    className="opacity-90 hover:opacity-100"
+                  >
+                    <Image
+                      src="/icons/youtube.png"
+                      alt="YouTube"
+                      width={24}
+                      height={24}
+                      className="w-32 h-32"
+                    />
+                  </a>
+                  <a
+                    href={profile.socials.tiktok || "#"}
+                    target="_blank"
+                    rel="noreferrer"
+                    className="opacity-90 hover:opacity-100"
+                  >
+                    <Image
+                      src="/icons/tiktok.png"
+                      alt="TikTok"
+                      width={24}
+                      height={24}
+                      className="w-32 h-32"
+                    />
+                  </a>
+                  <a
+                    href={profile.socials.facebook || "#"}
+                    target="_blank"
+                    rel="noreferrer"
+                    className="opacity-90 hover:opacity-100"
+                  >
+                    <Image
+                      src="/icons/facebook.png"
+                      alt="Facebook"
+                      width={24}
+                      height={24}
+                      className="w-32 h-32"
+                    />
+                  </a>
+                </div>
+
+                <div className="flex items-center justify-between">
+                  <label className="text-default text-muted  my-16 mx-4  ">
+                    Artists i like
+                  </label>
+                </div>
+                <div className="flex items-center justify-center">
+                  {profile.artists_i_like.slice(0, 4).map((src, i) => (
+                    <div
+                      key={i}
+                      className="w-50 h-50 rounded-full overflow-hidden border border-2 border-white "
+                      style={{
+                        marginLeft: i === 0 ? 0 : -20,
+                        zIndex: i + 1,
+                      }}
+                    >
+                      <img
+                        src={src}
+                        alt={`artist-${i}`}
+                        className="w-full h-full object-cover position"
+                      />
+                    </div>
+                  ))}
+
+                  {profile.artists_i_like.length > 4 && (
+                    <div
+                      className="w-50 h-50 rounded-full bg-muted flex items-center justify-center text-default"
+                      style={{
+                        marginLeft: -20,
+                        zIndex: 5,
+                      }}
+                    >
+                      +{profile.artists_i_like.length - 4}
+                    </div>
+                  )}
+                </div>
+              </div>
+
+              {/* My music (spotify card) */}
+
+              <div className=" m-4">
+                <label className="text-default text-muted  my-16 mx-4 ">
+                  My music
+                </label>
+                <p className="m-4">Spotify linked</p>
+              </div>
+
+              {/* Videos */}
+
+              <label className="text-default text-muted  my-16 mx-4 ">
+                {" "}
+                Videos
+              </label>
+
+              <div className="flex gap-2 flex-wrap">
+                {profile.videos.map((v, i) => (
+                  <Tag key={i} className="px-8 py-2" colorScheme="info">
+                    <span className="">{v}</span>
+                  </Tag>
+                ))}
+              </div>
+
+              {/* Past collaborations */}
+
+              <div className="flex items-center ">
+                <label className="text-default text-muted  my-16 mx-4 ">
+                  Past collaborations
+                </label>
+              </div>
+
+              {/* Questions */}
+
+              <div className="flex items-center justify-between">
+                <label className="text-default text-muted  my-16 mx-4 ">
+                  Questions
+                </label>
+              </div>
+              <div className="space-y-6">
+                {profile.questions.map((q, idx) => (
+                  <div key={idx} className="p-6 bg-default ">
+                    <div className="flex justify-between items-start">
+                      <h3 className="text-default text-semi-bold ">
+                        {q.question || "Question"}
+                      </h3>
+                    </div>
+                    <p className=" mt-3 mb-4 font-light">{q.answer || ""}</p>
+                  </div>
+                ))}
+              </div>
+              <div className="flex flex-col">
+                <label htmlFor="questionInput" className="text-lg p-10">
+                  Ask me a question
+                </label>
+                <div className="w-full border-1 rounded-full flex flex">
+                  <input
+                    type="text"
+                    id="questionInput"
+                    className="w-full  p-20"
+                    placeholder="Type your question here..."
+                  />
+                  <Image
+                    src={"/placeholder-image.png"}
+                    width={40}
+                    height={40}
+                    alt="Placeholder"
+                  />
+                </div>
+              </div>
             </div>
-          ))}
-        </div>
-          <div className="flex flex-col">
-            <label htmlFor="questionInput" className="text-lg p-10">Ask me a question</label>
-            <div className="w-full border-1 rounded-full flex flex">
-            <input type="text" id="questionInput"  className="w-full  p-20" placeholder="Type your question here..."/>
-         <Image src={"/placeholder-image.png"} width={40} height={40} alt="Placeholder" />
-         </div>
-          </div>
-    </div>
-                    </TabContent>
+          </TabContent>
           <TabContent>
             <div className="space-y-4">
               {notes && notes.length > 0 ? (
@@ -546,6 +540,7 @@ console.log("Fetched user data:", userData);
                     note={n}
                     onLike={handleLike}
                     onComment={handleComment}
+                    onCommentLike={handleCommentLike}
                     showComments={true}
                   />
                 ))
@@ -553,11 +548,9 @@ console.log("Fetched user data:", userData);
                 <div className="text-muted p-4">No notes yet.</div>
               )}
             </div>
-
           </TabContent>
-                </TabContentList>
-            </Tabs>
-   
+        </TabContentList>
+      </Tabs>
     </div>
   );
 }
