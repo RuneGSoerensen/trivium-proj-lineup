@@ -1,0 +1,56 @@
+import sql from "../../db.js";
+export const follow = async (req, res) => {
+  const { follower_id, following_id } = req.body;
+
+  try {
+    await sql`
+      INSERT INTO connections (follower_id, following_id)
+      VALUES (${follower_id}, ${following_id})
+      ON CONFLICT DO NOTHING;
+    `;
+
+    res.json({ success: true });
+  } catch (error) {
+    res.status(500).json({ error: "Failed to follow" });
+  }
+};
+
+export const unfollow = async (req, res) => {
+  const { follower_id, following_id } = req.body;
+
+  try {
+    await sql`
+      DELETE FROM connections
+      WHERE follower_id = ${follower_id}
+      AND following_id = ${following_id};
+    `;
+
+    res.json({ success: true });
+  } catch (error) {
+    res.status(500).json({ error: "Failed to unfollow" });
+  }
+};
+
+export const getStats = async (req, res) => {
+  const { id } = req.params;
+
+  const [{ followers_count }] =
+    await sql`SELECT COUNT(*) AS followers_count FROM connections WHERE following_id = ${id}`;
+
+  res.json({
+    followers_count,
+  });
+};
+
+export const checkFollowing = async (req, res) => {
+  const { followerId, profileId } = req.params;
+
+  const [{ exists: is_following }] = await sql`
+    SELECT EXISTS(
+      SELECT 1 FROM connections
+      WHERE follower_id = ${followerId} AND following_id = ${profileId}
+    );
+  `;
+
+  res.json({ is_following });
+};
