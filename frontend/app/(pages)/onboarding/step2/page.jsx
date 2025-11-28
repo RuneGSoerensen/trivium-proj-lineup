@@ -20,7 +20,7 @@ export default function Step2() {
 
   useEffect(() => {
     if (!canAccessStep(stepNumber)) {
-      router.push(`/pages/onboarding/step${maxStepReached}`);
+      router.push(`/onboarding/step${maxStepReached}`);
     }
   }, [canAccessStep, stepNumber, router, maxStepReached]);
 
@@ -52,7 +52,7 @@ export default function Step2() {
     console.log("Form Data Submitted:", formData);
 
     advanceStep();
-    router.push("/pages/onboarding/step3");
+    router.push("/onboarding/step3");
   };
 
   const validateEmail = (email) => {
@@ -63,7 +63,7 @@ export default function Step2() {
   // then call the function when pressing continue ;)
   // Put this function inside the handleNext function
   return (
-    <section className="max-w-xl mx-auto mt-12 flex flex-col gap-14 items-center">
+    <section className="mt-12 flex flex-col gap-14 items-center">
       <h1 className="text-h1">Sign up</h1>
       <p className="subtitle mb-6 w-full text-center">
         By continuing you agree to LineUp! <br /> Terms of use and Privacy Policy.
@@ -78,8 +78,8 @@ export default function Step2() {
       >
         <Input
           variant={emailTouched && !!emailError ? "error" : "default"}
-          className="w-full border-muted rounded mb-4 placeholder:text-center"
-          placeholder="Enter your email"
+          className="w-fit border-muted rounded mb-4 placeholder:text-center"
+          placeholder="Email address"
           type="email"
           value={formData.email}
           onChange={(e) => {
@@ -106,7 +106,7 @@ export default function Step2() {
         <Input
           variant={confirmTouched && !!passwordMatchError ? "error" : "default"}
           className="w-full border-muted rounded mb-6 placeholder:text-center"
-          placeholder="Enter your password"
+          placeholder="Create a password"
           type="password"
           value={formData.password}
           onChange={(e) => {
@@ -125,7 +125,7 @@ export default function Step2() {
         <Input
           variant={confirmTouched && !!passwordMatchError ? "error" : "default"}
           className="w-full border-muted rounded mb-6 placeholder:text-center"
-          placeholder="Confirm your password"
+          placeholder="Confirm password"
           type="password"
           value={formData.confirmPassword}
           onChange={(e) => {
@@ -177,13 +177,12 @@ export default function Step2() {
         </Button>
       </form>
 
-      <p>or sign up with</p>
-      <div className="flex flex-col items-center justify-center mt-6 mb-10">
 
-        <div className="flex flex-col gap-10 items-center mt-20">
+      <div className="flex flex-col items-center justify-center mt-6 mb-10">
+        <p>or sign up with</p>
+        <div className="flex flex-col gap-10 items-center mt-20 w-11/12">
           <Button
             variant="secondary"
-            className="max-w-11/12"
             onClick={() => {
               /* google signup */
             }}
@@ -195,12 +194,13 @@ export default function Step2() {
 
           <Button
             variant="secondary"
-            className="max-w-11/12"
             onClick={() => {
               /* apple signup */
             }}
           >
-            Apple
+            <span className="flex justify-center gap-8">
+              <Image src="/icons/Apple.svg" alt="Apple Icon" width={20} height={20} className="mr-2" /> Apple
+            </span>
           </Button>
         </div>
         <div className="flex flex-col gap-10 items-center mt-20">

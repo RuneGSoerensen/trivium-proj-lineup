@@ -5,10 +5,10 @@ import NavLink from "./NavLink";
 
 const links = [
   { href: "/", label: "Home", icon: "/icons/Home.svg" },
-  { href: "/pages/services", label: "Services", icon: "/icons/Services.svg" },
-  { href: "/pages/create", label: "Create", icon: "/icons/Create.svg" },
-  { href: "/pages/chats", label: "Chats", icon: "/icons/Chat.svg" },
-  { href: "/pages/profile", label: "Profile", icon: "/icons/Profile.svg" },
+  { href: "/services", label: "Services", icon: "/icons/Services.svg" },
+  { href: "/create", label: "Create", icon: "/icons/Create.svg" },
+  { href: "/chats", label: "Chats", icon: "/icons/Chat.svg" },
+  { href: "/profile", label: "Profile", icon: "/icons/Profile.svg" },
 ];
 
 export default function Navigation() {

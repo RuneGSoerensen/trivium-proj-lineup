@@ -103,7 +103,7 @@ export default function LoginPage() {
 
         <p className="mt-25 text-center text-sm">
           Don&apos;t have an account?{" "}
-          <a href="/pages/onboarding/step1" className="text-cyan-500">
+          <a href="/onboarding/step1" className="text-cyan-500">
             Sign up
           </a>
         </p>

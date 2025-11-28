@@ -15,7 +15,7 @@ export default function Home() {
     <>
 
       <h1 className="heading-2">Welcome to Trivium!</h1>
-      <NavLink href="/pages/ui-test" label="UI Test" icon="/icons/Services.svg" isActive={false} />
+      <NavLink href={TestPage} label="UI Test" icon="/icons/Services.svg" isActive={false} />
       {/* <TestPage /> */}
     </>
   );

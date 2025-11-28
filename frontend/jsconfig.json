@@ -8,7 +8,7 @@
       "@ui/*": ["../app/components/ui/*"],
       "@utils/*": ["../app/utils/*"],
       "@images/*": ["../images/*"],
-      "@pages/*": ["../app/pages/*"],
+      "@pages/*": ["../app/*"],
       "@styles/*": ["../styles/*"]
     }
   }

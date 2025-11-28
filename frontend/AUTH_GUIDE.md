@@ -10,7 +10,7 @@ This project uses **Supabase Auth** for authentication with **JWT tokens** store
 
 ### 1. **User Registration (Signup)**
 
-When a user completes the onboarding flow (`/pages/onboarding/step6`):
+When a user completes the onboarding flow (`/onboarding/step6`):
 
 1. User data is sent to Supabase Auth via `supabase.auth.signUp()`
 2. Supabase returns:
@@ -26,7 +26,7 @@ When a user completes the onboarding flow (`/pages/onboarding/step6`):
 
 ### 2. **User Login**
 
-When a user logs in (`/pages/login`):
+When a user logs in (`/login`):
 
 1. Credentials sent to Supabase via `signInWithPassword()`
 2. On success, JWT token and user ID are stored in `localStorage`
@@ -132,7 +132,7 @@ export default function ProfilePage() {
   useEffect(() => {
     // Check if user is authenticated
     if (!isAuthenticated()) {
-      router.push("/pages/login");
+      router.push("/login");
       return;
     }
 
@@ -181,14 +181,14 @@ Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9...
 
 ### Test Signup Flow:
 
-1. Navigate to `/pages/onboarding/step1`
+1. Navigate to `/onboarding/step1`
 2. Complete all steps
 3. Check browser console for: "Auth data stored in localStorage"
 4. Check localStorage in DevTools for `jwt_token` and `user_id`
 
 ### Test Login Flow:
 
-1. Navigate to `/pages/login`
+1. Navigate to `/login`
 2. Enter credentials
 3. Check localStorage for tokens
 4. Should redirect to home page

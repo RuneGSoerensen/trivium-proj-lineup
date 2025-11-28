@@ -12,7 +12,7 @@ export default function Step4() {
   const stepNumber = 4;
   useEffect(() => {
     if (!canAccessStep(stepNumber)) {
-      router.push(`/pages/onboarding/step${maxStepReached}`);
+      router.push(`/onboarding/step${maxStepReached}`);
     }
   }, [canAccessStep, stepNumber, router, maxStepReached]);
   // Local useState for form Inputs
@@ -33,7 +33,7 @@ export default function Step4() {
       business_name: formData.business_name,
     });
     advanceStep();
-    router.push("/pages/onboarding/step5");
+    router.push("/onboarding/step5");
   };
   return (
     <section className="trvm-card max-w-xl mx-auto flex flex-col text-c">
