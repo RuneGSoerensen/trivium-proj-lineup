@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { useOnboarding } from "@utils/userOnobardingContext";
 import { useRouter } from "next/navigation";
 import { Button } from "@ui/Button/Button";
@@ -10,11 +10,11 @@ export default function LookingForOptions() {
   const router = useRouter();
   const { canAccessStep, advanceStep, userData, updateUser } = useOnboarding();
   const stepNumber = 5;
-  // useEffect(() => {
-  //   if (!canAccessStep(stepNumber)) {
-  //     router.push("/pages/onboarding/step1");
-  //   }
-  // }, [canAccessStep, stepNumber, router]);
+  useEffect(() => {
+    if (!canAccessStep(stepNumber)) {
+      router.push("/pages/onboarding/step1");
+    }
+  }, [canAccessStep, stepNumber, router]);
   // Local useState for form Input
   const [formData, setFormData] = useState({
     looking_for: userData.looking_for || null,
