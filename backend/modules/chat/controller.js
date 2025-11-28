@@ -6,7 +6,6 @@ import sql from "../../db.js";
  */
 export const getThreads = async (req, res) => {
     try {
-        // TODO: Implement logic to fetch threads for the authenticated user
         const userId = req.user?.id || req.query.userId;
 
         if (!userId) {
@@ -74,7 +73,7 @@ export const getThreadMessages = async (req, res) => {
         select 1 
         from chats_participants
         where thread_id = ${threadId}
-        and user_id = ${userId};
+        and user_id = ${userId}
         limit 1;
         `;
 

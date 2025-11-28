@@ -1,5 +1,5 @@
 'use client';
-import { Button } from '@ui/Button/Button';
+import { Button } from '@/ui/Button/Button';
 import { Edit2, Search } from 'lucide-react';
 
 export default function ChatLayout({ children }) {

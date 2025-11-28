@@ -5,7 +5,7 @@
 
 import { authenticatedFetch } from "./auth";
 
-const API_BASE_URL = import.meta.env.DATABASE_URL || "http://localhost:3300";
+const API_BASE_URL = "http://localhost:3001";
 
 /**
  * Create a new user (no authentication required)

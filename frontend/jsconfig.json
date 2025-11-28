@@ -3,13 +3,11 @@
     "baseUrl": "app",
     "paths": {
       "@/*": ["./*"],
-      "@app/*": ["../app/*"],
-      "@comps/*": ["../app/components/*"],
-      "@ui/*": ["../app/components/ui/*"],
-      "@utils/*": ["../app/utils/*"],
-      "@images/*": ["../images/*"],
-      "@pages/*": ["../app/*"],
-      "@styles/*": ["../styles/*"]
+      "@/app/*": ["../app/*"],
+      "@/comps/*": ["../app/components/*"],
+      "@/ui/*": ["../app/components/ui/*"],
+      "@/utils/*": ["../app/utils/*"],
+      "@/styles/*": ["../styles/*"]
     }
   }
 }

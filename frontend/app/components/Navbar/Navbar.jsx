@@ -57,7 +57,7 @@ export default function Navbar() {
                             variant="ghost"
                             aria-label={action.ariaLabel}
                             onClick={action.onClick}
-                            leftIcon={action.icon}
+                            icon={action.icon}
                         />
                     );
                 })}

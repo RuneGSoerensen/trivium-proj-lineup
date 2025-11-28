@@ -43,7 +43,7 @@ Authorization: Bearer <jwt_token>
 #### Example Using the `authenticatedFetch` Helper:
 
 ```javascript
-import { authenticatedFetch } from "@utils/auth";
+import { authenticatedFetch } from "@/utils/auth";
 
 const response = await authenticatedFetch("http://localhost:3001/user/123", {
   method: "GET",
@@ -53,7 +53,7 @@ const response = await authenticatedFetch("http://localhost:3001/user/123", {
 #### Example Using the API Utility:
 
 ```javascript
-import { getUserProfile } from "@utils/api";
+import { getUserProfile } from "@/utils/api";
 
 const userProfile = await getUserProfile(userId);
 ```
@@ -121,8 +121,8 @@ router.get("/user/:id", requireAuth, async (req, res) => {
 "use client";
 
 import { useEffect, useState } from "react";
-import { isAuthenticated, getUserId } from "@utils/auth";
-import { getUserProfile } from "@utils/api";
+import { isAuthenticated, getUserId } from "@/utils/auth";
+import { getUserProfile } from "@/utils/api";
 import { useRouter } from "next/navigation";
 
 export default function ProfilePage() {
@@ -196,8 +196,8 @@ Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9...
 ### Test Authenticated API Call:
 
 ```javascript
-import { getUserProfile } from "@utils/api";
-import { getUserId } from "@utils/auth";
+import { getUserProfile } from "@/utils/api";
+import { getUserId } from "@/utils/auth";
 
 const userId = getUserId();
 const profile = await getUserProfile(userId);

@@ -1,8 +1,8 @@
 "use client";
 
-import { Button } from "@ui/Button/Button";
-import Carousel from "@ui/Carousel/Carousel";
-import { useOnboarding } from "@utils/userOnboardingContext";
+import { Button } from "@/ui/Button/Button";
+import Carousel from "@/ui/Carousel/Carousel";
+import { useOnboarding } from "@/utils/userOnboardingContext";
 import Image from "next/image";
 import { useRouter } from "next/navigation";
 import { useEffect } from "react";

@@ -34,4 +34,4 @@ A reusable text input component that wraps a native `<input>` element with:
 ## Import
 
 ```jsx
-import Input from "@ui/Input/Input";
+import Input from "@/ui/Input/Input";

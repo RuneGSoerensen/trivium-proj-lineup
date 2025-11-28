@@ -1,7 +1,7 @@
 import React, { useCallback, useEffect, useRef } from "react"
 import ReactMarkdown from "react-markdown";
 import { Prism as SyntaxHighlighter } from 'react-syntax-highlighter'
-import { Button } from '@ui/Button/Button';
+import { Button } from '@/ui/Button/Button';
 
 function Message({ role = "assistant", children }) {
     return (

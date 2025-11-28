@@ -20,15 +20,15 @@ export default function TestPage() {
 
     return (
         <article className="space-y-12">
-            <Button rightIcon={<Angry />}>Primary</Button>
-            <Button leftIcon={<Apple fill="inherit" />} variant="secondary" onClick={() => alert("Clicked!")}>
+            <Button icon={<Angry />}>Primary</Button>
+            <Button icon={<Apple fill="inherit" />} variant="secondary" onClick={() => alert("Clicked!")}>
                 Secondary
             </Button>
             <Button size="sm" variant="glass">Glass Button</Button>
 
             <Button
                 type="dropdown"
-                rightIcon={<ChevronDownIcon />}
+                icon={<ChevronDownIcon />}
                 dropdownitems={
                     <ul className="flex flex-col">
                         <li className="py-4 hover:bg-base-200 px-4 rounded">Item 1</li>

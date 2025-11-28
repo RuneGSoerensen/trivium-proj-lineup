@@ -19,8 +19,8 @@ It’s built to cover most button patterns: text buttons, icon-only buttons, tog
 | `size`           | `"sm" \| "md" \| "lg"`                                   | `"md"`      | Controls padding and font size.                                            |
 | `iconSize`       | `"sm" \| "md" \| "lg" \| "xl" \| "xxl" \| `string`       | `"md"`      | Icon size mapped via internal size map or used as raw class.               |
 | `iconStroke`     | `"sm" \| "md" \| "lg" \| `string`                        | `"md"`      | Icon stroke width mapped via Tailwind stroke utilities.                    |
-| `leftIcon`       | `ReactNode`                                             | `undefined` | Icon rendered before the button label.                                     |
-| `rightIcon`      | `ReactNode`                                             | `undefined` | Icon rendered after the button label.                                      |
+| `icon`       | `ReactNode`                                             | `undefined` | Icon rendered before the button label.                                     |
+| `icon`      | `ReactNode`                                             | `undefined` | Icon rendered after the button label.                                      |
 | `className`      | `string`                                                | `undefined` | Additional Tailwind or custom utility classes.                             |
 | `children`       | `ReactNode`                                             | `undefined` | Button label content (hidden when `type="icon"`).                          |
 | `active`         | `boolean`                                               | `false`     | Controls active state for `type="toggle"`.                                 |
@@ -31,6 +31,6 @@ It’s built to cover most button patterns: text buttons, icon-only buttons, tog
 ### Import
 
 ```jsx
-import { Button } from "@ui/Button/Button";
+import { Button } from "@/ui/Button/Button";
 
 

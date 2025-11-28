@@ -12,8 +12,8 @@ export default function RootLayout({ children }) {
   return (
     <html lang="en" data-theme="lineup-light">
       <FlyonuiScript />
-      <body className="trvm-page mockup-phone overflow-x-hidden overflow-y-auto">
-        <main> {children} </main>
+      <body className="trvm-page overflow-x-hidden overflow-y-auto">
+        <main className="app-main"> {children} </main>
       </body>
     </html>
   );

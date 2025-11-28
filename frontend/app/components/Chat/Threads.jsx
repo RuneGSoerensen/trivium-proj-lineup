@@ -3,7 +3,7 @@ import React from 'react';
 import clsx from 'clsx';
 import Image from 'next/image';
 
-    export function ChatThreadItem({ thread, isActive, onSelect }) {
+    function ChatThreadItem({ thread, isActive, onSelect }) {
         const {
             id,
             isGroup,
