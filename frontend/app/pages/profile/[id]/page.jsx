@@ -5,6 +5,7 @@ import { useParams, useRouter } from "next/navigation";
 import Image from "next/image";
 import { Button } from "@ui/Button/Button";
 import NoteCard from "@/components/profile/noteCard";
+import { CirclePlus, CircleCheck, Send } from "lucide-react";
 import {
   TabContent,
   TabContentList,
@@ -104,7 +105,9 @@ export default function ProfilePage() {
       setLoading(false);
     }
   };
-
+  const handleClick = () => {
+    alert("Question submitted!");
+  };
   const handleFollow = async () => {
     if (!currentUserId) return;
 
@@ -213,28 +216,32 @@ export default function ProfilePage() {
         <div className="text-muted">Profile not found</div>
       </div>
     );
+
+  console.log(notes);
   return (
-    <div className="min-h-screen   pb-20  ">
+    <div className="w-full">
       {/* Profile Header */}
       <div
-        className="relative px-4 pt-8 pb-6 rounded-3xl"
+        className=" py-10 rounded-[40px] mb-6 w-full"
         style={{ backgroundColor: profile.theme }}
       >
         <div className="flex flex-col items-center">
           {/* Stats */}
-          <div className="flex items-center gap-8 mb-4 text-inverse ">
-            <div className="text-center">
-              <p className="text-[24px] font-bold">{profile.followers_count}</p>
+          <div className="flex items-center gap-16 mb-4 text-inverse w-full justify-center">
+            <div className="text-center w-50">
+              <p className="text-[20px] font-light">
+                {profile.followers_count}
+              </p>
               <p className="text-[13px] opacity-80">Followers</p>
             </div>
-            <div className=" rounded-full bg-default overflow-hidden border-4 border-white/20">
+            <div className=" w-150 h-150 rounded-full bg-default overflow-hidden border-4 border-white/20">
               {profile.image_url ? (
                 <Image
                   src={profile.image_url || "/placeholder.svg"}
                   alt={profile.name}
                   width={200}
                   height={200}
-                  className=" fit-object-cover"
+                  className=" fit-cover w-150 h-150 object-center "
                 />
               ) : (
                 <div className="w-full h-full flex items-center justify-center text-muted text-[32px] ">
@@ -242,8 +249,8 @@ export default function ProfilePage() {
                 </div>
               )}
             </div>
-            <div className="text-center">
-              <p className="text-[24px] font-bold">{profile.followers_count}</p>
+            <div className="text-center w-50">
+              <p className="text-[20px] font-light ">{notes.length || 0}</p>
               <p className="text-[13px] opacity-80">Notes</p>
             </div>
           </div>
@@ -255,42 +262,56 @@ export default function ProfilePage() {
           <p className="text-gray-200 text-xs mb-6"> {profile.bio}</p>
           {/* Action Buttons */}
           {profile.is_own_profile ? (
-            <div className="flex ">
-              <Button onClick={() => router.push("/pages/profile/edit")}>
-                Edit Profile
+            <div className="flex gap-5 justify-center text-white w-full">
+              <Button
+                variant="glass"
+                className=" w-full py-3 rounded-full  "
+                onClick={() => router.push("/pages/profile/edit")}
+              >
+                Edit profile
               </Button>
-              <Button>Share</Button>
+              <Button variant="glass" className=" w-full py-3 rounded-full">
+                Share profile
+              </Button>
             </div>
           ) : (
             <div className="flex gap-3">
-              <button
+              <Button
+                variant="glass"
                 onClick={handleFollow}
-                className={`px-8 py-3 rounded-[16px] text-muted text-[15px] ${
-                  profile.is_following
-                    ? "bg-default/20 backdrop-blur-sm text-inverse border border-white/30"
-                    : "bg-brand-primary text-default"
-                }`}
+                className="w-full py-3 rounded-full"
               >
-                {profile.is_following ? "Following" : "Follow"}
-              </button>
-              <button className="px-8 py-3 rounded-[16px] bg-default/20 backdrop-blur-sm text-inverse text-muted text-[15px] border border-white/30">
+                {" "}
+                {profile.is_following ? (
+                  <div className="flex gap-4">
+                    <p>following</p>
+                    <CircleCheck size={20} strokeWidth={4} />
+                  </div>
+                ) : (
+                  <div className="flex gap-4">
+                    <p>follow</p>
+                    <CirclePlus size={20} strokeWidth={4} />
+                  </div>
+                )}
+              </Button>
+              <Button variant="glass" className="w-full py-3 rounded-full">
                 Message
-              </button>
+              </Button>
             </div>
           )}
         </div>
       </div>
 
       {/* Tabs */}
-      <Tabs>
-        <TabsList className="bg-white">
-          <TabItem>About</TabItem>
+      <Tabs className="bg-white">
+        <TabsList className="bg-white rounded-b-none">
+          <TabItem className="">About</TabItem>
 
           <TabItem>Notes</TabItem>
         </TabsList>
-        <TabContentList className="mt-4">
+        <TabContentList className="mt-4 bg-white">
           <TabContent>
-            <div className="min-h-screen bg-background pb-20 px-4 py-6 space-y-6">
+            <div className=" bg-background pb-20 px-4">
               {/* About */}
               <div className=" m-4 ">
                 <label className="text-default text-muted mb-8 ">About</label>
@@ -427,11 +448,11 @@ export default function ProfilePage() {
                     Artists i like
                   </label>
                 </div>
-                <div className="flex items-center justify-center">
-                  {profile.artists_i_like.slice(0, 4).map((src, i) => (
+                <div className="flex items-center ">
+                  {profile.artists_i_like.slice(0, 3).map((src, i) => (
                     <div
                       key={i}
-                      className="w-50 h-50 rounded-full overflow-hidden border border-2 border-white "
+                      className="w-65 h-65 rounded-full overflow-hidden border border-2 border-white "
                       style={{
                         marginLeft: i === 0 ? 0 : -20,
                         zIndex: i + 1,
@@ -445,17 +466,21 @@ export default function ProfilePage() {
                     </div>
                   ))}
 
-                  {profile.artists_i_like.length > 4 && (
+                  {profile.artists_i_like.length > 3 && (
                     <div
-                      className="w-50 h-50 rounded-full bg-muted flex items-center justify-center text-default"
+                      className="w-65 h-65 rounded-full  flex items-center justify-center text-white"
                       style={{
                         marginLeft: -20,
                         zIndex: 5,
+                        backgroundColor: profile.theme,
                       }}
                     >
-                      +{profile.artists_i_like.length - 4}
+                      +{profile.artists_i_like.length - 3}
                     </div>
                   )}
+                  <div>
+                    <p className="text-muted p-10">See all</p>
+                  </div>
                 </div>
               </div>
 
@@ -514,25 +539,28 @@ export default function ProfilePage() {
                 <label htmlFor="questionInput" className="text-lg p-10">
                   Ask me a question
                 </label>
-                <div className="w-full border-1 rounded-full flex flex">
+                <div className={`border-1 rounded-full flex items-center`}>
                   <input
                     type="text"
                     id="questionInput"
-                    className="w-full  p-20"
+                    className="w-full  p-20 focus:outline-none "
                     placeholder="Type your question here..."
                   />
-                  <Image
-                    src={"/placeholder-image.png"}
-                    width={40}
-                    height={40}
-                    alt="Placeholder"
-                  />
+                  <button
+                    style={{ backgroundColor: profile.theme }}
+                    className="rounded-full  justify-center w-60 h-50 m-2 p-2  mr-10 flex items-center justify-center"
+                    onClick={handleClick}
+                  >
+                    <div className="h-25 w-25 ">
+                      <Send size={10} fill={"white"} stroke="0" />
+                    </div>
+                  </button>
                 </div>
               </div>
             </div>
           </TabContent>
           <TabContent>
-            <div className="space-y-4">
+            <div className="">
               {notes && notes.length > 0 ? (
                 notes.map((n) => (
                   <NoteCard
