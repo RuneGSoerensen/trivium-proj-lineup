@@ -227,6 +227,9 @@
 @utility bg-brand-primary {
   background-color: var(--color-primary);
 }
+@utility bg-brand-secondary {
+  background-color: var(--color-secondary);
+}
 @utility bg-brand-primary-hover {
   background-color: var(--color-primary-hover);
 }
@@ -333,7 +336,7 @@
 
 
 main {
-  background: var(--background);
+  /* background: var(--background); */
   color: var(--foreground);
   transition: all 300ms ease-in-out;
   overflow-x: hidden;
