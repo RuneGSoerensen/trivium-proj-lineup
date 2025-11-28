@@ -70,7 +70,7 @@
   --color-success-content: #121212;
   --color-warning: #e8bd69;
   --color-warning-content: #121212;
-  --color-error: #ff6b6b;
+  --color-error: rgb(163, 7, 7);
   --color-error-content: #121212;
 }
 /* Tailwind v4 design tokens */
@@ -152,6 +152,18 @@
 @utility text-brand {
   color: var(--color-primary);
 }
+@utility text-error {
+  color: var(--color-error);
+}
+@utility text-success {
+  color: var(--color-success);
+}
+@utility text-warning {
+  color: var(--color-warning);
+}
+@utility text-info {
+  color: var(--color-info);
+}
 @utility font-ui {
   font-family: var(--font-ui);
 }
@@ -178,7 +190,6 @@
   font-family: var(--font-ui);
   font-size: var(--text-body);
 }
-
 @utility text-xs {
   font-family: var(--font-ui);
   font-size: 0.75rem;
@@ -187,7 +198,6 @@
   font-family: var(--font-ui);
   font-size: var(--text-body-sm);
 }
-
 @utility text-base {
   font-family: var(--font-ui);
   font-size: var(--text-body-md);
@@ -257,7 +267,9 @@
 @utility ring-brand {
   box-shadow: 0 0 0 2px var(--color-primary);
 }
-
+@utility ring-error {
+  box-shadow: 0 0 0 2px var(--color-error);
+}
 /* Button size utilities */
 @utility btn-size-low {
   width: var(--size-button-low);
@@ -316,7 +328,7 @@
 
 /*Styles for page layout*/
   .trvm-page {
-    @apply inline-flex flex-col justify-start items-center space-y-4 xl:flex-row h-full w-full gap-8 p-24 bg-default;
+    @apply grid grid-flow-row grid-cols-1 space-y-4 h-full w-full gap-8 p-24 bg-default;
   }
 
 
@@ -328,7 +340,7 @@ main {
   overflow-y:auto;
   align-items: center;
   flex-direction: column;
-  display:inline-flex;
+  display:flex;
   padding:24px;
 }
 
