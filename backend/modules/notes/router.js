@@ -1,5 +1,3 @@
-<<<<<<< Conflict 1 of 1
-+++++++ Contents of side #1
 import express from "express";
 import {
   getUserNotes,
