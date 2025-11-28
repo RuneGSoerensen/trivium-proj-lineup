@@ -1,5 +1,5 @@
 import Navigation from "./components/navigation/navigation.jsx";
-import FlyonuiScript from "./components/FlyonuiScript";
+import FlyonuiScript from "./components/FlyonuiScript.jsx";
 import "./globals.css";
 import Image from "next/image.js";
 

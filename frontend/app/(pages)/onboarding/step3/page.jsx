@@ -3,7 +3,7 @@
 import React, { useState, useEffect } from "react";
 import { useOnboarding } from "@/utils/userOnboardingContext";
 import { useRouter } from "next/navigation";
-import { Button } from "@ui/Button/Button";
+import { Button } from "@/components/ui/Button/Button";
 
 export default function Step3() {
   const router = useRouter();

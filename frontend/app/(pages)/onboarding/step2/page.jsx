@@ -4,8 +4,9 @@ import React, { useState, useEffect } from "react";
 import { useOnboarding } from "@/utils/userOnboardingContext";
 import { useRouter } from "next/navigation";
 import Link from "next/link";
-import { Button } from "@ui/Button/Button";
-import Input from "@ui/Input/Input";
+import { Button } from "@/components/ui/Button/Button";
+import Input from "@/components/ui/Input/Input";
+import Image from "next/image";
 
 export default function Step2() {
   const router = useRouter();
@@ -176,28 +177,30 @@ export default function Step2() {
         </Button>
       </form>
 
-     <p>or</p>
+      <p>or sign up with</p>
       <div className="flex flex-col items-center justify-center mt-6 mb-10">
-   
+
         <div className="flex flex-col gap-10 items-center mt-20">
           <Button
             variant="secondary"
-            size="md"
+            className="max-w-11/12"
             onClick={() => {
               /* google signup */
             }}
           >
-            Sign up with Google
+            <span className="flex justify-center gap-8">
+              <Image src="/icons/Google.svg" alt="Google Icon" width={20} height={20} className="mr-2" /> Google
+            </span>
           </Button>
 
           <Button
             variant="secondary"
-            size="md"
+            className="max-w-11/12"
             onClick={() => {
               /* apple signup */
             }}
           >
-            Sign up with Apple
+            Apple
           </Button>
         </div>
         <div className="flex flex-col gap-10 items-center mt-20">

@@ -2,7 +2,7 @@
 
 import { Button } from "@ui/Button/Button";
 import Carousel from "@ui/Carousel/Carousel";
-import { useOnboarding } from "@/utils/userOnboardingContext";
+import { useOnboarding } from "@utils/userOnboardingContext";
 import Image from "next/image";
 import { useRouter } from "next/navigation";
 import { useEffect } from "react";
@@ -51,6 +51,7 @@ export default function Step1() {
           src={content.image}
           alt={`Onboarding ${index + 1}`}
           className="object-contain w-full h-full"
+          loading="lazy"
         />
         <h2 className="text-center mt-6 text-lg font-semibold">
           {content.label}

@@ -3,7 +3,7 @@
 
 import { useNavbar } from "./NavbarContext";
 import { useRouter } from "next/navigation";
-import { Button } from "@ui/Button/Button";
+import { Button } from "@/components/ui/Button/Button";
 import { Search, Bell, Menu } from "lucide-react";
 
 const ACTION_DEFS = (router) => ({

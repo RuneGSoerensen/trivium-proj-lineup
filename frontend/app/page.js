@@ -2,7 +2,7 @@
 import Image from "next/image";
 import NavLink from "./components/navigation/NavLink";
 import Navigation from "./components/navigation/navigation";
-import TestPage from "./pages/ui-test/page";
+import TestPage from "./(pages)/ui-test/page";
 
 
 export default function Home() {

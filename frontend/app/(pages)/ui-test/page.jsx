@@ -1,10 +1,10 @@
 'use client';
 
-import {Button} from "@ui/Button/Button";
-import { ServiceCard } from "@ui/Card/Card";
-import Input from "@ui/Input/Input";
-import { TabContent, TabContentList, TabItem, Tabs, TabsList } from "@ui/Tab/Tab";
-import { Tag } from "@ui/Tag/Tag";
+import {Button} from "@/components/ui/Button/Button";
+import { ServiceCard } from "@/components/ui/Card/Card";
+import Input from "@/components/ui/Input/Input";
+import { TabContent, TabContentList, TabItem, Tabs, TabsList } from "@/components/ui/Tab/Tab";
+import { Tag } from "@/components/ui/Tag/Tag";
 import Image from "next/image";
 import { Angry, ArrowLeftCircle, Apple, MoreVertical, MoonIcon, ChevronDownIcon } from "lucide-react";
 import React from "react";

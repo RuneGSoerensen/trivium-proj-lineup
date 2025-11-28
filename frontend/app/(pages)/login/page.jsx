@@ -2,10 +2,10 @@
 
 import { useState } from "react";
 import { useRouter } from "next/navigation";
-import { signInWithPassword } from "@utils/supabaseClient";
-import { setAuthToken } from "@utils/auth";
-import Input from "@ui/Input/Input";
-import { Button } from "@ui/Button/Button";
+import { signInWithPassword } from "@/utils/supabaseClient";
+import { setAuthToken } from "@/utils/auth";
+import Input from "@/components/ui/Input/Input";
+import { Button } from "@/components/ui/Button/Button";
 
 export default function LoginPage() {
   const router = useRouter();
