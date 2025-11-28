@@ -6,6 +6,7 @@ import notesRouter from "./routes/notes.js";
 import lookingForTagsRouter from "./routes/looking_for.js";
 import { requireAuth } from "./middelware/auth.js";
 import genreRouter from "./routes/genres.js";
+import chatRouter from "./routes/chat.js";
 const app = express();
 const PORT = process.env.PORT || 3000;
 // Before production this needs to be changed to a valid url, or something more secure.
@@ -28,6 +29,7 @@ app.get("/", (req, res) => {
 });
 app.use("/genres", genreRouter);
 app.use("/looking_for_tags", lookingForTagsRouter);
+app.use("/chat", requireAuth, chatRouter);
 
 app.listen(PORT, () => {
   console.log(`Server running on port ${PORT}`);
