@@ -1,10 +1,13 @@
 import express from "express";
+import { getUser } from "../modules/user/controller.js";
 import { createUser } from "../modules/user/controller.js";
-import { getUserData } from "../modules/user/controller.js";
-
+import { updateUser } from "../modules/user/controller.js";
 const router = express.Router();
 
 // POST /users
 router.post("/create", createUser);
-router.get("/:id", getUserData);
+router.get("/:id", getUser);
+router.patch("/:id", updateUser);
+router;
+
 export default router;
