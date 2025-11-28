@@ -1,4 +1,5 @@
 import sql from "../../db.js";
+import z from 'zod';
 
 export const getUserNotes = async (req, res) => {
   const { id } = req.params;
@@ -111,8 +112,25 @@ export const likeComment = async (req, res) => {
 };
 
 export async function createNote(req, res) {
-  // Hardcoded to Morten. because yes.
-  const userId = "e63c9c36-2142-4a61-a152-118931631893";
+  const userId = req.userId;
+
+  const schema = z.object({
+    title: z.string(),
+    content: z.string(),
+    image_url: z.url(),
+    people_user_ids: z.array(z.uuid()).default([]),
+    tags: z.array(z.uuid()).default([]),
+  });
+
+  const result = schema.safeParse(req.body);
+
+  if (!result.success) {
+    return res.status(400).json(
+      { error: result.error.issues }
+    );
+  }
+
+  console.log(result);
 
   const {
     title,
@@ -120,54 +138,16 @@ export async function createNote(req, res) {
     image_url,
     people_user_ids,
     tags,
-  } = req.body;
+  } = result.data;
 
   const [{ id: newNoteId }] = await sql`
-     INSERT INTO notes
-     (
-       user_id,
-       title,
-       content,
-       image_url
-     )
-       VALUES
-       (
-         ${userId},
-         ${title},
-         ${content},
-         ${image_url}
-       )
-       RETURNING notes.id;
-   `;
-
-  console.log(`got new note ID: ${newNoteId}`);
-
-  res.sendStatus(201);
-}
-
-export async function createNote(req, res) {
-  if (req.userId) {
-    const userId = req.userId;
-  }
-  else {
-    // No user ID = unauthorized
-    return res.sendStatus(401);
-  }
-
-  const {
-    title,
-    content,
-    image_url
-  } = req.body;
-
-  const queryResult = await sql`
     INSERT INTO notes
-      (
-        user_id,
-        title,
-        content,
-        image_url
-      )
+    (
+      user_id,
+      title,
+      content,
+      image_url
+    )
       VALUES
       (
         ${userId},
@@ -177,4 +157,8 @@ export async function createNote(req, res) {
       )
       RETURNING notes.id;
   `;
+
+  console.log(`got new note ID: ${newNoteId}`);
+
+  res.sendStatus(201);
 }
