@@ -15,7 +15,7 @@ export const getUserNotes = async (req, res) => {
           'id', c.id,
           'parent_comment_id', c.parent_comment_id,
           'content', c.content,
-          --add title here.
+          'title', c.title,
           'created_at', c.created_at,
           'likes_count', (SELECT COUNT(*) FROM comment_likes cl WHERE cl.comment_id = c.id),
           'user', jsonb_build_object(

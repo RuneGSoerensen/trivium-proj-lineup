@@ -1,25 +1,27 @@
 "use client";
 
-import { useOnboarding } from "@utils/userOnobardingContext";
+import { useOnboarding } from "@/utils/userOnboardingContext";
 import { useRouter } from "next/navigation";
-import { supabase } from "@utils/supabaseClient";
-import { setAuthToken } from "@utils/auth";
-import { createUser } from "@utils/api";
-import { useState } from "react";
+import { supabase } from "@/utils/supabaseClient";
+import { setAuthToken } from "@/utils/auth";
+import { createUser } from "@/utils/api";
+import { useState, useEffect } from "react";
 
 export default function Step6() {
   const router = useRouter();
-  const { canAccessStep, userData } = useOnboarding();
+  const { canAccessStep, userData, maxStepReached, clearOnboardingData } =
+    useOnboarding();
   const stepNumber = 6;
   const [selectedMembership, setSelectedMembership] = useState(null);
   const [errorMessage, setErrorMessage] = useState(null);
   const [isSubmitting, setIsSubmitting] = useState(false);
+  const [isCompleted, setIsCompleted] = useState(false);
 
   useEffect(() => {
-    if (!canAccessStep(stepNumber)) {
-      router.push("/pages/onboarding/step1");
+    if (!isCompleted && !canAccessStep(stepNumber)) {
+      router.push(`/pages/onboarding/step${maxStepReached}`);
     }
-  }, [canAccessStep, stepNumber, router]);
+  }, [canAccessStep, stepNumber, router, maxStepReached, isCompleted]);
 
   const handleMembershipChange = (membership) => {
     setSelectedMembership(
@@ -78,7 +80,12 @@ export default function Step6() {
       const result = await createUser(updatedUserData);
       console.log("User created successfully in backend:", result);
 
-      router.push("/");
+      // Mark as completed to prevent redirect in useEffect
+      setIsCompleted(true);
+      // Use replace instead of push to prevent back navigation to onboarding
+      router.replace("/");
+      // Clear onboarding data from localStorage (preserves userId and JWT token) after navigation starts
+      setTimeout(() => clearOnboardingData(), 100);
     } catch (error) {
       console.error("Unexpected error during user creation:", error);
       setErrorMessage(
@@ -88,9 +95,6 @@ export default function Step6() {
       setIsSubmitting(false);
     }
   };
-  // all in all, looks pretty good!, if Victoria makes ui
-  // components for radio buttons, input and datepicker import those into
-  // the onboarding files, and use those instead of html elements
   return (
     <section className="trvm-card max-w-xl mx-auto flex flex-col text-c">
       <h1>Final step - Membership type:</h1>

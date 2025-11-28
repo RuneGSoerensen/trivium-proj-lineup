@@ -5,7 +5,7 @@
   .trvm-btn {
     @apply flex items-center justify-center gap-8 rounded-button
            font-normal font-ui text-body
-           transition-colors duration-150 py-8 px-24
+           transition-colors duration-150
            cursor-pointer w-full max-w-md xl:max-w-xl;
   }
   .btn-primary {

@@ -2,7 +2,6 @@
 'use client';
 import React, { useState } from "react";
 import clsx from "clsx";
-import { set } from "lodash";
 
 /**
  * Button component with multiple types and variants.
@@ -27,11 +26,6 @@ const sizeClass = {
   lg: "py-12 px-32 text-lg",
 };
 
-const widthClass = {
-  full: "w-full justify-center",
-  fit: "w-fit sm:max-w-fit",
-};
-
 const iconSz = {
   sm: "w-16 h-16",
   md: "w-20 h-20",
@@ -53,7 +47,6 @@ export const Button = ({
   type = "default", // default | icon | toggle | dropdown
   variant = "primary",
   size = "md",
-  width = "full",
   iconSize = "md",
   iconStroke = "md",
   leftIcon,
@@ -98,7 +91,6 @@ export const Button = ({
           typeClass,
           variantClass[variant],
           sizeClass[size],
-          widthClass[width],
           className,
         )}
         aria-pressed={type === "toggle" ? active : undefined}
