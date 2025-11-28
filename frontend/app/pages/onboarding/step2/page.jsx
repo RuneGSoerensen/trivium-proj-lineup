@@ -1,7 +1,7 @@
 "use client";
 
 import React, { useState, useEffect } from "react";
-import { useOnboarding } from "@utils/userOnobardingContext";
+import { useOnboarding } from "@/utils/userOnboardingContext";
 import { useRouter } from "next/navigation";
 import Link from "next/link";
 import { Button } from "@ui/Button/Button";
@@ -9,7 +9,8 @@ import Input from "@ui/Input/Input";
 
 export default function Step2() {
   const router = useRouter();
-  const { canAccessStep, advanceStep, userData, updateUser } = useOnboarding();
+  const { canAccessStep, advanceStep, userData, updateUser, maxStepReached } =
+    useOnboarding();
   const [emailTouched, setEmailTouched] = useState(false);
   const [emailError, setEmailError] = useState("");
   const [confirmTouched, setConfirmTouched] = useState(false);
@@ -18,15 +19,16 @@ export default function Step2() {
 
   useEffect(() => {
     if (!canAccessStep(stepNumber)) {
-      router.push("/pages/onboarding/step1");
+      router.push(`/pages/onboarding/step${maxStepReached}`);
     }
-  }, [canAccessStep, stepNumber, router]);
+  }, [canAccessStep, stepNumber, router, maxStepReached]);
 
   // Local useState for form Inputs
+  // Password fields are never persisted to localStorage for security
   const [formData, setFormData] = useState({
     email: userData.email || "",
-    password: userData.password || "",
-    confirmPassword: userData.confirmPassword || "",
+    password: "",
+    confirmPassword: "",
   });
 
   const handleNext = () => {
