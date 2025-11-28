@@ -70,7 +70,7 @@
   --color-success-content: #121212;
   --color-warning: #e8bd69;
   --color-warning-content: #121212;
-  --color-error: #ff6b6b;
+  --color-error: rgb(163, 7, 7);
   --color-error-content: #121212;
 }
 /* Tailwind v4 design tokens */

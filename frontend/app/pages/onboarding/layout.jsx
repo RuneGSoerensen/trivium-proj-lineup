@@ -11,7 +11,7 @@ export default function OnboardingLayout({ children }) {
   const match = pathname.match(/step(\d+)/i);
   const currentStep = match ? Number(match[1]) : 1;
 
-  const totalSteps = 5; // 6 total steps in onboarding, but progressbar should not be shown in step1
+  const totalSteps = 6; // 6 total steps in onboarding, but progressbar should not be shown in step1
 
   const skipSteps = [1]; // Steps where progress bar is not shown
   if (skipSteps.includes(currentStep)) {

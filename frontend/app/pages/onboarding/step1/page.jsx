@@ -54,7 +54,7 @@ export default function Step1() {
     <div className="space-y-24 h-full flex flex-col items-center justify-center">
       {/* TODO refine carousel, add images and click events */}
       <Carousel slides={renderSlides()} heightClass="h-310" />
-      <Button onClick={handleNext} space="fit" variant="primary">Get started!</Button>
+      <Button onClick={handleNext} className="w-fit" variant="primary">Get started!</Button>
     </div>
   );
 }

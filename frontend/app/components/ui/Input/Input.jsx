@@ -1,6 +1,6 @@
 'use client';
 
-import React from 'react'
+import React, { useId } from 'react'
 import PropTypes from 'prop-types'
 import clsx from 'clsx';
 
@@ -19,7 +19,9 @@ const variantClass = (variant) => {
     };
 };
 
-const Input = ({ variant, value, onChange = () => { }, placeholder, type = "text", className, hasMessage = false, message, ...rest }) => {
+const Input = ({ variant, value, onChange = () => { }, placeholder, type = "text", className, hasMessage = false, message, id, ...rest }) => {
+    const inputId = useId(id);
+    
     return (
         <div className='w-full gap-4 flex flex-col'>
             <input
@@ -33,11 +35,11 @@ const Input = ({ variant, value, onChange = () => { }, placeholder, type = "text
                 placeholder={placeholder}
                 type={type}
                 aria-invalid={hasMessage}
-                aria-describedby={hasMessage ? "input-error" : undefined}
+                aria-describedby={hasMessage ? `${inputId}-error` : undefined}
                 {...rest}
             />
             {hasMessage && (
-                <p className="text-error">{message}</p>
+                <p id={`${inputId}-error`} className="text-error text-xs">{message}</p>
             )}
         </div>
     );

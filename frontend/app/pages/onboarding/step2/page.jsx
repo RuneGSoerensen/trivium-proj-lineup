@@ -60,19 +60,18 @@ export default function Step2() {
   // then call the function when pressing continue ;)
   // Put this function inside the handleNext function
   return (
-    <section className="max-w-xl mx-auto mt-12 flex flex-col gap-14 items-center text-center">
+    <section className="max-w-xl mx-auto mt-12 flex flex-col gap-14 items-center">
       <h1 className="text-h1">Sign up</h1>
-      <p className="subtitle mb-6 w-full">
+      <p className="subtitle mb-6 w-full text-center">
         By continuing you agree to LineUp! <br /> Terms of use and Privacy Policy.
       </p>
 
       <form
-        className="flex flex-col gap-8"
+        className="flex flex-col items-center gap-8"
         onSubmit={(e) => {
           e.preventDefault();
           handleNext();
         }}
-        value={formData}
       >
         <Input
           variant={emailTouched && !!emailError ? "error" : "default"}
@@ -148,19 +147,16 @@ export default function Step2() {
           message={passwordMatchError}
         />
 
-      </form>
-      {(emailTouched && !!emailError) || (confirmTouched && !!passwordMatchError) ? (
-        <span className="sr-only" role="alert">
-          {emailError || passwordMatchError}
-        </span>
-      ) : null}
+        {(emailTouched && !!emailError) || (confirmTouched && !!passwordMatchError) ? (
+          <span className="sr-only" role="alert">
+            {emailError || passwordMatchError}
+          </span>
+        ) : null}
 
-      <div className="flex flex-col items-center justify-center mt-6 mb-10">
         <Button
           type="submit"
           variant="primary"
-          onClick={handleNext}
-          className="mb-14 rounded-full w-fit"
+          className="mt-14 rounded-full w-fit"
           disabled={
             !validateEmail(formData.email) ||
             !formData.password ||
@@ -176,8 +172,11 @@ export default function Step2() {
         >
           Continue
         </Button>
+      </form>
 
-        <p>or</p>
+     <p>or</p>
+      <div className="flex flex-col items-center justify-center mt-6 mb-10">
+   
         <div className="flex flex-col gap-10 items-center mt-20">
           <Button
             variant="secondary"
