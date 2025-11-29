@@ -1,5 +1,5 @@
 import express from "express";
-import { getLookingForTags } from "../modules/looking_for/controller.js";
+import { getLookingForTags } from "./controller.js";
 
 const router = express.Router();
 

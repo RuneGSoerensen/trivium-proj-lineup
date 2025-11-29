@@ -1,5 +1,5 @@
 import express from "express";
-import { editUser, editGenres } from "../modules/edit-user/controller.js";
+import { editUser, editGenres } from "./controller.js";
 
 const router = express.Router();
 

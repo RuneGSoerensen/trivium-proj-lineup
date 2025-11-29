@@ -4,7 +4,7 @@ import {
   likeNote,
   commentNote,
   likeComment,
-} from "../modules/notes/controller.js";
+} from "./controller.js";
 
 const router = express.Router();
 
