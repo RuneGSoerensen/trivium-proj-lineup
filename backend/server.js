@@ -1,12 +1,11 @@
 import express from "express";
 import cors from "cors";
-import usersRouter from "./routes/user.js";
-import connectionsRouter from "./routes/connections.js";
-import notesRouter from "./routes/notes.js";
-import lookingForTagsRouter from "./routes/looking_for.js";
+import usersRouter from "./modules/user/router.js";
+import connectionsRouter from "./modules/connections/router.js";
+import notesRouter from "./modules/notes/router.js";
+import lookingForTagsRouter from "./modules/looking_for/router.js";
 import { requireAuth } from "./middelware/auth.js";
-import genreRouter from "./routes/genres.js";
-import chatRouter from "./routes/chat.js";
+import genreRouter from "./modules/genres/router.js";
 const app = express();
 const PORT = process.env.PORT || 3000;
 // Before production this needs to be changed to a valid url, or something more secure.
