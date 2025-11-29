@@ -19,7 +19,7 @@ export default function Step6() {
 
   useEffect(() => {
     if (!isCompleted && !canAccessStep(stepNumber)) {
-      router.push(`/pages/onboarding/step${maxStepReached}`);
+      router.push(`/onboarding/step${maxStepReached}`);
     }
   }, [canAccessStep, stepNumber, router, maxStepReached, isCompleted]);
 

@@ -152,6 +152,9 @@
 @utility text-brand {
   color: var(--color-primary);
 }
+@utility text-on-secondary {
+  color: var(--color-secondary-content);
+}
 @utility text-error {
   color: var(--color-error);
 }
@@ -227,6 +230,9 @@
 @utility bg-brand-primary {
   background-color: var(--color-primary);
 }
+@utility bg-brand-secondary {
+  background-color: var(--color-secondary);
+}
 @utility bg-brand-primary-hover {
   background-color: var(--color-primary-hover);
 }
@@ -240,6 +246,14 @@
   background-color: var(--color-secondary-blue);
 }
 
+@utility primary-style {
+  background-color: var(--color-primary);
+  color: var(--color-primary-content);
+}
+@utility secondary-style {
+  background-color: var(--color-secondary);
+  color: var(--color-secondary-content);
+}
 @utility error-style {
   background-color: var(--color-error);
   color: var(--color-error-content);
@@ -254,14 +268,14 @@
 }
 @utility warning-style {
   background-color: var(--color-warning);
-  color: var(--color-warning-content);  
+  color: var(--color-warning-content);
 }
 
 /* Border semantic utilities */
 @utility border-brand {
   border: 1.5px solid var(--color-primary);
 }
-@utility border-muted{
+@utility border-muted {
   border: 1.5px solid --alpha(var(--color-base-content) / 20%);
 }
 @utility ring-brand {
@@ -304,14 +318,12 @@
 @utility input-color {
   background-color: var(--color-base-200);
   color: var(--color-base-content);
-  border: 1px solid
-    --alpha(var(--color-base-content) / 50%);
+  border: 1px solid --alpha(var(--color-base-content) / 50%);
 }
 
 @utility input-checkbox {
   background-color: var(--color-primary);
-  border: 1px solid
-    --alpha(var(--color-base-content) / 50%);
+  border: 1px solid --alpha(var(--color-base-content) / 50%);
 }
 
 :root {
@@ -327,21 +339,18 @@
 } */
 
 /*Styles for page layout*/
-  .trvm-page {
-    @apply grid grid-flow-row grid-cols-1 space-y-4 h-full w-full gap-8 p-24 bg-default;
-  }
+.trvm-page {
+  @apply grid grid-flow-row grid-cols-1 space-y-4 h-full w-full gap-8 bg-default;
+}
 
-
-main {
-  background: var(--background);
+.app-main {
+  background-color: var(--background);
   color: var(--foreground);
   transition: all 300ms ease-in-out;
-  overflow-x: hidden;
-  overflow-y:auto;
+  overflow: hidden auto;
   align-items: center;
   flex-direction: column;
-  display:flex;
-  padding:24px;
+  display: flex;
 }
 
 html,

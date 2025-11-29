@@ -3,7 +3,7 @@
 import React, { useState, useEffect } from "react";
 import { useOnboarding } from "@/utils/userOnboardingContext";
 import { useRouter } from "next/navigation";
-import { Button } from "@ui/Button/Button";
+import { Button } from "@/ui/Button/Button";
 
 export default function LookingForOptions() {
   const router = useRouter();
@@ -12,7 +12,7 @@ export default function LookingForOptions() {
   const stepNumber = 5;
   useEffect(() => {
     if (!canAccessStep(stepNumber)) {
-      router.push(`/pages/onboarding/step${maxStepReached}`);
+      router.push(`/onboarding/step${maxStepReached}`);
     }
   }, [canAccessStep, stepNumber, router, maxStepReached]);
   // Local useState for form Input
@@ -23,7 +23,7 @@ export default function LookingForOptions() {
   const handleNext = () => {
     updateUser({ looking_for: formData.looking_for });
     advanceStep();
-    router.push("/pages/onboarding/step6");
+    router.push("/onboarding/step6");
   };
   const options = [
     { key: 1, label: "Connect to fellow musicians" },

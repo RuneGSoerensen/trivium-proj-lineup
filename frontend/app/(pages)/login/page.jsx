@@ -2,10 +2,10 @@
 
 import { useState } from "react";
 import { useRouter } from "next/navigation";
-import { signInWithPassword } from "@utils/supabaseClient";
-import { setAuthToken } from "@utils/auth";
-import Input from "@ui/Input/Input";
-import { Button } from "@ui/Button/Button";
+import { signInWithPassword } from "@/utils/supabaseClient";
+import { setAuthToken } from "@/utils/auth";
+import Input from "@/components/ui/Input/Input";
+import { Button } from "@/components/ui/Button/Button";
 
 export default function LoginPage() {
   const router = useRouter();
@@ -103,7 +103,7 @@ export default function LoginPage() {
 
         <p className="mt-25 text-center text-sm">
           Don&apos;t have an account?{" "}
-          <a href="/pages/onboarding/step1" className="text-cyan-500">
+          <a href="/onboarding/step1" className="text-cyan-500">
             Sign up
           </a>
         </p>

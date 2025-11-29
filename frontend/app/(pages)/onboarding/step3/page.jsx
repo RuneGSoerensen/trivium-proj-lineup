@@ -3,7 +3,7 @@
 import React, { useState, useEffect } from "react";
 import { useOnboarding } from "@/utils/userOnboardingContext";
 import { useRouter } from "next/navigation";
-import { Button } from "@ui/Button/Button";
+import { Button } from "@/components/ui/Button/Button";
 
 export default function Step3() {
   const router = useRouter();
@@ -12,7 +12,7 @@ export default function Step3() {
   const stepNumber = 3;
   useEffect(() => {
     if (!canAccessStep(stepNumber)) {
-      router.push(`/pages/onboarding/step${maxStepReached}`);
+      router.push(`/onboarding/step${maxStepReached}`);
     }
   }, [canAccessStep, stepNumber, router, maxStepReached]);
   // Local useState for form Input
@@ -23,7 +23,7 @@ export default function Step3() {
   const handleNext = () => {
     updateUser({ is_musician: formData.is_musician });
     advanceStep();
-    router.push("/pages/onboarding/step4");
+    router.push("/onboarding/step4");
   };
 
   return (

@@ -1,10 +1,10 @@
 'use client';
 
-import {Button} from "@ui/Button/Button";
-import { ServiceCard } from "@ui/Card/Card";
-import Input from "@ui/Input/Input";
-import { TabContent, TabContentList, TabItem, Tabs, TabsList } from "@ui/Tab/Tab";
-import { Tag } from "@ui/Tag/Tag";
+import {Button} from "@/components/ui/Button/Button";
+import { ServiceCard } from "@/components/ui/Card/Card";
+import Input from "@/components/ui/Input/Input";
+import { TabContent, TabContentList, TabItem, Tabs, TabsList } from "@/components/ui/Tab/Tab";
+import { Tag } from "@/components/ui/Tag/Tag";
 import Image from "next/image";
 import { Angry, ArrowLeftCircle, Apple, MoreVertical, MoonIcon, ChevronDownIcon } from "lucide-react";
 import React from "react";
@@ -20,15 +20,15 @@ export default function TestPage() {
 
     return (
         <article className="space-y-12">
-            <Button rightIcon={<Angry />}>Primary</Button>
-            <Button leftIcon={<Apple fill="inherit" />} variant="secondary" onClick={() => alert("Clicked!")}>
+            <Button icon={<Angry />}>Primary</Button>
+            <Button icon={<Apple fill="inherit" />} variant="secondary" onClick={() => alert("Clicked!")}>
                 Secondary
             </Button>
             <Button size="sm" variant="glass">Glass Button</Button>
 
             <Button
                 type="dropdown"
-                rightIcon={<ChevronDownIcon />}
+                icon={<ChevronDownIcon />}
                 dropdownitems={
                     <ul className="flex flex-col">
                         <li className="py-4 hover:bg-base-200 px-4 rounded">Item 1</li>

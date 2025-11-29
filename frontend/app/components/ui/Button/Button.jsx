@@ -8,7 +8,7 @@ import clsx from "clsx";
  * Types: default, icon, toggle, dropdown
  * Variants: primary, secondary, glass
  * Sizes: sm, md, lg
- * Props for icons: leftIcon, rightIcon, iconSize, iconStroke
+ * Props for icons: icon, iconSize, iconStroke
  * fullWidth: boolean
  * className: additional classes
  */
@@ -24,6 +24,7 @@ const sizeClass = {
   sm: "py-6 px-16 text-sm",
   md: "py-8 px-24 text-base",
   lg: "py-12 px-32 text-lg",
+  rounded: "p-12 rounded-full", // for icon buttons
 };
 
 const iconSz = {
@@ -35,9 +36,9 @@ const iconSz = {
 };
 
 const strokeW = {
-  sm: "stroke-[1.5px]",
-  md: "stroke-[2px]",
-  lg: "stroke-[2.5px]",
+  thin: "stroke-[1px]",
+  medium: "stroke-[2px]",
+  thick: "stroke-[2.5px]",
 };
 
 const resolveIconSize = (size = "md") => iconSz[size] ?? size;
@@ -46,11 +47,11 @@ const resolveStroke = (stroke = "md") => strokeW[stroke] ?? stroke;
 export const Button = ({
   type = "default", // default | icon | toggle | dropdown
   variant = "primary",
-  size = "md",
+  size = type === "icon" ? "rounded" : "md",
+  icon,
+  iconPosition = "left", // left | right
   iconSize = "md",
-  iconStroke = "md",
-  leftIcon,
-  rightIcon,
+  iconStroke = "medium",
   className,
   children,
   active = false, // toggle button state
@@ -97,14 +98,14 @@ export const Button = ({
         {...rest}
       >
         {/* LEFT ICON */}
-        {leftIcon && (
+        {icon && iconPosition === "left" && (
           <span
             className={clsx(
               resolveIconSize(iconSize),
               resolveStroke(iconStroke)
             )}
           >
-            {leftIcon}
+            {icon}
           </span>
         )}
 
@@ -116,14 +117,14 @@ export const Button = ({
         )}
 
         {/* RIGHT ICON */}
-        {rightIcon && (
+        {icon && iconPosition === "right" && (
           <span
             className={clsx(
               resolveIconSize(iconSize),
               resolveStroke(iconStroke)
             )}
           >
-            {rightIcon}
+            {icon}
           </span>
         )}
       </button>

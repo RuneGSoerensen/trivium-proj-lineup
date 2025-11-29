@@ -3,24 +3,24 @@
 
 import { useNavbar } from "./NavbarContext";
 import { useRouter } from "next/navigation";
-import { Button } from "@ui/Button/Button";
+import { Button } from "@/components/ui/Button/Button";
 import { Search, Bell, Menu } from "lucide-react";
 
 const ACTION_DEFS = (router) => ({
     search: {
         icon: <Search className="w-4 h-4" />,
         ariaLabel: "Open search",
-        onClick: () => router.push("/pages/search"),
+        onClick: () => router.push("/search"),
     },
     notifications: {
         icon: <Bell className="w-4 h-4" />,
         ariaLabel: "Open notifications",
-        onClick: () => router.push("/pages/notifications"),
+        onClick: () => router.push("/notifications"),
     },
     menu: {
         icon: <Menu className="w-4 h-4" />,
         ariaLabel: "Open menu",
-        onClick: () => router.push("/pages/menu"),
+        onClick: () => router.push("/menu"),
     },
 });
 
@@ -57,7 +57,7 @@ export default function Navbar() {
                             variant="ghost"
                             aria-label={action.ariaLabel}
                             onClick={action.onClick}
-                            leftIcon={action.icon}
+                            icon={action.icon}
                         />
                     );
                 })}

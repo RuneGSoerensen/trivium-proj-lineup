@@ -1,7 +1,7 @@
 "use client";
 
-import { Button } from "@ui/Button/Button";
-import Carousel from "@ui/Carousel/Carousel";
+import { Button } from "@/ui/Button/Button";
+import Carousel from "@/ui/Carousel/Carousel";
 import { useOnboarding } from "@/utils/userOnboardingContext";
 import Image from "next/image";
 import { useRouter } from "next/navigation";
@@ -14,13 +14,13 @@ export default function Step1() {
 
   useEffect(() => {
     if (!canAccessStep(stepNumber)) {
-      router.push(`/pages/onboarding/step${maxStepReached}`);
+      router.push(`/onboarding/step${maxStepReached}`);
     }
   }, [canAccessStep, stepNumber, router, maxStepReached]);
 
   const handleNext = () => {
     advanceStep();
-    router.push("/pages/onboarding/step2");
+    router.push("/onboarding/step2");
   };
 
   const onboard_imgs = [
@@ -51,6 +51,7 @@ export default function Step1() {
           src={content.image}
           alt={`Onboarding ${index + 1}`}
           className="object-contain w-full h-full"
+          loading="eager"
         />
         <h2 className="text-center mt-6 text-lg font-semibold">
           {content.label}
