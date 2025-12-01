@@ -13,6 +13,7 @@ export default function ChatLayout({ children }) {
     })
 
     const { mode, activeThread, onBack } = headerState;
+    const participantInitials = activeThread?.participantName ? activeThread.participantName.charAt(0).toUpperCase() : '';
 
     return (
         <ChatHeaderContext.Provider value={{ ...headerState, setHeaderState }}>
@@ -29,6 +30,7 @@ export default function ChatLayout({ children }) {
                     ) : (
                         <>
                             <div className='flex items-center justify-between w-full mb-24'>
+                                {/* Back button */}
                                 <Button
                                     type="icon"
                                     iconSize="xl"
@@ -42,7 +44,7 @@ export default function ChatLayout({ children }) {
                                 <div className='flex w-full items-center justify-center gap-18'>
                                     <Image
                                         alt="Avatar"
-                                        src={activeThread?.participantAvatarUrl}
+                                        src={activeThread?.participantAvatarUrl || participantInitials ? `https://ui-avatars.com/api/?name=${encodeURIComponent(activeThread.participantName)}&background=random&size=128` : '/default-avatar.png'}
                                         width={50}
                                         height={50}
                                         className="rounded-full h-68 w-68 object-cover border bg-base-200 flex items-center justify-center overflow-hidden shrink-0"
@@ -60,8 +62,7 @@ export default function ChatLayout({ children }) {
                                                 : 'Chat')}
                                     </span>
                                 </div>
-
-                                {/* More-knap til højre */}
+                                {/* More button on the right */}
                                 <div className="flex gap-8">
                                     <Button type="icon" size="icon-md" icon={<MoreVertical />} />
                                 </div>

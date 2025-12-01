@@ -1,10 +1,10 @@
 
 'use client';
-import { fetchMessages, fetchThreads } from "@/utils/api";
-import { ChevronLeftIcon } from "lucide-react";
-import { useEffect, useState } from "react";
-import ChatThreads from "./ChatThreads";
-import { Button } from '@/ui/Button/Button';
+
+
+import { useEffect } from "react";
+
+
 import { ChatInput, ChatMessages } from "./Chat";
 import { useChatHeader } from "@/utils/chatHeaderContext";
 

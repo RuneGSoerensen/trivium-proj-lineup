@@ -5,7 +5,7 @@ import { Edit } from 'lucide-react';
 import ChatThreads from '@/components/Chat/ChatThreads';
 import { fetchThreads, createThread, fetchMessages } from '@/utils/api';
 import { useEffect, useState } from 'react';
-import SearchUser from '@/comps/Chat/SearchUser';
+
 import ActiveChatView from '@/comps/Chat/ChatView';
 
 export default function ChatPage() {

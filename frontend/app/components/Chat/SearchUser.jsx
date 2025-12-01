@@ -11,13 +11,19 @@ import { Search } from 'lucide-react';
  * - kan senere udvides med props (apiUrl, placeholder, osv.)
  */
 export default function SearchUser() {
-   const handleInputChange = (e) => {
-    console.log("Input changed:", e.target.value);
-   };
-
 
     return (
         <div className="w-full max-w-sm">
+            {/* FlyonUI combo box
+            API response format: { items: [ { id, name, image, position }, ... ] }
+            configuration options: groupingType, apiUrl, apiGroupField, apiQueryParam, outputItemTemplate, groupingTitleTemplate
+            how to integrate: https://flyon-ui.com/docs/components/combo-box
+            
+            How to use:
+            1. Add data-combo-box attribute to a container div with configuration JSON
+            2. Inside, add an input with data-combo-box-input attribute
+            3. Add a div with data-combo-box-output attribute for the dropdown items
+            */}
             <div
                 className="relative"
                 data-combo-box={`{
@@ -39,7 +45,7 @@ export default function SearchUser() {
                         aria-controls="searchbox-list"
                         aria-expanded="false"
                         autoFocus
-                        data-combo-box-input="hej"
+                        data-combo-box-input=""
                     />
                     <Search strokeWidth={1.5} className="text-base-content absolute start-3 top-1/2 size-4 shrink-0 -translate-y-1/2" />
                 </div>
@@ -48,7 +54,7 @@ export default function SearchUser() {
                 <div
                     className="bg-base-100 rounded-box absolute z-50 max-h-56 w-full space-y-0.5 overflow-y-auto"
                     style={{ display: 'flex' }}
-                    data-combo-box-output="hej"
+                    data-combo-box-output=""
                 />
             </div>
         </div>

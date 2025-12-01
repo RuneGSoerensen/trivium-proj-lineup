@@ -4,7 +4,11 @@ const nextConfig = {
     remotePatterns: [
       {
         protocol: 'https',
-        hostname: '**', // ✅ tillader ALLE https-domæner (dev-friendly)
+        hostname: 'images.example.com', // Only allow images from images.example.com
+      },
+      {
+        protocol: 'https',
+        hostname: 'cdn.example.org', // Also allow images from cdn.example.org
       },
     ],
   },

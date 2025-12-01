@@ -86,7 +86,7 @@ export const getThreads = async (req, res) => {
  * Create new chat group or 1:1 chat
  */
 export const createThread = async (req, res) => {
-    const userId = req.user?.id || req.body.userId;
+    const userId = req.user?.id;
     if (!userId) {
         return res.status(401).json({ error: "Missing user id" });
     }
@@ -139,7 +139,7 @@ export const createThread = async (req, res) => {
             insert into chats_participants (thread_id, user_id, role)
             values (${threadId}, ${pid}, ${pid === userId ? 'admin' : 'member'});
         `)
-        )
+        );
 
         // send response to frontend
         return res.status(201).json({
