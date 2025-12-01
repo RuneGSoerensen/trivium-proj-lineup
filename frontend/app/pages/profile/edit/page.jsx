@@ -2,10 +2,14 @@
 
 import { useState, useEffect } from "react";
 import { useRouter } from "next/navigation";
-import { Tag } from "@ui/Tag/Tag.jsx";
-import Image from "next/image";
-import { Button } from "@ui/Button/Button.jsx";
-import MultiSelectInput from "@ui/MultiSelectButton/MultiSelectButton.jsx";
+import EditPicture from "../../../components/profile/edit/EditPicture";
+import EditMainFields from "../../../components/profile/edit/EditMainFields";
+import EditTagsGenresTheme from "../../../components/profile/edit/EditTagsGenresTheme";
+import EditSocials from "../../../components/profile/edit/EditSocials";
+import EditCollections from "../../../components/profile/edit/EditCollections";
+import EditQuestions from "../../../components/profile/edit/EditQuestions";
+import SaveBar from "../../../components/profile/edit/SaveBar";
+
 const HARD_ARTISTS = [
   "https://images.unsplash.com/photo-1544005313-94ddf0286df2?w=200&q=80",
   "https://images.unsplash.com/photo-1545996124-0d0d3a3a80b4?w=200&q=80",
@@ -14,782 +18,228 @@ const HARD_ARTISTS = [
   "https://images.unsplash.com/photo-1544005310-8d8d2c1a6f3f?w=200&q=80",
 ];
 
-const HARD_SPOTIFY_LINK = "https://open.spotify.com/artist/placeholder";
+  const HARD_SPOTIFY_LINK = "https://open.spotify.com/artist/placeholder";
 
-const HARD_VIDEOS = ["video 1", "video 2"];
+  const HARD_VIDEOS = ["video 1", "video 2"];
 
-const HARD_PAST_COLLABS = ["Band A", "Band B"];
+  const HARD_PAST_COLLABS = ["Band A", "Band B"];
 
-export default function EditProfilePage() {
-  const router = useRouter();
-  const [loading, setLoading] = useState(true);
-  const [saving, setSaving] = useState(false);
-  const [userId, setUserId] = useState(null);
+  export default function EditProfilePage() {
+    const router = useRouter();
+    const [loading, setLoading] = useState(true);
+    const [saving, setSaving] = useState(false);
+    const [userId, setUserId] = useState(null);
 
-  const [formData, setFormData] = useState({
-    name: "",
-    bio: "",
-    about: "",
-    image_url: "",
-    theme: "#3F4254",
-    genres: [],
-    looking_for_tags: [],
-    artists_i_like: [],
-    my_music: "",
-    videos: [],
-    past_collaborations: [],
-    socials: {
-      instagram: "",
-      x: "",
-      tiktok: "",
-      facebook: "",
-      youtube: "",
-    },
-    questions: [],
-  });
+    const [formData, setFormData] = useState({
+      name: "",
+      bio: "",
+      about: "",
+      image_url: "",
+      theme: "#3F4254",
+      genres: [],
+      looking_for_tags: [],
+      artists_i_like: [],
+      my_music: "",
+      videos: [],
+      past_collaborations: [],
+      socials: {
+        instagram: "",
+        x: "",
+        tiktok: "",
+        facebook: "",
+        youtube: "",
+      },
+      questions: [],
+    });
 
-  const [allGenres, setAllGenres] = useState([]);
-  const [allTags, setAllTags] = useState([]);
-  const [showImageUrl, setShowImageUrl] = useState(false);
-  const [showTagSelect, setShowTagSelect] = useState(false);
-  const [showGenresEdit, setShowGenresEdit] = useState(false);
-  const [showThemeEdit, setShowThemeEdit] = useState(false);
-  const [showSocialEdit, setShowSocialEdit] = useState(false);
+    const [allGenres, setAllGenres] = useState([]);
+    const [allTags, setAllTags] = useState([]);
+    const [showImageUrl, setShowImageUrl] = useState(false);
+    const [showTagSelect, setShowTagSelect] = useState(false);
+    const [showGenresEdit, setShowGenresEdit] = useState(false);
+    const [showThemeEdit, setShowThemeEdit] = useState(false);
+    const [showSocialEdit, setShowSocialEdit] = useState(false);
+    const [showQuestionsEdit, setShowQuestionsEdit] = useState(false);
 
-  const themeColors = [
-    { name: "Blue", value: "#3F4254" },
-    { name: "Cyan", value: "#3f4d54" },
-    { name: "Grey", value: "#575252" },
-    { name: "Pink", value: "#543f40" },
-    { name: "Orange", value: "#5d4c43" },
-  ];
+    const themeColors = [
+      { name: "Blue", value: "#3F4254" },
+      { name: "Cyan", value: "#3f4d54" },
+      { name: "Grey", value: "#575252" },
+      { name: "Pink", value: "#543f40" },
+      { name: "Orange", value: "#5d4c43" },
+    ];
 
-  useEffect(() => {
-    const loadOptions = async () => {
+    useEffect(() => {
+      const loadOptions = async () => {
+        try {
+          const genresRes = await fetch(`${process.env.NEXT_PUBLIC_DATABASE_URL}/genres`);
+
+          const tagsRes = await fetch(`${process.env.NEXT_PUBLIC_DATABASE_URL}/looking_for_tags`);
+
+          if (genresRes.ok) {
+            const data = await genresRes.json();
+            // Map objects to names
+            setAllGenres(data.genres.map((g) => g.name));
+          }
+
+          if (tagsRes.ok) {
+            const data = await tagsRes.json();
+
+            // Keep full objects, not just names
+            setAllTags(data.lookingForTags);
+          }
+        } catch (error) {
+          console.error("Failed to load genres/tags", error);
+        }
+      };
+
+      loadOptions();
+    }, []);
+
+    useEffect(() => {
+      loadProfile();
+    }, []);
+
+    const loadProfile = async () => {
       try {
-        const genresRes = await fetch(
-          `${process.env.NEXT_PUBLIC_DATABASE_URL}/genres`
-        );
+        const currentUser = localStorage.getItem("userId");
+        if (!currentUser) {
+          router.push("/login");
+          return;
+        }
+        setUserId(currentUser);
 
-        const tagsRes = await fetch(
-          `${process.env.NEXT_PUBLIC_DATABASE_URL}/looking_for_tags`
-        );
+        const res = await fetch(`${process.env.NEXT_PUBLIC_DATABASE_URL}/users/${currentUser}`);
+        if (!res.ok) throw new Error("Failed to load profile");
 
-        if (genresRes.ok) {
-          const data = await genresRes.json();
-          // Map objects to names
-          setAllGenres(data.genres.map((g) => g.name));
+        const data = await res.json();
+
+        if (data) {
+          setFormData({
+            name: data.user.name || "",
+            bio: data.user.bio || "",
+            about: data.user.about || "",
+            image_url: data.user.image_url || "",
+            theme: data.user.theme || "#3F4254",
+            genres: data.user.genres || [],
+            looking_for_tags: data.user.looking_for_tags || [],
+            artists_i_like:
+              data.user.artists_i_like && data.user.artists_i_like.length > 0
+                ? data.user.artists_i_like
+                : HARD_ARTISTS,
+            my_music: data.user.my_music || HARD_SPOTIFY_LINK,
+            videos:
+              data.user.videos && data.user.videos.length > 0
+                ? data.user.videos
+                : HARD_VIDEOS,
+            past_collaborations:
+              data.user.past_collaborations && data.user.past_collaborations.length > 0
+                ? data.user.past_collaborations
+                : HARD_PAST_COLLABS,
+            socials: {
+              instagram: data.user.socials?.[0]?.instagram || "",
+              x: data.user.socials?.[0]?.x || "",
+              youtube: data.user.socials?.[0]?.youtube || "",
+              tiktok: data.user.socials?.[0]?.tiktok || "",
+              facebook: data.user.socials?.[0]?.facebook || "",
+            },
+            questions: data.user.questions || [],
+          });
         }
 
-        if (tagsRes.ok) {
-          const data = await tagsRes.json();
-
-          // Keep full objects, not just names
-          setAllTags(data.lookingForTags);
-        }
+        setLoading(false);
       } catch (error) {
-        console.error("Failed to load genres/tags", error);
+        console.error("Error loading profile:", error);
+        setLoading(false);
       }
     };
 
-    loadOptions();
-  }, []);
+    const handleSave = async () => {
+      if (!userId) return;
 
-  useEffect(() => {
-    loadProfile();
-  }, []);
-
-  const loadProfile = async () => {
-    try {
-      const currentUser = localStorage.getItem("userId");
-      if (!currentUser) {
-        router.push("/login");
-        return;
-      }
-      setUserId(currentUser);
-
-      const res = await fetch(
-        `${process.env.NEXT_PUBLIC_DATABASE_URL}/users/${currentUser}`
-      );
-      if (!res.ok) throw new Error("Failed to load profile");
-
-      const data = await res.json();
-
-      if (data) {
-        setFormData({
-          name: data.user.name || "",
-          bio: data.user.bio || "",
-          about: data.user.about || "",
-          image_url: data.user.image_url || "",
-          theme: data.user.theme || "#3F4254",
-          genres: data.user.genres || [],
-          looking_for_tags: data.user.looking_for_tags || [],
-          artists_i_like:
-            data.user.artists_i_like && data.user.artists_i_like.length > 0
-              ? data.user.artists_i_like
-              : HARD_ARTISTS,
-          my_music: data.user.my_music || HARD_SPOTIFY_LINK,
-          videos:
-            data.user.videos && data.user.videos.length > 0
-              ? data.user.videos
-              : HARD_VIDEOS,
-          past_collaborations:
-            data.user.past_collaborations &&
-            data.user.past_collaborations.length > 0
-              ? data.user.past_collaborations
-              : HARD_PAST_COLLABS,
-          socials: {
-            instagram: data.user.socials?.[0]?.instagram || "",
-            x: data.user.socials?.[0]?.x || "",
-            youtube: data.user.socials?.[0]?.youtube || "",
-            tiktok: data.user.socials?.[0]?.tiktok || "",
-            facebook: data.user.socials?.[0]?.facebook || "",
-          },
-          questions: data.user.questions || [],
-        });
-      }
-
-      setLoading(false);
-    } catch (error) {
-      console.error("Error loading profile:", error);
-      setLoading(false);
-    }
-  };
-
-  const handleSave = async () => {
-    if (!userId) return;
-
-    setSaving(true);
-    try {
-      const res = await fetch(
-        `${process.env.NEXT_PUBLIC_DATABASE_URL}/users/${userId}`,
-        {
+      setSaving(true);
+      try {
+        const res = await fetch(`${process.env.NEXT_PUBLIC_DATABASE_URL}/users/${userId}`, {
           method: "PATCH",
           headers: { "Content-Type": "application/json" },
           body: JSON.stringify({
             ...formData,
           }),
-        }
+        });
+
+        if (!res.ok) throw new Error("Failed to save profile");
+
+        router.push(`/pages/profile/${userId}`);
+      } catch (error) {
+        console.error("Error saving profile:", error);
+        alert("Failed to save profile");
+      } finally {
+        setSaving(false);
+      }
+    };
+
+    const addQuestion = () => {
+      setFormData({
+        ...formData,
+        questions: [...formData.questions, { question: "", answer: "" }],
+      });
+    };
+
+    const updateQuestion = (index, field, value) => {
+      const updatedQuestions = [...formData.questions];
+      updatedQuestions[index][field] = value;
+      setFormData({ ...formData, questions: updatedQuestions });
+    };
+
+    const removeQuestion = (index) => {
+      setFormData({
+        ...formData,
+        questions: formData.questions.filter((_, i) => i !== index),
+      });
+    };
+
+    if (loading) {
+      return (
+        <div className="flex items-center justify-center min-h-screen">
+          <div className="text-muted">Loading...</div>
+        </div>
       );
-
-      if (!res.ok) throw new Error("Failed to save profile");
-
-      router.push(`/pages/profile/${userId}`);
-    } catch (error) {
-      console.error("Error saving profile:", error);
-      alert("Failed to save profile");
-    } finally {
-      setSaving(false);
     }
-  };
 
-  const addQuestion = () => {
-    setFormData({
-      ...formData,
-      questions: [...formData.questions, { question: "", answer: "" }],
-    });
-  };
-
-  const updateQuestion = (index, field, value) => {
-    const updatedQuestions = [...formData.questions];
-    updatedQuestions[index][field] = value;
-    setFormData({ ...formData, questions: updatedQuestions });
-  };
-
-  const removeQuestion = (index) => {
-    setFormData({
-      ...formData,
-      questions: formData.questions.filter((_, i) => i !== index),
-    });
-  };
-
-  if (loading) {
     return (
-      <div className="flex items-center justify-center min-h-screen">
-        <div className="text-muted">Loading...</div>
+      <div className="min-h-screen bg-background pb-20 px-4 py-6 space-y-6">
+        <EditPicture formData={formData} setFormData={setFormData} showImageUrl={showImageUrl} setShowImageUrl={setShowImageUrl} />
+
+        <EditMainFields formData={formData} setFormData={setFormData} />
+
+        <EditTagsGenresTheme
+          formData={formData}
+          setFormData={setFormData}
+          allGenres={allGenres}
+          allTags={allTags}
+          showTagSelect={showTagSelect}
+          setShowTagSelect={setShowTagSelect}
+          showGenresEdit={showGenresEdit}
+          setShowGenresEdit={setShowGenresEdit}
+          showThemeEdit={showThemeEdit}
+          setShowThemeEdit={setShowThemeEdit}
+          themeColors={themeColors}
+        />
+
+        <EditSocials formData={formData} setFormData={setFormData} showSocialEdit={showSocialEdit} setShowSocialEdit={setShowSocialEdit} />
+
+        <EditCollections formData={formData} setFormData={setFormData} />
+
+        <EditQuestions
+          formData={formData}
+          updateQuestion={updateQuestion}
+          removeQuestion={removeQuestion}
+          addQuestion={addQuestion}
+          showQuestionsEdit={showQuestionsEdit}
+          setShowQuestionsEdit={setShowQuestionsEdit}
+        />
+
+        <SaveBar handleSave={handleSave} saving={saving} />
       </div>
     );
   }
-
-  return (
-    <div className="min-h-screen bg-background pb-20 px-4 py-6 space-y-6">
-      {/* Profile Picture */}
-      <div className="">
-        <div className="flex flex-col items-center gap-4">
-          {showImageUrl ? (
-            <div className="w-full flex flex-col items-center gap-3">
-              <div className="w-[120px] h-[120px] rounded-full bg-muted overflow-hidden">
-                <Image
-                  src={formData.image_url || "/placeholder.svg"}
-                  alt="Profile"
-                  width={200}
-                  height={200}
-                  className="w-full h-full object-cover"
-                />
-              </div>
-              <input
-                type="text"
-                placeholder="Image URL"
-                value={formData.image_url}
-                onChange={(e) =>
-                  setFormData({ ...formData, image_url: e.target.value })
-                }
-                className="w-full max-w-md px-4 py-3 rounded-[12px] bg-muted border-none text-[15px] bg-white text-default placeholder:text-muted/60 focus:outline-none focus:ring-2 focus:ring-brand-primary"
-              />
-
-              <div className="flex gap-2">
-                <button
-                  onClick={() => setShowImageUrl(false)}
-                  className="px-3 py-1 rounded bg-alt"
-                >
-                  Cancel
-                </button>
-                <button
-                  onClick={() => setShowImageUrl(false)}
-                  className="px-3 py-1 rounded bg-brand-primary text-default"
-                >
-                  Done
-                </button>
-              </div>
-            </div>
-          ) : (
-            <>
-              <div className="w-[120px] h-[120px] rounded-full bg-muted overflow-hidden">
-                {formData.image_url ? (
-                  <Image
-                    src={formData.image_url || "/placeholder.svg"}
-                    alt="Profile"
-                    width={200}
-                    height={200}
-                    className="w-full h-full object-cover"
-                  />
-                ) : (
-                  <div className="w-full h-full flex items-center justify-center text-muted text-[24px] font-bold">
-                    {formData.name.charAt(0).toUpperCase()}
-                  </div>
-                )}
-              </div>
-              <button
-                onClick={() => setShowImageUrl(true)}
-                className="font-semibold"
-              >
-                Edit picture
-              </button>
-            </>
-          )}
-        </div>
-      </div>
-
-      {/* Name */}
-      <div className="bg-default rounded-[24px] p-10 border-1 border-gray-300 mt-20">
-        <div className="flex m-4 ">
-          <label className="text-default font-semibold  mb-8 ">Name</label>
-          <div>
-            <input
-              type="text"
-              value={formData.name}
-              onChange={(e) =>
-                setFormData({ ...formData, name: e.target.value })
-              }
-              className="w-full  placeholder:text-muted/60 focus:outline-none focus:ring-2 focus:ring-brand-primary rounded-full pl-32"
-            />
-          </div>
-        </div>
-        <hr className="border-gray-300 ml-30 mb-16 " />
-        {/* Bio */}
-        <div className="flex m-4 ">
-          <label className="text-default font-semibold  mb-8 ">Bio</label>
-          <div className="w-full ml-10">
-            <textarea
-              value={formData.bio}
-              onChange={(e) =>
-                setFormData({ ...formData, bio: e.target.value })
-              }
-              rows={1}
-              className=" w-full placeholder:text-muted/60 focus:outline-none focus:ring-2 focus:ring-brand-primary rounded-full pl-20"
-              placeholder="Tell us about yourself..."
-            />
-          </div>
-        </div>
-        <hr className="border-gray-300 ml-30 mb-16" />
-
-        {/* About */}
-        <div className="flex m-4 items-center">
-          <label className="text-default font-semibold  mb-8 ">About</label>
-          <div className="w-full ml-10">
-            <textarea
-              value={formData.about}
-              onChange={(e) =>
-                setFormData({ ...formData, about: e.target.value })
-              }
-              rows={4}
-              className=" w-full placeholder:text-muted/60 focus:outline-none focus:ring-2 focus:ring-brand-primary  "
-              placeholder="More details about yourself..."
-            />
-          </div>
-        </div>
-        <hr className="border-gray-300 ml-30 mb-16" />
-
-        {/* Looking For Tags */}
-        <div className="flex m-4 items-center ">
-          <label className="text-default font-semibold  mb-8 ">
-            What i am looking
-          </label>
-
-          {/* Pills for already selected tags */}
-          <div className="flex flex-wrap gap-2 mb-2">
-            {formData.looking_for_tags.map((tag) => (
-              <Tag
-                key={tag}
-                colorScheme="info"
-                className="px-8 py-2 flex items-center gap-1"
-              >
-                {tag}
-                {showTagSelect && (
-                  <button
-                    type="button"
-                    onClick={() =>
-                      setFormData({
-                        ...formData,
-                        looking_for_tags: formData.looking_for_tags.filter(
-                          (t) => t !== tag
-                        ),
-                      })
-                    }
-                  >
-                    ×
-                  </button>
-                )}
-              </Tag>
-            ))}
-            <button
-              onClick={() => setShowTagSelect((s) => !s)}
-              className="text-muted "
-            >
-              {showTagSelect ? "Done" : "Edit"}
-            </button>
-          </div>
-
-          {/* Dropdown to select more tags */}
-        </div>
-        {showTagSelect && (
-          <div className="mt-2 w-full">
-            <select
-              value=""
-              onChange={(e) => {
-                const tagName = e.target.value;
-                if (!formData.looking_for_tags.includes(tagName)) {
-                  setFormData({
-                    ...formData,
-                    looking_for_tags: [...formData.looking_for_tags, tagName],
-                  });
-                }
-              }}
-              className="w-full px-4 py-3 rounded-[12px] bg-muted border-none text-[15px] text-default focus:outline-none focus:ring-2 focus:ring-brand-primary"
-            >
-              <option value="" disabled>
-                Select a tag...
-              </option>
-              {allTags.map((t) => (
-                <option key={t.id} value={t.name}>
-                  {t.name}
-                </option>
-              ))}
-            </select>
-          </div>
-        )}
-        <hr className="border-gray-300 ml-30 mb-16" />
-        {/* Genres */}
-
-        <div className="flex m-4 items-center">
-          <label className="text-default font-semibold  mb-8 ">Genres</label>
-
-          <div className="flex flex-wrap gap-2 ml-10">
-            {formData.genres.map((g) => (
-              <Tag
-                key={g}
-                colorScheme="info"
-                className="px-8 py-2 flex items-center gap-1"
-              >
-                {g}
-                {showGenresEdit && (
-                  <button
-                    type="button"
-                    onClick={() =>
-                      setFormData({
-                        ...formData,
-                        genres: formData.genres.filter((x) => x !== g),
-                      })
-                    }
-                  >
-                    ×
-                  </button>
-                )}
-              </Tag>
-            ))}
-
-            <button
-              onClick={() => setShowGenresEdit((s) => !s)}
-              className="text-muted "
-            >
-              {showGenresEdit ? "Done" : "Edit"}
-            </button>
-          </div>
-        </div>
-
-        {showGenresEdit && (
-          <div className="m-4 mt-6 ml-10">
-            <MultiSelectInput
-              options={allGenres}
-              values={formData.genres}
-              setValues={(vals) => setFormData({ ...formData, genres: vals })}
-              placeholder="Add or search genres..."
-              allowNew={true}
-            />
-          </div>
-        )}
-
-        <hr className="border-gray-300 ml-30 mb-16" />
-
-        {/* Theme */}
-        <div className="flex m-4 items-center">
-          <label className="text-default font-semibold  mb-8 ">Theme</label>
-          <div className="flex items-center gap-4 ml-10">
-            <div
-              className="w-40 h-40 rounded-full "
-              style={{
-                backgroundColor: formData.theme,
-                borderColor:
-                  formData.theme === formData.theme ? undefined : undefined,
-              }}
-            />
-            <button
-              onClick={() => setShowThemeEdit((s) => !s)}
-              className="text-muted "
-            >
-              {showThemeEdit ? "Done" : "Edit"}
-            </button>
-          </div>
-        </div>
-        {showThemeEdit && (
-          <div className="flex gap-3 mt-4">
-            {themeColors.map((color) => (
-              <button
-                key={color.value}
-                onClick={() => setFormData({ ...formData, theme: color.value })}
-                className={`w-40 h-40 rounded-full border-2 ${
-                  formData.theme === color.value
-                    ? "border-brand-primary"
-                    : "border-transparent"
-                }`}
-                style={{ backgroundColor: color.value }}
-              />
-            ))}
-          </div>
-        )}
-      </div>
-
-      {/* Social Links */}
-      <div className="bg-default rounded-[24px] p-10 border-1 border-gray-300 mt-20 pb-20">
-        <div className="flex items-center justify-between">
-          <label className="text-default font-semibold  my-16 mx-4  ">
-            Social Media
-          </label>
-          <button
-            onClick={() => setShowSocialEdit((s) => !s)}
-            className="text-muted "
-          >
-            {showSocialEdit ? "Done" : "Edit"}
-          </button>
-        </div>
-
-        {!showSocialEdit ? (
-          <div className="flex items-center justify-center gap-10 mt-3 ">
-            <a
-              href={formData.socials.instagram || "#"}
-              target="_blank"
-              rel="noreferrer"
-              className="opacity-90 hover:opacity-100"
-            >
-              <Image
-                src="/icons/instagram.png"
-                alt="Instagram"
-                width={24}
-                height={24}
-                className="w-32 h-32"
-              />
-            </a>
-            <a
-              href={formData.socials.x || "#"}
-              target="_blank"
-              rel="noreferrer"
-              className="opacity-90 hover:opacity-100"
-            >
-              <Image
-                src="/icons/x.png"
-                alt="X"
-                width={24}
-                height={24}
-                className="w-32 h-32"
-              />
-            </a>
-            <a
-              href={formData.socials.youtube || "#"}
-              target="_blank"
-              rel="noreferrer"
-              className="opacity-90 hover:opacity-100"
-            >
-              <Image
-                src="/icons/youtube.png"
-                alt="YouTube"
-                width={24}
-                height={24}
-                className="w-32 h-32"
-              />
-            </a>
-            <a
-              href={formData.socials.tiktok || "#"}
-              target="_blank"
-              rel="noreferrer"
-              className="opacity-90 hover:opacity-100"
-            >
-              <Image
-                src="/icons/tiktok.png"
-                alt="TikTok"
-                width={24}
-                height={24}
-                className="w-32 h-32"
-              />
-            </a>
-            <a
-              href={formData.socials.facebook || "#"}
-              target="_blank"
-              rel="noreferrer"
-              className="opacity-90 hover:opacity-100"
-            >
-              <Image
-                src="/icons/facebook.png"
-                alt="Facebook"
-                width={24}
-                height={24}
-                className="w-32 h-32"
-              />
-            </a>
-          </div>
-        ) : (
-          <div className="space-y-3 mt-3">
-            <input
-              type="text"
-              placeholder="Instagram URL"
-              value={formData.socials.instagram ?? ""}
-              onChange={(e) =>
-                setFormData({
-                  ...formData,
-                  socials: { ...formData.socials, instagram: e.target.value },
-                })
-              }
-              className="w-full px-4 py-3 rounded-[12px] bg-muted border-none text-[15px] text-default placeholder:text-muted/60 focus:outline-none focus:ring-2 focus:ring-brand-primary"
-            />
-            <input
-              type="text"
-              placeholder="X (Twitter) URL"
-              value={formData.socials.x ?? ""}
-              onChange={(e) =>
-                setFormData({
-                  ...formData,
-                  socials: { ...formData.socials, x: e.target.value },
-                })
-              }
-              className="w-full px-4 py-3 rounded-[12px] bg-muted border-none text-[15px] text-default placeholder:text-muted/60 focus:outline-none focus:ring-2 focus:ring-brand-primary"
-            />
-            <input
-              type="text"
-              placeholder="YouTube URL"
-              value={formData.socials.youtube ?? ""}
-              onChange={(e) =>
-                setFormData({
-                  ...formData,
-                  socials: { ...formData.socials, youtube: e.target.value },
-                })
-              }
-              className="w-full px-4 py-3 rounded-[12px] bg-muted border-none text-[15px] text-default placeholder:text-muted/60 focus:outline-none focus:ring-2 focus:ring-brand-primary"
-            />
-            <input
-              type="text"
-              placeholder="TikTok URL"
-              value={formData.socials.tiktok ?? ""}
-              onChange={(e) =>
-                setFormData({
-                  ...formData,
-                  socials: { ...formData.socials, tiktok: e.target.value },
-                })
-              }
-              className="w-full px-4 py-3 rounded-[12px] bg-muted border-none text-[15px] text-default placeholder:text-muted/60 focus:outline-none focus:ring-2 focus:ring-brand-primary"
-            />
-            <input
-              type="text"
-              placeholder="Facebook URL"
-              value={formData.socials.facebook ?? ""}
-              onChange={(e) =>
-                setFormData({
-                  ...formData,
-                  socials: { ...formData.socials, facebook: e.target.value },
-                })
-              }
-              className="w-full px-4 py-3 rounded-[12px] bg-muted border-none text-[15px] text-default placeholder:text-muted/60 focus:outline-none focus:ring-2 focus:ring-brand-primary"
-            />
-          </div>
-        )}
-      </div>
-      {/* Artists I like */}
-      <div className="bg-default rounded-[24px] p-10 border-1 border-gray-300 mt-20 pb-20">
-        <div className="flex items-center justify-between mb-3">
-          <label className="text-default font-semibold  my-16 mx-4 ">
-            Artists I like
-          </label>
-          <button
-            className="text-muted "
-            onClick={() => alert("edit artists - later")}
-          >
-            Edit
-          </button>
-        </div>
-
-        <div className="flex items-center justify-center">
-          {formData.artists_i_like.slice(0, 4).map((src, i) => (
-            <div
-              key={i}
-              className="w-50 h-50 rounded-full overflow-hidden border border-2 border-white "
-              style={{
-                marginLeft: i === 0 ? 0 : -20,
-                zIndex: i + 1,
-              }}
-            >
-              <img
-                src={src}
-                alt={`artist-${i}`}
-                className="w-full h-full object-cover position"
-              />
-            </div>
-          ))}
-
-          {formData.artists_i_like.length > 4 && (
-            <div
-              className="w-50 h-50 rounded-full bg-muted flex items-center justify-center text-default"
-              style={{
-                marginLeft: -20,
-                zIndex: 5,
-              }}
-            >
-              +{formData.artists_i_like.length - 4}
-            </div>
-          )}
-        </div>
-      </div>
-
-      {/* My music (spotify card) */}
-      <div className="bg-default rounded-[24px] p-10 border-1 border-gray-300 mt-20 pb-20">
-        <div className="flex flex-col ">
-          <p className="flex justify-end text-muted">Edit</p>
-          <div className="flex items-center gap-4">
-            <label className="text-default font-semibold  my-16 mx-4 ">
-              My music
-            </label>
-            <p>Spotify linked</p>
-          </div>
-        </div>
-      </div>
-
-      {/* Videos */}
-      <div className="bg-default rounded-[24px] p-10 border-1 border-gray-300 mt-20 pb-20 flex flex-col">
-        <button
-          className="text-muted self-end"
-          onClick={() => alert("add video - later")}
-        >
-          Edit
-        </button>
-        <div className="flex items-center gap-4">
-          <label className="text-default font-semibold  my-16 mx-4 ">
-            {" "}
-            Videos
-          </label>
-
-          <div className="flex gap-2 flex-wrap">
-            {formData.videos.map((v, i) => (
-              <Tag key={i} className="px-8 py-2" colorScheme="info">
-                <span className="">{v}</span>
-                <button
-                  onClick={() =>
-                    setFormData((d) => ({
-                      ...d,
-                      videos: d.videos.filter((_, idx) => idx !== i),
-                    }))
-                  }
-                >
-                  ×
-                </button>
-              </Tag>
-            ))}
-          </div>
-        </div>
-      </div>
-
-      {/* Past collaborations */}
-      <div className="bg-default rounded-[24px] p-10 border-1 border-gray-300 mt-20 pb-20 flex flex-col ">
-        <button
-          className="text-muted self-end "
-          onClick={() => alert("edit past collabs - later")}
-        >
-          Edit
-        </button>
-        <div className="flex items-center ">
-          <label className="text-default font-semibold  my-16 mx-4 ">
-            Past collaborations
-          </label>
-        </div>
-      </div>
-      {/* Questions */}
-      <div className="bg-default rounded-[24px] p-10 border-1 border-gray-300 mt-20 pb-20 flex flex-col">
-        <div className="flex items-center justify-between">
-          <label className="text-default font-semibold  my-16 mx-4 ">
-            Questions
-          </label>
-        </div>
-        <div className="space-y-6">
-          {formData.questions.map((q, idx) => (
-            <div key={idx} className="p-6 bg-default ">
-              <div className="flex justify-between items-start">
-                <h3 className="text-default font-semibold ">
-                  {q.question || "Question"}
-                </h3>
-              </div>
-              <p className="text-default mt-3 mb-4 leading-relaxed">
-                {q.answer || ""}
-              </p>
-              <hr className="border-gray-200" />
-            </div>
-          ))}
-        </div>
-        <button
-          onClick={addQuestion}
-          className="text-brand-primary p-16 self-center"
-        >
-          + Add Question
-        </button>
-      </div>
-      <div className="flex justify-center p-16 gap-16">
-        <Button
-          onClick={() => router.back()}
-          disabled={saving}
-          variant="outline"
-          className="border-muted"
-        >
-          cancel
-        </Button>
-        <Button onClick={handleSave} disabled={saving} className="">
-          {saving ? "Saving..." : "Save"}
-        </Button>
-      </div>
-    </div>
-  );
-}

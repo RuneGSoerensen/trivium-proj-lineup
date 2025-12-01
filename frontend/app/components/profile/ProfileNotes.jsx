@@ -9,7 +9,7 @@ export default function ProfileNotes({
   onCommentLike,
 }) {
   return (
-    <div className="">
+    <div>
       {notes && notes.length > 0 ? (
         notes.map((n) => (
           <NoteCard
@@ -18,7 +18,7 @@ export default function ProfileNotes({
             onLike={onLike}
             onComment={onComment}
             onCommentLike={onCommentLike}
-            showComments={true}
+            showComments={false}
           />
         ))
       ) : (

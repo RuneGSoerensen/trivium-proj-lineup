@@ -7,6 +7,8 @@ const nextConfig = {
       "images.unsplash.com",
       "lh3.googleusercontent.com",
       "plus.unsplash.com",
+      "static.vecteezy.com",
+      "fuck.dig",
     ],
   },
 };
