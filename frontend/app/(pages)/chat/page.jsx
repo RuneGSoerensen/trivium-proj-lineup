@@ -1,7 +1,7 @@
 'use client';
 import { TabContent, TabContentList, TabItem, Tabs, TabsList } from '@/ui/Tab/Tab';
 import { Button } from '@/ui/Button/Button';
-import { Edit, Edit2, Plus, Search } from 'lucide-react';
+import { Edit } from 'lucide-react';
 import ChatThreads from '@/components/Chat/ChatThreads';
 import { fetchThreads, createThread, fetchMessages } from '@/utils/api';
 import { useEffect, useState } from 'react';
