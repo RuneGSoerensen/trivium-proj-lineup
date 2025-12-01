@@ -84,7 +84,7 @@ function ChatInput({ threadId }) {
                     handleSend();
             }}>
             <div className="flex justify-between items-center gap-8 w-full">
-            <Button type="icon" icon={<Plus />} size="icon-md"/>
+            <Button type="icon" icon={<Plus />} size="icon-md" onClick={() => alert("Feature: Add media")}/>
                 <Input
                     className="p-10 bg-muted/40 border-0"
                     type="text"
@@ -92,7 +92,7 @@ function ChatInput({ threadId }) {
                     onChange={(e) => setMessage(e.target.value)}
                     placeholder="Type your message..."
                 />
-            <Button type="icon" icon={<Mic/>} size="icon-md"/>
+            <Button type="icon" icon={<Mic/>} size="icon-md" onClick={() => alert("Feature: Voice input")}/>
             </div>
             </form>
         
