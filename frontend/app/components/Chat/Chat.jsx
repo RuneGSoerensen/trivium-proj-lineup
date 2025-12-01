@@ -8,7 +8,7 @@ import { Mic, Plus } from "lucide-react";
 
 function Message({ role, children }) {
     return (
-        <div className={`message ${role}-message`}>
+        <div className={`message ${role}-message truncate ${role === 'user' ? 'bg-brand-secondary text-on-secondary self-end' : 'bg-muted text-on-muted self-start'}`}>
             <div className="message-content">
                 {typeof children === 'string' ? (
                     <ReactMarkdown
@@ -55,16 +55,23 @@ function ChatMessages({ messages = [] }) {
     )
 }
 
-function ChatInput({ threadId }) {
+function ChatInput({ threadId, onMessageSent }) {
     const [message, setMessage] = useState("");
     const formRef = useRef(null);
 
-    const handleSend = useCallback(async (e) => {
+    const handleSend = async () => {
         const trimmed = message.trim();
         if (!trimmed || !threadId) return;
 
         try {
-            await sendMessage(threadId, { content: trimmed });
+            const result = await sendMessage(threadId, { content: trimmed });
+            const newMessage = result.message ?? {
+                content: trimmed,
+                role: 'user',
+            }
+
+            onMessageSent?.(newMessage);
+
             setMessage("");
             if (formRef.current) {
                 formRef.current.reset();
@@ -72,30 +79,30 @@ function ChatInput({ threadId }) {
         } catch (error) {
             console.error("Error sending message:", error);
         }
-    }, [message, threadId]);
+    };
 
     return (
-        
+
+        <div className="chat-input-form-container flex justify-between items-center gap-8 w-full">
+            <Button type="icon" icon={<Plus />} size="icon-md" onClick={() => alert("Feature: Add media")} />
             <form
                 ref={formRef}
                 className="chat-input-form"
                 onSubmit={(e) => {
                     e.preventDefault();
                     handleSend();
-            }}>
-            <div className="flex justify-between items-center gap-8 w-full">
-            <Button type="icon" icon={<Plus />} size="icon-md" onClick={() => alert("Feature: Add media")}/>
+                }}>
                 <Input
-                    className="p-10 bg-muted/40 border-0"
+                    className="p-10 glass w-full bg-muted/40 text-default border-0 ring-0 outline-0 focus:outline-0 focus:ring-0 focus:border-0 flex-1"
                     type="text"
                     value={message}
                     onChange={(e) => setMessage(e.target.value)}
                     placeholder="Type your message..."
                 />
-            <Button type="icon" icon={<Mic/>} size="icon-md" onClick={() => alert("Feature: Voice input")}/>
-            </div>
             </form>
-        
+            <Button type="icon" icon={<Mic />} size="icon-md" onClick={() => alert("Feature: Voice input")} />
+        </div>
+
     )
 }
 

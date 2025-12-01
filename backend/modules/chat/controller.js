@@ -18,21 +18,27 @@ export const getThreads = async (req, res) => {
             t.id,
             t.is_group,
             t.title,
-
+            
+            -- last message preview and timestamp
             last_msg.content as last_message_preview,
             last_msg.created_at as last_message_at,
-
+            
+            -- "other participant" info for 1:1 chats (may be null for groups)
             other_user.id as other_id,
             other_user.name as other_name,
             other_user.image_url as other_avatar_url,
             
-            all_names.participant_names
+            -- aggregated participant names for group chats / fallback
+            all_names.participant_names,
+            stats.other_participant_count
             from chats t
 
+            -- ensure current user is a participant
             join chats_participants me
             on me.thread_id = t.id
             and me.user_id = ${userId}
 
+            -- latest message per thread
              left join lateral (
              select m.content, m.created_at
              from chats_messages m
@@ -41,6 +47,7 @@ export const getThreads = async (req, res) => {
              limit 1
             ) as last_msg on true
 
+            -- get "other" participant for 1:1 chats (first non-me user)
             left join lateral (
               select u.id, u.name, u.image_url
               from chats_participants cp
@@ -51,6 +58,7 @@ export const getThreads = async (req, res) => {
               limit 1
             ) as other_user on true
 
+            -- all participant forenames for group chats as comma-separated string
             left join lateral (
               select string_agg(split_part(u2.name, ' ', 1), ', ' order by u2.name)
               as participant_names
@@ -58,22 +66,36 @@ export const getThreads = async (req, res) => {
               join users u2 on u2.id = cp2.user_id
               where cp2.thread_id = t.id
             ) as all_names on true
+
+            -- count how many *other* participants (excluding current user) are in this thread
+            left join lateral (
+              select count(*)::int as other_participant_count
+              from chats_participants cp3
+              where cp3.thread_id = t.id
+              and cp3.user_id <> ${userId}
+            ) as stats on true
+
             order by last_msg.created_at desc nulls last, t.id desc;
         `;
 
-        const result = threads.map((row) => ({
-            id: row.id,
-            isGroup: row.is_group,
-            title: row.title,
-            // For 1:1 chats we use the "other" user as display participant
-            participantId: row.other_id,
-            participantName: row.other_name,
-            participantAvatarUrl: row.other_avatar_url,
-            // For group chats we use the aggregated forenames string
-            participantNames: row.participant_names,
-            lastMessagePreview: row.last_message_preview,
-            lastMessageAt: row.last_message_at,
-        }));
+        const result = threads.map((row) => {
+            const otherCount = row.other_participant_count ?? 0;
+            return {
+                id: row.id,
+                // A "group" is defined as having at least 2 other participants besides the current user
+                isGroup: otherCount >= 2,
+                title: row.title,
+                otherParticipantCount: otherCount,
+                // For 1:1 chats we use the "other" user as display participant
+                participantId: row.other_id,
+                participantName: row.other_name,
+                participantAvatarUrl: row.other_avatar_url,
+                // For group chats we use the aggregated forenames string
+                participantNames: row.participant_names,
+                lastMessagePreview: row.last_message_preview,
+                lastMessageAt: row.last_message_at,
+            };
+        });
 
         return res.json({ threads: result });
     } catch (error) {
@@ -228,7 +250,11 @@ export const createMessage = async (req, res) => {
     const { threadId } = req.params;
     const { content } = req.body;
     // get real userId from auth middleware
-    const userId = req.user?.id || req.body.userId;
+    const userId = req.user?.id;
+
+    if (!userId) {
+        return res.status(401).json({ error: "Missing user id" });
+    }
 
     if (!content?.trim()) {
         return res.status(400).json({ error: "Message content cannot be empty" });
@@ -249,8 +275,8 @@ export const createMessage = async (req, res) => {
         }
 
         const [message] = await sql`
-        insert into chats_messages (thread_id, author_id, role, content)
-        values (${threadId}, ${userId}, 'user', ${content})
+        insert into chats_messages (thread_id, author_id, role, content, created_at)
+        values (${threadId}, ${userId}, 'user', ${content}, now())
         returning 
         id,
         thread_id,

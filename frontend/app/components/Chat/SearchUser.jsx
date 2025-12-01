@@ -8,14 +8,9 @@ import { Search } from 'lucide-react';
 /**
  * FlyonUI Combo Box wrapper
  * - bruger FlyonUI's data-attributter, så deres JS kan hooke sig på
- * - kan senere udvides med props (apiUrl, placeholder, osv.)
- */
-export default function SearchUser() {
-
-    return (
-        <div className="w-full max-w-sm">
-            {/* FlyonUI combo box
-            API response format: { items: [ { id, name, image, position }, ... ] }
+ * - kan senere udvides med props (apiUrl, placeholder, osv.)   
+ * 
+ *          API response format: { items: [ { id, name, image, position }, ... ] }
             configuration options: groupingType, apiUrl, apiGroupField, apiQueryParam, outputItemTemplate, groupingTitleTemplate
             how to integrate: https://flyon-ui.com/docs/components/combo-box
             
@@ -23,7 +18,11 @@ export default function SearchUser() {
             1. Add data-combo-box attribute to a container div with configuration JSON
             2. Inside, add an input with data-combo-box-input attribute
             3. Add a div with data-combo-box-output attribute for the dropdown items
-            */}
+ */
+export default function SearchUser() {
+
+    return (
+        <div className="w-full max-w-sm">
             <div
                 className="relative"
                 data-combo-box={`{

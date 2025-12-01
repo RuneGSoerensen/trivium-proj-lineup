@@ -18,7 +18,7 @@ export default function ChatLayout({ children }) {
     return (
         <ChatHeaderContext.Provider value={{ ...headerState, setHeaderState }}>
             <section className="flex flex-col w-full h-full justify-between items-center pt-24 bg-brand-secondary">
-                <div className='flex w-full justify-between py-8 px-16 items-center'>
+                <div className='flex w-full justify-between py-8 px-22 items-center'>
                     {mode === 'list' ? (
                         <>
                             <h1 className='text-h1 text-on-secondary'>Messages</h1>
@@ -33,7 +33,7 @@ export default function ChatLayout({ children }) {
                                 {/* Back button */}
                                 <Button
                                     type="icon"
-                                    iconSize="xl"
+                                    iconSize="lg"
                                     size="icon-md"
                                     onClick={() => {
                                         if (onBack) onBack();
@@ -44,7 +44,7 @@ export default function ChatLayout({ children }) {
                                 <div className='flex w-full items-center justify-center gap-18'>
                                     <Image
                                         alt="Avatar"
-                                        src={activeThread?.participantAvatarUrl || participantInitials ? `https://ui-avatars.com/api/?name=${encodeURIComponent(activeThread.participantName)}&background=random&size=128` : '/default-avatar.png'}
+                                        src={activeThread?.participantAvatarUrl ? activeThread.participantAvatarUrl : participantInitials ? `https://ui-avatars.com/api/?name=${encodeURIComponent(activeThread.participantName)}&background=random&size=128` : '/default-avatar.png'}
                                         width={50}
                                         height={50}
                                         className="rounded-full h-68 w-68 object-cover border bg-base-200 flex items-center justify-center overflow-hidden shrink-0"
@@ -64,13 +64,13 @@ export default function ChatLayout({ children }) {
                                 </div>
                                 {/* More button on the right */}
                                 <div className="flex gap-8">
-                                    <Button type="icon" size="icon-md" icon={<MoreVertical />} />
+                                    <Button type="icon" iconSize='lg' size="icon-md" icon={<MoreVertical />} />
                                 </div>
                             </div>
                         </>
                     )}
                 </div>
-                <div className="w-full max-w-screen h-full bg-default text-default flex flex-col rounded-tabs overflow-hidden">
+                <div className="w-full max-w-screen h-full bg-default text-default flex flex-col rounded-tabs overflow-y-auto">
                     {children}
                 </div>
             </section>

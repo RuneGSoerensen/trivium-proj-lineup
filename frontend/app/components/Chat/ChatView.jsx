@@ -9,7 +9,7 @@ import { ChatInput, ChatMessages } from "./Chat";
 import { useChatHeader } from "@/utils/chatHeaderContext";
 
 
-export default function ActiveChatView({ thread, messages, onBack }) {
+export default function ActiveChatView({ thread, messages, onBack, onMessageSent }) {
     const { setHeaderState } = useChatHeader();
     useEffect(() => { 
         // Change header to 'active' mode
@@ -38,7 +38,7 @@ export default function ActiveChatView({ thread, messages, onBack }) {
     return (
         <div className="active-chat h-full w-full flex-1 flex flex-col">
             <ChatMessages messages={messages}/>
-            <ChatInput threadId={thread.id}/>
+            <ChatInput threadId={thread.id} onMessageSent={onMessageSent} />
         </div>
     );
 }

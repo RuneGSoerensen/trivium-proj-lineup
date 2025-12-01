@@ -1,7 +1,7 @@
 /* Styling for Chat component */
 .chat-container {
   height: 100%;
-  overflow: hidden;
+overflow:auto;
   position: relative;
   top: 0;
   left: 0;
@@ -11,37 +11,39 @@
   width: 100%;
   flex: 1;
   padding: 16px;
-  overflow-y: auto;
   gap: 12px;
   display: flex;
   flex-direction: column;
+  margin-bottom: 4rem;
 }
 
 .message{
     width: 100%;
+    height: fit-content;
     max-width: 80%;
     border-radius: 12px;
     padding: 8px 12px;
+
 }
 
 .user-message {
   width: fit-content;
   height: fit-content;
   text-align: right;
-  display: flex;
-  margin-left: auto;
   justify-content: right;
   background-color:var(--color-secondary);
   color: var(--color-secondary-content);
-  font-weight: 500;
 }
 
 .message-content {
+  width: auto;
+  height: fit-content;
   white-space: pre-wrap;
   word-wrap: break-word;
+  overflow-wrap: break-word;
 }
 
-.chat-input-form {
+.chat-input-form-container {
   position: absolute;
   bottom: 0;
   right: 0;

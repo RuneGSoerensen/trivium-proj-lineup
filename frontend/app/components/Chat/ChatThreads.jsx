@@ -28,7 +28,10 @@ export function ChatThreadItem({ thread, isActive, onSelect }) {
             minute: "2-digit",
         })
         : "";
-    const fallbackInitial = displayName.charAt(0).toUpperCase();
+    const fallbackInitial = participantName ? participantName.charAt(0).toUpperCase() : "";
+    const fallbackInitialsGroup = isGroup && participantNames
+        ? participantNames.split(",")[0]?.charAt(0).toUpperCase()
+        : '';
     // Derive secondary initial for group avatar from comma-separated names
     const nameList = typeof participantNames === "string"
         ? participantNames.split(",").map((s) => s.trim()).filter(Boolean)
@@ -39,7 +42,7 @@ export function ChatThreadItem({ thread, isActive, onSelect }) {
             variant='secondary'
             type="button"
             className={clsx(
-                "chat-thread-item w-full flex flex-col items-start gap-3 px-4 py-12 my-4 text-left border-0 border-b border-gray-200 rounded-none hover:bg-base-200 rounded-t-lg text-body focus:bg-base-200",
+                "chat-thread-item overflow-x-hidden w-full flex flex-col items-start gap-3 py-12 my-4 text-left border-0 border-b border-gray-200 rounded-none hover:bg-base-200 rounded-t-lg text-body focus:bg-base-200",
                 isActive && "active"
             )}
             size='sm'
@@ -53,14 +56,14 @@ export function ChatThreadItem({ thread, isActive, onSelect }) {
                             {participantAvatarUrl ? (
                                 <Image
                                     src={participantAvatarUrl}
-                                    alt={displayName}
+                                    alt={participantName || "Avatar"}
                                     className="object-cover"
                                     width={100}
                                     height={100}
                                 />
                             ) : (
                                 <span className="text-xs font-semibold">
-                                    {fallbackInitial}
+                                    {fallbackInitialsGroup ? `https://ui-avatars.com/api/?name=${encodeURIComponent(participantNames)}&background=random&size=128` : ""}
                                 </span>
                             )}
                         </div>
@@ -75,14 +78,14 @@ export function ChatThreadItem({ thread, isActive, onSelect }) {
                         {participantAvatarUrl ? (
                             <Image
                                 src={participantAvatarUrl}
-                                alt={displayName}
+                                alt={participantName || "Avatar"}
                                 className="object-cover"
                                 width={100}
                                 height={100}
                             />
                         ) : (
                             <span className="text-sm font-semibold">
-                                {fallbackInitial}
+                                        {fallbackInitial ? `https://ui-avatars.com/api/?name=${encodeURIComponent(participantName)}&background=random&size=128` : ""}
                             </span>
                         )}
                     </div>
@@ -110,7 +113,7 @@ export function ChatThreadItem({ thread, isActive, onSelect }) {
 
 export default function ChatThreads({ threads, activeThreadId, onSelectThread }) {
     return (
-        <div className="chat-threads gap-8 flex flex-col w-full">
+        <div className="chat-threads overflow-y-auto gap-8 flex flex-col w-full">
             {threads.map((thread) => (
                 <ChatThreadItem
                     key={thread.id}

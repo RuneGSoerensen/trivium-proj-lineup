@@ -17,7 +17,11 @@ export default function ChatPage() {
     useEffect(() => {
         // Fetch threads and set state
         fetchThreads().then((res) => {
-            setThreads(res.threads ?? res ?? []);
+            const list = res.threads ?? res ?? [];
+            console.log("All threads:", list);
+            console.log("Group threads:", list.filter(t => t.isGroup));
+            console.log("DM threads:", list.filter(t => !t.isGroup));
+            setThreads(list);
         }).catch((err) => {
             console.error("Error fetching threads:", err);
         })
@@ -68,41 +72,70 @@ export default function ChatPage() {
     };
 
     return (
-    
-            <Tabs className="bg-default text-default w-full">
-                {!activeThread ? (
-                    <TabsList className="mb-8 w-full justify-between">
-                        <TabItem>Chats</TabItem>
-                        <TabItem>Groups</TabItem>
-                    </TabsList>
-                ) : null}
 
-                <TabContentList>
-                    <TabContent>
-                        {/* <SearchUser selectedUsers={selectedUsers} setSelectedUsers={setSelectedUsers} /> */}
-                        <div className="flex flex-col gap-4">
-                            {activeThread ? (
-                                <ActiveChatView thread={activeThread} messages={messages} onBack={handleBack} />
-                            ) : (
+        <Tabs className="bg-default text-default w-full">
+            {!activeThread ? (
+                <TabsList className="mb-8 w-full justify-between">
+                    <TabItem>Chats</TabItem>
+                    <TabItem>Groups</TabItem>
+                </TabsList>
+            ) : null}
+
+            <TabContentList>
+                <TabContent className="w-full">
+                    {/* <SearchUser selectedUsers={selectedUsers} setSelectedUsers={setSelectedUsers} /> */}
+                    <div className="flex flex-col gap-4">
+                        {activeThread && !activeThread.isGroup ? (
+                            <ActiveChatView
+                                thread={activeThread}
+                                messages={messages}
+                                onBack={handleBack}
+                                onMessageSent={(newMessage) =>
+                                    setMessages((prev) => [...prev, newMessage])
+                                }
+                            />
+                        ) : (
+                            <ChatThreads
+                                threads={threads.filter((t) => !t.isGroup)}
+                                activeThreadId={activeThread?.id}
+                                onSelectThread={handleSelectThread}
+                            />
+                        )}
+
+                    </div>
+                </TabContent>
+                <TabContent className="w-full">
+                    <div className="flex flex-col gap-4">
+                        {activeThread && activeThread.isGroup ? (
+                            <ActiveChatView
+                                thread={activeThread}
+                                messages={messages}
+                                onBack={handleBack}
+                                onMessageSent={(newMessage) =>
+                                    setMessages((prev) => [...prev, newMessage])
+                                }
+                            />
+                        ) : (
+                            <>
+                                <Button
+                                    icon={<Edit />}
+                                    variant="secondary"
+                                    onClick={() => alert("Oops! Feature not implemented yet.")}
+                                >
+                                    Create New Group
+                                </Button>
+
                                 <ChatThreads
-                                    threads={threads.filter(t => !t.isGroup)}
+                                    threads={threads.filter((t) => t.isGroup)}
                                     activeThreadId={activeThread?.id}
                                     onSelectThread={handleSelectThread}
                                 />
-                            )}
+                            </>
+                        )}
+                    </div>
+                </TabContent>
+            </TabContentList>
+        </Tabs>
 
-                        </div>
-                    </TabContent>
-                    <TabContent>
-                        <div className="flex flex-col gap-4">
-
-                            <Button icon={<Edit />} variant="secondary" onClick={() => alert("Oops! Feature not implemented yet.")}>
-                                Create New Group
-                            </Button>
-                        </div>
-                    </TabContent>
-                </TabContentList>
-            </Tabs>
-       
     );
 }
