@@ -5,7 +5,10 @@ import { useRouter } from "next/navigation";
 import { supabase } from "@utils/supabaseClient";
 import { setAuthToken } from "@utils/auth";
 import { createUser } from "@utils/api";
-import { useState } from "react";
+import { useState, useEffect } from "react";
+import Image from "next/image";
+import { Button } from "@ui/Button/Button";
+import Input from "@ui/Input/Input";
 
 export default function Step6() {
   const router = useRouter();
@@ -15,11 +18,11 @@ export default function Step6() {
   const [errorMessage, setErrorMessage] = useState(null);
   const [isSubmitting, setIsSubmitting] = useState(false);
 
-  useEffect(() => {
-    if (!canAccessStep(stepNumber)) {
-      router.push("/pages/onboarding/step1");
-    }
-  }, [canAccessStep, stepNumber, router]);
+  // useEffect(() => {
+  //   if (!canAccessStep(stepNumber)) {
+  //     router.push("/pages/onboarding/step1");
+  //   }
+  // }, [canAccessStep, stepNumber, router]);
 
   const handleMembershipChange = (membership) => {
     setSelectedMembership(
@@ -88,45 +91,88 @@ export default function Step6() {
       setIsSubmitting(false);
     }
   };
-  // all in all, looks pretty good!, if Victoria makes ui
-  // components for radio buttons, input and datepicker import those into
-  // the onboarding files, and use those instead of html elements
   return (
-    <section className="trvm-card max-w-xl mx-auto flex flex-col text-c">
-      <h1>Final step - Membership type:</h1>
-      <div className="flex items-center gap-1">
-        <input
-          type="checkbox"
-          className="checkbox"
-          id="membership-premium"
-          checked={selectedMembership === "premium"}
-          onChange={() => handleMembershipChange("premium")}
-        />
-        <label className="label-text text-base" htmlFor="membership-premium">
-          Premium Membership
-        </label>
-      </div>
-      <div className="flex items-center gap-1">
-        <input
-          type="checkbox"
-          className="checkbox"
-          id="membership-basic"
-          checked={selectedMembership === "basic"}
-          onChange={() => handleMembershipChange("basic")}
-        />
-        <label className="label-text text-base" htmlFor="membership-basic">
-          Basic Membership
-        </label>
+    <div
+      className="flex flex-col h-full w-full
+     justify-between"
+    >
+      <div className="flex flex-col gap-10 items-center justify-center flex-1">
+        <div className="mb-20">
+          <Image
+            src="/images/lineup-pro.png"
+            alt="LineUp Letter style logo"
+            width={146}
+            height={51}
+          />
+        </div>
+
+        <div
+          className={`flex items-center flex-row-reverse justify-between rounded-3xl ${
+            selectedMembership === "premium" ? "border-subtle" : "border-muted"
+          } `}
+        >
+          <label
+            htmlFor="membership-premium"
+            aria-label="Monthly subscription for Premium Membership"
+          ></label>
+          <div>
+            <p className="text-sm">58 kr.</p>
+          </div>
+
+          <div>
+            <p className="text-base font-semibold">Monthly</p>
+            <p className="text-sm">58 kr. / month</p>
+          </div>
+          <div>
+            <Input
+              type="checkbox"
+              className="checkbox mx-auto rounded-full checked:border-(--color-primary) checked:bg-brand-primary"
+              id="membership-premium"
+              checked={selectedMembership === "premium"}
+              onChange={() => handleMembershipChange("premium")}
+            />
+          </div>
+        </div>
+
+        {/* <div
+          className={`flex items-center flex-col gap-10 p-10 ${
+            selectedMembership === "basic" ? "border-subtle" : "border-muted"
+          } p-4 rounded-3xl text-center justify-center min-h-200 max-w-223`}
+        >
+          <label
+            className="label-text text-base font-semibold"
+            htmlFor="membership-basic"
+          >
+            Basic Membership
+          </label>
+          <p>Start with core features at a lower cost.</p>
+          <Input
+            type="checkbox"
+            className="checkbox mx-auto rounded-full checked:border-(--color-primary) checked:bg-brand-primary"
+            id="membership-basic"
+            checked={selectedMembership === "basic"}
+            onChange={() => handleMembershipChange("basic")}
+          />
+        </div> */}
+
+        {errorMessage && (
+          <p className="text-red-500 mt-2" role="alert">
+            {errorMessage}
+          </p>
+        )}
       </div>
 
-      {errorMessage && (
-        <p className="text-red-500 mt-2" role="alert">
-          {errorMessage}
-        </p>
-      )}
-      <button className="btn" onClick={handleSubmit} disabled={isSubmitting}>
-        {isSubmitting ? "Submitting..." : "Finish"}
-      </button>
-    </section>
+      <div className="items-end self-center pb-4">
+        <Button
+          variant="primary"
+          size="sm"
+          onClick={handleSubmit}
+          className="ml-4 w-fit"
+          disabled={isSubmitting}
+        >
+          {isSubmitting ? "Submitting..." : "Finish"}
+        </Button>
+      </div>
+    </div>
   );
 }
