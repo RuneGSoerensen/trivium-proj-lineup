@@ -188,7 +188,7 @@ export const createThread = async (req, res) => {
 export const getThreadMessages = async (req, res) => {
     const { threadId } = req.params;
     // get real userId from auth middleware
-    const userId = req.user?.id || req.query.userId;
+    const userId = req.user?.id;
 
     if (!threadId) {
         return res.status(400).json({ error: "Missing thread id" });
@@ -225,16 +225,20 @@ export const getThreadMessages = async (req, res) => {
         `;
 
         return res.json({
-            messages: messages.map((m) => ({
-                id: m.id,
-                threadId: m.thread_id,
-                authorId: m.author_id,
-                role: m.role, // "user" | "assistant" | "system"
-                content: m.content,
-                createdAt: m.created_at,
-                authorName: m.author_name,
-                authorAvatarUrl: m.author_avatar_url,
-            }))
+            messages: messages.map((m) => {
+                const isMine = m.author_id === userId;
+                const effectiveRole = isMine ? 'user' : 'other';
+                return {
+                    id: m.id,
+                    threadId: m.thread_id,
+                    authorId: m.author_id,
+                    role: effectiveRole, // "user" | "assistant" | "system"
+                    content: m.content,
+                    createdAt: m.created_at,
+                    authorName: m.author_name,
+                    authorAvatarUrl: m.author_avatar_url,
+                };
+            })
         })
     } catch (error) {
         console.error("getThreadMessages error", error);

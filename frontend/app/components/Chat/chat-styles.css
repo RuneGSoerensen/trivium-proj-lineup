@@ -33,13 +33,22 @@
   justify-content: right;
   background-color: var(--color-secondary);
   color: var(--color-secondary-content);
+  border-bottom-right-radius: 0.25rem;
+  align-self: flex-end;
+}
+
+.assistant-message,
+.other-message {
+  align-self: flex-start;
+  background-color: var(--color-base-300);
+  color: var(--color-base-content);
+  border-bottom-left-radius: 0.25rem;
 }
 
 .message-content {
   width: auto;
   height: fit-content;
   white-space: pre-wrap;
-  word-wrap: break-word;
   overflow-wrap: break-word;
 }
 

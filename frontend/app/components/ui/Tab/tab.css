@@ -26,10 +26,10 @@
     @apply inline-flex rounded-tabs max-h-full max-w-md xl:max-w-xl;
   }
   .tab-separator {
-    @apply bg-muted/30 rounded-full select-none w-6 h-full;
+    @apply bg-muted/30 rounded-full select-none w-4 h-full;
   }
 
   .tab-content {
-    @apply w-full px-24;
+    @apply w-full px-16;
   }
 }

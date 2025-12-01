@@ -5,31 +5,53 @@ import { sendMessage } from "@/utils/api";
 import Input from "@/ui/Input/Input";
 import { Button } from '@/ui/Button/Button';
 import { Mic, Plus } from "lucide-react";
+import Image from "next/image";
 
-function Message({ role, children }) {
+function Message({ role, children, avatarUrl, authorName }) {
+    const isOwn = role === 'user' || role === 'self';
+    const initials = authorName ? authorName.charAt(0).toUpperCase() : '';
     return (
-        <div className={`message ${role}-message truncate ${role === 'user' ? 'bg-brand-secondary color-on-secondary self-end' : 'bg-muted text-on-muted self-start'}`}>
-            <div className="message-content">
-                {typeof children === 'string' ? (
-                    <ReactMarkdown
-                        components={{
-                            code({ node, inline, className, children, ...props }) {
-                                const match = /language-(\w+)/.exec(className || "");
-                                return !inline && match ? (
-                                    <SyntaxHighlighter language={match[1]} PreTag="div" {...props}>
-                                        {String(children).replace(/\n$/, "")}
-                                    </SyntaxHighlighter>
-                                ) : (
-                                    <code className={className} {...props}>
-                                        {children}
-                                    </code>
-                                );
-                            }
-                        }}>{children}
-                    </ReactMarkdown>
-                ) : (children)}
+
+            <div className={`message-row flex items-end gap-8 ${isOwn ? "justify-end" : "justify-start"}`}>
+                {/* Incoming message: avatar on the left */}
+                {!isOwn && (
+                    <Image
+                        alt={authorName || "Avatar"}
+                        src={avatarUrl
+                            ? avatarUrl
+                            : initials
+                                ? `https://ui-avatars.com/api/?name=${encodeURIComponent(authorName)}&background=random&size=128`
+                                : "/default-avatar.png"}
+                        width={20}
+                        height={20}
+                        className="rounded-full h-30 w-30 object-cover border bg-base-200 flex items-center justify-center overflow-hidden shrink-0"
+                    />
+                )}
+
+            <div className={`message ${role}-message truncate`}>
+                <div className="message-content">
+                    {typeof children === "string" ? (
+                        <ReactMarkdown
+                            components={{
+                                code({ node, inline, className, children, ...props }) {
+                                    const match = /language-(\w+)/.exec(className || "");
+                                    return !inline && match ? (
+                                        <SyntaxHighlighter language={match[1]} PreTag="div" {...props}>
+                                            {String(children).replace(/\n$/, "")}
+                                        </SyntaxHighlighter>
+                                    ) : (
+                                        <code className={className} {...props}>
+                                            {children}
+                                        </code>
+                                    );
+                                }
+                            }}>{children}
+                        </ReactMarkdown>
+                    ) : (children)}
+                </div>
             </div>
-        </div>
+                </div>
+
     )
 }
 
@@ -47,7 +69,11 @@ function ChatMessages({ messages = [] }) {
     return (
         <div className="chat-messages">
             {messages.map((msg, index) => (
-                <Message key={index} role={msg.role}>
+                <Message
+                    key={msg.id ?? index}
+                    role={msg.role}
+                    avatarUrl={msg.avatarUrl}
+                    authorName={msg.authorName}>
                     {msg.content}
                 </Message>
             ))}
@@ -84,7 +110,7 @@ function ChatInput({ threadId, onMessageSent }) {
     return (
 
         <div className="chat-input-form-container flex justify-between items-center gap-8 w-full">
-            <Button type="icon" icon={<Plus />} size="icon-md" onClick={() => alert("Feature: Add media")} />
+            <Button type="icon" variant="glass" icon={<Plus />} size="icon-md" onClick={() => alert("Feature: Add media")} />
             <form
                 ref={formRef}
                 className="chat-input-form"
@@ -100,7 +126,7 @@ function ChatInput({ threadId, onMessageSent }) {
                     placeholder="Type your message..."
                 />
             </form>
-            <Button type="icon" icon={<Mic />} size="icon-md" onClick={() => alert("Feature: Voice input")} />
+            <Button type="icon" variant="glass" icon={<Mic />} size="icon-md" onClick={() => alert("Feature: Voice input")} />
         </div>
 
     )
