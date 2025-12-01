@@ -19,7 +19,7 @@
 }
 
 .message {
-  width: 100%;
+  width: fit-content;
   height: fit-content;
   max-width: 80%;
   border-radius: 12px;
