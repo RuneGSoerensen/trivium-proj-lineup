@@ -102,7 +102,7 @@ export const createThread = async (req, res) => {
     let targetParticipantIds;
 
     if (isGroupBool) {
-        // Groupchat: must have at least 2 participants + self, show list of chats
+        // Groupchat: must have at least 2 participants (excluding self); current user is included as a participant
         if (!Array.isArray(participantIds) || participantIds.length === 0) {
             return res.status(400).json({ error: "Group chat must have at least 2 participants" });
         }
