@@ -61,7 +61,7 @@
   --color-accent: #57a38a;
   --color-accent-content: #121212;
 
-  /* Neutral / text-muted colors */
+  /* Neutral / color-muted colors */
   --color-neutral: #a0a0a0;
   --color-neutral-content: #121212;
 
@@ -84,11 +84,11 @@
   --text-h1: 1.5rem; /* 24px */
   --text-h2: 1.25rem; /* 20px */
   --text-h3: 1.125rem; /* 18px */
-  --text-subtitle: 1rem; /* 16px */
-  --text-body: clamp(1rem, 2vw + 0.5rem, 1.3rem); /* 16px - 24px */
+  --text-subtitle: 0.875rem; /* 14px */
+  /* --text-body: clamp(1rem, 2vw + 0.5rem, 1.3rem); 16px - 24px */
   --text-body-lg: 1.25rem; /* 20px */
   --text-body-sm: 0.875rem; /* 14px */
-  --text-body-md: 1rem; /* 16px */
+  --text-body: 1rem; /* 16px */
 
   /* COLOR PALETTE */
   --color-primary-hover: rgba(232, 190, 105, 0.7);
@@ -139,34 +139,34 @@
 
 /* Short semantic utilities */
 /* Text color semantic utilities */
-@utility text-default {
+@utility color-default {
   color: var(--color-base-default);
 }
-@utility text-inverse {
+@utility color-inverse {
   color: var(--color-base-100);
 }
-@utility text-muted {
+@utility color-muted {
   color: --alpha(var(--color-base-content) / 20%);
 }
-@utility text-subtle {
+@utility color-subtle {
   color: var(--color-base-300);
 }
-@utility text-brand {
+@utility color-brand {
   color: var(--color-primary);
 }
-@utility text-on-secondary {
+@utility color-on-secondary {
   color: var(--color-secondary-content);
 }
-@utility text-error {
+@utility color-error {
   color: var(--color-error);
 }
-@utility text-success {
+@utility color-success {
   color: var(--color-success);
 }
-@utility text-warning {
+@utility color-warning {
   color: var(--color-warning);
 }
-@utility text-info {
+@utility color-info {
   color: var(--color-info);
 }
 @utility font-ui {

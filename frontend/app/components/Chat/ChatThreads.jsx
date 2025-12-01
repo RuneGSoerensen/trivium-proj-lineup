@@ -97,12 +97,12 @@ export function ChatThreadItem({ thread, isActive, onSelect }) {
                             {displayName}
                         </span>
                         {timestamp && (
-                            <span className='text-xs text-muted whitespace-nowrap'>
+                            <span className='text-xs color-muted whitespace-nowrap'>
                                 {timestamp}
                             </span>
                         )}
                     </div>
-                    <p className='mt-0.5 text-sm text-muted truncate'>
+                    <p className='mt-0.5 text-sm color-muted truncate'>
                         {preview}
                     </p>
                 </div>

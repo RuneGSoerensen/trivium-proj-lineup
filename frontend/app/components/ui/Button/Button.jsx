@@ -114,9 +114,10 @@ export const Button = ({
 
         {/* LABEL / TEKST – skjules for icon-type */}
         {showLabel && children && (
-          <span className="btn-label">
+          <>
             {children}
-          </span>
+          </>
+
         )}
 
         {/* RIGHT ICON */}
@@ -135,7 +136,7 @@ export const Button = ({
       {isDropdown && open && (
         <div className="absolute top-full left-0 mt-4 w-full bg-base-100 border border-muted rounded-lg shadow-lg p-8 z-50">
           {rest.dropdownitems || (
-            <p className="text-muted">No items provided</p>
+            <p className="color-muted">No items provided</p>
           )}
         </div>
       )}

@@ -1,12 +1,13 @@
 /* Styling for Chat component */
 .chat-container {
   height: 100%;
-overflow:auto;
+  overflow: auto;
   position: relative;
   top: 0;
   left: 0;
   right: 0;
 }
+
 .chat-messages {
   width: 100%;
   flex: 1;
@@ -17,13 +18,12 @@ overflow:auto;
   margin-bottom: 4rem;
 }
 
-.message{
-    width: 100%;
-    height: fit-content;
-    max-width: 80%;
-    border-radius: 12px;
-    padding: 8px 12px;
-
+.message {
+  width: 100%;
+  height: fit-content;
+  max-width: 80%;
+  border-radius: 12px;
+  padding: 8px 12px;
 }
 
 .user-message {
@@ -31,7 +31,7 @@ overflow:auto;
   height: fit-content;
   text-align: right;
   justify-content: right;
-  background-color:var(--color-secondary);
+  background-color: var(--color-secondary);
   color: var(--color-secondary-content);
 }
 

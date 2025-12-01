@@ -73,7 +73,7 @@ export default function ChatPage() {
 
     return (
 
-        <Tabs className="bg-default text-default w-full">
+        <Tabs className="bg-default color-default w-full">
             {!activeThread ? (
                 <TabsList className="mb-8 w-full justify-between">
                     <TabItem>Chats</TabItem>
@@ -84,7 +84,7 @@ export default function ChatPage() {
             <TabContentList>
                 <TabContent className="w-full">
                     {/* <SearchUser selectedUsers={selectedUsers} setSelectedUsers={setSelectedUsers} /> */}
-                    <div className="flex flex-col gap-4">
+                    <div className="flex flex-col gap-4 w-full">
                         {activeThread && !activeThread.isGroup ? (
                             <ActiveChatView
                                 thread={activeThread}
@@ -104,8 +104,8 @@ export default function ChatPage() {
 
                     </div>
                 </TabContent>
-                <TabContent className="w-full">
-                    <div className="flex flex-col gap-4">
+                <TabContent>
+                    <div className="flex flex-col gap-4 w-full">
                         {activeThread && activeThread.isGroup ? (
                             <ActiveChatView
                                 thread={activeThread}

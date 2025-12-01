@@ -8,7 +8,7 @@ import { Mic, Plus } from "lucide-react";
 
 function Message({ role, children }) {
     return (
-        <div className={`message ${role}-message truncate ${role === 'user' ? 'bg-brand-secondary text-on-secondary self-end' : 'bg-muted text-on-muted self-start'}`}>
+        <div className={`message ${role}-message truncate ${role === 'user' ? 'bg-brand-secondary color-on-secondary self-end' : 'bg-muted text-on-muted self-start'}`}>
             <div className="message-content">
                 {typeof children === 'string' ? (
                     <ReactMarkdown
@@ -93,7 +93,7 @@ function ChatInput({ threadId, onMessageSent }) {
                     handleSend();
                 }}>
                 <Input
-                    className="p-10 glass w-full bg-muted/40 text-default border-0 ring-0 outline-0 focus:outline-0 focus:ring-0 focus:border-0 flex-1"
+                    className="p-10 glass w-full bg-muted/40 color-default border-0 ring-0 outline-0 focus:outline-0 focus:ring-0 focus:border-0 flex-1"
                     type="text"
                     value={message}
                     onChange={(e) => setMessage(e.target.value)}

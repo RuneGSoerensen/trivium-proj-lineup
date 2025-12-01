@@ -21,7 +21,7 @@ export default function ChatLayout({ children }) {
                 <div className='flex w-full justify-between py-8 px-22 items-center'>
                     {mode === 'list' ? (
                         <>
-                            <h1 className='text-h1 text-on-secondary'>Messages</h1>
+                            <h1 className='text-h1 color-on-secondary'>Messages</h1>
                             <div className="flex gap-8">
                                 <Button type="icon" iconSize='lg' size='icon-md' icon={<Search />} />
                                 <Button type="icon" iconSize='lg' size='icon-md' icon={<Edit2 />} />
@@ -54,7 +54,7 @@ export default function ChatLayout({ children }) {
                                             {(activeThread?.title || "Chat").charAt(0).toUpperCase()}
                                         </span>
                                     )}
-                                    <span className="text-h2 text-on-secondary truncate">
+                                    <span className="text-h2 color-on-secondary truncate">
                                         {activeThread?.title
                                             || activeThread?.participantName
                                             || (Array.isArray(activeThread?.participantNames)
@@ -70,7 +70,7 @@ export default function ChatLayout({ children }) {
                         </>
                     )}
                 </div>
-                <div className="w-full max-w-screen h-full bg-default text-default flex flex-col rounded-tabs overflow-y-auto">
+                <div className="w-full max-w-screen h-full bg-default color-default flex flex-col rounded-tabs overflow-y-auto">
                     {children}
                 </div>
             </section>

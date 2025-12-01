@@ -37,7 +37,7 @@ The idea is:
 
 - **Base class** = shared shape and typography.
 - **Variant class** = state and color.
-- **Utilities** = additional meaning (e.g. `text-muted`, `border-brand`).
+- **Utilities** = additional meaning (e.g. `color-muted`, `border-brand`).
 
 ---
 
@@ -48,12 +48,12 @@ See the file for full list, but some concepts:
 - **Typography tokens** (`--text-h1`, `--text-body`, etc.)  
   Used by utilities like `text-h1`, `text-body`.
 - **Color tokens** (`--color-primary`, `--color-secondary-*`, `--color-muted`, etc.)  
-  Used by utilities like `text-brand`, `bg-default`, `bg-alt`, `border-brand`.
+  Used by utilities like `color-brand`, `bg-default`, `bg-alt`, `border-brand`.
 
 Example usage inside components:
 
 ```jsx
-<Button className="text-subtitle text-default">
+<Button className="text-subtitle color-default">
   Action
 </Button>
 

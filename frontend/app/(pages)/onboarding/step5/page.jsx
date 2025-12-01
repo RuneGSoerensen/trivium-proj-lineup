@@ -52,7 +52,7 @@ export default function LookingForOptions() {
             >
               {opt.label}
             </label>
-            <p className="text-sm text-muted-foreground">&nbsp;</p>
+            <p className="text-sm color-muted-foreground">&nbsp;</p>
           </div>
         ))}
       </div>

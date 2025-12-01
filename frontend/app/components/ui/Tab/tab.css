@@ -8,15 +8,15 @@
   }
 
   .tab--active {
-    @apply select-none font-medium cursor-pointer text-default transition-colors duration-100;
+    @apply select-none font-medium cursor-pointer color-default transition-colors duration-100;
   }
 
   .tab--default {
-    @apply text-muted cursor-pointer transition-colors duration-100 hover:text-default;
+    @apply color-muted cursor-pointer transition-colors duration-100 hover:color-default;
   }
 
   .tab--disabled {
-    @apply text-muted cursor-not-allowed pointer-events-none;
+    @apply color-muted cursor-not-allowed pointer-events-none;
   }
 
   .tabs--multiple {

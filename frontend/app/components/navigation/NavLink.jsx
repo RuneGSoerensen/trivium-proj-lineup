@@ -10,8 +10,8 @@ export default function NavLink({ href, label, icon, isActive }) {
     <Link
       href={href}
       className={`flex flex-col items-center gap-1 px-8 py-8 w-full max-w-fit rounded-full transition-all m-4 ${isActive
-          ? "text-brand nav-link-gradient-border"
-          : "text-zinc-400 hover:text-brand"
+          ? "color-brand nav-link-gradient-border"
+          : "text-zinc-400 hover:color-brand"
         }`}
     >
       <Image
