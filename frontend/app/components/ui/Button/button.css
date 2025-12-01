@@ -8,6 +8,11 @@
            transition-colors duration-150
            cursor-pointer w-full max-w-md xl:max-w-xl;
   }
+
+  .btn-label {
+    @apply select-none w-full;
+  }
+
   .btn-primary {
     @apply bg-brand-primary text-default hover:bg-brand-primary-hover ;
   }
@@ -21,7 +26,7 @@
 
   /* Icon-only buttons */
   .trvm-btn-icon {
-    @apply flex btn-circle text-inverse items-center justify-center bg-secondary-cyanblue hover:bg-secondary-blue;
+    @apply flex btn-circle text-inverse items-center justify-center bg-secondary-cyanblue/60 hover:bg-secondary-blue;
 
   }
 

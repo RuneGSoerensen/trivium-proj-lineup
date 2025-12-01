@@ -4,6 +4,7 @@
 @import "./styles/responsive.css";
 
 @plugin "flyonui";
+
 @plugin "flyonui/theme" {
   name: "lineup-light";
   default: false;
@@ -36,6 +37,7 @@
   --color-error: #800000;
   --color-error-content: #f7f6f6;
 }
+
 @plugin "flyonui/theme" {
   name: "lineup-dark";
   default: false;

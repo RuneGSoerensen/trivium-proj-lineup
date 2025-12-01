@@ -1,9 +1,12 @@
-import React, { useCallback, useEffect, useRef } from "react"
+import React, { useCallback, useEffect, useRef, useState } from "react"
 import ReactMarkdown from "react-markdown";
-import { Prism as SyntaxHighlighter } from 'react-syntax-highlighter'
+import { Prism as SyntaxHighlighter } from 'react-syntax-highlighter';
+import { sendMessage } from "@/utils/api";
+import Input from "@/ui/Input/Input";
 import { Button } from '@/ui/Button/Button';
+import { Mic, Plus } from "lucide-react";
 
-function Message({ role = "assistant", children }) {
+function Message({ role, children }) {
     return (
         <div className={`message ${role}-message`}>
             <div className="message-content">
@@ -39,7 +42,8 @@ function ChatMessages({ messages = [] }) {
             bottomRef.current.scrollIntoView({ behavior: "smooth", block: "end" });
         }
     }, [messages]);
-
+    // TODO optimize rendering for large message lists (e.g., react-window)
+    // TODO add time, other persons styling + avatar, unreadmarker, etc.
     return (
         <div className="chat-messages">
             {messages.map((msg, index) => (
@@ -51,69 +55,49 @@ function ChatMessages({ messages = [] }) {
     )
 }
 
-function ChatInput({ resetSignal, onAddMessage }) {
+function ChatInput({ threadId }) {
+    const [message, setMessage] = useState("");
     const formRef = useRef(null);
-    const textareaRef = useRef(null);
-    const isComposingRef = useRef(false);
 
-    const handleLocalSubmit = useCallback((e) => {
-        if (!onAddMessage) return;
-        // Prevent default form submission
-        e.preventDefault();
-        const form = formRef.current ?? e.currentTarget;
-        const formData = new FormData(form);
-        const message = formData.get("message")?.toString().trim();
+    const handleSend = useCallback(async (e) => {
+        const trimmed = message.trim();
+        if (!trimmed || !threadId) return;
 
-        if (message) {
-            onAddMessage(message);
-            // Clear textarea after submission
-            form.reset();
-            textareaRef.current?.focus();
-        }
-
-        if (!isComposingRef.current) {
-            onAddMessage();
-        }
-    }, [onAddMessage]);
-
-    const handleKeyDown = useCallback((e) => {
-        if (e.key === 'Enter' && !e.shiftKey) {
-            e.preventDefault();
-            if (onAddMessage) {
-                handleLocalSubmit(e);
-            } else {
-                // If no onAddMessage handler, submit the form normally
-                formRef.current?.dispatchEvent(new Event('submit', { cancelable: true, bubbles: true }));
+        try {
+            await sendMessage(threadId, { content: trimmed });
+            setMessage("");
+            if (formRef.current) {
+                formRef.current.reset();
             }
-        };
-    }, [handleLocalSubmit, onAddMessage]);
-    useEffect(() => {
-        if (resetSignal?.success && formRef.current) {
-            formRef.current.reset();
-            textareaRef.current?.focus();
+        } catch (error) {
+            console.error("Error sending message:", error);
         }
-    }, [resetSignal]);
-
-    const FormComponent = onAddMessage ? 'form' : Form;
+    }, [message, threadId]);
 
     return (
-        <div>
-            <FormComponent ref={formRef} className="chat-input-form" onSubmit={handleLocalSubmit}>
-                {/* <Button type="submit" aria-describedby={tooltipId} className="chat-input-submit-btn">Send</Button> */}
-                <textarea
-                    name="message"
-                    ref={textareaRef}
-                    className="chat-input-textarea"
+        
+            <form
+                ref={formRef}
+                className="chat-input-form"
+                onSubmit={(e) => {
+                    e.preventDefault();
+                    handleSend();
+            }}>
+            <div className="flex justify-between items-center gap-8 w-full">
+            <Button type="icon" icon={<Plus />} size="icon-md"/>
+                <Input
+                    className="p-10 bg-muted/40 border-0"
+                    type="text"
+                    value={message}
+                    onChange={(e) => setMessage(e.target.value)}
                     placeholder="Type your message..."
-                    onKeyDown={handleKeyDown}
-                    onCompositionStart={() => { isComposingRef.current = true; }}
-                    // Some IMEs fire compositionend before keyup; defer a tick to be safe
-                    onCompositionEnd={() => { setTimeout(() => { isComposingRef.current = false; }, 0); }}
-                    rows={1}
                 />
-            </FormComponent>
-</div>
+            <Button type="icon" icon={<Mic/>} size="icon-md"/>
+            </div>
+            </form>
+        
     )
 }
 
-export {Message, ChatMessages, ChatInput};
+
+export { Message, ChatMessages, ChatInput };

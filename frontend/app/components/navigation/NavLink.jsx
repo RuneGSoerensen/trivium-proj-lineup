@@ -4,6 +4,7 @@ import Link from "next/link";
 import Image from "next/image";
 
 export default function NavLink({ href, label, icon, isActive }) {
+
   return (
     // Links template
     <Link

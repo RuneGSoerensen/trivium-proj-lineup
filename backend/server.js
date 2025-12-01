@@ -29,7 +29,7 @@ app.get("/", (req, res) => {
 });
 app.use("/genres", genreRouter);
 app.use("/looking_for_tags", lookingForTagsRouter);
-app.use("/chat", chatRouter);
+app.use("/chat", requireAuth, chatRouter);
 
 app.listen(PORT, () => {
   console.log(`Server running on port ${PORT}`);

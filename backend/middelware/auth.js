@@ -57,6 +57,10 @@ export async function requireAuth(req, res, next) {
 
     // Step 4: Token is valid! Attach user ID to the request object
     // This makes the user ID available to all route handlers
+    req.user = {
+      id: user.id,
+      email: user.email,
+    };
     req.userId = user.id;
 
     // Step 5: Call next() to continue to the route handler
