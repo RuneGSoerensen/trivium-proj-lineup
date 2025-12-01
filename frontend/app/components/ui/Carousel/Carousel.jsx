@@ -57,7 +57,7 @@ function Carousel({ slides = [], heightClass = "h-80", className, slideClassName
                 <Button
                     variant="secondary"
                     type="icon"
-                    rightIcon={<ChevronLeftCircle stroke="inherit" fill="var(--color-base-100)" />}
+                    icon={<ChevronLeftCircle stroke="inherit" fill="var(--color-base-100)" />}
                     iconSize="xl"
                     className="carousel-btn pointer-events-auto"
                     onClick={prevSlide}
@@ -69,7 +69,7 @@ function Carousel({ slides = [], heightClass = "h-80", className, slideClassName
                 <Button
                     variant="secondary"
                     type="icon"
-                    rightIcon={<ChevronRightCircle stroke="inherit" fill="var(--color-base-100)" />}
+                    icon={<ChevronRightCircle stroke="inherit" fill="var(--color-base-100)" />}
                     iconSize="xl"
                     className="carousel-btn p-4 pointer-events-auto"
                     onClick={nextSlide}

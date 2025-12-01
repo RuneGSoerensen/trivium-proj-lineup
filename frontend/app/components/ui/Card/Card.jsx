@@ -57,7 +57,7 @@ export function ServiceCard({
           </div>
 
           {onBookmarkClick && (
-            <Button 
+            <Button
               className="btn btn-circle btn-ghost btn-xs bg-inverse text-inverse"
               onClick={(e) => {
                 e.stopPropagation();
@@ -99,7 +99,7 @@ export function ServiceCard({
         {/* Footer */}
         <footer className="flex items-center justify-between pt-1">
           <Button
-            widthClass="fit"
+            className="w-fit"
             size="sm"
             variant="primary"
             onClick={(e) => {
