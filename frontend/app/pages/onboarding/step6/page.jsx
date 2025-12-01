@@ -20,11 +20,11 @@ export default function Step6() {
   const [errorMessage, setErrorMessage] = useState(null);
   const [isSubmitting, setIsSubmitting] = useState(false);
 
-  // useEffect(() => {
-  //   if (!canAccessStep(stepNumber)) {
-  //     router.push("/pages/onboarding/step1");
-  //   }
-  // }, [canAccessStep, stepNumber, router]);
+  useEffect(() => {
+    if (!canAccessStep(stepNumber)) {
+      router.push("/pages/onboarding/step1");
+    }
+  }, [canAccessStep, stepNumber, router]);
 
   const handleMembershipChange = (membership) => {
     setSelectedMembership(
