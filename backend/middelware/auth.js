@@ -71,3 +71,11 @@ export async function requireAuth(req, res, next) {
     });
   }
 }
+
+export function fakeAuthAs(userId) {
+  return async (req, res, next) => {
+    req.userId = userId;
+    console.log(`Fake auth as ${userId}`);
+    next();
+  }
+}
