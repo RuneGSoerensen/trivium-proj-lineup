@@ -94,10 +94,7 @@ export default function Step6() {
     }
   };
   return (
-    <div
-      className="flex flex-col h-full w-full
-     justify-between"
-    >
+    <div className="flex flex-col h-full w-full justify-between">
       <div className="flex flex-col gap-10 items-center flex-1">
         <div className="mt-40 mb-10">
           <Image
@@ -107,8 +104,10 @@ export default function Step6() {
             height={51}
           />
         </div>
-        <h1 className="text-h2 self-start">Get full access to LineUp</h1>
-        <div className="flex flex-col gap-4 max-w-md items-start self-start">
+        <h1 className="text-h2 self-start md:self-center">
+          Get full access to LineUp
+        </h1>
+        <div className="flex flex-col gap-4 max-w-md items-start self-start md:self-center">
           <p className="flex flex-row gap-10">
             <Check color="#ffcf70" /> Unlimited collabs
           </p>
@@ -124,7 +123,7 @@ export default function Step6() {
         </div>
         {/* Monthly checkbox */}
         <div
-          className={`flex items-center justify-between rounded-3xl py-5 px-10 w-full ${
+          className={`flex items-center justify-between rounded-3xl py-5 px-10 w-full md:max-w-[50%] ${
             selectedMembership === "premium" ? "border-subtle" : "border-muted"
           }`}
         >
@@ -146,7 +145,7 @@ export default function Step6() {
           </div>
         </div>
         {/* Yearly checkbox */}
-        <div className="relative w-full">
+        <div className="relative w-full md:self-center md:max-w-[50%]">
           <div className="absolute -top-3 left-12 bg-brand-primary text-xs font-bold px-7 py-1 rounded">
             HIT
           </div>
