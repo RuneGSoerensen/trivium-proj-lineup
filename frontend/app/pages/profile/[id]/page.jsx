@@ -8,7 +8,7 @@ import {
   TabItem,
   Tabs,
   TabsList,
-} from "@ui/Tab/Tab";
+} from "@/ui/Tab/Tab";
 import ProfileHeader from "@/components/profile/ProfileHeader";
 import ProfileAbout from "@/components/profile/ProfileAbout";
 import ProfileNotes from "@/components/profile/ProfileNotes";

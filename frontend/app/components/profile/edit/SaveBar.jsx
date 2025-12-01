@@ -1,5 +1,5 @@
 "use client";
-import { Button } from "@ui/Button/Button.jsx";
+import { Button } from "@/ui/Button/Button.jsx";
 import { useRouter } from "next/navigation";
 
 export default function SaveBar({ handleSave, saving }) {

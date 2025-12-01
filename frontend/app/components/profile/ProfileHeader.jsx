@@ -1,7 +1,7 @@
 "use client";
 
 import Image from "next/image";
-import { Button } from "@ui/Button/Button";
+import { Button } from "@/ui/Button/Button";
 import { CirclePlus, CircleCheck } from "lucide-react";
 
 export default function ProfileHeader({

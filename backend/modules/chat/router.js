@@ -1,5 +1,5 @@
 import express from "express";
-import { getThreads, getThreadMessages, createMessage } from "./controller";
+import { getThreads, getThreadMessages, createMessage } from "./controller.js";
 const router = express.Router();
 
 router.get("/threads", getThreads);

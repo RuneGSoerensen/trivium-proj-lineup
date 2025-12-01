@@ -1,7 +1,7 @@
 "use client";
 
 import Image from "next/image";
-import { Tag } from "@ui/Tag/Tag.jsx";
+import { Tag } from "@/ui/Tag/Tag.jsx";
 import { Send } from "lucide-react";
 
 export default function ProfileAbout({ profile, onQuestionSubmit }) {

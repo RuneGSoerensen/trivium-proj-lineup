@@ -1,6 +1,6 @@
 "use client";
-import { Tag } from "@ui/Tag/Tag.jsx";
-import MultiSelectInput from "@ui/MultiSelectButton/MultiSelectButton.jsx";
+import { Tag } from "@/ui/Tag/Tag.jsx";
+import MultiSelectInput from "@/ui/MultiSelectButton/MultiSelectButton.jsx";
 
 export default function EditTagsGenresTheme({
   formData,

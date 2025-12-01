@@ -10,7 +10,7 @@ import {
   ArrowUp,
   Reply,
 } from "lucide-react";
-import { Tag } from "@ui/Tag/Tag";
+import { Tag } from "@/ui/Tag/Tag";
 
 // MOVE CommentItem OUTSIDE to prevent recreation on every render
 const CommentItem = ({

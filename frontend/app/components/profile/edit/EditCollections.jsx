@@ -1,5 +1,5 @@
 "use client";
-import { Tag } from "@ui/Tag/Tag.jsx";
+import { Tag } from "@/ui/Tag/Tag.jsx";
 
 export default function EditCollections({ formData, setFormData }) {
   return (
