@@ -4,14 +4,15 @@ const nextConfig = {
     remotePatterns: [
       {
         protocol: 'https',
-        hostname: 'images.example.com', // Only allow images from images.example.com
-      },
-      {
-        protocol: 'https',
-        hostname: 'cdn.example.org', // Also allow images from cdn.example.org
+        hostname: '**', // ✅ allows ALL https domains (dev-friendly)
       },
     ],
   },
 };
 
 export default nextConfig;
+
+/**
+ * For production environments, it's recommended to specify allowed hostnames explicitly:
+ * Hostnames must be fully qualified (no wildcards).
+ */
