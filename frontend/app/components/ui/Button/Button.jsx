@@ -50,7 +50,7 @@ const resolveStroke = (stroke = "md") => strokeW[stroke] ?? stroke;
 export const Button = ({
   type = "default", // default | icon | toggle | dropdown
   variant = "primary",
-  size = type === "icon" ? "rounded-md" : "md",
+  size = type === "icon" ? "icon-md" : "md",
   icon,
   iconPosition = "left", // left | right
   iconSize = "md",
