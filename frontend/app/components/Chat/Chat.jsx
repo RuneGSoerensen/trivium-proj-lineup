@@ -113,7 +113,7 @@ function ChatInput({ threadId, onMessageSent }) {
             <Button type="icon" variant="glass" icon={<Plus />} size="icon-md" onClick={() => alert("Feature: Add media")} />
             <form
                 ref={formRef}
-                className="chat-input-form"
+                className="chat-input-form w-full"
                 onSubmit={(e) => {
                     e.preventDefault();
                     handleSend();

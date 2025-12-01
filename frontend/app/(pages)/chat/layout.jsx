@@ -41,7 +41,7 @@ export default function ChatLayout({ children }) {
                                     icon={<ChevronLeft />}
                                 />
 
-                                <div className='flex w-full items-center justify-center gap-18'>
+                                <div className='flex w-full items-center justify-start gap-18 px-20'>
                                     <Image
                                         alt="Avatar"
                                         src={activeThread?.participantAvatarUrl ? activeThread.participantAvatarUrl : participantInitials ? `https://ui-avatars.com/api/?name=${encodeURIComponent(activeThread.participantName)}&background=random&size=128` : '/default-avatar.png'}
@@ -49,11 +49,7 @@ export default function ChatLayout({ children }) {
                                         height={50}
                                         className="rounded-full h-68 w-68 object-cover border bg-base-200 flex items-center justify-center overflow-hidden shrink-0"
                                     />
-                                    {activeThread?.isGroup && (
-                                        <span>
-                                            {(activeThread?.title || "Chat").charAt(0).toUpperCase()}
-                                        </span>
-                                    )}
+                        
                                     <span className="text-h2 color-on-secondary truncate">
                                         {activeThread?.title
                                             || activeThread?.participantName
