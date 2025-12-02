@@ -8,14 +8,11 @@ import { useRouter } from "next/navigation";
 import { useEffect } from "react";
 
 export default function Step1() {
-  console.log("Step1 component rendering");
-
   const router = useRouter();
   const { canAccessStep, advanceStep } = useOnboarding();
   const stepNumber = 1;
 
   useEffect(() => {
-    console.log("Step1 useEffect - canAccessStep:", canAccessStep(stepNumber));
     if (!canAccessStep(stepNumber)) {
       router.push("/pages/onboarding/step1");
     }
