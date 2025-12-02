@@ -7,6 +7,7 @@ import { fetchThreads, createThread, fetchMessages } from '@/utils/api';
 import { useEffect, useState } from 'react';
 
 import ActiveChatView from '@/comps/Chat/ChatView';
+import Navigation from '@/comps/navigation/navigation';
 
 export default function ChatPage() {
     const [threads, setThreads] = useState([]);
@@ -49,7 +50,6 @@ export default function ChatPage() {
         setActiveThread(null);
         setMessages([]);
     }
-
 
     const handleCreateThread = async () => {
         if (selectedUsers.length === 0) return;
@@ -134,6 +134,7 @@ export default function ChatPage() {
                         )}
                     </div>
                 </TabContent>
+                {!activeThread ? <Navigation /> : null}
             </TabContentList>
         </Tabs>
 
