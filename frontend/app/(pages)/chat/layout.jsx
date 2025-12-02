@@ -17,7 +17,7 @@ export default function ChatLayout({ children }) {
 
     return (
         <ChatHeaderContext.Provider value={{ ...headerState, setHeaderState }}>
-            <section className="flex flex-col w-full h-full justify-between items-center pt-24 bg-brand-secondary">
+            <section className="paddingNone flex flex-col w-full h-full justify-between items-center pt-24 bg-brand-secondary">
                 <div className='flex w-full justify-between py-8 px-22 items-center'>
                     {mode === 'list' ? (
                         <>

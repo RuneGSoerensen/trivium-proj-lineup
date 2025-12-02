@@ -344,11 +344,7 @@
 } */
 
 /*Styles for page layout*/
-.trvm-page {
-  @apply grid grid-flow-row grid-cols-1 space-y-4 h-full w-full gap-8 bg-default;
-}
-
-.app-main {
+main.app-main {
   background-color: var(--background);
   color: var(--foreground);
   transition: all 300ms ease-in-out;
@@ -356,6 +352,11 @@
   align-items: center;
   flex-direction: column;
   display: flex;
+  padding: 18px 24px;
+}
+
+main.app-main:has(> section.paddingNone) {
+  padding: 0;
 }
 
 html,
