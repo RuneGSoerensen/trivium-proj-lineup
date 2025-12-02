@@ -14,7 +14,7 @@
 
   /* Navigation label */
   .trvm-nav-label {
-    @apply text-body font-semibold text-muted font-ui;
+    @apply text-body font-semibold color-muted font-ui;
   }
 
 }
