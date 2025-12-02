@@ -7,7 +7,7 @@ const links = [
   { href: "/", label: "Home", icon: "/icons/Home.svg" },
   { href: "/services", label: "Services", icon: "/icons/Services.svg" },
   { href: "/create", label: "Create", icon: "/icons/Create.svg" },
-  { href: "/chats", label: "Chats", icon: "/icons/Chat.svg" },
+  { href: "/chat", label: "Chats", icon: "/icons/Chat.svg" },
   { href: "/profile", label: "Profile", icon: "/icons/Profile.svg" },
 ];
 

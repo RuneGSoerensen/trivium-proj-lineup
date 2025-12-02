@@ -6,13 +6,18 @@
     @apply flex items-center justify-center gap-8 rounded-button
            font-normal font-ui text-body
            transition-colors duration-150
-           cursor-pointer w-full max-w-md xl:max-w-xl;
+           cursor-pointer w-full md:max-w-md xl:max-w-xl;
   }
+
+  /* .btn-label {
+    @apply select-none w-full;
+  } */
+
   .btn-primary {
-    @apply bg-brand-primary text-default hover:bg-brand-primary-hover ;
+    @apply bg-brand-primary color-default hover:bg-brand-primary-hover ;
   }
   .btn-secondary {
-    @apply bg-default border-muted text-default hover:bg-brand-primary-hover focus:bg-brand-primary-hover;
+    @apply bg-default border-muted color-default hover:bg-brand-primary-hover focus:bg-brand-primary-hover;
   }
 
   .btn-glass {
@@ -21,7 +26,7 @@
 
   /* Icon-only buttons */
   .trvm-btn-icon {
-    @apply flex btn-circle text-inverse items-center justify-center bg-secondary-cyanblue hover:bg-secondary-blue;
+    @apply flex btn-circle color-inverse items-center justify-center bg-secondary-cyanblue hover:bg-secondary-blue;
 
   }
 
@@ -37,11 +42,11 @@
 
   /* NOTE - Will return to at later point
 @utility btn-primary {
-  @apply bg-brand-primary border-muted text-default hover:bg-brand-primary-hover;
+  @apply bg-brand-primary border-muted color-default hover:bg-brand-primary-hover;
 }
 
 @utility btn-secondary {
-  @apply bg-default border-muted text-default hover:bg-brand-primary-hover/50 hover:text-default;
+  @apply bg-default border-muted color-default hover:bg-brand-primary-hover/50 hover:color-default;
 }*/
 
   /* -------------------------------

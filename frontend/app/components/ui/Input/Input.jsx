@@ -41,7 +41,7 @@ const Input = ({ variant, value, onChange = () => { }, placeholder, type = "text
                 {...rest}
             />
             {hasMessage && (
-                <p id={`${inputId}-error`} className="text-error text-sm">{message}</p>
+                <p id={`${inputId}-error`} className="color-error text-sm">{message}</p>
             )}
         </div>
     );

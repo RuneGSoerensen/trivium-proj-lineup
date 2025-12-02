@@ -1,32 +1,57 @@
-import React, { useCallback, useEffect, useRef } from "react"
+import React, { useCallback, useEffect, useRef, useState } from "react"
 import ReactMarkdown from "react-markdown";
-import { Prism as SyntaxHighlighter } from 'react-syntax-highlighter'
+import { Prism as SyntaxHighlighter } from 'react-syntax-highlighter';
+import { sendMessage } from "@/utils/api";
+import Input from "@/ui/Input/Input";
 import { Button } from '@/ui/Button/Button';
+import { Mic, Plus } from "lucide-react";
+import Image from "next/image";
 
-function Message({ role = "assistant", children }) {
+function Message({ role, children, avatarUrl, authorName }) {
+    const isOwn = role === 'user';
+    const initials = authorName ? authorName.charAt(0).toUpperCase() : '';
     return (
-        <div className={`message ${role}-message`}>
-            <div className="message-content">
-                {typeof children === 'string' ? (
-                    <ReactMarkdown
-                        components={{
-                            code({ node, inline, className, children, ...props }) {
-                                const match = /language-(\w+)/.exec(className || "");
-                                return !inline && match ? (
-                                    <SyntaxHighlighter language={match[1]} PreTag="div" {...props}>
-                                        {String(children).replace(/\n$/, "")}
-                                    </SyntaxHighlighter>
-                                ) : (
-                                    <code className={className} {...props}>
-                                        {children}
-                                    </code>
-                                );
-                            }
-                        }}>{children}
-                    </ReactMarkdown>
-                ) : (children)}
+
+            <div className={`message-row flex items-end gap-8 ${isOwn ? "justify-end" : "justify-start"}`}>
+                {/* Incoming message: avatar on the left */}
+                {!isOwn && (
+                    <Image
+                        alt={authorName || "Avatar"}
+                        src={avatarUrl
+                            ? avatarUrl
+                            : initials
+                                ? `https://ui-avatars.com/api/?name=${encodeURIComponent(authorName)}&background=random&size=128`
+                                : "/default-avatar.png"}
+                        width={20}
+                        height={20}
+                        className="rounded-full h-30 w-30 object-cover border bg-base-200 flex items-center justify-center overflow-hidden shrink-0"
+                    />
+                )}
+
+            <div className={`message ${role}-message truncate`}>
+                <div className="message-content">
+                    {typeof children === "string" ? (
+                        <ReactMarkdown
+                            components={{
+                                code({ node, inline, className, children, ...props }) {
+                                    const match = /language-(\w+)/.exec(className || "");
+                                    return !inline && match ? (
+                                        <SyntaxHighlighter language={match[1]} PreTag="div" {...props}>
+                                            {String(children).replace(/\n$/, "")}
+                                        </SyntaxHighlighter>
+                                    ) : (
+                                        <code className={className} {...props}>
+                                            {children}
+                                        </code>
+                                    );
+                                }
+                            }}>{children}
+                        </ReactMarkdown>
+                    ) : (children)}
+                </div>
             </div>
-        </div>
+                </div>
+
     )
 }
 
@@ -39,11 +64,16 @@ function ChatMessages({ messages = [] }) {
             bottomRef.current.scrollIntoView({ behavior: "smooth", block: "end" });
         }
     }, [messages]);
-
+    // TODO optimize rendering for large message lists (e.g., react-window)
+    // TODO add time, other persons styling + avatar, unreadmarker, etc.
     return (
         <div className="chat-messages">
             {messages.map((msg, index) => (
-                <Message key={index} role={msg.role}>
+                <Message
+                    key={msg.id ?? index}
+                    role={msg.role}
+                    avatarUrl={msg.avatarUrl}
+                    authorName={msg.authorName}>
                     {msg.content}
                 </Message>
             ))}
@@ -51,69 +81,56 @@ function ChatMessages({ messages = [] }) {
     )
 }
 
-function ChatInput({ resetSignal, onAddMessage }) {
+function ChatInput({ threadId, onMessageSent }) {
+    const [message, setMessage] = useState("");
     const formRef = useRef(null);
-    const textareaRef = useRef(null);
-    const isComposingRef = useRef(false);
 
-    const handleLocalSubmit = useCallback((e) => {
-        if (!onAddMessage) return;
-        // Prevent default form submission
-        e.preventDefault();
-        const form = formRef.current ?? e.currentTarget;
-        const formData = new FormData(form);
-        const message = formData.get("message")?.toString().trim();
+    const handleSend = async () => {
+        const trimmed = message.trim();
+        if (!trimmed || !threadId) return;
 
-        if (message) {
-            onAddMessage(message);
-            // Clear textarea after submission
-            form.reset();
-            textareaRef.current?.focus();
-        }
-
-        if (!isComposingRef.current) {
-            onAddMessage();
-        }
-    }, [onAddMessage]);
-
-    const handleKeyDown = useCallback((e) => {
-        if (e.key === 'Enter' && !e.shiftKey) {
-            e.preventDefault();
-            if (onAddMessage) {
-                handleLocalSubmit(e);
-            } else {
-                // If no onAddMessage handler, submit the form normally
-                formRef.current?.dispatchEvent(new Event('submit', { cancelable: true, bubbles: true }));
+        try {
+            const result = await sendMessage(threadId, { content: trimmed });
+            const newMessage = result.message ?? {
+                content: trimmed,
+                role: 'user',
             }
-        };
-    }, [handleLocalSubmit, onAddMessage]);
-    useEffect(() => {
-        if (resetSignal?.success && formRef.current) {
-            formRef.current.reset();
-            textareaRef.current?.focus();
-        }
-    }, [resetSignal]);
 
-    const FormComponent = onAddMessage ? 'form' : Form;
+            onMessageSent?.(newMessage);
+
+            setMessage("");
+            if (formRef.current) {
+                formRef.current.reset();
+            }
+        } catch (error) {
+            console.error("Error sending message:", error);
+        }
+    };
 
     return (
-        <div>
-            <FormComponent ref={formRef} className="chat-input-form" onSubmit={handleLocalSubmit}>
-                {/* <Button type="submit" aria-describedby={tooltipId} className="chat-input-submit-btn">Send</Button> */}
-                <textarea
-                    name="message"
-                    ref={textareaRef}
-                    className="chat-input-textarea"
+
+        <div className="chat-input-form-container flex justify-between items-center gap-8 w-full">
+            <Button type="icon" variant="glass" icon={<Plus />} size="icon-md" onClick={() => alert("Feature: Add media")} />
+            <form
+                ref={formRef}
+                className="chat-input-form w-full"
+                onSubmit={(e) => {
+                    e.preventDefault();
+                    handleSend();
+                }}>
+                <Input
+                    className="p-10 glass w-full bg-muted/40 color-default border-0 ring-0 outline-0 focus:outline-0 focus:ring-0 focus:border-0 flex-1"
+                    type="text"
+                    value={message}
+                    onChange={(e) => setMessage(e.target.value)}
                     placeholder="Type your message..."
-                    onKeyDown={handleKeyDown}
-                    onCompositionStart={() => { isComposingRef.current = true; }}
-                    // Some IMEs fire compositionend before keyup; defer a tick to be safe
-                    onCompositionEnd={() => { setTimeout(() => { isComposingRef.current = false; }, 0); }}
-                    rows={1}
                 />
-            </FormComponent>
-</div>
+            </form>
+            <Button type="icon" variant="glass" icon={<Mic />} size="icon-md" onClick={() => alert("Feature: Voice input")} />
+        </div>
+
     )
 }
 
-export {Message, ChatMessages, ChatInput};
+
+export { Message, ChatMessages, ChatInput };

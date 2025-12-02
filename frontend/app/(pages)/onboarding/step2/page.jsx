@@ -211,7 +211,7 @@ export default function Step2() {
             Log in
           </Link>
 
-          <Link className="underline text-sm p-12 text-muted" href="/home">
+          <Link className="underline text-sm p-12 color-muted" href="/home">
             Skip for now
           </Link>
         </div>
