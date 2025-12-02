@@ -8,14 +8,14 @@ export default function NavLink({ href, label, icon, isActive }) {
   return (
     // Links template
     <Link
-      href={href}
+      href={href ? href : "/"}
       className={`flex flex-col items-center gap-1 px-8 py-8 w-full max-w-fit rounded-full transition-all m-4 ${isActive
           ? "color-brand nav-link-gradient-border"
           : "text-zinc-400 hover:color-brand"
         }`}
     >
       <Image
-        src={icon}
+        src={icon ? icon : "/icons/Home.svg"}
         alt={label}
         width={18}
         height={18}
