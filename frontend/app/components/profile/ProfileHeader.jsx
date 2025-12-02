@@ -12,7 +12,7 @@ export default function ProfileHeader({
 }) {
   return (
     <div
-      className=" py-10 rounded-[40px] mb-6 w-full"
+      className=" py-10  rounded-[40px] mb-10 w-[96%] mx-auto"
       style={{ backgroundColor: profile.theme }}
     >
       <div className="flex flex-col items-center">
@@ -50,7 +50,7 @@ export default function ProfileHeader({
             <Button
               variant="glass"
               className=" w-full py-3 rounded-full  "
-              onClick={() => router.push("/pages/profile/edit")}
+              onClick={() => router.push("/profile/edit")}
             >
               Edit profile
             </Button>

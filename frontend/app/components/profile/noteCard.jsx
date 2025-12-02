@@ -288,7 +288,7 @@ export default function NoteCard({
 
       {/* COMMENT LIST */}
 
-      {commentsOpen && note.comments?.length > 0 && (
+      {commentsOpen && (
         <div>
           {/* MAIN COMMENT INPUT */}
           <div className="mt-3 pt-3 border-t border-muted/20">
@@ -309,22 +309,26 @@ export default function NoteCard({
               </button>
             </div>
           </div>
-          <div className="mt-3 pt-3 border-t border-muted/20 space-y-3">
-            {commentTree.map((c) => (
-              <CommentItem
-                key={c.id}
-                comment={c}
-                depth={0}
-                replyTo={replyTo}
-                replyComment={replyComment}
-                setReplyTo={setReplyTo}
-                setReplyComment={setReplyComment}
-                handleReplySubmit={handleReplySubmit}
-                onCommentLike={onCommentLike}
-                formatTimeAgo={formatTimeAgo}
-              />
-            ))}
-          </div>
+
+          {/* COMMENTS LIST (only shown when there are comments) */}
+          {note.comments?.length > 0 && (
+            <div className="mt-3 pt-3 border-t border-muted/20 space-y-3">
+              {commentTree.map((c) => (
+                <CommentItem
+                  key={c.id}
+                  comment={c}
+                  depth={0}
+                  replyTo={replyTo}
+                  replyComment={replyComment}
+                  setReplyTo={setReplyTo}
+                  setReplyComment={setReplyComment}
+                  handleReplySubmit={handleReplySubmit}
+                  onCommentLike={onCommentLike}
+                  formatTimeAgo={formatTimeAgo}
+                />
+              ))}
+            </div>
+          )}
         </div>
       )}
     </div>

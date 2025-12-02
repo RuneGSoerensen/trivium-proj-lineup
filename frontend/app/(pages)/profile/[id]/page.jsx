@@ -15,14 +15,17 @@ import ProfileNotes from "@/components/profile/ProfileNotes";
 
 const HARD_ARTISTS = [
   "https://images.unsplash.com/photo-1544005313-94ddf0286df2?w=200&q=80",
-  "https://images.unsplash.com/photo-1545996124-0d0d3a3a80b4?w=200&q=80",
+  "https://images.unsplash.com/photo-1723425715501-d19c1c5b02e9?q=80&w=692&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
   "https://images.unsplash.com/photo-1547425260-76bcadfb4f2c?w=200&q=80",
   "https://images.unsplash.com/photo-1544006659-f0b21884ce1d?w=200&q=80",
   "https://images.unsplash.com/photo-1544005310-8d8d2c1a6f3f?w=200&q=80",
 ];
 
 const HARD_SPOTIFY_LINK = "https://open.spotify.com/artist/placeholder";
-const HARD_VIDEOS = ["video 1", "video 2"];
+const HARD_VIDEOS = [
+  "https://youtu.be/G19UqSnNuO8",
+  "https://youtu.be/G19UqSnNuO8",
+];
 const HARD_PAST_COLLABS = ["Band A", "Band B"];
 
 export default function ProfilePage() {
@@ -215,7 +218,7 @@ export default function ProfilePage() {
   }
 
   return (
-    <div className="w-full">
+    <div className="w-full bg-gray-100 ">
       <ProfileHeader
         profile={profile}
         notesLength={notes.length}
@@ -228,7 +231,7 @@ export default function ProfilePage() {
           <TabItem className="">About</TabItem>
           <TabItem>Notes</TabItem>
         </TabsList>
-        <TabContentList className="mt-4 bg-white">
+        <TabContentList className="bg-white">
           <TabContent>
             <ProfileAbout profile={profile} onQuestionSubmit={handleClick} />
           </TabContent>
