@@ -8,7 +8,7 @@ import { Mic, Plus } from "lucide-react";
 import Image from "next/image";
 
 function Message({ role, children, avatarUrl, authorName }) {
-    const isOwn = role === 'user' || role === 'self';
+    const isOwn = role === 'user';
     const initials = authorName ? authorName.charAt(0).toUpperCase() : '';
     return (
 
