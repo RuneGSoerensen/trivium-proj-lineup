@@ -1,10 +1,10 @@
 "use client";
 //NOTE - WORK IN PROGRESS - Navbar component to be expanded based on different types (search, title, chat, etc.)
 
-import { useNavbar } from "./NavbarContext";
 import { useRouter } from "next/navigation";
-import { Button } from "@/components/ui/Button/Button";
-import { Search, Bell, Menu } from "lucide-react";
+import { Button } from "@/ui/Button/Button";
+import { Search, Bell, Menu, ChevronLeftIcon } from "lucide-react";
+import { NavbarProvider, useNavbar } from "@/utils/navbarContext";
 
 const ACTION_DEFS = (router) => ({
     search: {
@@ -24,7 +24,7 @@ const ACTION_DEFS = (router) => ({
     },
 });
 
-export default function Navbar() {
+export function NavConfig() {
     const { config } = useNavbar();
     const router = useRouter();
 
@@ -36,32 +36,40 @@ export default function Navbar() {
 
     // DEFAULT case:
     return (
-        <nav className="flex items-center justify-between px-4 py-2 bg-base-100">
-            {config.showBack ? (
-                <button onClick={() => router.back()} aria-label="Back">
-                    {/* back icon */}
-                </button>
-            ) : (
-                <div className="w-6" />
-            )}
+        <NavbarProvider value={{ config }}>
+            <nav className="flex items-center justify-between px-4 py-2 bg-base-100">
+                {config.showBack ? (
+                    <Button icon={<ChevronLeftIcon stroke="inherit"/>} onClick={() => router.back()} aria-label="Back" />
+                ) : (
+                    <div className="w-6" />
+                )}
 
-            <div className="flex items-center gap-3">
-                {config.actions.map((key) => {
-                    const action = ACTIONS[key];
-                    if (!action) return null;
+                <div className="flex items-center gap-3">
+                    {config.actions.map((key) => {
+                        const action = ACTIONS[key];
+                        if (!action) return null;
 
-                    return (
-                        <Button
-                            key={key}
-                            type="icon"
-                            variant="ghost"
-                            aria-label={action.ariaLabel}
-                            onClick={action.onClick}
-                            icon={action.icon}
-                        />
-                    );
-                })}
-            </div>
-        </nav>
+                        return (
+                            <Button
+                                key={key}
+                                type="icon"
+                                variant="ghost"
+                                aria-label={action.ariaLabel}
+                                onClick={action.onClick}
+                                icon={action.icon}
+                            />
+                        );
+                    })}
+                </div>
+            </nav>
+        </NavbarProvider>
     );
+}
+
+export default function Navbar() {
+    return (
+        <NavbarProvider>
+            <NavConfig />
+        </NavbarProvider>
+  )
 }

@@ -15,6 +15,7 @@ export default function RootLayout({ children }) {
       <body className="trvm-page overflow-x-hidden overflow-y-auto">
         <main className="app-main"> {children} </main>
       </body>
+
     </html>
   );
 }

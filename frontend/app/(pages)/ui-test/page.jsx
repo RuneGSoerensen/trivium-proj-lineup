@@ -21,7 +21,7 @@ export default function TestPage() {
     return (
         <article className="space-y-12">
             <Button icon={<Angry />}>Primary</Button>
-            <Button icon={<Apple fill="inherit" />} variant="secondary" onClick={() => alert("Clicked!")}>
+            <Button icon={<Apple stroke="red" />} variant="secondary" onClick={() => alert("Clicked!")}>
                 Secondary
             </Button>
             <Button size="sm" variant="glass">Glass Button</Button>

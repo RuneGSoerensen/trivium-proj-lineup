@@ -1,7 +1,6 @@
-'use client';
 import { createContext, useContext, useState } from 'react';
 
-const NavbarContext = createContext();
+const NavbarContext = createContext(null);
 
 export function NavbarProvider({ children }) { 
     const [config, setConfig] = useState({
@@ -19,6 +18,10 @@ export function NavbarProvider({ children }) {
     )
 }
 
-export function useNavbar() { 
-    return useContext(NavbarContext);
+export function useNavbar() {
+    const ctx = useContext(NavbarContext);
+    if (!ctx) {
+        throw new Error("useNavbar must be used inside <NavbarProvider>");
+    }
+    return ctx;
 }
