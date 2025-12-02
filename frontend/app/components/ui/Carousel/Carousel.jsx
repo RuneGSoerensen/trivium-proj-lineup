@@ -65,25 +65,21 @@ function Carousel({
       </div>
       <div className="absolute inset-0 flex items-center justify-between pointer-events-none px-4 z-50">
         <button
-          onClick={(e) => {
-            console.log("Left button clicked", e);
-            prevSlide();
-          }}
+          onClick={prevSlide}
           disabled={!hasMultipleSlides}
           aria-label="Previous slide"
+          className="carousel-btn pointer-events-auto"
         >
           <ChevronLeftCircle size={32} strokeWidth={2} />
         </button>
 
         <button
-          onClick={(e) => {
-            console.log("Right button clicked", e);
-            nextSlide();
-          }}
+          onClick={nextSlide}
           disabled={!hasMultipleSlides}
           aria-label="Next slide"
+          className="carousel-btn pointer-events-auto"
         >
-          <ChevronRightCircle size={32} strokeWidth={2} color="#000" />
+          <ChevronRightCircle size={32} strokeWidth={2} />
         </button>
       </div>
       <div className="carousel-pagination absolute bottom-0 end-0 start-0 flex justify-center gap-8">
