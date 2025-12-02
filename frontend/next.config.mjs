@@ -17,3 +17,8 @@ const nextConfig = {
 };
 
 export default nextConfig;
+
+/**
+ * For production environments, it's recommended to specify allowed hostnames explicitly:
+ * Hostnames must be fully qualified (no wildcards).
+ */

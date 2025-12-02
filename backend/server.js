@@ -8,11 +8,11 @@ import { requireAuth } from "./middelware/auth.js";
 import genreRouter from "./modules/genres/router.js";
 import chatRouter from "./modules/chat/router.js";
 const app = express();
-const PORT = process.env.PORT || 3000;
+const PORT = process.env.PORT || 3300;
 // Before production this needs to be changed to a valid url, or something more secure.
 app.use(
   cors({
-    origin: ["http://localhost:3000", "http://localhost:3001"], // Adjust this to your frontend's origin
+    origin: ["http://localhost:3000", "http://localhost:3300"], // Adjust this to your frontend's origin
     methods: ["GET", "POST", "PUT", "DELETE", "PATCH"],
     allowedHeaders: ["Content-Type", "Authorization"],
   })
@@ -29,7 +29,7 @@ app.get("/", (req, res) => {
 });
 app.use("/genres", genreRouter);
 app.use("/looking_for_tags", lookingForTagsRouter);
-app.use("/chat", chatRouter);
+app.use("/chat", requireAuth, chatRouter);
 
 app.listen(PORT, () => {
   console.log(`Server running on port ${PORT}`);
