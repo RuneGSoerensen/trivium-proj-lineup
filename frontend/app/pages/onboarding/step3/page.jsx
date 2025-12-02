@@ -11,11 +11,11 @@ export default function Step3() {
   const router = useRouter();
   const { canAccessStep, advanceStep, userData, updateUser } = useOnboarding();
   const stepNumber = 3;
-  useEffect(() => {
-    if (!canAccessStep(stepNumber)) {
-      router.push("/pages/onboarding/step1");
-    }
-  }, [canAccessStep, stepNumber, router]);
+  // useEffect(() => {
+  //   if (!canAccessStep(stepNumber)) {
+  //     router.push("/pages/onboarding/step1");
+  //   }
+  // }, [canAccessStep, stepNumber, router]);
   // Local useState for form Input
   const [formData, setFormData] = useState({
     is_musician: userData.is_musician ?? null,

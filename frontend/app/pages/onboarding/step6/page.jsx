@@ -20,11 +20,11 @@ export default function Step6() {
   const [errorMessage, setErrorMessage] = useState(null);
   const [isSubmitting, setIsSubmitting] = useState(false);
 
-  useEffect(() => {
-    if (!canAccessStep(stepNumber)) {
-      router.push("/pages/onboarding/step1");
-    }
-  }, [canAccessStep, stepNumber, router]);
+  // useEffect(() => {
+  //   if (!canAccessStep(stepNumber)) {
+  //     router.push("/pages/onboarding/step1");
+  //   }
+  // }, [canAccessStep, stepNumber, router]);
 
   const handleMembershipChange = (membership) => {
     setSelectedMembership(
@@ -123,7 +123,7 @@ export default function Step6() {
         </div>
         {/* Monthly checkbox */}
         <div
-          className={`flex items-center justify-between rounded-3xl py-5 px-10 w-full md:max-w-[50%] ${
+          className={`flex items-center justify-between rounded-3xl py-5 px-10 w-full md:max-w-[50%] border-2 ${
             selectedMembership === "premium" ? "border-subtle" : "border-muted"
           }`}
         >

@@ -72,7 +72,7 @@ function Carousel({
           disabled={!hasMultipleSlides}
           aria-label="Previous slide"
         >
-          <ChevronLeftCircle size={32} strokeWidth={2} color="#000" />
+          <ChevronLeftCircle size={32} strokeWidth={2} />
         </button>
 
         <button
