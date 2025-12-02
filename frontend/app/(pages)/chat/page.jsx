@@ -134,7 +134,7 @@ export default function ChatPage() {
                         )}
                     </div>
                 </TabContent>
-                {!activeThread ? <Navigation /> : null}
+                {!activeThread ? <Navigation href="/chat" isActive={true} /> : null}
             </TabContentList>
         </Tabs>
 
