@@ -49,7 +49,7 @@ The theming system is described in detail here:
 Core ideas:
 
 - **Design tokens** (colors, spacing, typography, radii) defined centrally.
-- **Semantic utilities** (`text-muted`, `bg-default`, `border-brand`, etc.) used in components.
+- **Semantic utilities** (`color-muted`, `bg-default`, `border-brand`, etc.) used in components.
 - **Component-level classes** (`trvm-btn`, `trvm-input`) that map to those tokens.
 
 You can imagine the theme as a set of **Lego bricks** (tokens and utilities), and components as **small builds** assembled from those same bricks. Change the bricks and every build updates automatically.
@@ -63,7 +63,7 @@ You can imagine the theme as a set of **Lego bricks** (tokens and utilities), an
    - If you need a new pattern, consider if it can be a variant of an existing component.
 
 2. **Use semantic utilities**
-   - Use `text-default`, `text-muted`, `bg-default`, `border-brand` etc. instead of raw hex codes.
+   - Use `color-default`, `color-muted`, `bg-default`, `border-brand` etc. instead of raw hex codes.
    - Keep raw colors inside the theme layer (`globals.css`).
 
 3. **Keep logic in pages/containers**
@@ -98,7 +98,7 @@ export default function ExampleForm() {
   return (
     <form onSubmit={handleSubmit} className="space-y-8">
       <div>
-        <label className="block mb-4 text-subtitle text-default">
+        <label className="block mb-4 text-subtitle color-default">
           Email
         </label>
         <Input

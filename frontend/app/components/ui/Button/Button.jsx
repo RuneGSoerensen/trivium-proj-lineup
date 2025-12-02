@@ -24,7 +24,10 @@ const sizeClass = {
   sm: "py-6 px-16 text-sm",
   md: "py-8 px-24 text-base",
   lg: "py-12 px-32 text-lg",
-  rounded: "p-12 rounded-full", // for icon buttons
+  'icon-sm': "p-8",
+  'icon-md': "p-10",
+  'icon-lg': "p-12",
+  'rounded': "p-10",
 };
 
 const iconSz = {
@@ -47,7 +50,7 @@ const resolveStroke = (stroke = "md") => strokeW[stroke] ?? stroke;
 export const Button = ({
   type = "default", // default | icon | toggle | dropdown
   variant = "primary",
-  size = type === "icon" ? "rounded" : "md",
+  size = type === "icon" ? "icon-md" : "md",
   icon,
   iconPosition = "left", // left | right
   iconSize = "md",
@@ -111,9 +114,10 @@ export const Button = ({
 
         {/* LABEL / TEKST – skjules for icon-type */}
         {showLabel && children && (
-          <span>
+          <>
             {children}
-          </span>
+          </>
+
         )}
 
         {/* RIGHT ICON */}
@@ -132,7 +136,7 @@ export const Button = ({
       {isDropdown && open && (
         <div className="absolute top-full left-0 mt-4 w-full bg-base-100 border border-muted rounded-lg shadow-lg p-8 z-50">
           {rest.dropdownitems || (
-            <p className="text-muted">No items provided</p>
+            <p className="color-muted">No items provided</p>
           )}
         </div>
       )}
