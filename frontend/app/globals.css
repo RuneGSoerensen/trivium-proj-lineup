@@ -280,6 +280,9 @@
 @utility border-muted {
   border: 1.5px solid --alpha(var(--color-base-content) / 20%);
 }
+@utility border-subtle {
+  border: 1.5px solid --alpha(var(--color-base-content) / 40%);
+}
 @utility ring-brand {
   box-shadow: 0 0 0 2px var(--color-primary);
 }

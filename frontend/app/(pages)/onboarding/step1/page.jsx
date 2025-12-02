@@ -45,14 +45,15 @@ export default function Step1() {
         key={index}
         className="w-full h-full flex flex-col items-center justify-center"
       >
-        <Image
-          width={350}
-          height={350}
-          src={content.image}
-          alt={`Onboarding ${index + 1}`}
-          className="object-contain w-full h-full"
-          loading="eager"
-        />
+        <div className="relative w-full h-350">
+          <Image
+            fill
+            src={content.image}
+            alt={`Onboarding ${index + 1}`}
+            className="object-contain"
+            priority={index === 0}
+          />
+        </div>
         <h2 className="text-center mt-6 text-lg font-semibold">
           {content.label}
         </h2>
@@ -62,9 +63,10 @@ export default function Step1() {
 
   return (
     <div className="space-y-24 h-full flex flex-col items-center justify-center">
-      {/* TODO refine carousel, add images and click events */}
-      <Carousel slides={renderSlides()} heightClass="h-310" />
-      <Button onClick={handleNext} className="w-fit" variant="primary">Get started!</Button>
+      <Carousel slides={renderSlides()} heightClass="h-[450px]" />
+      <Button onClick={handleNext} className="w-fit" variant="primary">
+        Get started!
+      </Button>
     </div>
   );
 }
