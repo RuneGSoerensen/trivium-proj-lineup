@@ -5,6 +5,7 @@ import { useRouter } from "next/navigation";
 import { Button } from "@/ui/Button/Button";
 import { Search, Bell, Menu, ChevronLeftIcon } from "lucide-react";
 import { NavbarProvider, useNavbar } from "@/utils/navbarContext";
+import Image from "next/image";
 
 const ACTION_DEFS = (router) => ({
     search: {
@@ -37,11 +38,16 @@ export function NavConfig() {
     // DEFAULT case:
     return (
         <NavbarProvider value={{ config }}>
-            <nav className="flex items-center justify-between px-4 py-2 bg-base-100">
-                {config.showBack ? (
-                    <Button icon={<ChevronLeftIcon stroke="inherit"/>} onClick={() => router.back()} aria-label="Back" />
+            <nav className="flex items-center justify-between w-full h-78 px-4 py-2 bg-base-100">
+                {!config.showBack ? (
+                    <Button icon={<ChevronLeftIcon stroke="var(--color-base-content)"/>} className="bg-default" onClick={() => router.back()} aria-label="Back" />
                 ) : (
-                    <div className="w-6" />
+                        <Image
+                            src="/images/lineup-type-logo.svg"
+                            alt="Lineup Logo"
+                            width={100}
+                            height={40}
+                        />
                 )}
 
                 <div className="flex items-center gap-3">

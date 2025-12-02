@@ -9,10 +9,6 @@
            cursor-pointer w-full md:max-w-md xl:max-w-xl;
   }
 
-  /* .btn-label {
-    @apply select-none w-full;
-  } */
-
   .btn-primary {
     @apply bg-brand-primary color-default hover:bg-brand-primary-hover ;
   }
@@ -20,8 +16,8 @@
     @apply bg-default border-muted color-default hover:bg-brand-primary-hover focus:bg-brand-primary-hover;
   }
 
-  .btn-glass {
-    @apply glass;
+  .btn-ghost {
+    @apply bg-transparent color-default hover:bg-base-200;
   }
 
   /* Icon-only buttons */

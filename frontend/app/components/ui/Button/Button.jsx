@@ -16,7 +16,8 @@ import clsx from "clsx";
 const variantClass = {
   primary: "btn-primary",
   secondary: "btn-secondary",
-  glass: "btn-glass",
+  glass: "glass",
+  ghost: "btn-ghost",
 };
 
 // Made for mobile first design

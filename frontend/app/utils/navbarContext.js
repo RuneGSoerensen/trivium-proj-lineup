@@ -6,7 +6,7 @@ export function NavbarProvider({ children }) {
     const [config, setConfig] = useState({
         type: "default",
         title: null,
-        showBack: false,
+        showBack: true,
         actions:["search", "notifications", "menu"],
         visible:true,
     });    
