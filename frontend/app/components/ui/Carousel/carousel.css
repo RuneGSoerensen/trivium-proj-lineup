@@ -10,10 +10,10 @@
     @apply h-full flex transition-transform duration-300 ease-in-out;
   }
   .carousel-slide {
-    @apply flex-shrink-0 w-full h-full ;
+    @apply flex-shrink-0 w-full h-full;
   }
 
   .carousel-btn {
-    @apply p-2 border-none bg-transparent hover:bg-transparent focus:bg-none btn-size-high shadow-none stroke-base-content/80 opacity-80 hover:opacity-100 flex items-center justify-center rounded-full;
+    @apply p-8 border-0 bg-transparent hover:bg-base-100/10 shadow-none text-base-content/70 hover:text-base-content opacity-80 hover:opacity-100 flex items-center justify-center rounded-full transition-all duration-200 disabled:opacity-30 disabled:cursor-not-allowed;
   }
 }

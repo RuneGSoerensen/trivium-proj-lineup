@@ -5,7 +5,7 @@
 
 import { authenticatedFetch } from "./auth";
 
-const API_BASE_URL = "http://localhost:3001";
+const API_BASE_URL = "http://localhost:3300";
 
 /**
  * Create a new user (no authentication required)

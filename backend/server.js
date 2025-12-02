@@ -3,7 +3,7 @@ import cors from "cors";
 import usersRouter from "./routes/user.js";
 import { requireAuth } from "./middelware/auth.js";
 const app = express();
-const PORT = process.env.PORT || 3001;
+const PORT = process.env.PORT || 3300;
 
 // Before production this needs to be changed to a valid url, or something more secure.
 app.use(
