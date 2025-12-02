@@ -3,8 +3,8 @@
 import React, { useState, useEffect } from "react";
 import { useOnboarding } from "@/utils/userOnboardingContext";
 import { useRouter } from "next/navigation";
-import { Button } from "@ui/Button/Button";
-import Input from "@ui/Input/Input";
+import { Button } from "@/ui/Button/Button";
+import Input from "@/ui/Input/Input";
 import Image from "next/image";
 
 export default function Step3() {

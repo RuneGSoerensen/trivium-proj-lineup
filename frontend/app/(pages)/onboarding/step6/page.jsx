@@ -2,13 +2,13 @@
 
 import { useOnboarding } from "@/utils/userOnboardingContext";
 import { useRouter } from "next/navigation";
-import { supabase } from "@utils/supabaseClient";
-import { setAuthToken } from "@utils/auth";
-import { createUser } from "@utils/api";
+import { supabase } from "@/utils/supabaseClient";
+import { setAuthToken } from "@/utils/auth";
+import { createUser } from "@/utils/api";
 import { useState, useEffect } from "react";
 import Image from "next/image";
-import { Button } from "@ui/Button/Button";
-import Input from "@ui/Input/Input";
+import { Button } from "@/ui/Button/Button";
+import Input from "@/ui/Input/Input";
 import { Check } from "lucide-react";
 import Link from "next/link";
 
