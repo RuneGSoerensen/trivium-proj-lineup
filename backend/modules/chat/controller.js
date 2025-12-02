@@ -7,7 +7,7 @@ import { randomUUID } from "crypto";
  */
 export const getThreads = async (req, res) => {
     try {
-        const userId = req.user?.id || req.userId;
+        const userId = req.userId;
 
         if (!userId) {
             return res.status(401).json({ error: "Missing user id" });
@@ -108,7 +108,7 @@ export const getThreads = async (req, res) => {
  * Create new chat group or 1:1 chat
  */
 export const createThread = async (req, res) => {
-    const userId = req.user?.id;
+    const userId = req.userId;
     if (!userId) {
         return res.status(401).json({ error: "Missing user id" });
     }
@@ -150,8 +150,8 @@ export const createThread = async (req, res) => {
     try {
         //create chat thread
         const [thread] = await sql`
-        insert into chats (id, is_group, title, created_by)
-        values(${threadId}, ${isGroupBool}, ${title || null}, ${userId})
+        insert into chats (id, is_group, title, created_at, created_by)
+        values(${threadId}, ${isGroupBool}, ${title || null}, now(), ${userId})
         returning id, is_group, title, created_at, created_by;
         `;
 
@@ -188,7 +188,7 @@ export const createThread = async (req, res) => {
 export const getThreadMessages = async (req, res) => {
     const { threadId } = req.params;
     // get real userId from auth middleware
-    const userId = req.user?.id;
+    const userId = req.userId;
 
     if (!threadId) {
         return res.status(400).json({ error: "Missing thread id" });
@@ -254,7 +254,7 @@ export const createMessage = async (req, res) => {
     const { threadId } = req.params;
     const { content } = req.body;
     // get real userId from auth middleware
-    const userId = req.user?.id;
+    const userId = req.userId;
 
     if (!userId) {
         return res.status(401).json({ error: "Missing user id" });
