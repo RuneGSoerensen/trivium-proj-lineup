@@ -9,6 +9,15 @@ const nextConfig = {
       "plus.unsplash.com",
       "static.vecteezy.com",
       "fuck.dig",
+    remotePatterns: [
+      {
+        protocol: "https",
+        hostname: "**", // matches all hosts
+      },
+      {
+        protocol: "http",
+        hostname: "**",
+      },
     ],
   },
 };
