@@ -140,7 +140,7 @@
 /* Short semantic utilities */
 /* Text color semantic utilities */
 @utility color-default {
-  color: var(--color-base-default);
+  color: var(--color-base-content);
 }
 @utility color-inverse {
   color: var(--color-base-100);

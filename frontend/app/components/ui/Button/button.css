@@ -16,15 +16,15 @@
     @apply bg-default border-muted color-default hover:bg-brand-primary-hover focus:bg-brand-primary-hover;
   }
 
-  .btn-ghost {
+.trvm-btn-icon.btn-ghost, .btn-ghost {
     @apply bg-transparent color-default hover:bg-base-200;
   }
 
   /* Icon-only buttons */
   .trvm-btn-icon {
     @apply flex btn-circle color-inverse items-center justify-center bg-secondary-cyanblue hover:bg-secondary-blue;
-
   }
+
 
   .btn-icon--high {
     @apply btn-size-high;

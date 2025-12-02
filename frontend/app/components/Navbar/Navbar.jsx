@@ -50,7 +50,7 @@ export function NavConfig() {
                         />
                 )}
 
-                <div className="flex items-center gap-3">
+                <div className="flex items-center gap-4">
                     {config.actions.map((key) => {
                         const action = ACTIONS[key];
                         if (!action) return null;
@@ -59,6 +59,7 @@ export function NavConfig() {
                             <Button
                                 key={key}
                                 type="icon"
+                                size="icon-sm"
                                 variant="ghost"
                                 aria-label={action.ariaLabel}
                                 onClick={action.onClick}
