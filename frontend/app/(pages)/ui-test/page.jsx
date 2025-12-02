@@ -1,13 +1,14 @@
 'use client';
 
-import {Button} from "@/components/ui/Button/Button";
+import { Button } from "@/components/ui/Button/Button";
 import { ServiceCard } from "@/components/ui/Card/Card";
 import Input from "@/components/ui/Input/Input";
 import { TabContent, TabContentList, TabItem, Tabs, TabsList } from "@/components/ui/Tab/Tab";
 import { Tag } from "@/components/ui/Tag/Tag";
 import Image from "next/image";
 import { Angry, ArrowLeftCircle, Apple, MoreVertical, MoonIcon, ChevronDownIcon } from "lucide-react";
-import React from "react";
+import React, { useEffect } from "react";
+import { useNavbar } from "@/utils/navbarContext";
 
 const documentElement = typeof window !== "undefined" ? window.document.documentElement : null;
 const dataTheme = documentElement ? documentElement.getAttribute("data-theme") : null;
@@ -17,6 +18,20 @@ const toggleTheme = () => {
     document.documentElement.setAttribute("data-theme", newTheme);
 };
 export default function TestPage() {
+
+    const { setConfig } = useNavbar();
+
+    useEffect(() => {
+        setConfig({
+            type: "test",
+            title: "This is a test page",
+            showBack: true,
+            showLogo: false,
+            actions: ["search", "notifications", "menu"],
+            visible: true,
+        });
+    }, [setConfig]);
+
 
     return (
         <article className="space-y-12">

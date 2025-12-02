@@ -25,7 +25,7 @@ const ACTION_DEFS = (router) => ({
     },
 });
 
-export function NavConfig() {
+export default function Navbar() {
     const { config } = useNavbar();
     const router = useRouter();
 
@@ -38,17 +38,17 @@ export function NavConfig() {
     // DEFAULT case:
     return (
         <NavbarProvider value={{ config }}>
-            <nav className="flex items-center justify-between w-full h-78 px-4 py-2 bg-base-100">
-                {!config.showBack ? (
-                    <Button icon={<ChevronLeftIcon stroke="var(--color-base-content)"/>} className="bg-default" onClick={() => router.back()} aria-label="Back" />
-                ) : (
+            <nav className={`flex items-center justify-between w-full h-(--nav-height) px-24 py-18 ${config.backgroundColor} fixed top-0 left-0 right-0 z-50`}>
+                {config.showBack ? (
+                    <Button type="icon" variant="ghost" iconSize="xl" icon={<ChevronLeftIcon />} className="bg-default color-default" onClick={() => router.back()} aria-label="Back" />
+                ) : config.showLogo ? (
                         <Image
                             src="/images/lineup-type-logo.svg"
                             alt="Lineup Logo"
                             width={100}
                             height={40}
                         />
-                )}
+                ) : <span className="w-24"/>}
 
                 <div className="flex items-center gap-4">
                     {config.actions.map((key) => {
@@ -59,7 +59,7 @@ export function NavConfig() {
                             <Button
                                 key={key}
                                 type="icon"
-                                size="icon-sm"
+                                iconSize="lg"
                                 variant="ghost"
                                 aria-label={action.ariaLabel}
                                 onClick={action.onClick}
@@ -71,12 +71,4 @@ export function NavConfig() {
             </nav>
         </NavbarProvider>
     );
-}
-
-export default function Navbar() {
-    return (
-        <NavbarProvider>
-            <NavConfig />
-        </NavbarProvider>
-  )
 }

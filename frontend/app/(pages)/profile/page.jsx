@@ -1,7 +1,11 @@
+import Navbar from "@/comps/Navbar/Navbar";
+
 export default function ProfilePage() {
+  
   return (
-    <div>
+    <>
+    <Navbar />
       <h1>This is the profile page</h1>
-    </div>
+    </>
   );
 }

@@ -1,3 +1,4 @@
+'use client';
 import { createContext, useContext, useState } from 'react';
 
 const NavbarContext = createContext(null);
@@ -7,8 +8,10 @@ export function NavbarProvider({ children }) {
         type: "default",
         title: null,
         showBack: true,
+        showLogo: false,
         actions:["search", "notifications", "menu"],
-        visible:true,
+        visible: true,
+        backgroundColor: "bg-default",
     });    
 
     return (
