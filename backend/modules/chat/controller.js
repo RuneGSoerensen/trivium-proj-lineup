@@ -7,7 +7,7 @@ import { randomUUID } from "crypto";
  */
 export const getThreads = async (req, res) => {
     try {
-        const userId = req.user?.id || req.userId;
+        const userId = req.userId;
 
         if (!userId) {
             return res.status(401).json({ error: "Missing user id" });
