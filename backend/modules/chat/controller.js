@@ -232,7 +232,7 @@ export const getThreadMessages = async (req, res) => {
                     id: m.id,
                     threadId: m.thread_id,
                     authorId: m.author_id,
-                    role: effectiveRole, // "user" | "assistant" | "system"
+                    role: effectiveRole, // "user" | "admin"
                     content: m.content,
                     createdAt: m.created_at,
                     authorName: m.author_name,
