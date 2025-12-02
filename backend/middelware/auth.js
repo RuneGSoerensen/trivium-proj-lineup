@@ -17,6 +17,13 @@ export const supabase = createClient(supabaseUrl, supabaseAnonKey);
  * @param {NextFunction} next - Express next function (calls the next middleware/handler)
  */
 export async function requireAuth(req, res, next) {
+  // If the fake user auth option is enabled on the server,
+  // it will set the `req.userId`, so we check if that object key exists already
+  // and skip authorization if so.
+  if (req.userId) {
+    return next();
+  }
+
   try {
     // Step 1: Extract the Authorization header
     // Format should be: "Bearer <jwt-token>"
