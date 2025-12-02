@@ -6,7 +6,7 @@ export default function ProgressBar({ value = 0, label = "Progress" }) {
 
   return (
     <div
-      className="progress w-full"
+      className="progress w-full lg:max-w-[50%]"
       role="progressbar"
       aria-label={`${percentage}% ${label}`}
       aria-valuenow={percentage}
