@@ -1,7 +1,8 @@
 import "./globals.css";
 import Image from "next/image.js";
-import { NavbarProvider } from "@/utils/navbarContext.js";
+import { NavbarProvider, NavigationBottom } from "@/utils/navbarContext.js";
 import Navbar from "@/comps/Navbar/Navbar.jsx";
+import Navigation from "@/comps/navigation/navigation";
 
 export const metadata = {
   title: "LineUp",
@@ -13,8 +14,11 @@ export default function RootLayout({ children }) {
     <html lang="en" data-theme="lineup-light">
       <body className="overflow-x-hidden overflow-y-auto">
         <NavbarProvider>
-          <Navbar />
-          <main className="app-main">{children}</main>
+          <NavigationBottom>
+            <Navbar />
+            <main className="app-main">{children}</main>
+            <Navigation />
+          </NavigationBottom>
         </NavbarProvider>
       </body>
     </html>

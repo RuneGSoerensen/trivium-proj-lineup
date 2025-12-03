@@ -37,7 +37,7 @@ export default function Navbar() {
 
     // DEFAULT case:
     return (
-        <NavbarProvider value={{ config }}>
+
             <nav className={`flex items-center justify-between w-full h-(--nav-height) px-24 py-18 ${config.backgroundColor} fixed top-0 left-0 right-0 z-50`}>
                 {config.showBack ? (
                     <Button type="icon" variant="ghost" iconSize="xl" icon={<ChevronLeftIcon />} className="bg-default color-default" onClick={() => router.back()} aria-label="Back" />
@@ -69,6 +69,6 @@ export default function Navbar() {
                     })}
                 </div>
             </nav>
-        </NavbarProvider>
+
     );
 }

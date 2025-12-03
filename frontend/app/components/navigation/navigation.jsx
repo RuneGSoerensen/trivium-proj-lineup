@@ -2,6 +2,7 @@
 
 import { usePathname } from "next/navigation";
 import NavLink from "./NavLink";
+import { useBottomNav } from "@/utils/navbarContext";
 
 const links = [
   { href: "/", label: "Home", icon: "/icons/Home.svg" },
@@ -13,6 +14,8 @@ const links = [
 
 export default function Navigation() {
   const pathname = usePathname();
+  const { bottomNavConfig } = useBottomNav();
+  if (!bottomNavConfig.visible) return null;
 
   const isActive = (href) => {
     if (href === "/" && pathname === "/") return true;
@@ -21,6 +24,7 @@ export default function Navigation() {
   };
 
   return (
+    
     // Nav container
     // Remove Change color secondary darkgrey
     <nav className="fixed bottom-28 left-0 right-0 flex w-full justify-center">
