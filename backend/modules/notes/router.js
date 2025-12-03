@@ -4,6 +4,7 @@ import {
   likeNote,
   commentNote,
   likeComment,
+  createNote
 } from "./controller.js";
 
 const router = express.Router();
@@ -19,5 +20,8 @@ router.post("/comment", commentNote);
 
 // Like a comment
 router.post("/comment/:id/like", likeComment);
+
+// Create a note
+router.post("/", createNote);
 
 export default router;

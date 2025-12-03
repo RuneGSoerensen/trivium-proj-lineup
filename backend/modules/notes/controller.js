@@ -1,4 +1,5 @@
 import sql from "../../db.js";
+import z from 'zod';
 
 export const getUserNotes = async (req, res) => {
   const { id } = req.params;
@@ -115,3 +116,111 @@ export const likeComment = async (req, res) => {
     res.status(500).json({ error: "Failed to toggle comment like" });
   }
 };
+
+export async function createNote(req, res) {
+  const userId = req.userId;
+
+  const schema = z.object({
+    title: z.string(),
+    content: z.string(),
+    image_url: z.url(),
+    people_user_ids: z.array(z.uuid()).default([]),
+    tags: z.array(z.string()).default([]),
+  });
+
+  const result = schema.safeParse(req.body);
+
+  if (!result.success) {
+    return res.status(400).json(
+      { error: result.error.issues }
+    );
+  }
+
+  const {
+    title,
+    content,
+    image_url,
+    people_user_ids,
+    tags,
+  } = result.data;
+
+  await sql.begin(async sql => {
+    // insert note row
+    const [{ id: newNoteId }] = await sql`
+      INSERT INTO notes
+        (
+          user_id,
+          title,
+          content,
+          image_url
+        )
+      VALUES
+        (
+          ${userId},
+          ${title},
+          ${content},
+          ${image_url}
+        )
+      RETURNING notes.id;
+  `;
+
+    // insert the people links
+    // claude says:
+    // "When you pass an array of objects to sql(), postgres.js automatically:
+    // 1. Extracts the column names from the object keys
+    // 2. Generates the proper INSERT statement
+    // 3. Safely parameterizes all the values"
+    await sql`
+      INSERT INTO notes_tagged_people ${sql(
+      people_user_ids.map((userId) => ({
+        note_id: newNoteId,
+        user_id: userId
+      }))
+    )}
+    `;
+
+    // insert the tag links, creating any missing tags
+    for (const tagName of tags) {
+      // Check if tag already exists
+      const [existingTag] = await sql`
+        SELECT id FROM note_tags
+        WHERE name = ${tagName}
+        LIMIT 1
+    `;
+
+      const existingTagId = existingTag?.id;
+
+      if (existingTagId) {
+        // Existing tag found, use it
+        await sql`
+          INSERT INTO note_tagged
+          (note_id, tag_id)
+          VALUES
+          (${newNoteId}, ${existingTagId});
+        `;
+      } else {
+        // Not found, create new first
+        const [{ id: newTagId }] = await sql`
+          INSERT INTO note_tags
+          (name)
+          VALUES
+          (${tagName})
+          RETURNING id;
+        `;
+
+        console.log('NEW TAG ID');
+        console.log(newTagId);
+
+        // ..then use it
+        await sql`
+          INSERT INTO note_tagged
+          (note_id, tag_id)
+          VALUES
+          (${newNoteId}, ${newTagId});
+        `;
+      }
+    }
+  });
+
+  res.sendStatus(201);
+}
