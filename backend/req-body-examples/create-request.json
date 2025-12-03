@@ -1,0 +1,18 @@
+{
+  "title": "jeg skal ha mig en trommeslager",
+  "description": "test request beskrivelse hehehe",
+  "image_url": "https://plus.unsplash.com/premium_photo-1664474619075-644dd191935f?fm=jpg&q=60&w=3000&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxzZWFyY2h8MXx8aW1hZ2V8ZW58MHx8MHx8fDA%3D",
+  "location": "Køge",
+  "paid_opportunity": true,
+  "people_user_ids": [
+    "21a49b6e-e5c0-4d3f-a0bc-e3199ce2bd25",
+    "0c9cdabc-b1ca-40c3-ac57-f45960b4f5ed",
+    "63c6d163-8ab1-4113-a28b-43f89b6a2186"
+  ],
+  "genres": [
+    "K-pop",
+    "Pop",
+    "Jazz",
+    "Rock"
+  ]
+}
