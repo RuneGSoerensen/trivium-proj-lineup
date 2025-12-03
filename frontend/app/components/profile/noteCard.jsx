@@ -208,7 +208,6 @@ export default function NoteCard({
     if (diff < 86400) return `${Math.floor(diff / 3600)}h`;
     return `${Math.floor(diff / 86400)}d`;
   };
-console.log(note)
   return (
     <div className="p-4">
       {/* HEADER */}
