@@ -8,6 +8,12 @@ export const getUserNotes = async (req, res) => {
       n.*,
       u.name AS user_name,
       u.image_url AS user_image,
+      (
+        SELECT json_agg(tag.name ORDER BY tag.name)
+        FROM note_tagged nt
+        JOIN note_tags tag ON tag.id = nt.tag_id
+        WHERE nt.note_id = n.id
+    ) AS tags,
       (SELECT COUNT(*) FROM note_likes WHERE note_id = n.id) AS likes_count,
       (SELECT COUNT(*) FROM comments WHERE note_id = n.id) AS comments_count,
       (SELECT json_agg(
