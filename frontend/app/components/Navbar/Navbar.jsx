@@ -4,7 +4,7 @@
 import { useRouter } from "next/navigation";
 import { Button } from "@/ui/Button/Button";
 import { Search, Bell, Menu, ChevronLeftIcon } from "lucide-react";
-import { NavbarProvider, useNavbar } from "@/utils/navbarContext";
+import { useNavbar } from "@/utils/navbarContext";
 import Image from "next/image";
 
 const ACTION_DEFS = (router) => ({
