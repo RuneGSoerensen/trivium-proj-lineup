@@ -22,8 +22,6 @@ export async function createRequest(req, res) {
     );
   }
 
-  console.log(result.data);
-
   const {
     title,
     description,
@@ -63,8 +61,8 @@ export async function createRequest(req, res) {
           ${title},
           ${description},
           ${paid_opportunity},
-          ${location},
-          ${image_url}
+          ${image_url},
+          ${location}
         )
       RETURNING requests.id;
   `;

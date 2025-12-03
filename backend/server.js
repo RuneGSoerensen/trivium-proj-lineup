@@ -39,9 +39,6 @@ function runApp(opts) {
       console.error(`Not a valid UUID: ${opts.authorizeAs}. Exiting..`);
       return;
     }
-  } else {
-    // Uncomment to enable backend authorization middleware
-    //app.use(requireAuth);
   }
 
   // Mount users router
