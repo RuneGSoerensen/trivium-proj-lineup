@@ -130,8 +130,6 @@ export async function createNote(req, res) {
     );
   }
 
-  console.log(result);
-
   const {
     title,
     content,
@@ -159,8 +157,6 @@ export async function createNote(req, res) {
         )
       RETURNING notes.id;
   `;
-
-    console.log(`got new note ID: ${newNoteId}`);
 
     // insert the people links
     // claude says:
