@@ -61,7 +61,9 @@ export default function Page() {
                   <Bookmark />
                 </div>
               </div>
-              <div></div>
+              <div>
+            
+              </div>
               <hr className="text-gray-200" />
               <Link href={`/services/${s.id}`} className="block flex flex-col">
                 <h3 className="text-lg font-semibold mb-3">{s.title}</h3>
