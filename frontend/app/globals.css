@@ -331,6 +331,10 @@
   border: 1px solid --alpha(var(--color-base-content) / 50%);
 }
 
+.lesspadding {
+  padding-left: 0px !important;
+}
+
 :root {
   --background: var(--color-base-100);
   --foreground: var(--color-base-content);
