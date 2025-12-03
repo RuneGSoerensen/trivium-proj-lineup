@@ -77,43 +77,28 @@ export async function createRequest(req, res) {
     )};
     `;
 
-    // insert the genre links, creating any missing tags
-    for (const genreName of genres) {
-      // Check if genre already exists
-      const [existingGenre] = await sql`
-        SELECT id FROM genres
-        WHERE name = ${genreName}
-        LIMIT 1
-    `;
+    // Bulk insert genres and link them to the request
+    if (genres.length > 0) {
+      // Insert any missing genres (ignore duplicates)
+      await sql`
+        INSERT INTO genres (name)
+        VALUES ${sql(genres.map(name => [name]))}
+        ON CONFLICT (name) DO NOTHING
+      `;
 
-      const existingGenreId = existingGenre?.id;
+      // Fetch all genre IDs for the given names
+      const genreRows = await sql`
+        SELECT id, name FROM genres
+        WHERE name IN ${sql(genres)}
+      `;
 
-      if (existingGenreId) {
-        // Existing genre found, use it
-        await sql`
-          INSERT INTO requests_genres
-          (request_id, genre_id)
-          VALUES
-          (${newRequestId}, ${existingGenreId});
-        `;
-      } else {
-        // Not found, create new first
-        const [{ id: newGenreId }] = await sql`
-          INSERT INTO genres
-          (name)
-          VALUES
-          (${genreName})
-          RETURNING id;
-        `;
-
-        // ..then use it
-        await sql`
-          INSERT INTO requests_genres
-          (request_id, genre_id)
-          VALUES
-          (${newRequestId}, ${newGenreId});
-        `;
-      }
+      // Prepare bulk insert for requests_genres
+      await sql`
+        INSERT INTO requests_genres (request_id, genre_id)
+        VALUES ${sql(
+        genreRows.map(row => [newRequestId, row.id])
+      )}
+      `;
     }
   });
 
