@@ -117,7 +117,7 @@ export async function createNote(req, res) {
   const schema = z.object({
     title: z.string(),
     content: z.string(),
-    image_url: z.url(),
+    image_url: z.url().default(null),
     people_user_ids: z.array(z.uuid()).default([]),
     tags: z.array(z.string()).default([]),
   });
