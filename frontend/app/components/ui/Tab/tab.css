@@ -8,15 +8,15 @@
   }
 
   .tab--active {
-    @apply select-none font-medium cursor-pointer text-default transition-colors duration-100;
+    @apply select-none font-medium cursor-pointer color-default transition-colors duration-100;
   }
 
   .tab--default {
-    @apply text-muted cursor-pointer transition-colors duration-100 hover:text-default;
+    @apply color-muted cursor-pointer transition-colors duration-100 hover:color-default;
   }
 
   .tab--disabled {
-    @apply text-muted cursor-not-allowed pointer-events-none;
+    @apply color-muted cursor-not-allowed pointer-events-none;
   }
 
   .tabs--multiple {
@@ -26,10 +26,10 @@
     @apply inline-flex rounded-tabs max-h-full max-w-md xl:max-w-xl;
   }
   .tab-separator {
-    @apply bg-muted/30 rounded-full select-none w-6 h-full;
+    @apply bg-muted/30 rounded-full select-none w-4 h-full;
   }
 
   .tab-content {
-    @apply w-full px-24;
+    @apply w-full px-16;
   }
 }

@@ -6,6 +6,11 @@ import { supabase } from "@/utils/supabaseClient";
 import { setAuthToken } from "@/utils/auth";
 import { createUser } from "@/utils/api";
 import { useState, useEffect } from "react";
+import Image from "next/image";
+import { Button } from "@/ui/Button/Button";
+import Input from "@/ui/Input/Input";
+import { Check } from "lucide-react";
+import Link from "next/link";
 
 export default function Step6() {
   const router = useRouter();
@@ -96,41 +101,111 @@ export default function Step6() {
     }
   };
   return (
-    <section className="trvm-card max-w-xl mx-auto flex flex-col text-c">
-      <h1>Final step - Membership type:</h1>
-      <div className="flex items-center gap-1">
-        <input
-          type="checkbox"
-          className="checkbox"
-          id="membership-premium"
-          checked={selectedMembership === "premium"}
-          onChange={() => handleMembershipChange("premium")}
-        />
-        <label className="label-text text-base" htmlFor="membership-premium">
-          Premium Membership
-        </label>
+    <div className="flex flex-col h-full w-full justify-between">
+      <div className="flex flex-col gap-10 items-center flex-1">
+        <div className="mt-40 mb-10">
+          <Image
+            src="/images/lineup-pro.png"
+            alt="LineUp Letter style logo"
+            width={146}
+            height={51}
+          />
+        </div>
+        <h1 className="text-h2 self-start md:self-center">
+          Get full access to LineUp
+        </h1>
+        <div className="flex flex-col gap-4 max-w-md items-start self-start md:self-center">
+          <p className="flex flex-row gap-10">
+            <Check color="#ffcf70" /> Unlimited collabs
+          </p>
+          <p className="flex flex-row gap-10">
+            <Check color="#ffcf70" /> Unlimited connections
+          </p>
+          <p className="flex flex-row gap-10">
+            <Check color="#ffcf70" /> Advanced insights
+          </p>
+          <p className="flex flex-row gap-10">
+            <Check color="#ffcf70" /> See detailed reviews
+          </p>
+        </div>
+        {/* Monthly checkbox */}
+        <div
+          className={`flex items-center justify-between rounded-3xl py-5 px-10 w-full md:max-w-[50%] border-2 ${
+            selectedMembership === "premium" ? "border-subtle" : "border-muted"
+          }`}
+        >
+          <div className="flex items-center gap-4">
+            <Input
+              type="checkbox"
+              className="checkbox rounded-full checked:bg-brand-primary"
+              id="membership-premium"
+              checked={selectedMembership === "premium"}
+              onChange={() => handleMembershipChange("premium")}
+            />
+            <label htmlFor="membership-premium" className="cursor-pointer">
+              <p className="text-base font-semibold">Monthly</p>
+              <p className="text-sm text-muted">58 kr. / month</p>
+            </label>
+          </div>
+          <div>
+            <p className="text-base font-semibold">58 kr.</p>
+          </div>
+        </div>
+        {/* Yearly checkbox */}
+        <div className="relative w-full md:self-center md:max-w-[50%]">
+          <div className="absolute -top-3 left-12 bg-brand-primary text-xs font-bold px-7 py-1 rounded">
+            HIT
+          </div>
+          <div
+            className={`flex items-center justify-between rounded-3xl py-5 px-10 w-full ${
+              selectedMembership === "basic" ? "border-subtle" : "border-muted"
+            }`}
+          >
+            <div className="flex items-center gap-4">
+              <Input
+                type="checkbox"
+                className="checkbox rounded-full checked:bg-brand-primary"
+                id="membership-basic"
+                checked={selectedMembership === "basic"}
+                onChange={() => handleMembershipChange("basic")}
+              />
+              <label htmlFor="membership-basic" className="cursor-pointer">
+                <p className="text-base font-semibold">Yearly</p>
+                <p className="text-sm text-muted">29 kr. / month</p>
+              </label>
+            </div>
+            <div className="flex flex-col items-center gap-2">
+              <p className="text-base font-semibold">348 kr.</p>
+              <span className="bg-brand-primary text-sm font-semibold px-3 py-2">
+                save 50%
+              </span>
+            </div>
+          </div>
+        </div>
+        <div className="mt-20">
+          <Button
+            variant="primary"
+            size="sm"
+            onClick={handleSubmit}
+            className="ml-4 w-fit"
+            disabled={isSubmitting}
+          >
+            {isSubmitting ? "Submitting..." : "Start my 7-day free trial"}
+          </Button>
+        </div>
+        <p className="text-sm text-center">Terms of use and Privacy Policy</p>
+        {errorMessage && (
+          <p className="text-red-500 mt-2" role="alert">
+            {errorMessage}
+          </p>
+        )}
+        <Link
+          className="text-sm text-muted-foreground text-center underline underline-offset-4"
+          href="/home"
+        >
+          Skip for now
+        </Link>
       </div>
-      <div className="flex items-center gap-1">
-        <input
-          type="checkbox"
-          className="checkbox"
-          id="membership-basic"
-          checked={selectedMembership === "basic"}
-          onChange={() => handleMembershipChange("basic")}
-        />
-        <label className="label-text text-base" htmlFor="membership-basic">
-          Basic Membership
-        </label>
-      </div>
-
-      {errorMessage && (
-        <p className="text-red-500 mt-2" role="alert">
-          {errorMessage}
-        </p>
-      )}
-      <button className="btn" onClick={handleSubmit} disabled={isSubmitting}>
-        {isSubmitting ? "Submitting..." : "Finish"}
-      </button>
-    </section>
+    </div>
   );
 }
