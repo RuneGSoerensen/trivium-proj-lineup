@@ -8,12 +8,14 @@ import { useEffect, useState } from 'react';
 
 import ActiveChatView from '@/comps/Chat/ChatView';
 import Navigation from '@/comps/navigation/navigation';
+import { useNavbar } from '@/utils/navbarContext';
 
 export default function ChatPage() {
     const [threads, setThreads] = useState([]);
     const [activeThread, setActiveThread] = useState(null);
     const [messages, setMessages] = useState([]);
     const [selectedUsers, setSelectedUsers] = useState([]); // [{id, name, ...}, ...]
+    const { setConfig } = useNavbar();
 
     useEffect(() => {
         // Fetch threads and set state
@@ -27,6 +29,15 @@ export default function ChatPage() {
             console.error("Error fetching threads:", err);
         })
     }, []);
+
+    useEffect(() => {
+        setConfig({
+            type: "chat",
+            showBack: false,
+            showLogo:false,
+            visible: false,
+        });
+    }, [setConfig]);
 
     const handleSelectThread = async (threadId) => {
         const thread = threads.find((t) => t.id === threadId);

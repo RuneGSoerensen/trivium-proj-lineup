@@ -108,6 +108,7 @@
 
   /* SPACING SCALE (base unit: 1px = 0.0625rem) */
   --spacing: 0.0625rem;
+  --nav-height: 78px;
 
   /* BORDER RADIUS */
   --radius-chip: 9999px;
@@ -140,7 +141,7 @@
 /* Short semantic utilities */
 /* Text color semantic utilities */
 @utility color-default {
-  color: var(--color-base-default);
+  color: var(--color-base-content);
 }
 @utility color-inverse {
   color: var(--color-base-100);
@@ -352,7 +353,7 @@ main.app-main {
   align-items: center;
   flex-direction: column;
   display: flex;
-  padding: 18px 24px;
+  padding: var(--nav-height) 18px 24px;
 }
 
 main.app-main:has(> section.paddingNone) {
