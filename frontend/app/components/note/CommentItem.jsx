@@ -101,10 +101,6 @@ export const CommentItem = ({
           </div>
           <p className="text-default text-[14px]">{comment.content}</p>
           <div className="flex items-center justify-end gap-3 mt-1 px-3">
-            {/*   <span className="text-muted text-[12px]">
-              {formatTimeAgo(comment.created_at)}
-            </span>*/}
-
             <button
               onClick={handleCommentLike}
               className="flex items-center gap-1.5"

@@ -49,16 +49,37 @@ export const likeNote = async (req, res) => {
   const { user_id } = req.body;
 
   try {
-    await sql`
-      INSERT INTO note_likes (note_id, user_id)
-      VALUES (${id}, ${user_id})
-      ON CONFLICT (note_id, user_id)
-      DO NOTHING;
+    // Check if user already liked this note
+    const existing = await sql`
+      SELECT COUNT(*)::int AS count
+      FROM note_likes
+      WHERE note_id = ${id} AND user_id = ${user_id}
     `;
 
-    res.json({ success: true });
-  } catch {
-    res.status(500).json({ error: "Failed to like" });
+    const alreadyLiked = existing[0]?.count > 0;
+
+    if (alreadyLiked) {
+      // remove like
+      await sql`
+        DELETE FROM note_likes WHERE note_id = ${id} AND user_id = ${user_id}
+      `;
+    } else {
+      // add like
+      await sql`
+        INSERT INTO note_likes (note_id, user_id)
+        VALUES (${id}, ${user_id})
+        ON CONFLICT (note_id, user_id) DO NOTHING
+      `;
+    }
+
+    const [{ count: likes_count }] = await sql`
+      SELECT COUNT(*)::int AS count FROM note_likes WHERE note_id = ${id}
+    `;
+
+    res.json({ success: true, likes_count, is_liked: !alreadyLiked });
+  } catch (err) {
+    console.error("likeNote error", err);
+    res.status(500).json({ error: "Failed to toggle note like" });
   }
 };
 
