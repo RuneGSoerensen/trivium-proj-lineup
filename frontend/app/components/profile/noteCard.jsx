@@ -208,7 +208,6 @@ export default function NoteCard({
     if (diff < 86400) return `${Math.floor(diff / 3600)}h`;
     return `${Math.floor(diff / 86400)}d`;
   };
-
   return (
     <div className="p-4">
       {/* HEADER */}
@@ -230,8 +229,15 @@ export default function NoteCard({
         </div>
 
         <p className="text-muted text-[12px]">{note.user_name}</p>
-
-        <Tag>tag added here</Tag>
+          {note.tags?.map((tag)=> (
+               <Tag
+              key={tag}
+              className="px-8 py-2 flex items-center bg-white border-gray-500 border text-gray-500 text-xs"
+            >
+              #<span className="text-muted">{tag}</span>
+            </Tag>
+          ))}
+       
 
         <button className="flex items-center ml-auto">
           <MoreHorizontal size={20} />

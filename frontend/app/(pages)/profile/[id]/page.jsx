@@ -227,8 +227,9 @@ export default function ProfilePage() {
       />
 
       <Tabs className="bg-white">
-        <TabsList className="bg-white rounded-b-none">
-          <TabItem className="">About</TabItem>
+        <TabsList className="bg-white rounded-b-none w-full justify-between">
+          <TabItem >About</TabItem>
+       
           <TabItem>Notes</TabItem>
         </TabsList>
         <TabContentList className="bg-white">
