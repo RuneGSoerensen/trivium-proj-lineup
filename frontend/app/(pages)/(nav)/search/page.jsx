@@ -1,107 +1,62 @@
 'use client';
 import Input from '@/ui/Input/Input';
 import { Button } from '@/ui/Button/Button';
-import { Search } from 'lucide-react';
+import { Search, X } from 'lucide-react';
 import { useRouter } from 'next/navigation';
 import { closeOverlay } from '@/utils/helpers';
 import { Tabs, TabsList, TabContentList, TabContent, TabItem } from '@/ui/Tab/Tab';
-import { useEffect, useRef, useState } from 'react';
 import Image from 'next/image';
+import { useSearch } from '@/utils/useSearch';
+import { useState } from 'react';
 
 const TABS = [
     "For you", "People", "Collaborations", "Services", "Tags"
 ];
 
-const EMPTY_RESULTS = [
-    {
-        "recent": [],
-        "forYou": {
-            "people": [],
-            "collaborations": [],
-            "services": [],
-            "tags": [],
-        },
+const EMPTY_RESULTS =
+{
+    "recent": [],
+    "forYou": {
         "people": [],
         "collaborations": [],
         "services": [],
-        "tags": []
-    }
-]
+        "tags": [],
+    },
+    "people": [],
+    "collaborations": [],
+    "services": [],
+    "tags": []
+}
+
 export default function SearchOverlay() {
     const router = useRouter();
     const handleClose = () => closeOverlay(router);
-
-    // Current search query typed by user
-    const [query, setQuery] = useState("");
-    // Loading state while fetching search results
-    const [isLoading, setIsLoading] = useState(false);
-    // Error message shown if API call fails
-    const [error, setError] = useState(null);
-    // Search resulst grouped by category / tyoe
-    const [results, setResults] = useState(EMPTY_RESULTS);
-    // List of users latest search terms
-    const [recentSearches, setRecentSearches] = useState([]);
-    // Ref used for debouncing the API request(s)
-    const debounceRef = useRef(null);
-
-    // Triggers when search query changes
-    useEffect(() => {
-        const trimmed = query.trim();
-        // If input empty, reset results and return
-        if (trimmed === "") {
-            setResults(EMPTY_RESULTS);
-            return;
-        }
-        setIsLoading(true);
-        setError(null);
-        // Clear any previous debounce timer
-        if (debounceRef.current) {
-            clearTimeout(debounceRef.current);
-        }
-
-        // Debounce API call by 300ms
-        debounceRef.current = setTimeout(async () => {
-            try {
-                // Call backend search endpoint
-                const response = await fetch(`/api/search?query=${encodeURIComponent(trimmed)}`);
-                if (!response.ok) {
-                    throw new Error("Failed to search");
-                }
-
-                const data = await response.json();
-                // Currently: Backend returns only users
-                // They are mapped into relevant categories
-                setResults({
-                    recent: data,
-                    forYou: {
-                        people: data,
-                        collaborations: [], // TODO: Fetch collaborations
-                    },
-                    people: data,
-                    collaborations: [], // TODO: Fetch collabs
-                    services: [], // TODO: Fetch services
-                    tags: [], // TODO: Fetch tags
-                })
-
-                // Save recent searches locally (max 5 unique entries)
-                setRecentSearches((prev) => {
-                    const next = [trimmed, ...prev.filter((item) => item !== trimmed)];
-                    return next.slice(0, 5); // First 5 as recent searche
-                })
-            } catch (error) {
-                console.error("Error while searching:", error);
-                setError("Something went wrong while searching");
-            } finally {
-                setIsLoading(false);
-            }
-        }, 300);
-        //Cleanup debounce timer when query changes or component unmounts
-        return () => {
-            if (debounceRef.current) {
-                clearTimeout(debounceRef.current);
-            }
-        }
-    }, [query]);
+    const [activeTab, setActiveTab] = useState(null)
+    const {
+        query,
+        setQuery,
+        results,
+        isLoading,
+        error,
+        recentSearches,
+    } = useSearch({
+        endpoint: "/search",
+        minLength: 1,
+        debounceMs: 300,
+        mapResponse: (data) => ({
+            recent: data,
+            forYou: {
+                people: data,
+                collaborations: [],
+                services: [],
+                tags: [],
+            },
+            people: data,
+            collaborations: [],
+            services: [],
+            tags: [],
+        }),
+    });
 
     const renderUserItem = (user) => (
         <div
@@ -134,16 +89,9 @@ export default function SearchOverlay() {
         if (isLoading) return <p className="text-sm color-muted">Searching...</p>
         if (error) return <p className="text-sm color-error">{error}</p>
 
-        if (!query.trim()) {
-            return (
-                <p className="text-sm color-muted">
-                    Start typing in search field to find {label.toLowerCase()}.
-                </p>
-            );
-        }
         if (!items || items.length === 0) {
             return (
-                <p className="text-sm color-muted">
+                <p className="text-base color-muted">
                     No {label.toLowerCase()} found for &apos;{query.trim()}&apos;.
                 </p>
             )
@@ -153,27 +101,19 @@ export default function SearchOverlay() {
 
     // Renderer for the "For you" tab with grouped selections
     const renderForYou = () => {
-        const { people, collaborations, services, tags } = results.forYou;
+        const { people, collaborations, services, tags } = results?.forYou || EMPTY_RESULTS.forYou;
         const hasAny = people.length || collaborations.length || services.length || tags.length;
 
         if (isLoading) return <p className="text-sm color-muted">Searching...</p>;
         if (error) return <p className="text-sm color-error">{error}</p>;
 
-        if (!query.trim()) {
+        if (!hasAny && activeTab) {
             return (
-                <p className="text-sm color-muted">
-                    Start typing in search field to find relevant results.
-                </p>
-            );
-        }
-        if (!hasAny) {
-            return (
-                <p className="text-sm color-muted">
+                <p className="text-base color-muted">
                     No results found for &apos;{query.trim()}&apos;.
                 </p>
             );
         }
-
         return (
             <div className="flex flex-col gap-12">
                 {people.length > 0 && (
@@ -192,60 +132,81 @@ export default function SearchOverlay() {
         <section className="fixed inset-0 bg-default z-50 p-12 flex flex-col gap-8" role='overlay'>
             <div className="flex flex-col mb-8">
                 <div className="flex justify-between items-center gap-8">
-                    {/* Search Input */}
-                    <Input
-                        icon={<Search size={18} stroke="var(--color-base-content)" strokeWidth={2} />}
-                        type="text"
-                        placeholder="Search"
-                        className="grow mb-4 py-6 bg-muted/30 border-0 placeholder:color-muted/90"
-                        value={query}
-                        onChange={(e) => setQuery(e.target.value)}
-                        autoFocus
-                    />
+                    <div className="relative grow mb-4">
+
+                        {/* Search Input */}
+                        <Input
+                            icon={<Search size={18} stroke="var(--color-base-content)" strokeWidth={2} />}
+                            type="text"
+                            placeholder="Search"
+                            className="grow mb-4 py-6 bg-muted/30 border-0 placeholder:color-muted/90"
+                            value={query}
+                            onChange={(e) => setQuery(e.target.value)}
+                            autoFocus
+                        />
+                        {query && (
+                            <Button
+                                icon={<X />}
+                                type="icon"
+                                variant="ghost"
+                                className="absolute right-8 top-0 text-sm color-muted hover:color-default hover:bg-transparent"
+                                onClick={() => setQuery('')}
+                                aria-label="Clear search"
+                            />
+
+                        )}
+                    </div>
                     {/* Close overlay button */}
                     <Button type="default" variant="ghost" className="mb-4 pl-8! pr-4!" onClick={handleClose}>
                         Cancel
                     </Button>
                 </div>
             </div>
+            {/* Tabs navigation */}
+            <Tabs>
+                <TabsList className="flex overflow-x-auto p-0! justify-start">
+                    {/* TODO: remove tab separator */}
+                    {TABS.map((tab) => (
+                        <TabItem
+                            key={tab}
+                            className="flex w-fit px-0! gap-4 color-muted/80 font-normal! focus:underline! focus:font-normal!"
+                            onClick={() => setActiveTab(tab)}
+                        >
+                            {tab}
+                        </TabItem>
+                    ))}
+                </TabsList>
+
+                <TabContentList className="search-tabs">
+                    <TabContent>{renderForYou()}</TabContent>
+                    <TabContent>{renderPeopleList(results?.people, 'People')}</TabContent>
+                    <TabContent>{renderPeopleList(results?.collaborations, 'Collaborations')}</TabContent>
+                    <TabContent>{renderPeopleList(results?.tags, 'Tags')}</TabContent>
+                    <TabContent>{renderPeopleList(results?.services, 'Services')}</TabContent>
+                </TabContentList>
+            </Tabs>
             {/* Default state: no tab selected, show recent searches */}
-            {!query.trim() && (
+            {!query.trim() && !activeTab && (
                 <div className="flex flex-col gap-4 mb-4">
-                    <h6 className="text-sm font-semibold color-subtle">Recent</h6>
+                    <h6 className="text-sm color-subtle">Recent</h6>
                     {recentSearches.length === 0 ? (
-                        <p className="text-sm color-muted">No recent searches</p>
+                        <p className="text-base color-muted">No recent searches</p>
                     ) : (
                         <div className="flex flex-wrap gap-4">
-                        {recentSearches.map((term) => (
-                            <Button
-                            key={term}
-                            variant="ghost" 
-                            className="px-8 py-4 text-sm"
-                            onClick={() => setQuery(term)}
-                            >
-                            {term}
-                            </Button>
-                        ))}
+                            {recentSearches.map((term) => (
+                                <Button
+                                    key={term}
+                                    variant="ghost"
+                                    className="px-8 py-4 text-sm"
+                                    onClick={() => setQuery(term)}
+                                >
+                                    {term}
+                                </Button>
+                            ))}
                         </div>
                     )}
                 </div>
             )}
-            {/* Tabs navigation */}
-            <Tabs>
-                <TabsList className="flex gap-8 overflow-x-auto">
-                    {TABS.map((tab) => (
-                        <TabItem key={tab}>{tab}</TabItem>
-                    ))}
-                </TabsList>
-
-                <TabContentList>
-                    <TabContent>{renderForYou()}</TabContent>
-                    <TabContent>{renderPeopleList(results.people, 'People')}</TabContent>
-                    <TabContent>{renderPeopleList(results.collaborations, 'Collaborations')}</TabContent>
-                    <TabContent>{renderPeopleList(results.services, 'Services')}</TabContent>
-                    <TabContent>{renderPeopleList(results.tags, 'Tags')}</TabContent>
-                </TabContentList>
-            </Tabs>
         </section>
     );
 }

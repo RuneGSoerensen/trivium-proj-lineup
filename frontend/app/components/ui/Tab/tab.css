@@ -32,4 +32,8 @@
   .tab-content {
     @apply w-full px-16;
   }
+
+  .search-tabs .tab-content{
+    @apply px-0 mt-8;
+  }
 }
