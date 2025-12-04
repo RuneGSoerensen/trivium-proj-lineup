@@ -17,7 +17,7 @@
   }
 
 .trvm-btn-icon.btn-ghost, .btn-ghost {
-    @apply bg-transparent color-default hover:bg-base-200;
+    @apply bg-transparent color-subtle hover:bg-base-200;
   }
 
   /* Icon-only buttons */

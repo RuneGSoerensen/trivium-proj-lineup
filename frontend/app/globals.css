@@ -137,7 +137,6 @@
   color: inherit;
   width: inherit;
   height: inherit;
-  stroke-width: inherit;
 }
 
 /* Short semantic utilities */
@@ -152,7 +151,7 @@
   color: --alpha(var(--color-base-content) / 20%);
 }
 @utility color-subtle {
-  color: var(--color-base-300);
+  color: --alpha(var(--color-base-content) / 80%);
 }
 @utility color-brand {
   color: var(--color-primary);
