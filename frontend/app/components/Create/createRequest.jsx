@@ -8,7 +8,7 @@ import MultiSelectInput from "../ui/MultiSelectButton/MultiSelectButton";
 import { Tag } from "../ui/Tag/Tag";
 import { useState } from "react";
 
-export default function CreateRequest() {
+export default function CreateRequest({ userName, userImage }) {
   const [tags, setTags] = useState([]);
   const [showTagInput, setShowTagInput] = useState(false);
   return (
@@ -16,13 +16,13 @@ export default function CreateRequest() {
       <div className="flex flex-row justify-between">
         <div className="flex flex-row gap-8">
           <Image
-            src="/placeholder-image.png"
-            alt="People Icon"
+            src={userImage}
+            alt={userName}
             className="rounded-full border-none"
             width={44}
             height={44}
           />
-          <p className="self-center">Name</p>
+          <p className="self-center">{userName}</p>
         </div>
         <div className="self-center">
           <Button variant="primary" size="sm">

@@ -6,14 +6,17 @@ import Input from "../ui/Input/Input";
 import Image from "next/image";
 import MultiSelectInput from "../ui/MultiSelectButton/MultiSelectButton";
 import { Tag } from "../ui/Tag/Tag";
-import { useState } from "react";
+import { useState, useRef } from "react";
 
-export default function CreateNotes() {
+export default function CreateNotes({ userName, userImage }) {
   const [tags, setTags] = useState([]);
   const [showTagInput, setShowTagInput] = useState(false);
   const [images, setImages] = useState([]);
   const [showImageUrlInput, setShowImageUrlInput] = useState(false);
   const [imageUrl, setImageUrl] = useState("");
+
+  const titleRef = useRef("");
+  const contentRef = useRef("");
 
   const handleAddImage = () => {
     if (imageUrl.trim()) {
@@ -27,18 +30,50 @@ export default function CreateNotes() {
     setImages(images.filter((_, i) => i !== index));
   };
 
+  const handlePost = async () => {
+    const noteData = {
+      title: titleRef.current.value,
+      content: contentRef.current.value,
+      image_url: images[0] || null,
+      people_user_ids: [],
+      tags,
+    };
+
+    try {
+      const response = await fetch("/api/notes", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(noteData),
+      });
+
+      if (response.ok) {
+        console.log("Note created successfully");
+        titleRef.current.value = "";
+        contentRef.current.value = "";
+        setTags([]);
+        setImages([]);
+      } else {
+        console.error("Failed to create note");
+      }
+    } catch (error) {
+      console.error("Error:", error);
+    }
+  };
+
   return (
     <div className="flex flex-col mt-10">
       <div className="flex flex-row justify-between">
         <div className="flex flex-row gap-8">
           <Image
-            src="/placeholder-image.png"
-            alt="People Icon"
+            src={userImage}
+            alt={userName}
             className="rounded-full border-none"
             width={44}
             height={44}
           />
-          <p className="self-center">Name</p>
+          <p className="self-center">{userName}</p>
         </div>
         <div className="self-center">
           <Button variant="primary" size="sm">
@@ -91,7 +126,7 @@ export default function CreateNotes() {
         )}
       </div>
       <div>
-        <Input placeholder="Write a title"></Input>
+        <Input ref={titleRef} placeholder="Write a title" />
       </div>
       <div>
         <Button
@@ -145,14 +180,15 @@ export default function CreateNotes() {
       </div>
       <div>
         <textarea
+          ref={contentRef}
           placeholder="Write a description"
           cols="30"
           rows="4"
           className="w-full bg-default color-default border-muted rounded-lg px-12 py-14 placeholder:color-muted focus:ring-1 focus:ring-brand transition-all duration-100"
-        ></textarea>
+        />
       </div>
       <div className="self-end mt-10">
-        <Button variant="primary" size="sm">
+        <Button variant="primary" size="sm" onClick={handlePost}>
           Post
         </Button>
       </div>
