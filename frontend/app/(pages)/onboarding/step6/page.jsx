@@ -201,7 +201,7 @@ export default function Step6() {
         )}
         <Link
           className="text-sm text-muted-foreground text-center underline underline-offset-4"
-          href="/home"
+          href="/"
         >
           Skip for now
         </Link>

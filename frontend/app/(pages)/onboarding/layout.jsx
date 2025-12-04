@@ -3,9 +3,30 @@
 import { UserOnboardingProvider } from "@/utils/userOnboardingContext";
 import { usePathname } from "next/navigation";
 import ProgressBar from "@/ui/Progressbar/progress";
+import { useBottomNav, useNavbar } from "@/utils/navbarContext";
+import { useEffect } from "react";
 
 export default function OnboardingLayout({ children }) {
   const pathname = usePathname() || "";
+  const {setConfig} = useNavbar();
+  useEffect(() => {
+    setConfig((prev) => ({
+      ...prev,
+      type: "onboarding",
+      showBack: false,
+      showLogo: false,
+      visible: false,
+    }));
+  }, [setConfig]);
+
+  const {setBottomNavConfig} = useBottomNav();
+  useEffect(() => {
+    setBottomNavConfig((prev) => ({
+      ...prev,
+      type: "onboarding",
+      visible: false,
+    }));
+  }, [setBottomNavConfig]);
 
   // Determine current step from the pathname (looking for 'step1'..'step6')
   const match = pathname.match(/step(\d+)/i);

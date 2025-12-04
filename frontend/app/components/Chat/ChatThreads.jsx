@@ -63,7 +63,19 @@ export function ChatThreadItem({ thread, isActive, onSelect }) {
                                 />
                             ) : (
                                 <span className="text-xs font-semibold">
-                                    {fallbackInitialsGroup ? `https://ui-avatars.com/api/?name=${encodeURIComponent(participantNames)}&background=random&size=128` : ""}
+                                    {
+                                        fallbackInitialsGroup ? (
+                                            <Image
+                                                src={`https://ui-avatars.com/api/?name=${encodeURIComponent(participantNames)}&background=random&size=128`}
+                                                alt={participantNames || "Group Avatar"}
+                                                className="object-cover"
+                                                width={100}
+                                                height={100}
+                                            />
+                                        ) : (
+                                            <span className="text-xs font-semibold"></span>
+                                        )
+                                    }
                                 </span>
                             )}
                         </div>
@@ -85,7 +97,7 @@ export function ChatThreadItem({ thread, isActive, onSelect }) {
                             />
                         ) : (
                             <span className="text-sm font-semibold">
-                                        {fallbackInitial ? `https://ui-avatars.com/api/?name=${encodeURIComponent(participantName)}&background=random&size=128` : ""}
+                                {fallbackInitial ? `https://ui-avatars.com/api/?name=${encodeURIComponent(participantName)}&background=random&size=128` : ""}
                             </span>
                         )}
                     </div>
