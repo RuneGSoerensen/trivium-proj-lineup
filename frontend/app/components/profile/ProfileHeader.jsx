@@ -12,8 +12,8 @@ export default function ProfileHeader({
 }) {
   return (
     <div
-      className=" py-10  rounded-[40px] mb-10 w-[96%] mx-auto"
-      style={{ backgroundColor: profile.theme }}
+      className=" py-10  rounded-[40px] mb-10 w-[96%] mx-auto text-white"
+      style={{ backgroundColor: profile.theme || "#3F4254" }}
     >
       <div className="flex flex-col items-center">
         <div className="flex items-center gap-16 mb-4 text-inverse w-full justify-center">

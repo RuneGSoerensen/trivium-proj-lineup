@@ -1,5 +1,6 @@
-import sql from "../../db.js";
+import sql from '../../db.js';
 import z from 'zod';
+import normalizeTag from '../../utils/normalizeTag.js';
 
 export const getUserNotes = async (req, res) => {
   const { id } = req.params;
@@ -9,6 +10,12 @@ export const getUserNotes = async (req, res) => {
       n.*,
       u.name AS user_name,
       u.image_url AS user_image,
+      (
+        SELECT json_agg(tag.name ORDER BY tag.name)
+        FROM note_tagged nt
+        JOIN note_tags tag ON tag.id = nt.tag_id
+        WHERE nt.note_id = n.id
+    ) AS tags,
       (SELECT COUNT(*) FROM note_likes WHERE note_id = n.id) AS likes_count,
       (SELECT COUNT(*) FROM comments WHERE note_id = n.id) AS comments_count,
       (SELECT json_agg(
@@ -43,16 +50,37 @@ export const likeNote = async (req, res) => {
   const { user_id } = req.body;
 
   try {
-    await sql`
-      INSERT INTO note_likes (note_id, user_id)
-      VALUES (${id}, ${user_id})
-      ON CONFLICT (note_id, user_id)
-      DO NOTHING;
+    // Check if user already liked this note
+    const existing = await sql`
+      SELECT COUNT(*)::int AS count
+      FROM note_likes
+      WHERE note_id = ${id} AND user_id = ${user_id}
     `;
 
-    res.json({ success: true });
-  } catch {
-    res.status(500).json({ error: "Failed to like" });
+    const alreadyLiked = existing[0]?.count > 0;
+
+    if (alreadyLiked) {
+      // remove like
+      await sql`
+        DELETE FROM note_likes WHERE note_id = ${id} AND user_id = ${user_id}
+      `;
+    } else {
+      // add like
+      await sql`
+        INSERT INTO note_likes (note_id, user_id)
+        VALUES (${id}, ${user_id})
+        ON CONFLICT (note_id, user_id) DO NOTHING
+      `;
+    }
+
+    const [{ count: likes_count }] = await sql`
+      SELECT COUNT(*)::int AS count FROM note_likes WHERE note_id = ${id}
+    `;
+
+    res.json({ success: true, likes_count, is_liked: !alreadyLiked });
+  } catch (err) {
+    console.error('likeNote error', err);
+    res.status(500).json({ error: 'Failed to toggle note like' });
   }
 };
 
@@ -67,8 +95,8 @@ export const commentNote = async (req, res) => {
 
     res.json({ success: true });
   } catch (err) {
-    console.error("commentNote error", err);
-    res.status(500).json({ error: "Failed to comment" });
+    console.error('commentNote error', err);
+    res.status(500).json({ error: 'Failed to comment' });
   }
 };
 
@@ -106,8 +134,8 @@ export const likeComment = async (req, res) => {
 
     res.json({ success: true, likes_count, is_liked: !alreadyLiked });
   } catch (err) {
-    console.error("likeComment error", err);
-    res.status(500).json({ error: "Failed to toggle comment like" });
+    console.error('likeComment error', err);
+    res.status(500).json({ error: 'Failed to toggle comment like' });
   }
 };
 
@@ -125,20 +153,22 @@ export async function createNote(req, res) {
   const result = schema.safeParse(req.body);
 
   if (!result.success) {
-    return res.status(400).json(
-      { error: result.error.issues }
-    );
+    return res.status(400).json({ error: result.error.issues });
   }
 
-  const {
-    title,
-    content,
-    image_url,
-    people_user_ids,
-    tags,
-  } = result.data;
+  const { title, content, image_url, people_user_ids, tags } = result.data;
 
-  await sql.begin(async sql => {
+  // Make sure all user IDs exist before creating any table rows.
+  for (const userId of people_user_ids) {
+    const [{ exists }] = await sql`
+      SELECT EXISTS(SELECT id FROM users WHERE id = ${userId})
+    `;
+    if (!exists) {
+      return res.status(400).json({ error: `User with ID ${userId} does not exist.` });
+    }
+  }
+
+  await sql.begin(async (sql) => {
     // insert note row
     const [{ id: newNoteId }] = await sql`
       INSERT INTO notes
@@ -158,19 +188,14 @@ export async function createNote(req, res) {
       RETURNING notes.id;
   `;
 
-    // insert the people links
-    // claude says:
-    // "When you pass an array of objects to sql(), postgres.js automatically:
-    // 1. Extracts the column names from the object keys
-    // 2. Generates the proper INSERT statement
-    // 3. Safely parameterizes all the values"
+    // insert the tagged people
     await sql`
       INSERT INTO notes_tagged_people ${sql(
-      people_user_ids.map((userId) => ({
-        note_id: newNoteId,
-        user_id: userId
-      }))
-    )}
+        people_user_ids.map((userId) => ({
+          note_id: newNoteId,
+          user_id: userId,
+        }))
+      )};
     `;
 
     // insert the tag links, creating any missing tags
@@ -202,9 +227,6 @@ export async function createNote(req, res) {
           RETURNING id;
         `;
 
-        console.log('NEW TAG ID');
-        console.log(newTagId);
-
         // ..then use it
         await sql`
           INSERT INTO note_tagged
@@ -217,4 +239,13 @@ export async function createNote(req, res) {
   });
 
   res.sendStatus(201);
+}
+
+export async function getAllNoteTags(req, res) {
+  const rows = await sql`
+    SELECT name FROM note_tags
+  `;
+  const tagNamesNormalized = rows.map((row) => normalizeTag(row.name));
+
+  res.status(200).send(tagNamesNormalized);
 }

@@ -20,7 +20,7 @@ export default function Home() {
   return (
     <section className="space-y-12 w-full">
       <div>Stories</div>
-      <article className="h-1/3 w-full bg-alt full-bleed">
+      <article className="h-1/3 w-full bg-alt full-bleed border! border-muted/5 border-x-0!">
         collab requests,
         cards
       </article>

@@ -24,37 +24,37 @@ function runApp(opts) {
   // Before production this needs to be changed to a valid url, or something more secure.
   app.use(
     cors({
-      origin: ["http://localhost:3000", "http://localhost:3300"], // Adjust this to your frontend's origin
-      methods: ["GET", "POST", "PUT", "DELETE", "PATCH"],
-      allowedHeaders: ["Content-Type", "Authorization"],
+      origin: ['http://localhost:3000', 'http://localhost:3300'], // Adjust this to your frontend's origin
+      methods: ['GET', 'POST', 'PUT', 'DELETE', 'PATCH'],
+      allowedHeaders: ['Content-Type', 'Authorization'],
     })
   );
   app.use(express.json());
 
   if (opts.authorizeAs) {
     if (uuidValidate(opts.authorizeAs)) {
-      console.log(`WARNING: Fake authorization is enabled. All requests will be authorized as user ID: ${opts.authorizeAs}`);
+      console.log(
+        `WARNING: Fake authorization is enabled. All requests will be authorized as user ID: ${opts.authorizeAs}`
+      );
       app.use(fakeAuthAs(opts.authorizeAs));
     } else {
       console.error(`Not a valid UUID: ${opts.authorizeAs}. Exiting..`);
       return;
     }
-  } else {
-    // Uncomment to enable backend authorization middleware
-    //app.use(requireAuth);
   }
 
   // Mount users router
-  app.use("/users", usersRouter);
-  app.use("/connections", connectionsRouter);
-  app.use("/notes", notesRouter);
+  app.use('/users', usersRouter);
+  app.use('/connections', connectionsRouter);
+  app.use('/notes', notesRouter);
+  app.use('/requests', requestsRouter);
 
-  app.get("/", (req, res) => {
-    res.send("Server is running TRIVIUM");
+  app.get('/', (req, res) => {
+    res.send('Server is running TRIVIUM');
   });
-  app.use("/genres", genreRouter);
-  app.use("/looking_for_tags", lookingForTagsRouter);
-  app.use("/chat", requireAuth, chatRouter);
+  app.use('/genres', genreRouter);
+  app.use('/looking_for_tags', lookingForTagsRouter);
+  app.use('/chat', requireAuth, chatRouter);
 
   app.use("/search", searchRouter);
 

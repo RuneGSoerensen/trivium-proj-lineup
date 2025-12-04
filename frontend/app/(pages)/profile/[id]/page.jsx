@@ -142,64 +142,7 @@ export default function ProfilePage() {
     }
   };
 
-  const handleLike = async (noteId) => {
-    if (!currentUserId) return;
-
-    try {
-      await fetch(
-        `${process.env.NEXT_PUBLIC_DATABASE_URL}/notes/${noteId}/like`,
-        {
-          method: "POST",
-          headers: { "Content-Type": "application/json" },
-          body: JSON.stringify({ user_id: currentUserId }),
-        }
-      );
-
-      loadProfile();
-    } catch (error) {
-      console.error("Error toggling like:", error);
-    }
-  };
-
-  const handleComment = async (noteId, content, parent_comment_id = null) => {
-    if (!currentUserId) return;
-
-    try {
-      await fetch(`${process.env.NEXT_PUBLIC_DATABASE_URL}/notes/comment`, {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({
-          user_id: currentUserId,
-          note_id: noteId,
-          content,
-          parent_comment_id,
-        }),
-      });
-
-      loadProfile();
-    } catch (error) {
-      console.error("Error adding comment:", error);
-    }
-  };
-
-  const handleCommentLike = async (commentId) => {
-    if (!currentUserId) return;
-
-    try {
-      await fetch(
-        `${process.env.NEXT_PUBLIC_DATABASE_URL}/notes/comment/${commentId}/like`,
-        {
-          method: "POST",
-          headers: { "Content-Type": "application/json" },
-          body: JSON.stringify({ user_id: currentUserId }),
-        }
-      );
-
-      loadProfile();
-    } catch (error) {
-      console.error("Error liking comment:", error);
-    }
-  };
+  // Note interactions (like/comment) are now handled inside the NoteCard component
 
   if (loading) {
     return (
@@ -227,8 +170,9 @@ export default function ProfilePage() {
       />
 
       <Tabs className="bg-white">
-        <TabsList className="bg-white rounded-b-none">
-          <TabItem className="">About</TabItem>
+        <TabsList className="bg-white rounded-b-none w-full justify-between">
+          <TabItem>About</TabItem>
+
           <TabItem>Notes</TabItem>
         </TabsList>
         <TabContentList className="bg-white">
@@ -236,12 +180,7 @@ export default function ProfilePage() {
             <ProfileAbout profile={profile} onQuestionSubmit={handleClick} />
           </TabContent>
           <TabContent>
-            <ProfileNotes
-              notes={notes}
-              onLike={handleLike}
-              onComment={handleComment}
-              onCommentLike={handleCommentLike}
-            />
+            <ProfileNotes notes={notes} />
           </TabContent>
         </TabContentList>
       </Tabs>

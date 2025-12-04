@@ -1,4 +1,4 @@
-import sql from "../../db.js";
+import sql from '../../db.js';
 export async function getGenres(req, res) {
   try {
     const genres = await sql`
