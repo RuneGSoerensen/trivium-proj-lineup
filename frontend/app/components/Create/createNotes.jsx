@@ -2,6 +2,7 @@ import { Plus } from "lucide-react";
 import { Button } from "../ui/Button/Button";
 import Input from "../ui/Input/Input";
 import Image from "next/image";
+import MultiSelectInput from "../ui/MultiSelectButton/MultiSelectButton";
 
 export default function CreateNotes() {
   return (
@@ -32,6 +33,13 @@ export default function CreateNotes() {
         >
           Add tags
         </Button>
+        <MultiSelectInput
+          // options={allGenres}
+          // values={formData.genres}
+          // setValues={(vals) => setFormData({ ...formData, genres: vals })}
+          placeholder="Add a tag..."
+          allowNew={true}
+        />
       </div>
       <div>
         <Input placeholder="Write a title"></Input>
@@ -43,11 +51,21 @@ export default function CreateNotes() {
           size="sm"
           className="mt-20 mb-20 w-fit font-normal"
         >
-          Add tags
+          Add Media
         </Button>
       </div>
       <div>
-        <Input type="textarea" placeholder="Write a description"></Input>
+        <textarea
+          placeholder="Write a description"
+          cols="30"
+          rows="4"
+          className="w-full bg-default color-default border-muted rounded-lg px-12 py-14 placeholder:color-muted focus:ring-1 focus:ring-brand transition-all duration-100"
+        ></textarea>
+      </div>
+      <div className="self-end mt-10">
+        <Button variant="primary" size="sm">
+          Post
+        </Button>
       </div>
     </div>
   );
