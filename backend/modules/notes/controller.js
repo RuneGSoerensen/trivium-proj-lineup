@@ -1,5 +1,6 @@
 import sql from "../../db.js";
-import z from "zod";
+import z from 'zod';
+import normalizeTag from "../../utils/normalizeTag.js";
 
 export const getUserNotes = async (req, res) => {
   const { id } = req.params;
@@ -240,4 +241,13 @@ export async function createNote(req, res) {
   });
 
   res.sendStatus(201);
+}
+
+export async function getAllNoteTags(req, res) {
+  const rows = await sql`
+    SELECT name FROM note_tags
+  `;
+  const tagNamesNormalized = rows.map((row) => normalizeTag(row.name));
+
+  res.status(200).send(tagNamesNormalized);
 }
