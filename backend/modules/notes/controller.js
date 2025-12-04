@@ -144,6 +144,18 @@ export async function createNote(req, res) {
     tags,
   } = result.data;
 
+  // Make sure all user IDs exist before creating any table rows.
+  for (const userId of people_user_ids) {
+    const [{ exists }] = await sql`
+      SELECT EXISTS(SELECT id FROM users WHERE id = ${userId})
+    `;
+    if (!exists) {
+      return res.status(400).json(
+        { error: `User with ID ${userId} does not exist.` }
+      );
+    }
+  }
+
   await sql.begin(async sql => {
     // insert note row
     const [{ id: newNoteId }] = await sql`
@@ -164,19 +176,14 @@ export async function createNote(req, res) {
       RETURNING notes.id;
   `;
 
-    // insert the people links
-    // claude says:
-    // "When you pass an array of objects to sql(), postgres.js automatically:
-    // 1. Extracts the column names from the object keys
-    // 2. Generates the proper INSERT statement
-    // 3. Safely parameterizes all the values"
+    // insert the tagged people
     await sql`
       INSERT INTO notes_tagged_people ${sql(
       people_user_ids.map((userId) => ({
         note_id: newNoteId,
         user_id: userId
       }))
-    )}
+    )};
     `;
 
     // insert the tag links, creating any missing tags
@@ -207,9 +214,6 @@ export async function createNote(req, res) {
           (${tagName})
           RETURNING id;
         `;
-
-        console.log('NEW TAG ID');
-        console.log(newTagId);
 
         // ..then use it
         await sql`

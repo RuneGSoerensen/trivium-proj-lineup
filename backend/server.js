@@ -7,6 +7,7 @@ import { fakeAuthAs, requireAuth } from "./middelware/auth.js";
 import usersRouter from "./modules/user/router.js";
 import connectionsRouter from "./modules/connections/router.js";
 import notesRouter from "./modules/notes/router.js";
+import requestsRouter from "./modules/requests/router.js";
 import lookingForTagsRouter from "./modules/looking_for/router.js";
 import genreRouter from "./modules/genres/router.js";
 import chatRouter from "./modules/chat/router.js";
@@ -38,15 +39,13 @@ function runApp(opts) {
       console.error(`Not a valid UUID: ${opts.authorizeAs}. Exiting..`);
       return;
     }
-  } else {
-    // Uncomment to enable backend authorization middleware
-    //app.use(requireAuth);
   }
 
   // Mount users router
   app.use("/users", usersRouter);
   app.use("/connections", connectionsRouter);
   app.use("/notes", notesRouter);
+  app.use("/requests", requestsRouter);
 
   app.get("/", (req, res) => {
     res.send("Server is running TRIVIUM");
