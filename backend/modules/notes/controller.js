@@ -249,3 +249,55 @@ export async function getAllNoteTags(req, res) {
 
   res.status(200).send(tagNamesNormalized);
 }
+
+export const forYouNotes = async (req, res) => {
+  const offset = parseInt(req.query.offset) || 0;
+  const id = "e63c9c36-2142-4a61-a152-118931631893"; // temporary hardcoded user ID for demo purposes
+
+  const notes = await sql`
+    SELECT 
+      n.*,
+      u.name AS user_name,
+      u.image_url AS user_image,
+      (SELECT COUNT(*) FROM note_likes WHERE note_id = n.id) AS likes_count,
+      (SELECT COUNT(*) FROM comments WHERE note_id = n.id) AS comments_count,
+      (
+        SELECT json_agg(
+          jsonb_build_object(
+            'id', c.id,
+            'parent_comment_id', c.parent_comment_id,
+            'content', c.content,
+            'created_at', c.created_at,
+            'likes_count', (SELECT COUNT(*) FROM comment_likes cl WHERE cl.comment_id = c.id),
+            'user', jsonb_build_object(
+              'id', cu.id,
+              'name', cu.name,
+              'image_url', cu.image_url
+            )
+          )
+          ORDER BY c.created_at ASC
+        )
+        FROM comments c
+        JOIN users cu ON cu.id = c.user_id
+        WHERE c.note_id = n.id
+      ) AS comments
+    FROM notes n
+    JOIN users u ON u.id = n.user_id
+    WHERE n.user_id IN (
+      SELECT
+        CASE
+          WHEN follower_id = ${id} THEN following_id
+          WHEN following_id = ${id} THEN follower_id
+        END
+      FROM connections
+      WHERE (follower_id = ${id} OR following_id = ${id})
+        AND pending = false
+    )
+    AND n.user_id != ${id}
+    ORDER BY n.created_at DESC
+    LIMIT 5
+    OFFSET ${offset};
+  `;
+
+  res.json(notes);
+};

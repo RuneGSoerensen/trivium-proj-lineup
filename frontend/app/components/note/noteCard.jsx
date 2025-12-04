@@ -15,7 +15,7 @@ import { CommentItem } from "./CommentItem";
 export default function NoteCard({ note, showComments = false }) {
   const [commentText, setCommentText] = useState(""); // main input
   const [commentsOpen, setCommentsOpen] = useState(showComments);
-  const [localLiked, setLocalLiked] = useState(note.is_liked);
+  const [localLiked, setLocalLiked] = useState(note.is_liked || false);
   const [localLikesCount, setLocalLikesCount] = useState(
     parseInt(note.likes_count ?? 0)
   );
