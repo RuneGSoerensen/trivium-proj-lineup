@@ -1,17 +1,8 @@
-import sql from "../../db.js";
+import sql from '../../db.js';
 
 export const createUser = async (req, res) => {
-  const {
-    id,
-    email,
-    name,
-    birthdate,
-    city,
-    phone_number,
-    is_musician,
-    looking_for,
-    business,
-  } = req.body;
+  const { id, email, name, birthdate, city, phone_number, is_musician, looking_for, business } =
+    req.body;
 
   try {
     const [user] = await sql`
@@ -95,17 +86,8 @@ GROUP BY u.id;
 //needs refactoring at some point, this is not optimal ;)
 export const updateUser = async (req, res) => {
   const { id } = req.params;
-  const {
-    name,
-    bio,
-    about,
-    image_url,
-    theme,
-    genres,
-    looking_for_tags,
-    socials,
-    questions,
-  } = req.body;
+  const { name, bio, about, image_url, theme, genres, looking_for_tags, socials, questions } =
+    req.body;
 
   try {
     // update core fields
@@ -207,6 +189,6 @@ export const updateUser = async (req, res) => {
     res.json({ success: true });
   } catch (error) {
     console.log(error);
-    res.status(500).json({ error: "Failed to update user" });
+    res.status(500).json({ error: 'Failed to update user' });
   }
 };

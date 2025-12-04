@@ -1,4 +1,4 @@
-import sql from "../../db.js";
+import sql from '../../db.js';
 
 export const editUser = async (req, res) => {
   const { name, bio, about, theme } = req.body;
@@ -14,8 +14,8 @@ export const editUser = async (req, res) => {
 
     res.json(updatedUser);
   } catch (error) {
-    console.error("Error updating user:", error);
-    res.status(500).json({ error: "Failed to update user" });
+    console.error('Error updating user:', error);
+    res.status(500).json({ error: 'Failed to update user' });
   }
 };
 
@@ -24,7 +24,7 @@ export const editGenres = async (req, res) => {
   const userId = req.params.id;
 
   if (!Array.isArray(genres)) {
-    return res.status(400).json({ error: "genres must be an array" });
+    return res.status(400).json({ error: 'genres must be an array' });
   }
 
   try {
@@ -33,12 +33,10 @@ export const editGenres = async (req, res) => {
       const resolvedIds = [];
 
       for (const g of genres) {
-        if (typeof g !== "string") {
+        if (typeof g !== 'string') {
           throw {
             status: 400,
-            message: `Invalid genre value (only names allowed): ${JSON.stringify(
-              g
-            )}`,
+            message: `Invalid genre value (only names allowed): ${JSON.stringify(g)}`,
           };
         }
 
@@ -52,15 +50,13 @@ export const editGenres = async (req, res) => {
         if (existing.length) {
           resolvedIds.push(existing[0].id);
         } else {
-          const [inserted] =
-            await tx`INSERT INTO genres (name) VALUES (${name}) RETURNING id`;
+          const [inserted] = await tx`INSERT INTO genres (name) VALUES (${name}) RETURNING id`;
           resolvedIds.push(inserted.id);
         }
       }
 
       // Get current genre ids for the user
-      const currentRows =
-        await tx`SELECT genre_id FROM user_genres WHERE user_id = ${userId}`;
+      const currentRows = await tx`SELECT genre_id FROM user_genres WHERE user_id = ${userId}`;
       const currentIds = currentRows.map((r) => r.genre_id);
 
       const newSet = new Set(resolvedIds);
@@ -84,12 +80,12 @@ export const editGenres = async (req, res) => {
       }
     });
 
-    res.json({ message: "Genres updated successfully" });
+    res.json({ message: 'Genres updated successfully' });
   } catch (error) {
     if (error && error.status) {
       return res.status(error.status).json({ error: error.message });
     }
-    console.error("Error updating genres:", error);
-    res.status(500).json({ error: "Failed to update genres" });
+    console.error('Error updating genres:', error);
+    res.status(500).json({ error: 'Failed to update genres' });
   }
 };
