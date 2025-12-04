@@ -2,15 +2,9 @@
 
 import { useState } from "react";
 import { useRouter } from "next/navigation";
-import { createClient } from "@supabase/supabase-js";
-import { setAuthToken } from "@/app/utils/auth";
+import { signInWithPassword } from "@/utils/supabaseClient";
 import Input from "@/components/ui/Input/Input";
 import { Button } from "@/components/ui/Button/Button";
-
-const supabase = createClient(
-  process.env.NEXT_PUBLIC_SUPABASE_URL,
-  process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY
-);
 
 export default function LoginPage() {
   const router = useRouter();
@@ -26,11 +20,9 @@ export default function LoginPage() {
 
     try {
       // Use Supabase Auth to sign in
-      const { data, error: authError } = await supabase.auth.signInWithPassword(
-        {
-          email,
-          password,
-        }
+      const { user, error: authError } = await signInWithPassword(
+        email,
+        password
       );
 
       if (authError) {
@@ -38,11 +30,8 @@ export default function LoginPage() {
         return;
       }
 
-      if (data.session && data.user) {
-        // Store the JWT token and user ID
-        setAuthToken(data.session.access_token, data.user.id);
-
-        router.push("/feed");
+      if (user) {
+        router.push("/");
       }
     } catch (err) {
       console.error("Login error:", err);
