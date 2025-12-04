@@ -11,6 +11,7 @@ import lookingForTagsRouter from "./modules/looking_for/router.js";
 import genreRouter from "./modules/genres/router.js";
 import chatRouter from "./modules/chat/router.js";
 import searchRouter from './modules/search/router.js';
+import requestsRouter from './modules/requests/router.js';
 
 program.option('--authorize-as <string>', "Override the authentication middleware.");
 program.parse();

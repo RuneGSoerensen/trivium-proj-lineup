@@ -86,12 +86,12 @@ export default function SearchOverlay() {
 
     // Generic handler used by People, Services, Tags, etc.
     const renderPeopleList = (items, label) => {
-        if (isLoading) return <p className="text-sm color-muted">Searching...</p>
-        if (error) return <p className="text-sm color-error">{error}</p>
+        if (isLoading) return <p className="text-sm color-muted/40">Searching...</p>
+        if (error) return <p className="text-base color-error">{error}</p>
 
         if (!items || items.length === 0) {
             return (
-                <p className="text-base color-muted">
+                <p className="text-base color-muted/50">
                     No {label.toLowerCase()} found for &apos;{query.trim()}&apos;.
                 </p>
             )
@@ -104,12 +104,12 @@ export default function SearchOverlay() {
         const { people, collaborations, services, tags } = results?.forYou || EMPTY_RESULTS.forYou;
         const hasAny = people.length || collaborations.length || services.length || tags.length;
 
-        if (isLoading) return <p className="text-sm color-muted">Searching...</p>;
+        if (isLoading) return <p className="text-sm color-muted/40">Searching...</p>;
         if (error) return <p className="text-sm color-error">{error}</p>;
 
         if (!hasAny && activeTab) {
             return (
-                <p className="text-base color-muted">
+                <p className="text-base color-muted/50">
                     No results found for &apos;{query.trim()}&apos;.
                 </p>
             );
@@ -188,9 +188,9 @@ export default function SearchOverlay() {
             {/* Default state: no tab selected, show recent searches */}
             {!query.trim() && !activeTab && (
                 <div className="flex flex-col gap-4 mb-4">
-                    <h6 className="text-sm color-subtle">Recent</h6>
+                    <h5 className="text-sm color-muted/50">Recent</h5>
                     {recentSearches.length === 0 ? (
-                        <p className="text-base color-muted">No recent searches</p>
+                        <p className="text-base color-muted/30">No recent searches</p>
                     ) : (
                         <div className="flex flex-wrap gap-4">
                             {recentSearches.map((term) => (
