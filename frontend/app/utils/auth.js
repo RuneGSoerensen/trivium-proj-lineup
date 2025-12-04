@@ -10,7 +10,7 @@
 export const setAuthToken = (token, userId) => {
   if (typeof window !== "undefined") {
     localStorage.setItem("jwt_token", token);
-    localStorage.setItem("user_id", userId);
+    localStorage.setItem("userId", userId);
   }
 };
 
@@ -31,7 +31,7 @@ export const getAuthToken = () => {
  */
 export const getUserId = () => {
   if (typeof window !== "undefined") {
-    return localStorage.getItem("user_id");
+    return localStorage.getItem("userId");
   }
   return null;
 };
@@ -42,7 +42,7 @@ export const getUserId = () => {
 export const clearAuthData = () => {
   if (typeof window !== "undefined") {
     localStorage.removeItem("jwt_token");
-    localStorage.removeItem("user_id");
+    localStorage.removeItem("userId");
   }
 };
 
@@ -78,4 +78,3 @@ export const authenticatedFetch = async (url, options = {}) => {
     headers,
   });
 };
-
