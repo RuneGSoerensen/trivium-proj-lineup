@@ -4,7 +4,8 @@ import {
   likeNote,
   commentNote,
   likeComment,
-  createNote
+  createNote,
+  getAllNoteTags
 } from "./controller.js";
 
 const router = express.Router();
@@ -23,5 +24,7 @@ router.post("/comment/:id/like", likeComment);
 
 // Create a note
 router.post("/", createNote);
+
+router.get("/tags", getAllNoteTags);
 
 export default router;
