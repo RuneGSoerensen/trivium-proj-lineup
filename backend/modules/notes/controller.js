@@ -50,16 +50,37 @@ export const likeNote = async (req, res) => {
   const { user_id } = req.body;
 
   try {
-    await sql`
-      INSERT INTO note_likes (note_id, user_id)
-      VALUES (${id}, ${user_id})
-      ON CONFLICT (note_id, user_id)
-      DO NOTHING;
+    // Check if user already liked this note
+    const existing = await sql`
+      SELECT COUNT(*)::int AS count
+      FROM note_likes
+      WHERE note_id = ${id} AND user_id = ${user_id}
     `;
 
-    res.json({ success: true });
-  } catch {
-    res.status(500).json({ error: "Failed to like" });
+    const alreadyLiked = existing[0]?.count > 0;
+
+    if (alreadyLiked) {
+      // remove like
+      await sql`
+        DELETE FROM note_likes WHERE note_id = ${id} AND user_id = ${user_id}
+      `;
+    } else {
+      // add like
+      await sql`
+        INSERT INTO note_likes (note_id, user_id)
+        VALUES (${id}, ${user_id})
+        ON CONFLICT (note_id, user_id) DO NOTHING
+      `;
+    }
+
+    const [{ count: likes_count }] = await sql`
+      SELECT COUNT(*)::int AS count FROM note_likes WHERE note_id = ${id}
+    `;
+
+    res.json({ success: true, likes_count, is_liked: !alreadyLiked });
+  } catch (err) {
+    console.error("likeNote error", err);
+    res.status(500).json({ error: "Failed to toggle note like" });
   }
 };
 
@@ -132,18 +153,10 @@ export async function createNote(req, res) {
   const result = schema.safeParse(req.body);
 
   if (!result.success) {
-    return res.status(400).json(
-      { error: result.error.issues }
-    );
+    return res.status(400).json({ error: result.error.issues });
   }
 
-  const {
-    title,
-    content,
-    image_url,
-    people_user_ids,
-    tags,
-  } = result.data;
+  const { title, content, image_url, people_user_ids, tags } = result.data;
 
   // Make sure all user IDs exist before creating any table rows.
   for (const userId of people_user_ids) {
@@ -151,13 +164,13 @@ export async function createNote(req, res) {
       SELECT EXISTS(SELECT id FROM users WHERE id = ${userId})
     `;
     if (!exists) {
-      return res.status(400).json(
-        { error: `User with ID ${userId} does not exist.` }
-      );
+      return res
+        .status(400)
+        .json({ error: `User with ID ${userId} does not exist.` });
     }
   }
 
-  await sql.begin(async sql => {
+  await sql.begin(async (sql) => {
     // insert note row
     const [{ id: newNoteId }] = await sql`
       INSERT INTO notes
@@ -180,11 +193,11 @@ export async function createNote(req, res) {
     // insert the tagged people
     await sql`
       INSERT INTO notes_tagged_people ${sql(
-      people_user_ids.map((userId) => ({
-        note_id: newNoteId,
-        user_id: userId
-      }))
-    )};
+        people_user_ids.map((userId) => ({
+          note_id: newNoteId,
+          user_id: userId,
+        }))
+      )};
     `;
 
     // insert the tag links, creating any missing tags
