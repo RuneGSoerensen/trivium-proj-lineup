@@ -1,0 +1,53 @@
+[
+  {
+    "id": "c6141a47-de29-4d90-a940-b06d95a95ea6",
+    "user_id": "e63c9c36-2142-4a61-a152-118931631893",
+    "title": "jeg skal ha mig en trommeslager",
+    "description": "test request beskrivelse hehehe",
+    "image_url": "https://plus.unsplash.com/premium_photo-1664474619075-644dd191935f?fm=jpg&q=60&w=3000&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxzZWFyY2h8MXx8aW1hZ2V8ZW58MHx8MHx8fDA%3D",
+    "location": "Køge",
+    "paid_opportunity": true,
+    "created_at": "2025-12-03T13:08:25.346Z",
+    "updated_at": "2025-12-03T13:08:25.346Z",
+    "created_by": {
+      "id": "e63c9c36-2142-4a61-a152-118931631893",
+      "name": "Morten Pedersen",
+      "image_url": "https://static.vecteezy.com/system/resources/thumbnails/057/068/323/small/single-fresh-red-strawberry-on-table-green-background-food-fruit-sweet-macro-juicy-plant-image-photo.jpg"
+    },
+    "genres": [
+      {
+        "id": "3ce1cc7d-be23-4176-9294-1c1299b3848c",
+        "name": "Jazz"
+      },
+      {
+        "id": "3749d2d4-75ee-4d26-933d-e8701f02fa37",
+        "name": "Pop"
+      },
+      {
+        "id": "1ae069ba-a5c0-4b3b-9492-92b02f21dd78",
+        "name": "K-pop"
+      },
+      {
+        "id": "d3820d29-c061-4a3c-abd8-227b5f0ad62b",
+        "name": "Georgian Chants"
+      }
+    ],
+    "tagged_people": [
+      {
+        "id": "29d0d264-a912-4057-8800-d8d74cec0567",
+        "name": "Crazy Frog",
+        "image_url": null
+      },
+      {
+        "id": "63c6d163-8ab1-4113-a28b-43f89b6a2186",
+        "name": "John Hamm",
+        "image_url": null
+      },
+      {
+        "id": "e63c9c36-2142-4a61-a152-118931631893",
+        "name": "Morten Pedersen",
+        "image_url": "https://static.vecteezy.com/system/resources/thumbnails/057/068/323/small/single-fresh-red-strawberry-on-table-green-background-food-fruit-sweet-macro-juicy-plant-image-photo.jpg"
+      }
+    ]
+  }
+]
