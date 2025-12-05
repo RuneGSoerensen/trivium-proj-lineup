@@ -189,7 +189,8 @@ export async function createNote(req, res) {
   `;
 
     // insert the tagged people
-    await sql`
+    if (people_user_ids && people_user_ids.length != 0) {
+      await sql`
       INSERT INTO notes_tagged_people ${sql(
         people_user_ids.map((userId) => ({
           note_id: newNoteId,
@@ -197,6 +198,7 @@ export async function createNote(req, res) {
         }))
       )};
     `;
+    }
 
     // insert the tag links, creating any missing tags
     for (const tagName of tags) {
