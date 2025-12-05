@@ -1,8 +1,4 @@
 {
-  "spec": [
-    "**/test/**/*.js"
-  ],
-  "exclude": [
-    "node_modules/**"
-  ]
+  "spec": ["**/test/**/*.js"],
+  "exclude": ["node_modules/**"]
 }

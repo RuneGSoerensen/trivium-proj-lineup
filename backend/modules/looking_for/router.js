@@ -1,8 +1,8 @@
-import express from "express";
-import { getLookingForTags } from "./controller.js";
+import express from 'express';
+import { getLookingForTags } from './controller.js';
 
 const router = express.Router();
 
-router.get("/", getLookingForTags);
+router.get('/', getLookingForTags);
 
 export default router;

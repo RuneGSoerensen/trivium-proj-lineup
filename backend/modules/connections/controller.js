@@ -1,4 +1,4 @@
-import sql from "../../db.js";
+import sql from '../../db.js';
 export const follow = async (req, res) => {
   const { follower_id, following_id } = req.body;
 
@@ -11,7 +11,7 @@ export const follow = async (req, res) => {
 
     res.json({ success: true });
   } catch (error) {
-    res.status(500).json({ error: "Failed to follow" });
+    res.status(500).json({ error: 'Failed to follow' });
   }
 };
 
@@ -27,7 +27,7 @@ export const unfollow = async (req, res) => {
 
     res.json({ success: true });
   } catch (error) {
-    res.status(500).json({ error: "Failed to unfollow" });
+    res.status(500).json({ error: 'Failed to unfollow' });
   }
 };
 

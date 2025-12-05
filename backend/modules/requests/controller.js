@@ -1,4 +1,4 @@
-import sql from "../../db.js";
+import sql from '../../db.js';
 import z from 'zod';
 
 export async function createRequest(req, res) {
@@ -17,20 +17,11 @@ export async function createRequest(req, res) {
   const result = schema.safeParse(req.body);
 
   if (!result.success) {
-    return res.status(400).json(
-      { error: result.error.issues }
-    );
+    return res.status(400).json({ error: result.error.issues });
   }
 
-  const {
-    title,
-    description,
-    paid_opportunity,
-    image_url,
-    location,
-    people_user_ids,
-    genres,
-  } = result.data;
+  const { title, description, paid_opportunity, image_url, location, people_user_ids, genres } =
+    result.data;
 
   // Make sure all user IDs exist before creating any table rows.
   for (const userId of people_user_ids) {
@@ -38,13 +29,11 @@ export async function createRequest(req, res) {
       SELECT EXISTS(SELECT id FROM users WHERE id = ${userId})
     `;
     if (!exists) {
-      return res.status(400).json(
-        { error: `User with ID ${userId} does not exist.` }
-      );
+      return res.status(400).json({ error: `User with ID ${userId} does not exist.` });
     }
   }
 
-  await sql.begin(async sql => {
+  await sql.begin(async (sql) => {
     const [{ id: newRequestId }] = await sql`
       INSERT INTO requests
         (
@@ -70,11 +59,11 @@ export async function createRequest(req, res) {
     // insert the tagged people
     await sql`
       INSERT INTO requests_tagged_people ${sql(
-      people_user_ids.map((userId) => ({
-        request_id: newRequestId,
-        user_id: userId
-      }))
-    )};
+        people_user_ids.map((userId) => ({
+          request_id: newRequestId,
+          user_id: userId,
+        }))
+      )};
     `;
 
     // Bulk insert genres and link them to the request
@@ -82,7 +71,7 @@ export async function createRequest(req, res) {
       // Insert any missing genres (ignore duplicates)
       await sql`
         INSERT INTO genres (name)
-        VALUES ${sql(genres.map(name => [name]))}
+        VALUES ${sql(genres.map((name) => [name]))}
         ON CONFLICT (name) DO NOTHING
       `;
 
@@ -95,9 +84,7 @@ export async function createRequest(req, res) {
       // Prepare bulk insert for requests_genres
       await sql`
         INSERT INTO requests_genres (request_id, genre_id)
-        VALUES ${sql(
-        genreRows.map(row => [newRequestId, row.id])
-      )}
+        VALUES ${sql(genreRows.map((row) => [newRequestId, row.id]))}
       `;
     }
   });

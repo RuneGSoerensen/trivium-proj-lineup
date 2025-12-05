@@ -1,6 +1,6 @@
-import sql from "../../db.js";
+import sql from '../../db.js';
 import z from 'zod';
-import normalizeTag from "../../utils/normalizeTag.js";
+import normalizeTag from '../../utils/normalizeTag.js';
 
 export const getUserNotes = async (req, res) => {
   const { id } = req.params;
@@ -79,8 +79,8 @@ export const likeNote = async (req, res) => {
 
     res.json({ success: true, likes_count, is_liked: !alreadyLiked });
   } catch (err) {
-    console.error("likeNote error", err);
-    res.status(500).json({ error: "Failed to toggle note like" });
+    console.error('likeNote error', err);
+    res.status(500).json({ error: 'Failed to toggle note like' });
   }
 };
 
@@ -95,8 +95,8 @@ export const commentNote = async (req, res) => {
 
     res.json({ success: true });
   } catch (err) {
-    console.error("commentNote error", err);
-    res.status(500).json({ error: "Failed to comment" });
+    console.error('commentNote error', err);
+    res.status(500).json({ error: 'Failed to comment' });
   }
 };
 
@@ -134,8 +134,8 @@ export const likeComment = async (req, res) => {
 
     res.json({ success: true, likes_count, is_liked: !alreadyLiked });
   } catch (err) {
-    console.error("likeComment error", err);
-    res.status(500).json({ error: "Failed to toggle comment like" });
+    console.error('likeComment error', err);
+    res.status(500).json({ error: 'Failed to toggle comment like' });
   }
 };
 
@@ -164,9 +164,7 @@ export async function createNote(req, res) {
       SELECT EXISTS(SELECT id FROM users WHERE id = ${userId})
     `;
     if (!exists) {
-      return res
-        .status(400)
-        .json({ error: `User with ID ${userId} does not exist.` });
+      return res.status(400).json({ error: `User with ID ${userId} does not exist.` });
     }
   }
 

@@ -7,7 +7,8 @@
   "scripts": {
     "start": "node server.js",
     "dev": "node --env-file=.env --watch server.js",
-    "test": "mocha"
+    "test": "mocha",
+    "fmt": "prettier . --write"
   },
   "keywords": [
     "express",
@@ -27,6 +28,7 @@
   },
   "devDependencies": {
     "chai": "^6.2.1",
-    "mocha": "^11.7.5"
+    "mocha": "^11.7.5",
+    "prettier": "^3.7.4"
   }
 }
