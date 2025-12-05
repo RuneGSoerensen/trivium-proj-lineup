@@ -1,0 +1,32 @@
+{
+  "user": {
+    "id": "e63c9c36-2142-4a61-a152-118931631893",
+    "name": "Morten Pedersen",
+    "business": null,
+    "bio": "Singer, and something",
+    "about": "her skal der stå mange ting om mig selv",
+    "theme": "#3F4254",
+    "image_url": "https://static.vecteezy.com/system/resources/thumbnails/057/068/323/small/single-fresh-red-strawberry-on-table-green-background-food-fruit-sweet-macro-juicy-plant-image-photo.jpg",
+    "socials": [
+      {
+        "x": "",
+        "tiktok": "https://www.tiktok.com/",
+        "youtube": "",
+        "facebook": "",
+        "instagram": "https://www.instagram.com/"
+      }
+    ],
+    "genres": ["K-pop", "Pop", "Rap", "Rock"],
+    "looking_for_tags": ["Artists", "Collaborators"],
+    "questions": [
+      {
+        "answer": "My favorite artist is Eminem",
+        "question": "What are your favorite music?"
+      },
+      {
+        "answer": "My Favorite genre is rock and rap",
+        "question": "What are your favorite genres?"
+      }
+    ]
+  }
+}

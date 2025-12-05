@@ -142,8 +142,6 @@ export default function ProfilePage() {
     }
   };
 
-  // Note interactions (like/comment) are now handled inside the NoteCard component
-
   if (loading) {
     return (
       <div className="flex items-center justify-center min-h-screen">
