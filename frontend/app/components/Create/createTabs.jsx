@@ -11,10 +11,10 @@ import {
 import CreateNotes from "./createNotes.jsx";
 import CreateRequest from "./createRequest.jsx";
 import CreateStory from "./createStory.jsx";
+import { getUserId } from "@/utils/auth";
 
 export default function CreateTabs() {
-  const [currentUserId, setCurrentUserId] = useState(null);
-  const [currentUserName, setCurrentUserName] = useState("Name");
+  const [currentUserName, setCurrentUserName] = useState();
   const [currentUserImage, setCurrentUserImage] = useState(
     "/placeholder-image.png"
   );
@@ -23,28 +23,20 @@ export default function CreateTabs() {
   useEffect(() => {
     const loadCurrentUser = async () => {
       try {
-        const userId = localStorage.getItem("userId");
-        console.log("1. UserId from localStorage:", userId);
+        const userId = getUserId();
 
         if (userId) {
           const url = `${process.env.NEXT_PUBLIC_DATABASE_URL}/users/${userId}`;
-          console.log("2. Fetching from:", url);
 
           const res = await fetch(url);
-          console.log("3. Response status:", res.status, res.ok);
 
           if (res.ok) {
             const data = await res.json();
-            console.log("4. Full response data:", data);
-            console.log("5. User name:", data.user?.name);
 
-            setCurrentUserId(userId);
-            setCurrentUserName(data.user.name || "Name");
+            setCurrentUserName(data.user.name);
             setCurrentUserImage(
               data.user.image_url || "/placeholder-image.png"
             );
-
-            console.log("6. State set to:", data.user.name);
           }
         }
       } catch (error) {
