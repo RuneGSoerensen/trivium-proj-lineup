@@ -11,6 +11,7 @@ import {
 } from "lucide-react";
 import { Tag } from "@/ui/Tag/Tag";
 import { CommentItem } from "./CommentItem";
+import { getUserId } from "@/utils/auth";
 
 export default function NoteCard({ note, showComments = false }) {
   const [commentText, setCommentText] = useState(""); // main input
@@ -41,7 +42,7 @@ export default function NoteCard({ note, showComments = false }) {
   };
 
   const handleLike = async () => {
-    const userId = localStorage.getItem("userId");
+    const userId = getUserId();
     if (!userId) {
       alert("You must be logged in to like.");
       return;
@@ -63,7 +64,7 @@ export default function NoteCard({ note, showComments = false }) {
 
   // MAIN COMMENT SEND
   const handleCommentSubmit = async () => {
-    const userId = localStorage.getItem("userId");
+    const userId = getUserId();
     if (!userId) {
       alert("You must be logged in to comment.");
       return;

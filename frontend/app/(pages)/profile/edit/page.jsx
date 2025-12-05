@@ -9,6 +9,7 @@ import EditSocials from "../../../components/profile/edit/EditSocials";
 import EditCollections from "../../../components/profile/edit/EditCollections";
 import EditQuestions from "../../../components/profile/edit/EditQuestions";
 import SaveBar from "../../../components/profile/edit/SaveBar";
+import { getUserId } from "@/utils/auth";
 
 const HARD_ARTISTS = [
   "https://images.unsplash.com/photo-1544005313-94ddf0286df2?w=200&q=80",
@@ -106,7 +107,7 @@ export default function EditProfilePage() {
 
   const loadProfile = async () => {
     try {
-      const currentUser = localStorage.getItem("userId");
+      const currentUser = getUserId();
       if (!currentUser) {
         router.push("/login");
         return;
@@ -140,7 +141,7 @@ export default function EditProfilePage() {
               : HARD_VIDEOS,
           past_collaborations:
             data.user.past_collaborations &&
-            data.user.past_collaborations.length > 0
+              data.user.past_collaborations.length > 0
               ? data.user.past_collaborations
               : HARD_PAST_COLLABS,
           socials: {
