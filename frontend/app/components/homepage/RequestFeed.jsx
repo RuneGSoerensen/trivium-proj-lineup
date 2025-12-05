@@ -1,7 +1,7 @@
 "use client";
 import { useEffect, useState } from "react";
 import { Bookmark } from "lucide-react";
-import { formatTimeAgo } from "@/utils/formateTime";
+import { formatTimeAgo } from "@/utils/timeAgo";
 import Image from "next/image";
 import { Button } from "@/comps/ui/button/Button";
 import { useRouter } from "next/navigation";
