@@ -12,6 +12,7 @@ import {
 import ProfileHeader from "@/components/profile/ProfileHeader";
 import ProfileAbout from "@/components/profile/ProfileAbout";
 import ProfileNotes from "@/components/profile/ProfileNotes";
+import { getUserId } from "@/utils/auth";
 
 const HARD_ARTISTS = [
   "https://images.unsplash.com/photo-1544005313-94ddf0286df2?w=200&q=80",
@@ -49,7 +50,7 @@ export default function ProfilePage() {
       if (!res.ok) throw new Error("Failed to load user");
 
       const { user: userData } = await res.json();
-      const currentUser = localStorage.getItem("userId");
+      const currentUser = getUserId();
       setCurrentUserId(currentUser);
 
       const statsRes = await fetch(
@@ -78,7 +79,7 @@ export default function ProfilePage() {
             : HARD_VIDEOS,
         past_collaborations:
           userData.past_collaborations &&
-          userData.past_collaborations.length > 0
+            userData.past_collaborations.length > 0
             ? userData.past_collaborations
             : HARD_PAST_COLLABS,
         followers_count: statsData.followers_count || 0,
@@ -141,8 +142,6 @@ export default function ProfilePage() {
       console.error("Error toggling follow:", error);
     }
   };
-
-  // Note interactions (like/comment) are now handled inside the NoteCard component
 
   if (loading) {
     return (

@@ -78,4 +78,3 @@ export const authenticatedFetch = async (url, options = {}) => {
     headers,
   });
 };
-
