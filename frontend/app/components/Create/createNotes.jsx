@@ -7,6 +7,7 @@ import Image from "next/image";
 import MultiSelectInput from "../ui/MultiSelectButton/MultiSelectButton";
 import { Tag } from "../ui/Tag/Tag";
 import { useState, useRef } from "react";
+import { createNote } from "@/utils/api";
 
 export default function CreateNotes({ userName, userImage }) {
   const [tags, setTags] = useState([]);
@@ -34,31 +35,24 @@ export default function CreateNotes({ userName, userImage }) {
     const noteData = {
       title: titleRef.current.value,
       content: contentRef.current.value,
-      image_url: images[0] || null,
       people_user_ids: [],
       tags,
     };
 
-    try {
-      const response = await fetch("/api/notes", {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify(noteData),
-      });
+    // Only include image_url if an image was added
+    if (images.length > 0) {
+      noteData.image_url = images[0];
+    }
 
-      if (response.ok) {
-        console.log("Note created successfully");
-        titleRef.current.value = "";
-        contentRef.current.value = "";
-        setTags([]);
-        setImages([]);
-      } else {
-        console.error("Failed to create note");
-      }
+    try {
+      await createNote(noteData);
+      console.log("Note created successfully");
+      titleRef.current.value = "";
+      contentRef.current.value = "";
+      setTags([]);
+      setImages([]);
     } catch (error) {
-      console.error("Error:", error);
+      console.error("Failed to create note", error);
     }
   };
 

@@ -3,13 +3,16 @@
 import { usePathname } from "next/navigation";
 import NavLink from "./NavLink";
 import { useBottomNav } from "@/utils/navbarContext";
+import { getUserId } from "@/utils/auth";
+
+const userId = getUserId();
 
 const links = [
   { href: "/", label: "Home", icon: "/icons/Home.svg" },
   { href: "/services", label: "Services", icon: "/icons/Services.svg" },
   { href: "/create", label: "Create", icon: "/icons/Create.svg" },
   { href: "/chat", label: "Chats", icon: "/icons/Chat.svg" },
-  { href: "/profile", label: "Profile", icon: "/icons/Profile.svg" },
+  { href: `/profile/${userId}`, label: "Profile", icon: "/icons/Profile.svg" },
 ];
 
 export default function Navigation() {
@@ -24,7 +27,6 @@ export default function Navigation() {
   };
 
   return (
-    
     // Nav container
     // Remove Change color secondary darkgrey
     <nav className="fixed bottom-28 left-0 right-0 flex w-full justify-center">
