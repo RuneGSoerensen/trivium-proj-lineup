@@ -140,7 +140,7 @@ export const likeComment = async (req, res) => {
 };
 
 export async function createNote(req, res) {
-  const userId = req.userId;
+  const userId = req.userId || 'e63c9c36-2142-4a61-a152-118931631893';
 
   const schema = z.object({
     title: z.string(),
@@ -252,7 +252,7 @@ export async function getAllNoteTags(req, res) {
 
 export const forYouNotes = async (req, res) => {
   const offset = parseInt(req.query.offset) || 0;
-  const id = "e63c9c36-2142-4a61-a152-118931631893"; // temporary hardcoded user ID for demo purposes
+  const id = req.userId;
 
   const notes = await sql`
     SELECT 
