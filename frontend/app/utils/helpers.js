@@ -4,7 +4,7 @@ export const closeOverlay = (router) => {
         return;
     }
 
-    if (typeof window !== "undefined" && window.history.length > 0) {
+    if (typeof window !== "undefined" && window.history.length > 1) {
         window.history.back();
     }
 };

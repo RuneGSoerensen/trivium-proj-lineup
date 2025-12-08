@@ -18,17 +18,16 @@ export const search = async (req, res) => {
             LIMIT 10;
         `;
 
-        // Map DB rows into desired response format
-        const mapped = result.rows.map((user) => ({
+        // Map DB into desired response format
+        const mapped = result.map((user) => ({
             id: user.id,
             name: user.name,
             imageUrl: user.image_url,
-            position: user.role, // can be null if unused
         }));
 
         return res.status(200).json(mapped);
     } catch (error) {
-        console.error("Error while searching:", error);
+        console.error("Searching query failed:", error);
         return res.status(500).json({ error: "Something went wrong while searching" });
     }
 }

@@ -7,7 +7,7 @@ import { closeOverlay } from '@/utils/helpers';
 import { Tabs, TabsList, TabContentList, TabContent, TabItem } from '@/ui/Tab/Tab';
 import Image from 'next/image';
 import { useSearch } from '@/utils/useSearch';
-import { useState } from 'react';
+import { useCallback, useMemo, useState } from 'react';
 
 const TABS = [
     "For you", "People", "Collaborations", "Services", "Tags"
@@ -28,6 +28,24 @@ const EMPTY_RESULTS =
     "tags": []
 }
 
+const isSearching = () => <p className="text-sm color-muted">Searching...</p>;
+
+const noResults = (query, label) => (
+    <p className="text-base color-muted/50">
+        No {label.toLowerCase()} found for &apos;{query.trim()}&apos;
+    </p>
+);
+
+const startSearching = (label) => (
+    <p className="text-base color-subtle">
+        Start typing to search {label.toLowerCase()}.
+    </p>
+);
+
+const errorMsg = (error) => (
+    <p className="text-base color-error">{error}</p>
+)
+
 export default function SearchOverlay() {
     const router = useRouter();
     const handleClose = () => closeOverlay(router);
@@ -40,7 +58,6 @@ export default function SearchOverlay() {
         error,
         recentSearches,
     } = useSearch({
-        endpoint: "/search",
         minLength: 1,
         debounceMs: 300,
         mapResponse: (data) => ({
@@ -61,7 +78,7 @@ export default function SearchOverlay() {
     const renderUserItem = (user) => (
         <div
             key={user.id}
-            className="flex items-center gap-8 py-4 border-b border-muted last:border-b-0">
+            className="flex items-center gap-8 py-4 border-b border-muted">
             {user.imageUrl ? (
                 <Image
                     src={user.imageUrl}
@@ -77,42 +94,72 @@ export default function SearchOverlay() {
             )}
             <div className="flex flex-col">
                 <span className="text-sm font-medium">{user.name}</span>
-                {user.position && (
-                    <span className="text-xs color-muted">{user.position}</span>
-                )}
             </div>
         </div>
-    )
+    );
 
     // Generic handler used by People, Services, Tags, etc.
     const renderPeopleList = (items, label) => {
-        if (isLoading) return <p className="text-sm color-muted/40">Searching...</p>
-        if (error) return <p className="text-base color-error">{error}</p>
+        const trimmedQuery = query.trim();
+        const hasItems = Array.isArray(items) && items.length > 0;
 
-        if (!items || items.length === 0) {
-            return (
-                <p className="text-base color-muted/50">
-                    No {label.toLowerCase()} found for &apos;{query.trim()}&apos;.
-                </p>
-            )
+        if (!hasItems) {
+            if (!trimmedQuery) {
+                return startSearching(label);
+            }
+            // First-time search in progress (no previous results) -> show searching
+            if (isLoading && !error && results === null) {
+                return isSearching();
+            }
+            // Error with no items -> show error
+            if (error) {
+                return errorMsg(error);
+            }
+
+            // At this point:
+            // - there IS a query
+            // - we are NOT loading
+            // - there is NO error
+            // - and there are NO items
+            // => show noResults for this tab
+            return noResults(trimmedQuery, label);
         }
-        return <div className="flex flex-col gap-4">{items.map(renderUserItem)}</div>;
+
+
+        if (error && !isLoading) {
+            return errorMsg(error);
+        }
+
+        // Only map when items is a non-empty array
+        return <div className="flex flex-col gap-4">
+            <section className="flex flex-col gap-8">
+                <p className="text-sm font-medium">People</p>
+                <div className="flex flex-col gap-4">
+                    {items.map(renderUserItem)}
+                </div>
+            </section></div>;
     };
 
     // Renderer for the "For you" tab with grouped selections
+    const forYouData = useMemo(() => results?.forYou || EMPTY_RESULTS.forYou, [results]);
+
     const renderForYou = () => {
-        const { people, collaborations, services, tags } = results?.forYou || EMPTY_RESULTS.forYou;
+        const { people, collaborations, services, tags } = forYouData;
         const hasAny = people.length || collaborations.length || services.length || tags.length;
+        const trimmedQuery = query.trim();
 
-        if (isLoading) return <p className="text-sm color-muted/40">Searching...</p>;
-        if (error) return <p className="text-sm color-error">{error}</p>;
+        if (!hasAny) {
+            if (!trimmedQuery) {
+                return null
+            };
+            if (isLoading && !error && results === null) {
+                return isSearching("For you")
+            };
 
-        if (!hasAny && activeTab) {
-            return (
-                <p className="text-base color-muted/50">
-                    No results found for &apos;{query.trim()}&apos;.
-                </p>
-            );
+            if (error) return errorMsg(error);
+
+            return noResults(trimmedQuery, "results")
+
         }
         return (
             <div className="flex flex-col gap-12">
@@ -129,11 +176,10 @@ export default function SearchOverlay() {
     };
 
     return (
-        <section className="fixed inset-0 bg-default z-50 p-12 flex flex-col gap-8" role='overlay'>
+        <section className="fixed inset-0 bg-default z-50 p-12 flex flex-col gap-8" role='dialog' aria-modal='true' aria-labelledby='search-overlay'>
             <div className="flex flex-col mb-8">
                 <div className="flex justify-between items-center gap-8">
-                    <div className="relative grow mb-4">
-
+                    <div className="relative grow mb-4" id="search-overlay">
                         {/* Search Input */}
                         <Input
                             icon={<Search size={18} stroke="var(--color-base-content)" strokeWidth={2} />}
@@ -142,7 +188,7 @@ export default function SearchOverlay() {
                             className="grow mb-4 py-6 bg-muted/30 border-0 placeholder:color-muted/90"
                             value={query}
                             onChange={(e) => setQuery(e.target.value)}
-                            autoFocus
+                            aria-label="Search input"
                         />
                         {query && (
                             <Button
@@ -181,8 +227,8 @@ export default function SearchOverlay() {
                     <TabContent>{renderForYou()}</TabContent>
                     <TabContent>{renderPeopleList(results?.people, 'People')}</TabContent>
                     <TabContent>{renderPeopleList(results?.collaborations, 'Collaborations')}</TabContent>
-                    <TabContent>{renderPeopleList(results?.tags, 'Tags')}</TabContent>
                     <TabContent>{renderPeopleList(results?.services, 'Services')}</TabContent>
+                    <TabContent>{renderPeopleList(results?.tags, 'Tags')}</TabContent>
                 </TabContentList>
             </Tabs>
             {/* Default state: no tab selected, show recent searches */}
@@ -192,7 +238,7 @@ export default function SearchOverlay() {
                     {recentSearches.length === 0 ? (
                         <p className="text-base color-muted/30">No recent searches</p>
                     ) : (
-                        <div className="flex flex-wrap gap-4">
+                        <div className="flex flex-col justify-start items-start gap-4">
                             {recentSearches.map((term) => (
                                 <Button
                                     key={term}
@@ -206,7 +252,8 @@ export default function SearchOverlay() {
                         </div>
                     )}
                 </div>
-            )}
+            )
+            }
         </section>
     );
 }

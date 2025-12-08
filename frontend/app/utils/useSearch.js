@@ -1,22 +1,24 @@
 'use client';
 import { useEffect, useRef, useState } from "react";
 
+const API_BASE = process.env.NEXT_PUBLIC_API_BASE || "";
+
 export function useSearch({
-        endpoint = "/search",
-        minLength = 1,
-        debounceMs = 300,
-        initialQuery = "",
-        enabled = true,
-        mapResponse,
+    endpoint = "/search/results",
+    minLength = 1,
+    debounceMs = 300,
+    initialQuery = "",
+    enabled = true,
+    mapResponse,
 } = {}) {
     // Current query string
     const [query, setQuery] = useState(initialQuery);
     // Raw or mapped results from API
     const [results, setResults] = useState(null);
-    //Loading and error states
+    // Loading and error states
     const [isLoading, setIsLoading] = useState(false);
     const [error, setError] = useState(null);
-    // Basic in-memory recent search historu
+    // Basic in-memory recent search history
     const [recentSearches, setRecentSearches] = useState([]);
     // Ref for debounce timer
     const debounceRef = useRef(null);
@@ -37,15 +39,15 @@ export function useSearch({
         setError(null);
 
         // Clear previous debounce timer (if any)
-        if (debounceRef.current) {
-            clearTimeout(debounceRef.current);
-        }
+        // if (debounceRef.current) {
+        //     clearTimeout(debounceRef.current);
+        // }
 
         // Debounce API call
         debounceRef.current = setTimeout(async () => {
             try {
                 const response = await fetch(
-                    `${endpoint}?query=${encodeURIComponent(trimmed)}`
+                    `${API_BASE}${endpoint}?query=${encodeURIComponent(trimmed)}`
                 )
 
                 if (!response.ok) {
@@ -53,7 +55,7 @@ export function useSearch({
                 }
 
                 const data = await response.json();
-                
+
                 // Allow the caller to remap into a custom shape
                 const mapped = mapResponse ? mapResponse(data, trimmed) : data;
                 setResults(mapped);
@@ -76,13 +78,14 @@ export function useSearch({
             if (debounceRef.current) {
                 clearTimeout(debounceRef.current);
             }
-        }
-    },[query, enabled, endpoint, minLength, debounceMs, mapResponse]);
+        };
+    }, [query, enabled, endpoint, minLength, debounceMs, mapResponse]);
 
     // Helper functions
     const clearResults = () => setResults(null);
     const clearHistory = () => setRecentSearches([]);
-    
+
+
     return {
         query,
         setQuery,

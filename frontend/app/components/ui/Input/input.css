@@ -8,7 +8,11 @@
   }
 
   .input-wrapper:has(.input-icon.left) .trvm-input {
-    @apply pl-28!;
+    @apply pl-28! left-8;
+  }
+
+    .input-wrapper:has(.input-icon.right) .trvm-input {
+    @apply pr-24! right-4;
   }
 
   .input-wrapper {
@@ -31,12 +35,12 @@
     @apply absolute top-1/2 -translate-y-1/2 color-muted;
   }
 
-  .input-icon.left {
+  /* .input-icon.left {
     @apply left-8;
   } 
 
   .input-icon.right {
     @apply right-8;
-  }
+  } */
 
 }
