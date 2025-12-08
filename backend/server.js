@@ -12,7 +12,7 @@ import lookingForTagsRouter from './modules/looking_for/router.js';
 import genreRouter from './modules/genres/router.js';
 import chatRouter from './modules/chat/router.js';
 import morgan from 'morgan';
-import { consoleLogger } from './logger.js';
+import { consoleLogger, logger } from './logger.js';
 
 // Redirect console logs to winston logger.
 console.log = (...args) => {
@@ -37,8 +37,12 @@ function runApp(opts) {
   const app = express();
   const PORT = process.env.PORT || 3300;
 
+  const stream = {
+    write: (message) => logger.info(message.trim()),
+  };
+
   // Set up HTTP request logging
-  app.use(morgan('dev'));
+  app.use(morgan('tiny', { stream }));
 
   // Before production this needs to be changed to a valid url, or something more secure.
   app.use(
