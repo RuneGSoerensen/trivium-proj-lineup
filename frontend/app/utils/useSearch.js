@@ -79,7 +79,7 @@ export function useSearch({
         }
     },[query, enabled, endpoint, minLength, debounceMs, mapResponse]);
 
-    // Helper funccitons
+    // Helper functions
     const clearResults = () => setResults(null);
     const clearHistory = () => setRecentSearches([]);
     
