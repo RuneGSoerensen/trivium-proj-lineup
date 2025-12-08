@@ -9,6 +9,7 @@ import Image from "next/image";
 import { Angry, ArrowLeftCircle, Apple, MoreVertical, MoonIcon, ChevronDownIcon } from "lucide-react";
 import React, { useEffect } from "react";
 import { useNavbar } from "@/utils/navbarContext";
+import User from "@/ui/User/User";
 
 const documentElement = typeof window !== "undefined" ? window.document.documentElement : null;
 const dataTheme = documentElement ? documentElement.getAttribute("data-theme") : null;
@@ -77,7 +78,7 @@ export default function TestPage() {
             </Tabs>
 
             <Input placeholder="Enter your name" label="Name" />
-
+            <User avatarUrl={null} isConnected={true} userName="Victoria" />
 
             <ServiceCard
                 avatarSrc="/icons/chat.svg"
