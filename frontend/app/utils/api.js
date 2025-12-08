@@ -181,6 +181,41 @@ export const createNote = async (noteData) => {
 };
 
 /**
+ * Create a new request (requires authentication)
+ */
+export const createRequest = async (requestData) => {
+  const response = await authenticatedFetch(`${API_BASE_URL}/requests`, {
+    method: "POST",
+    headers: {
+      "Content-Type": "application/json",
+    },
+    body: JSON.stringify(requestData),
+  });
+
+  if (!response.ok) {
+    let error;
+    try {
+      error = await response.json();
+    } catch (e) {
+      console.error("Failed to parse error response:", response.statusText);
+      throw new Error(`Failed to create request: ${response.statusText}`);
+    }
+    console.error("Backend error:", error);
+    const errorMessage =
+      error.message ||
+      (error.error ? JSON.stringify(error.error) : "Failed to create request");
+    throw new Error(errorMessage);
+  }
+
+  // Some endpoints may return 201/204 with no body
+  if (response.status === 201 || response.status === 204) {
+    return { success: true };
+  }
+
+  return response.json();
+};
+
+/**
  * Fetch notes for the authenticated user
  */
 export const fetchNotes = async () => {
