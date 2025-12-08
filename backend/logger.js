@@ -27,9 +27,6 @@ export const logger = winston.createLogger({
   ],
 });
 
-export const consoleLogger = function (level, message, ...params) {
-  logger.log(level, message);
-  if (params.length > 0) {
-    logger.log(level, JSON.stringify(params));
-  }
+export const consoleLogger = function (level, ...params) {
+  logger.log(level, [...params].join(' '));
 };
