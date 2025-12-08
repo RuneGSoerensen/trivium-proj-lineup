@@ -11,7 +11,7 @@ export const search = async (req, res) => {
     try {
         // Simple search in users table by name or email
         const result = await sql`
-            SELECT id, name, image_url, role
+            SELECT id, name, image_url
             FROM users
             WHERE name ILIKE ${'%' + query + '%'}
             OR email ILIKE ${'%' + query + '%'}
