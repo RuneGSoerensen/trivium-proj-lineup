@@ -3,7 +3,11 @@ import winston from 'winston';
 const LOG_DIR = process.env.LOG_DIR || 'logs';
 
 const now = new Date();
-const logFilename = now.toISOString();
+const logFilename = now
+  .toISOString()
+  .replace(/\..+/, '') // delete the dot and everything after;
+  .replace(/:/g, '-') // replace : with a -
+  .replace(/T/, '.'); // replace T with a dot
 
 export const logger = winston.createLogger({
   level: 'info', // minimum level to log
