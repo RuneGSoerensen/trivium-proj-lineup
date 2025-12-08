@@ -4,6 +4,7 @@ import NavLink from "@/comps/navigation/NavLink";
 import { useNavbar } from "@/utils/navbarContext";
 import { useEffect } from "react";
 import UserFeed from "@/comps/homepage/UserFeed";
+import Stories from "@/comps/homepage/stories";
 export default function Home() {
   const { setConfig } = useNavbar();
   useEffect(() => {
@@ -19,7 +20,7 @@ export default function Home() {
 
   return (
     <section className="space-y-12 w-full">
-      <div>Stories</div>
+      <Stories />
       <article className="h-1/3 w-full bg-alt full-bleed border! border-muted/5 border-x-0!">
         collab requests, cards
       </article>
