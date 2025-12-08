@@ -15,6 +15,8 @@ export default function CreateNotes({ userName, userImage }) {
   const [images, setImages] = useState([]);
   const [showImageUrlInput, setShowImageUrlInput] = useState(false);
   const [imageUrl, setImageUrl] = useState("");
+  const [isLoading, setIsLoading] = useState(false);
+  const [error, setError] = useState(null);
 
   const titleRef = useRef("");
   const contentRef = useRef("");
@@ -32,6 +34,18 @@ export default function CreateNotes({ userName, userImage }) {
   };
 
   const handlePost = async () => {
+    // Prevent multiple submissions
+    if (isLoading) return;
+
+    // Validate input
+    if (!titleRef.current.value.trim() || !contentRef.current.value.trim()) {
+      setError("Title and content are required");
+      return;
+    }
+
+    setIsLoading(true);
+    setError(null);
+
     const noteData = {
       title: titleRef.current.value,
       content: contentRef.current.value,
@@ -51,8 +65,12 @@ export default function CreateNotes({ userName, userImage }) {
       contentRef.current.value = "";
       setTags([]);
       setImages([]);
+      setError(null);
     } catch (error) {
       console.error("Failed to create note", error);
+      setError(error.message || "Failed to create note. Please try again.");
+    } finally {
+      setIsLoading(false);
     }
   };
 
@@ -182,9 +200,15 @@ export default function CreateNotes({ userName, userImage }) {
         />
       </div>
       <div className="self-end mt-10">
-        <Button variant="primary" size="sm" onClick={handlePost}>
-          Post
+        <Button
+          variant="primary"
+          size="sm"
+          onClick={handlePost}
+          disabled={isLoading}
+        >
+          {isLoading ? "Posting..." : "Post"}
         </Button>
+        {error && <p className="text-error text-sm mt-2">{error}</p>}
       </div>
     </div>
   );
