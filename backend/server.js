@@ -12,6 +12,21 @@ import lookingForTagsRouter from './modules/looking_for/router.js';
 import genreRouter from './modules/genres/router.js';
 import chatRouter from './modules/chat/router.js';
 import morgan from 'morgan';
+import { consoleLogger } from './logger.js';
+
+// Redirect console logs to winston logger.
+console.log = (...args) => {
+  consoleLogger('info', ...args);
+};
+console.info = (...args) => {
+  consoleLogger('info', ...args);
+};
+console.error = (...args) => {
+  consoleLogger('error', ...args);
+};
+console.warn = (...args) => {
+  consoleLogger('warn', ...args);
+};
 
 program.option('--authorize-as <string>', 'Override the authentication middleware.');
 program.parse();
@@ -37,8 +52,8 @@ function runApp(opts) {
 
   if (opts.authorizeAs) {
     if (uuidValidate(opts.authorizeAs)) {
-      console.log(
-        `WARNING: Fake authorization is enabled. All requests will be authorized as user ID: ${opts.authorizeAs}`
+      console.warn(
+        `Fake authorization is enabled. All requests will be authorized as user ID: ${opts.authorizeAs}`
       );
       app.use(fakeAuthAs(opts.authorizeAs));
     } else {
