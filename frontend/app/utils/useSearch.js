@@ -39,9 +39,9 @@ export function useSearch({
         setError(null);
 
         // Clear previous debounce timer (if any)
-        // if (debounceRef.current) {
-        //     clearTimeout(debounceRef.current);
-        // }
+        if (debounceRef.current) {
+            clearTimeout(debounceRef.current);
+        }
 
         // Debounce API call
         debounceRef.current = setTimeout(async () => {
