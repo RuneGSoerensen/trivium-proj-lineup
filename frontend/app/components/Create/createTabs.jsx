@@ -14,6 +14,8 @@ import CreateStory from "./createStory.jsx";
 import { getUserId } from "@/utils/auth";
 
 export default function CreateTabs() {
+  const API_BASE_URL =
+    process.env.NEXT_PUBLIC_DATABASE_URL || "http://localhost:3300";
   const [currentUserName, setCurrentUserName] = useState();
   const [currentUserImage, setCurrentUserImage] = useState(
     "/placeholder-image.png"
@@ -25,26 +27,27 @@ export default function CreateTabs() {
       try {
         const userId = getUserId();
 
-        if (userId) {
-          const url = `${process.env.NEXT_PUBLIC_DATABASE_URL}/users/${userId}`;
+        if (!userId) return;
 
-          const res = await fetch(url);
+        const url = `${API_BASE_URL}/users/${userId}`;
+        const res = await fetch(url);
 
-          if (res.ok) {
-            const data = await res.json();
+        if (res.ok) {
+          const data = await res.json();
 
-            setCurrentUserName(data.user.name);
-            setCurrentUserImage(
-              data.user.image_url || "/placeholder-image.png"
-            );
-          }
+          setCurrentUserName(data.user.name);
+          setCurrentUserImage(data.user.image_url || "/placeholder-image.png");
+        } else {
+          console.error(
+            `Failed to fetch user: ${res.status} ${res.statusText}`
+          );
         }
       } catch (error) {
         console.error("Error loading current user:", error);
       }
     };
     loadCurrentUser();
-  }, []);
+  }, [API_BASE_URL]);
 
   console.log("7. Rendering with userName:", currentUserName);
 
