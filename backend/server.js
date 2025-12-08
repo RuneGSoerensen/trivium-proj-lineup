@@ -11,6 +11,7 @@ import requestsRouter from './modules/requests/router.js';
 import lookingForTagsRouter from './modules/looking_for/router.js';
 import genreRouter from './modules/genres/router.js';
 import chatRouter from './modules/chat/router.js';
+import morgan from 'morgan';
 
 program.option('--authorize-as <string>', 'Override the authentication middleware.');
 program.parse();
@@ -20,6 +21,9 @@ runApp(program.opts());
 function runApp(opts) {
   const app = express();
   const PORT = process.env.PORT || 3300;
+
+  // Set up HTTP request logging
+  app.use(morgan('dev'));
 
   // Before production this needs to be changed to a valid url, or something more secure.
   app.use(
