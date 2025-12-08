@@ -44,6 +44,12 @@ function runApp(opts) {
   // Set up HTTP request logging
   app.use(morgan('tiny', { stream }));
 
+  // Set up custom error handler
+  app.use((err, _req, res, _next) => {
+    logger.error(err.stack);
+    res.status(err.status || 500).json({ error: err.message });
+  });
+
   // Before production this needs to be changed to a valid url, or something more secure.
   app.use(
     cors({
