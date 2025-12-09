@@ -6,7 +6,8 @@ import Image from "next/image";
 import { MessageCircleMore } from "lucide-react";
 import { Button } from "@/comps/ui/button/Button";
 import { useRouter } from "next/navigation";
-import { formatTimeAgo } from "@/lib/utils/timeAgo";
+import { formatTimeAgo } from "@/utils/timeAgo";
+import { authenticatedFetch } from "@/utils/auth";
 export default function RequestFeed() {
   const [requests, setRequests] = useState([]);
   const [loading, setLoading] = useState(true);
@@ -17,7 +18,7 @@ export default function RequestFeed() {
 
   const fetchRequests = async (currentOffset) => {
     try {
-      const res = await fetch(
+      const res = await authenticatedFetch(
         `${process.env.NEXT_PUBLIC_DATABASE_URL}/requests?offset=${currentOffset}`,
         {
           cache: "no-store",

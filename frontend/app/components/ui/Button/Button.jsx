@@ -58,6 +58,9 @@ export const Button = ({
   iconStroke = "medium",
   className,
   children,
+  dropdownClassName,
+  dropLeft = false,
+  dropRight = false,
   active = false, // toggle button state
   ...rest
 }) => {
@@ -135,7 +138,14 @@ export const Button = ({
       </button>
       {/* DROPDOWN CONTENT */}
       {isDropdown && open && (
-        <div className="absolute top-full left-0 mt-4 w-full bg-base-100 border border-muted rounded-lg shadow-lg p-8 z-50">
+        <div
+          className={clsx(
+            "absolute overflow-y-auto top-full wrap truncate mt-4 w-full bg-base-100 border border-muted rounded-lg shadow-lg p-8 z-25",
+            dropdownClassName,
+            dropLeft && "left-0",
+            dropRight && "right-0",
+          )}
+        >
           {rest.dropdownitems || (
             <p className="color-muted">No items provided</p>
           )}

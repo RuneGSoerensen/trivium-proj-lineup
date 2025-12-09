@@ -109,7 +109,7 @@
   /* SPACING SCALE (base unit: 1px = 0.0625rem) */
   --spacing: 0.0625rem;
   --nav-height: 78px;
-  --page-px:24px;
+  --page-px: 24px;
   --page-py: calc(var(--nav-height) + 14px);
 
   /* BORDER RADIUS */
@@ -151,7 +151,7 @@
   color: --alpha(var(--color-base-content) / 20%);
 }
 @utility color-subtle {
-  color: --alpha(var(--color-base-content) / 80%);
+  color: --alpha(var(--color-base-content) / 60%);
 }
 @utility color-brand {
   color: var(--color-primary);
@@ -334,6 +334,19 @@
   border: 1px solid --alpha(var(--color-base-content) / 50%);
 }
 
+.lesspadding {
+  padding-left: 0px !important;
+}
+
+/* createRequest rounded force */
+
+.switch.rounded-full {
+  border-radius: 9999px !important;
+}
+.switch.rounded-full::before {
+  border-radius: 9999px !important;
+}
+
 :root {
   --background: var(--color-base-100);
   --foreground: var(--color-base-content);
@@ -366,6 +379,10 @@ main.app-main {
 main.app-main:has(> section.full-page) {
   padding: calc(var(--page-py) * -1) calc(var(--page-px) * -1);
   height: 100%;
+}
+
+main.app-main:has(> section.services) {
+  --background: var(--color-base-200) !important;
 }
 
 html,
