@@ -145,42 +145,39 @@ export async function createNote(req, res) {
   const schema = z.object({
     title: z.string(),
     content: z.string(),
-    image_url: z.string().url().nullable().optional(),
-    people_user_ids: z.array(z.string().uuid()).default([]),
+    image_url: z.url().nullable().optional(),
+    people_user_ids: z.array(z.uuid()).default([]),
     tags: z.array(z.string()).default([]),
   });
 
   const result = schema.safeParse(req.body);
 
   if (!result.success) {
-    console.error('Validation error:', result.error.issues);
     return res.status(400).json({ error: result.error.issues });
   }
 
-  if (!userId) {
-    console.error('userId is undefined - authentication failed');
-    return res.status(401).json({ error: 'User not authenticated' });
-  }
+  // if (!userId) {
+  //   console.error('userId is undefined - authentication failed');
+  //   return res.status(401).json({ error: 'User not authenticated' });
+  // }
 
   const { title, content, image_url, people_user_ids, tags } = result.data;
   const imageUrlValue = image_url ?? null;
   let newNoteId;
 
-  try {
-    // Make sure all user IDs exist before creating any table rows.
-    for (const userId of people_user_ids) {
-      const [{ exists }] = await sql`
+  // Make sure all user IDs exist before creating any table rows.
+  for (const userId of people_user_ids) {
+    const [{ exists }] = await sql`
         SELECT EXISTS(SELECT id FROM users WHERE id = ${userId})
       `;
-      if (!exists) {
-        return res.status(400).json({ error: `User with ID ${userId} does not exist.` });
-      }
+    if (!exists) {
+      return res.status(400).json({ error: `User with ID ${userId} does not exist.` });
     }
+  }
 
-    await sql.begin(async (sql) => {
-      console.log('Starting transaction to insert note with userId:', userId);
-      // insert note row
-      const [{ id }] = await sql`
+  await sql.begin(async (sql) => {
+    // insert note row
+    const [{ id }] = await sql`
         INSERT INTO notes
           (
             user_id,
@@ -197,12 +194,11 @@ export async function createNote(req, res) {
           )
         RETURNING notes.id;
     `;
-      console.log('Note inserted with id:', id);
-      newNoteId = id;
+    newNoteId = id;
 
-      // insert the tagged people
-      if (people_user_ids && people_user_ids.length != 0) {
-        await sql`
+    // insert the tagged people
+    if (people_user_ids && people_user_ids.length != 0) {
+      await sql`
         INSERT INTO notes_tagged_people ${sql(
           people_user_ids.map((userId) => ({
             note_id: newNoteId,
@@ -210,30 +206,30 @@ export async function createNote(req, res) {
           }))
         )};
       `;
-      }
+    }
 
-      // insert the tag links, creating any missing tags
-      for (const tagName of tags) {
-        // Check if tag already exists
-        const [existingTag] = await sql`
+    // insert the tag links, creating any missing tags
+    for (const tagName of tags) {
+      // Check if tag already exists
+      const [existingTag] = await sql`
           SELECT id FROM note_tags
           WHERE name = ${tagName}
           LIMIT 1
       `;
 
-        const existingTagId = existingTag?.id;
+      const existingTagId = existingTag?.id;
 
-        if (existingTagId) {
-          // Existing tag found, use it
-          await sql`
+      if (existingTagId) {
+        // Existing tag found, use it
+        await sql`
             INSERT INTO note_tagged
             (note_id, tag_id)
             VALUES
             (${newNoteId}, ${existingTagId});
           `;
-        } else {
-          // Not found, create new first
-          const [{ id: newTagId }] = await sql`
+      } else {
+        // Not found, create new first
+        const [{ id: newTagId }] = await sql`
             INSERT INTO note_tags
             (name)
             VALUES
@@ -241,24 +237,18 @@ export async function createNote(req, res) {
             RETURNING id;
           `;
 
-          // ..then use it
-          await sql`
+        // ..then use it
+        await sql`
             INSERT INTO note_tagged
             (note_id, tag_id)
             VALUES
             (${newNoteId}, ${newTagId});
           `;
-        }
       }
-      console.log('Transaction completed, committing...');
-    });
+    }
+  });
 
-    console.log('Note creation completed successfully with id:', newNoteId);
-    res.status(201).json({ success: true, note_id: newNoteId });
-  } catch (err) {
-    console.error('createNote error:', err);
-    res.status(500).json({ error: 'Failed to create note', details: err.message });
-  }
+  res.status(201).json({ success: true, note_id: newNoteId });
 }
 
 export async function getAllNoteTags(req, res) {
