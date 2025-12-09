@@ -41,15 +41,18 @@ export default function Page() {
   ];
 
   return (
-    <main className="p-16 mx-auto bg-gray-200">
-      <div>
+    <section className="p-16 w-full full-bleed bg-alt">
+ {/* 
+ Consider using the ServiceCard component (with few tweaks)
+ Shorter and more manageable
+  */}
         {services.map((s) => (
           <article
             key={s.id}
-            className="bg-white  p-10 rounded-[24px] shadow-sm mb-16"
+            className="p-24 rounded-[24px] w-full shadow-sm mb-16 bg-default"
           >
-            <div className=" flex flex-col gap-4">
-              <div className="flex gap-8 items-center ">
+            <div className="flex flex-col gap-4">
+              <div className="flex gap-8 items-center">
                 <div className="w-20 h-20 rounded-full bg-gray-200 flex items-center justify-center ">
                   {s.provider[0]}
                 </div>
@@ -61,20 +64,19 @@ export default function Page() {
                   <Bookmark />
                 </div>
               </div>
-              <div>
-            
-              </div>
+             
               <hr className="text-gray-200" />
-              <Link href={`/services/${s.id}`} className="block flex flex-col">
+              <Link href={`/services/${s.id}`} className="flex flex-col">
                 <h3 className="text-lg font-semibold mb-3">{s.title}</h3>
-
-                <Image
-                  src={s.image_url}
-                  alt={s.title}
-                  width={500}
-                  height={200}
-                  className="rounded-[24] overflow-hidden mb-3 self-center "
-                ></Image>
+                <div className="flex justify-center mb-3">
+                  <Image
+                    src={s.image_url}
+                    alt={s.title}
+                    width={200}
+                    height={200}
+                    className="rounded-[24px] overflow-hidden mb-3 self-center w-full h-full object-cover"
+                  />
+                </div>
 
                 <p className="text-sm text-gray-700 line-clamp-3 truncate">
                   {s.excerpt}
@@ -90,7 +92,7 @@ export default function Page() {
             </div>
           </article>
         ))}
-      </div>
-    </main>
+
+    </section>
   );
 }

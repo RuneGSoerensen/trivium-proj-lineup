@@ -3,7 +3,6 @@
 import { useState } from "react";
 import { useRouter } from "next/navigation";
 import { signInWithPassword } from "@/utils/supabaseClient";
-import { setAuthToken } from "@/utils/auth";
 import Input from "@/components/ui/Input/Input";
 import { Button } from "@/components/ui/Button/Button";
 
@@ -20,31 +19,24 @@ export default function LoginPage() {
     setLoading(true);
 
     try {
-      const {
-        user,
-        session,
-        error: signInError,
-      } = await signInWithPassword(email, password);
+      // Use Supabase Auth to sign in
+      const { user, error: authError } = await signInWithPassword(
+        email,
+        password
+      );
 
-      if (signInError) {
-        setError(signInError.message);
-        setLoading(false);
+      if (authError) {
+        setError(authError.message);
         return;
       }
 
-      if (user && session) {
-        // Store JWT token and userId in localStorage
-        setAuthToken(session.access_token, user.id);
-        console.log("Login successful!", {
-          userId: user.id,
-          email: user.email,
-        });
-        // Redirect to home or dashboard
+      if (user) {
         router.push("/");
       }
     } catch (err) {
       console.error("Login error:", err);
-      setError("An unexpected error occurred. Please try again.");
+      setError("An error occurred. Please try again.");
+    } finally {
       setLoading(false);
     }
   };

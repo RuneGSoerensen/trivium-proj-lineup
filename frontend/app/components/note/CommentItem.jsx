@@ -3,6 +3,7 @@
 import { useState } from "react";
 import Image from "next/image";
 import { Heart, Reply, ArrowUp } from "lucide-react";
+import { getUserId } from "@/utils/auth";
 
 export const CommentItem = ({
   comment,
@@ -18,7 +19,7 @@ export const CommentItem = ({
     process.env.NEXT_PUBLIC_DATABASE_URL || "http://localhost:3300";
 
   const handleReplySubmit = async () => {
-    const userId = localStorage.getItem("userId");
+    const userId = getUserId();
     if (!userId) {
       alert("You must be logged in to reply.");
       return;
@@ -27,7 +28,7 @@ export const CommentItem = ({
     if (!replyText.trim()) return;
 
     try {
-      await fetch(`${apiBase}/notes/comment`, {
+      await authenticatedFetch(`${apiBase}/notes/comment`, {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({
@@ -48,14 +49,14 @@ export const CommentItem = ({
   };
 
   const handleCommentLike = async () => {
-    const userId = localStorage.getItem("userId");
+    const userId = getUserId();
     if (!userId) {
       alert("You must be logged in to like comments.");
       return;
     }
 
     try {
-      await fetch(`${apiBase}/notes/comment/${comment.id}/like`, {
+      await authenticatedFetch(`${apiBase}/notes/comment/${comment.id}/like`, {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ user_id: userId }),
@@ -75,9 +76,8 @@ export const CommentItem = ({
       {/* Comment Content */}
       <div className="flex-1">
         <div
-          className={` ${
-            depth > 0 ? "border-l border-gray-300" : ""
-          } px-3 py-2`}
+          className={` ${depth > 0 ? "border-l border-gray-300" : ""
+            } px-3 py-2`}
         >
           <div className="flex gap-4">
             <div className="w-20 h-20 rounded-full overflow-hidden ">

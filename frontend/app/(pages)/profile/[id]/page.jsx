@@ -2,6 +2,7 @@
 
 import { useState, useEffect } from "react";
 import { useParams, useRouter } from "next/navigation";
+import { authenticatedFetch } from "@/utils/auth.js";
 import {
   TabContent,
   TabContentList,
@@ -12,6 +13,7 @@ import {
 import ProfileHeader from "@/components/profile/ProfileHeader";
 import ProfileAbout from "@/components/profile/ProfileAbout";
 import ProfileNotes from "@/components/profile/ProfileNotes";
+import { getUserId } from "@/utils/auth";
 
 const HARD_ARTISTS = [
   "https://images.unsplash.com/photo-1544005313-94ddf0286df2?w=200&q=80",
@@ -43,23 +45,23 @@ export default function ProfilePage() {
 
   const loadProfile = async () => {
     try {
-      const res = await fetch(
+      const res = await authenticatedFetch(
         `${process.env.NEXT_PUBLIC_DATABASE_URL}/users/${params.id}`
       );
       if (!res.ok) throw new Error("Failed to load user");
 
       const { user: userData } = await res.json();
-      const currentUser = localStorage.getItem("userId");
+      const currentUser = getUserId();
       setCurrentUserId(currentUser);
 
-      const statsRes = await fetch(
+      const statsRes = await authenticatedFetch(
         `${process.env.NEXT_PUBLIC_DATABASE_URL}/connections/${params.id}/stats`
       );
       const statsData = (await statsRes.json()) || {};
 
       let isFollowing = false;
       if (currentUser) {
-        const followingRes = await fetch(
+        const followingRes = await authenticatedFetch(
           `${process.env.NEXT_PUBLIC_DATABASE_URL}/connections/${currentUser}/following/${params.id}`
         );
         isFollowing = followingRes.ok;
@@ -78,7 +80,7 @@ export default function ProfilePage() {
             : HARD_VIDEOS,
         past_collaborations:
           userData.past_collaborations &&
-          userData.past_collaborations.length > 0
+            userData.past_collaborations.length > 0
             ? userData.past_collaborations
             : HARD_PAST_COLLABS,
         followers_count: statsData.followers_count || 0,
@@ -87,7 +89,7 @@ export default function ProfilePage() {
         is_own_profile: currentUser === params.id,
       });
 
-      const notesRes = await fetch(
+      const notesRes = await authenticatedFetch(
         `${process.env.NEXT_PUBLIC_DATABASE_URL}/notes/user/${params.id}`
       );
       if (notesRes.ok) {
@@ -111,7 +113,7 @@ export default function ProfilePage() {
 
     try {
       if (profile?.is_following) {
-        await fetch(
+        await authenticatedFetch(
           `${process.env.NEXT_PUBLIC_DATABASE_URL}/connections/unfollow`,
           {
             method: "DELETE",
@@ -123,7 +125,7 @@ export default function ProfilePage() {
           }
         );
       } else {
-        await fetch(
+        await authenticatedFetch(
           `${process.env.NEXT_PUBLIC_DATABASE_URL}/connections/follow`,
           {
             method: "POST",
@@ -141,8 +143,6 @@ export default function ProfilePage() {
       console.error("Error toggling follow:", error);
     }
   };
-
-  // Note interactions (like/comment) are now handled inside the NoteCard component
 
   if (loading) {
     return (

@@ -11,11 +11,12 @@ import {
 } from "lucide-react";
 import { Tag } from "@/ui/Tag/Tag";
 import { CommentItem } from "./CommentItem";
+import { getUserId } from "@/utils/auth";
 
 export default function NoteCard({ note, showComments = false }) {
   const [commentText, setCommentText] = useState(""); // main input
   const [commentsOpen, setCommentsOpen] = useState(showComments);
-  const [localLiked, setLocalLiked] = useState(note.is_liked);
+  const [localLiked, setLocalLiked] = useState(note.is_liked || false);
   const [localLikesCount, setLocalLikesCount] = useState(
     parseInt(note.likes_count ?? 0)
   );
@@ -27,7 +28,7 @@ export default function NoteCard({ note, showComments = false }) {
   const refreshNoteData = async () => {
     try {
       // fetch all notes for the note owner and find this note
-      const res = await fetch(`${apiBase}/notes/user/${note.user_id}`);
+      const res = await authenticatedFetch(`${apiBase}/notes/user/${note.user_id}`);
       if (!res.ok) return;
       const notes = await res.json();
       const updated = notes.find((n) => n.id === note.id);
@@ -41,7 +42,7 @@ export default function NoteCard({ note, showComments = false }) {
   };
 
   const handleLike = async () => {
-    const userId = localStorage.getItem("userId");
+    const userId = getUserId();
     if (!userId) {
       alert("You must be logged in to like.");
       return;
@@ -63,7 +64,7 @@ export default function NoteCard({ note, showComments = false }) {
 
   // MAIN COMMENT SEND
   const handleCommentSubmit = async () => {
-    const userId = localStorage.getItem("userId");
+    const userId = getUserId();
     if (!userId) {
       alert("You must be logged in to comment.");
       return;
