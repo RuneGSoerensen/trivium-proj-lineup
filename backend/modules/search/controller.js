@@ -23,6 +23,7 @@ export const search = async (req, res) => {
             id: user.id,
             name: user.name,
             imageUrl: user.image_url,
+            // user.bio? show their title e.g. 'Guitarist', 'Manager' etc
         }));
 
         return res.status(200).json(mapped);
