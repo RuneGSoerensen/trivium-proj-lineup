@@ -64,7 +64,7 @@ export default function RequestFeed() {
     }
   };
 
-  console.log("RequestFeed requests:", requests);
+
   const router = useRouter();
 
   const handleReadMore = (id) => {

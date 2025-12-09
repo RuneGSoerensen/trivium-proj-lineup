@@ -1,7 +1,6 @@
 "use client";
 import NoteCard from "../note/noteCard";
 import { useState, useEffect } from "react";
-
 export default function UserFeed() {
   const [notes, setNotes] = useState([]);
   const [loading, setLoading] = useState(true);
