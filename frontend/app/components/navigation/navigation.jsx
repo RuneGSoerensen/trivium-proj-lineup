@@ -1,18 +1,31 @@
 "use client";
 
 import { usePathname } from "next/navigation";
+import { useState, useEffect } from "react";
 import NavLink from "./NavLink";
 import { useBottomNav } from "@/utils/navbarContext";
-
-const links = [
-  { href: "/", label: "Home", icon: "/icons/Home.svg" },
-  { href: "/services", label: "Services", icon: "/icons/Services.svg" },
-  { href: "/create", label: "Create", icon: "/icons/Create.svg" },
-  { href: "/chat", label: "Chats", icon: "/icons/Chat.svg" },
-  { href: "/profile", label: "Profile", icon: "/icons/Profile.svg" },
-];
+import { getUserId } from "@/utils/auth";
 
 export default function Navigation() {
+  // Read userId only on the client after mount to avoid SSR/CSR hydration mismatch
+  const [userId, setUserId] = useState(null);
+  useEffect(() => {
+    setUserId(getUserId());
+  }, []);
+
+  // Base links that are safe to render on the server
+  const links = [
+    { href: "/", label: "Home", icon: "/icons/Home.svg" },
+    { href: "/services", label: "Services", icon: "/icons/Services.svg" },
+    { href: "/create", label: "Create", icon: "/icons/Create.svg" },
+    { href: "/chat", label: "Chats", icon: "/icons/Chat.svg" },
+  ];
+
+  // Only add the profile link after we have a userId on the client
+  if (userId) {
+    links.push({ href: `/profile/${userId}`, label: "Profile", icon: "/icons/Profile.svg" });
+  }
+
   const pathname = usePathname();
   const { bottomNavConfig } = useBottomNav();
   if (!bottomNavConfig.visible) return null;
@@ -24,7 +37,6 @@ export default function Navigation() {
   };
 
   return (
-    
     // Nav container
     // Remove Change color secondary darkgrey
     <nav className="fixed bottom-28 left-0 right-0 flex w-full justify-center">

@@ -1,4 +1,4 @@
-'use client';
+"use client";
 import React, { createContext, Fragment, useContext, useState } from "react";
 import clsx from "clsx";
 
@@ -35,7 +35,15 @@ const Tabs = ({ children, defaultIndex = 0 }) => {
   );
 };
 
-const TabItem = ({ children, disabled = false, onClick, className, index, ...rest }) => {
+const TabItem = ({
+  children,
+  disabled = false,
+  onClick,
+  className,
+  index,
+  activeClassName,
+  ...rest
+}) => {
   const { activeIndex, setActiveIndex } = useTabsContext();
   const isActive = index === activeIndex;
   const variant = disabled ? "disabled" : isActive ? "active" : "default";
@@ -43,7 +51,13 @@ const TabItem = ({ children, disabled = false, onClick, className, index, ...res
   return (
     <button
       type="button"
-      className={clsx("trvm-tab", variantClass(variant), className, variant)}
+      className={clsx(
+        "trvm-tab",
+        variantClass(variant),
+        className,
+        variant,
+        isActive && activeClassName
+      )}
       onClick={
         disabled
           ? undefined
@@ -59,7 +73,13 @@ const TabItem = ({ children, disabled = false, onClick, className, index, ...res
   );
 };
 
-const TabsList = ({ children, variant, className = "tabs--list", ...rest }) => {
+const TabsList = ({
+  children,
+  variant,
+  className = "tabs--list",
+  hasSeparator = true,
+  ...rest
+}) => {
   const items = React.Children.toArray(children);
   return (
     <div
@@ -76,7 +96,9 @@ const TabsList = ({ children, variant, className = "tabs--list", ...rest }) => {
         return (
           <Fragment key={index}>
             {React.cloneElement(child, { index })}
-            {index < items.length - 1 && <div className="tab-separator" />}
+            {hasSeparator && index < items.length - 1 && (
+              <div className="tab-separator" />
+            )}
           </Fragment>
         );
       })}
@@ -101,12 +123,13 @@ const TabContentList = ({ children, className }) => {
     <div className={className}>
       {items.map((child, index) => {
         if (!React.isValidElement(child)) return null;
-        return React.cloneElement(child, { isActive: index === activeIndex, key: index });
+        return React.cloneElement(child, {
+          isActive: index === activeIndex,
+          key: index,
+        });
       })}
     </div>
   );
 };
 
 export { Tabs, TabsList, TabItem, TabContent, TabContentList };
-
-

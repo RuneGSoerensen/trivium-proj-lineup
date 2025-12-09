@@ -1,7 +1,7 @@
 "use client";
 import NoteCard from "../note/noteCard";
 import { useState, useEffect } from "react";
-
+import { authenticatedFetch } from "@/utils/auth.js";
 export default function UserFeed() {
   const [notes, setNotes] = useState([]);
   const [loading, setLoading] = useState(true);
@@ -12,7 +12,7 @@ export default function UserFeed() {
 
   const fetchNotes = async (currentOffset) => {
     try {
-      const res = await fetch(
+      const res = await authenticatedFetch(
         `${process.env.NEXT_PUBLIC_DATABASE_URL}/notes/for-you?offset=${currentOffset}`,
         {
           cache: "no-store",
@@ -59,7 +59,7 @@ export default function UserFeed() {
     }
   };
 
-  console.log("UserFeed notes:", notes);
+
 
   if (loading) return <div>Loading...</div>;
   if (error) return <div>Error: {error}</div>;
