@@ -199,7 +199,7 @@ export default function CreateNotes({ userName, userImage }) {
           className="w-full bg-default color-default border-muted rounded-lg px-12 py-14 placeholder:color-muted focus:ring-1 focus:ring-brand transition-all duration-100"
         />
       </div>
-      <div className="self-end mt-10">
+      <div className="self-end mt-10 mb-[50%]">
         <Button
           variant="primary"
           size="sm"

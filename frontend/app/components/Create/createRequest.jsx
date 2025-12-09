@@ -185,19 +185,19 @@ export default function CreateNotes({ userName, userImage }) {
           variant="secondary"
           icon={<Plus />}
           size="md"
-          className="mb-20 w-fit border-none lesspadding focus:bg-transparent active:bg-transparent"
+          className="w-fit border-none lesspadding focus:bg-transparent active:bg-transparent"
           onClick={() => setShowGenreInput(!showGenreInput)}
         >
           Add genres
         </Button>
 
         {/* Display selected genres */}
-        <div className="flex flex-wrap gap-2 mb-4">
+        <div className="flex flex-wrap gap-2">
           {genres.map((genre) => (
             <Tag
               key={genre}
               colorScheme="info"
-              className="px-8 py-2 flex items-center gap-1"
+              className="px-8 py-2 flex items-center gap-1 mb-5"
             >
               {genre}
               <button
@@ -213,7 +213,7 @@ export default function CreateNotes({ userName, userImage }) {
 
         {/* Genre input */}
         {showGenreInput && (
-          <div className="mb-16">
+          <div className="mb-4">
             <MultiSelectInput
               options={allGenres}
               values={genres}
@@ -226,35 +226,36 @@ export default function CreateNotes({ userName, userImage }) {
       </div>
 
       <div>
-        <Input className="mt-15" ref={locationRef} placeholder="Location.." />
+        <Input className="" ref={locationRef} placeholder="Location.." />
       </div>
 
-      <div className="flex items-center gap-1 mt-15">
-        <input
-          type="checkbox"
-          className="switch switch-outline switch-secondary rounded-full"
-          id="switchSecondary2"
-          checked={isPaid}
-          onChange={(e) => setIsPaid(e.target.checked)}
-        />
-        <label
-          className="label-text text-base rounded-full"
-          htmlFor="switchSecondary2"
-        >
-          {isPaid ? "Paid opportunity" : "Not paid"}
-        </label>
-      </div>
-
-      <div className="self-end mt-10">
-        <Button
-          variant="primary"
-          size="sm"
-          onClick={handlePost}
-          disabled={isLoading}
-        >
-          {isLoading ? "Posting..." : "Post"}
-        </Button>
-        {error && <p className="text-error text-sm mt-2">{error}</p>}
+      <div className="flex items-center mt-15 mb-[50%] gap-4">
+        <div className="self-start flex flex-row items-center gap-4">
+          <input
+            type="checkbox"
+            className="switch switch-outline switch-secondary rounded-full"
+            id="switchSecondary2"
+            checked={isPaid}
+            onChange={(e) => setIsPaid(e.target.checked)}
+          />
+          <label
+            className="label-text text-base rounded-full"
+            htmlFor="switchSecondary2"
+          >
+            {isPaid ? "Paid opportunity" : "Not paid"}
+          </label>
+        </div>
+        <div className="self-end ml-auto">
+          <Button
+            variant="primary"
+            size="sm"
+            onClick={handlePost}
+            disabled={isLoading}
+          >
+            {isLoading ? "Posting..." : "Post"}
+          </Button>
+          {error && <p className="text-error text-sm mt-2">{error}</p>}
+        </div>
       </div>
     </div>
   );
