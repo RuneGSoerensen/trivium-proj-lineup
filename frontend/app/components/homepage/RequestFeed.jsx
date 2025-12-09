@@ -5,6 +5,7 @@ import { formatTimeAgo } from "@/utils/timeAgo";
 import Image from "next/image";
 import { Button } from "@/comps/ui/button/Button";
 import { useRouter } from "next/navigation";
+import { authenticatedFetch } from "@/utils/auth.js";
 export default function RequestFeed() {
   const [requests, setRequests] = useState([]);
   const [loading, setLoading] = useState(true);
@@ -13,7 +14,7 @@ export default function RequestFeed() {
 
   const fetchRequests = async (currentOffset) => {
     try {
-      const res = await fetch(
+      const res = await authenticatedFetch(
         `${process.env.NEXT_PUBLIC_DATABASE_URL}/requests/requestsFeed`,
         {
           cache: "no-store",
@@ -44,7 +45,7 @@ export default function RequestFeed() {
     loadInitialRequests();
   }, []);
 
-  console.log("RequestFeed requests:", requests);
+  
   const router = useRouter();
   const handleClick = () => {
     router.push("/requests");

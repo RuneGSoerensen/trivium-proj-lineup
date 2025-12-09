@@ -2,6 +2,7 @@
 
 import { useState, useEffect } from "react";
 import { useParams, useRouter } from "next/navigation";
+import { authenticatedFetch } from "@/utils/auth.js";
 import {
   TabContent,
   TabContentList,
@@ -43,7 +44,7 @@ export default function ProfilePage() {
 
   const loadProfile = async () => {
     try {
-      const res = await fetch(
+      const res = await authenticatedFetch(
         `${process.env.NEXT_PUBLIC_DATABASE_URL}/users/${params.id}`
       );
       if (!res.ok) throw new Error("Failed to load user");
@@ -52,14 +53,14 @@ export default function ProfilePage() {
       const currentUser = localStorage.getItem("userId");
       setCurrentUserId(currentUser);
 
-      const statsRes = await fetch(
+      const statsRes = await authenticatedFetch(
         `${process.env.NEXT_PUBLIC_DATABASE_URL}/connections/${params.id}/stats`
       );
       const statsData = (await statsRes.json()) || {};
 
       let isFollowing = false;
       if (currentUser) {
-        const followingRes = await fetch(
+        const followingRes = await authenticatedFetch(
           `${process.env.NEXT_PUBLIC_DATABASE_URL}/connections/${currentUser}/following/${params.id}`
         );
         isFollowing = followingRes.ok;
@@ -87,7 +88,7 @@ export default function ProfilePage() {
         is_own_profile: currentUser === params.id,
       });
 
-      const notesRes = await fetch(
+      const notesRes = await authenticatedFetch(
         `${process.env.NEXT_PUBLIC_DATABASE_URL}/notes/user/${params.id}`
       );
       if (notesRes.ok) {
@@ -111,7 +112,7 @@ export default function ProfilePage() {
 
     try {
       if (profile?.is_following) {
-        await fetch(
+        await authenticatedFetch(
           `${process.env.NEXT_PUBLIC_DATABASE_URL}/connections/unfollow`,
           {
             method: "DELETE",
@@ -123,7 +124,7 @@ export default function ProfilePage() {
           }
         );
       } else {
-        await fetch(
+        await authenticatedFetch(
           `${process.env.NEXT_PUBLIC_DATABASE_URL}/connections/follow`,
           {
             method: "POST",

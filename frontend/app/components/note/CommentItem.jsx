@@ -27,7 +27,7 @@ export const CommentItem = ({
     if (!replyText.trim()) return;
 
     try {
-      await fetch(`${apiBase}/notes/comment`, {
+      await authenticatedFetch(`${apiBase}/notes/comment`, {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({
@@ -55,7 +55,7 @@ export const CommentItem = ({
     }
 
     try {
-      await fetch(`${apiBase}/notes/comment/${comment.id}/like`, {
+      await authenticatedFetch(`${apiBase}/notes/comment/${comment.id}/like`, {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ user_id: userId }),

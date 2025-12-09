@@ -27,7 +27,7 @@ export default function NoteCard({ note, showComments = false }) {
   const refreshNoteData = async () => {
     try {
       // fetch all notes for the note owner and find this note
-      const res = await fetch(`${apiBase}/notes/user/${note.user_id}`);
+      const res = await authenticatedFetch(`${apiBase}/notes/user/${note.user_id}`);
       if (!res.ok) return;
       const notes = await res.json();
       const updated = notes.find((n) => n.id === note.id);
