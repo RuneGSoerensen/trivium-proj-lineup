@@ -73,11 +73,11 @@ export default function EditProfilePage() {
   useEffect(() => {
     const loadOptions = async () => {
       try {
-        const genresRes = await fetch(
+        const genresRes = await authenticatedFetch(
           `${process.env.NEXT_PUBLIC_DATABASE_URL}/genres`
         );
 
-        const tagsRes = await fetch(
+        const tagsRes = await authenticatedFetch(
           `${process.env.NEXT_PUBLIC_DATABASE_URL}/looking_for_tags`
         );
 
@@ -114,7 +114,7 @@ export default function EditProfilePage() {
       }
       setUserId(currentUser);
 
-      const res = await fetch(
+      const res = await authenticatedFetch(
         `${process.env.NEXT_PUBLIC_DATABASE_URL}/users/${currentUser}`
       );
       if (!res.ok) throw new Error("Failed to load profile");
@@ -167,7 +167,7 @@ export default function EditProfilePage() {
 
     setSaving(true);
     try {
-      const res = await fetch(
+      const res = await authenticatedFetch(
         `${process.env.NEXT_PUBLIC_DATABASE_URL}/users/${userId}`,
         {
           method: "PATCH",
