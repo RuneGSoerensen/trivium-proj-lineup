@@ -59,7 +59,7 @@ export default function UserFeed() {
     }
   };
 
-  console.log("UserFeed notes:", notes);
+
 
   if (loading) return <div>Loading...</div>;
   if (error) return <div>Error: {error}</div>;

@@ -26,7 +26,7 @@ export default function Stories() {
     };
     loadStories();
   }, []);
-  console.log("Stories data:", stories);
+
 
   return (
     <section className="w-full flex gap-4 overflow-x-auto py-4 px-2">
