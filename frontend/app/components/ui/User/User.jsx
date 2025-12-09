@@ -30,7 +30,7 @@ const User = ({ avatarUrl, userName, userTitle = 'User Title', connected = false
                 />
 
                 <div className="user-info ml-4">
-                    <h2 className="text-base font-medium color-subtle">{userName}</h2>
+                    <h2 className="text-base font-medium color-muted/50">{userName}</h2>
                     <p className='text-sm color-subtle'>{userTitle}</p> {/* Placeholder until we figure out what to do */}
                 </div>
             </div>
