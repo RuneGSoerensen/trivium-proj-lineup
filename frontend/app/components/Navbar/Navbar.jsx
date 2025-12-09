@@ -40,7 +40,7 @@ export default function Navbar() {
 
             <nav className={`flex items-center justify-between w-full h-(--nav-height) px-24 py-18 ${config.backgroundColor} fixed top-0 left-0 right-0 z-50`}>
                 {config.showBack ? (
-                    <Button type="icon" variant="ghost" iconSize="xl" icon={<ChevronLeftIcon />} className="color-default" onClick={() => router.back()} aria-label="Back" />
+                    <Button type="icon" variant="ghost" iconSize="xl" icon={<ChevronLeftIcon />} className="bg-transparent color-default" onClick={() => router.back()} aria-label="Back" />
                 ) : config.showLogo ? (
                         <Image
                             src="/images/lineup-type-logo.svg"
