@@ -97,6 +97,96 @@ export async function createRequest(req, res) {
   res.sendStatus(201);
 }
 
+export async function getAllRequests(req, res) {
+  const offset = parseInt(req.query.offset) || 0;
+  const requests = await sql`
+SELECT 
+    req.*,
+
+    -- Creator of the request
+    json_build_object(
+        'id', u.id,
+        'name', u.name,
+        'image_url', u.image_url
+    ) AS created_by,
+
+
+
+    -- Tagged people on request
+    (
+        SELECT json_agg(
+            json_build_object(
+                'id', tu.id,
+                'name', tu.name,
+                'image_url', tu.image_url
+            )
+        )
+        FROM requests_tagged_people rtp
+        JOIN users tu ON tu.id = rtp.user_id
+        WHERE rtp.request_id = req.id
+    ) AS tagged_people
+
+FROM requests req
+JOIN users u ON u.id = req.user_id
+ORDER BY req.created_at DESC
+LIMIT 5 
+OFFSET ${offset};
+
+  `;
+  res.status(200).json(requests);
+}
+
+export async function getRequestById(req, res) {
+  const { id } = req.params;
+  const [request] = await sql`
+   SELECT 
+    req.*,
+
+    -- Creator / author of the request
+    json_build_object(
+        'id', u.id,
+        'name', u.name,
+        'image_url', u.image_url
+    ) AS created_by,
+
+    -- Genres attached to request
+    (
+        SELECT json_agg(
+            json_build_object(
+                'id', g.id,
+                'name', g.name
+            )
+        )
+        FROM requests_genres rg
+        JOIN genres g ON g.id = rg.genre_id
+        WHERE rg.request_id = req.id
+    ) AS genres,
+
+    -- Tagged people on request
+    (
+        SELECT json_agg(
+            json_build_object(
+                'id', tu.id,
+                'name', tu.name,
+                'image_url', tu.image_url
+            )
+        )
+        FROM requests_tagged_people rtp
+        JOIN users tu ON tu.id = rtp.user_id
+        WHERE rtp.request_id = req.id
+    ) AS tagged_people
+
+FROM requests req
+JOIN users u ON u.id = req.user_id
+WHERE req.id = ${id}
+ORDER BY req.created_at DESC;
+  `;
+  if (!request) {
+    return res.status(404).json({ error: 'Request not found' });
+  }
+  res.status(200).json(request);
+}
+
 export async function getFeedRequests(req, res) {
   const id = req.userId;
   const requests = await sql`

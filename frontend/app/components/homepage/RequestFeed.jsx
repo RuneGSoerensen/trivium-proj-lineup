@@ -3,7 +3,7 @@ import { useEffect, useState } from "react";
 import { Bookmark } from "lucide-react";
 import { formatTimeAgo } from "@/utils/timeAgo";
 import Image from "next/image";
-import { Button } from "@/comps/ui/button/Button";
+import { Button } from "@/comps/ui/Button/Button";
 import { useRouter } from "next/navigation";
 import { authenticatedFetch } from "@/utils/auth.js";
 export default function RequestFeed() {
@@ -45,7 +45,7 @@ export default function RequestFeed() {
     loadInitialRequests();
   }, []);
 
-  
+
   const router = useRouter();
   const handleClick = () => {
     router.push("/requests");
