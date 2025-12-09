@@ -38,7 +38,6 @@ export default function Page() {
 
   if (loading) return <div>Loading...</div>;
   if (error) return <div>Error: {error}</div>;
-  console.log("Request page request:", request);
 
   if (!request) return <div>No request found</div>;
 
