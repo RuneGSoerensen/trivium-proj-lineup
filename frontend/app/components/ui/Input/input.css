@@ -4,7 +4,19 @@
   -------------------------------- */
 
   .trvm-input {
-    @apply input w-full h-full bg-default color-default border-muted rounded-lg px-12 py-14 placeholder:color-muted focus:ring-1 focus:ring-brand transition-all duration-100;
+    @apply w-full h-full rounded-lg px-12 py-14 transition-all duration-100;
+  }
+
+  .input-wrapper:has(.input-icon.left) .trvm-input {
+    @apply pl-28! left-8;
+  }
+
+    .input-wrapper:has(.input-icon.right) .trvm-input {
+    @apply pr-24! right-4;
+  }
+
+  .input-wrapper {
+    @apply relative input w-full color-default bg-default border-muted rounded-lg focus:ring-1 focus:ring-brand;
   }
 
   .input--error {
@@ -18,5 +30,17 @@
   .input--disabled {
     @apply bg-muted color-muted cursor-not-allowed pointer-events-none;
   }
+
+  .input-icon{
+    @apply absolute top-1/2 -translate-y-1/2 color-muted;
+  }
+
+  /* .input-icon.left {
+    @apply left-8;
+  } 
+
+  .input-icon.right {
+    @apply right-8;
+  } */
 
 }

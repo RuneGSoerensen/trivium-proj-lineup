@@ -7,7 +7,7 @@
       "@/comps/*": ["../app/components/*"],
       "@/ui/*": ["../app/components/ui/*"],
       "@/utils/*": ["../app/utils/*"],
-      "@/styles/*": ["../styles/*"]
+      "@/styles/*": ["../app/styles/*"]
     }
   }
 }

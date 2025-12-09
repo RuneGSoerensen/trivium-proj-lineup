@@ -10,6 +10,7 @@ import requestsRouter from './modules/requests/router.js';
 import lookingForTagsRouter from './modules/looking_for/router.js';
 import genreRouter from './modules/genres/router.js';
 import chatRouter from './modules/chat/router.js';
+import searchRouter from './modules/search/router.js';
 import storiesRouter from './modules/stories/router.js';
 import morgan from 'morgan';
 import { consoleLogger, logger } from './logger.js';
@@ -28,7 +29,7 @@ console.warn = (...args) => {
   consoleLogger('warn', ...args);
 };
 
-program.option('--authorize-as <string>', 'Override the authentication middleware.');
+program.option('--authorize-as <string>', "Override the authentication middleware.");
 program.parse();
 
 runApp(program.opts());
@@ -84,6 +85,9 @@ function runApp(opts) {
   app.use('/genres', genreRouter);
   app.use('/looking_for_tags', lookingForTagsRouter);
   app.use('/chat', requireAuth, chatRouter);
+
+  app.use("/search", searchRouter);
+
   app.use('/stories', storiesRouter);
   app.listen(PORT, () => {
     console.log(`Server running on port ${PORT}`);
