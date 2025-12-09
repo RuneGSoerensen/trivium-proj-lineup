@@ -15,7 +15,7 @@ export default function RequestFeed() {
   const fetchRequests = async (currentOffset) => {
     try {
       const res = await authenticatedFetch(
-        `${process.env.NEXT_PUBLIC_DATABASE_URL}/requests/requestsFeed`,
+        `${process.env.NEXT_PUBLIC_DATABASE_URL}/requests/feed`,
         {
           cache: "no-store",
         }
