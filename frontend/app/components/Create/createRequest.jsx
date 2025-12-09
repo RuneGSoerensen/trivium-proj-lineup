@@ -27,9 +27,9 @@ export default function CreateNotes({ userName, userImage }) {
   useEffect(() => {
     const loadGenres = async () => {
       try {
-        const res = await fetch(
-          `${process.env.NEXT_PUBLIC_DATABASE_URL}/genres`
-        );
+        const baseUrl =
+          process.env.NEXT_PUBLIC_DATABASE_URL || "http://localhost:3300";
+        const res = await fetch(`${baseUrl}/genres`);
         if (res.ok) {
           const data = await res.json();
           setAllGenres(data.genres.map((g) => g.name));
