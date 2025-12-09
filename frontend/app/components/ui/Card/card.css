@@ -4,7 +4,7 @@
   -------------------------------- */
 
   .trvm-card {
-    @apply bg-default rounded-card p-20 w-full max-w-md xl:max-w-xl;
+    @apply bg-default rounded-card p-6 w-full max-w-md xl:max-w-xl;
   }
 
   /* Tabs: typografi til FlyonUI tabs/pills */
@@ -15,6 +15,10 @@
   /* Navigation label */
   .trvm-nav-label {
     @apply text-body font-semibold color-muted font-ui;
+  }
+
+  .trvm-card .card-body {
+    @apply space-y-4 p-6;
   }
 
 }

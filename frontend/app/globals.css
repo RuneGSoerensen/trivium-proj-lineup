@@ -152,7 +152,7 @@
   color: --alpha(var(--color-base-content) / 20%);
 }
 @utility color-subtle {
-  color: var(--color-base-300);
+  color: --alpha(var(--color-base-content) / 60%);
 }
 @utility color-brand {
   color: var(--color-primary);
@@ -380,6 +380,10 @@ main.app-main {
 main.app-main:has(> section.full-page) {
   padding: calc(var(--page-py) * -1) calc(var(--page-px) * -1);
   height: 100%;
+}
+
+main.app-main:has(> section.services) {
+  --background: var(--color-base-200) !important;
 }
 
 html,

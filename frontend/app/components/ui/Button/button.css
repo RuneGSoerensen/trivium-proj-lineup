@@ -61,6 +61,10 @@
   column-gap: var(--spacing-button-medium);
 }
 
+.trvm-dropdown-btn .list-item {
+  @apply px-8 text-body;
+}
+
 @media (max-width: 768px) {
   .btn-row-mobile--dense {
     column-gap: var(--spacing-button-high);
