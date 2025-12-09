@@ -6,6 +6,7 @@ import { Button } from "@/ui/Button/Button";
 import { Search, Bell, Menu, ChevronLeftIcon } from "lucide-react";
 import { useNavbar } from "@/utils/navbarContext";
 import Image from "next/image";
+import Link from "next/link";
 
 const ACTION_DEFS = (router) => ({
     search: {
@@ -42,12 +43,14 @@ export default function Navbar() {
                 {config.showBack ? (
                     <Button type="icon" variant="ghost" iconSize="xl" icon={<ChevronLeftIcon />} className="bg-transparent color-default" onClick={() => router.back()} aria-label="Back" />
                 ) : config.showLogo ? (
+                    <Link href="/">
                         <Image
                             src="/images/lineup-type-logo.svg"
                             alt="Lineup Logo"
                             width={100}
                             height={40}
                         />
+                    </Link>
                 ) : <span className="w-24"/>}
 
                 <div className="flex items-center gap-4">
