@@ -2,7 +2,6 @@ import express from 'express';
 import cors from 'cors';
 import { validate as uuidValidate } from 'uuid';
 import { program } from 'commander';
-
 import { fakeAuthAs, requireAuth } from './middelware/auth.js';
 import usersRouter from './modules/user/router.js';
 import connectionsRouter from './modules/connections/router.js';

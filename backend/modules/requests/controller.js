@@ -96,3 +96,35 @@ export async function createRequest(req, res) {
 
   res.sendStatus(201);
 }
+
+export async function getFeedRequests(req, res) {
+  const id = req.userId;
+  const requests = await sql`
+    SELECT 
+      r.*,
+      u.name AS user_name,
+      u.image_url AS user_image,
+      
+      -- Tagged people on request
+      (
+        SELECT json_agg(
+            json_build_object(
+                'id', tu.id,
+                'name', tu.name,
+                'image_url', tu.image_url
+            )
+        )
+        FROM requests_tagged_people rtp
+        JOIN users tu ON tu.id = rtp.user_id
+        WHERE rtp.request_id = r.id
+      ) AS tagged_people
+     
+    FROM requests r
+    JOIN users u ON u.id = r.user_id
+   
+    ORDER BY r.created_at DESC
+    LIMIT 5
+
+  `;
+  res.json(requests);
+}

@@ -5,17 +5,18 @@ import NavLink from "./NavLink";
 import { useBottomNav } from "@/utils/navbarContext";
 import { getUserId } from "@/utils/auth";
 
-const userId = getUserId();
 
-const links = [
+
+export default function Navigation() {
+  const userId = getUserId();
+  
+  const links = [
   { href: "/", label: "Home", icon: "/icons/Home.svg" },
   { href: "/services", label: "Services", icon: "/icons/Services.svg" },
   { href: "/create", label: "Create", icon: "/icons/Create.svg" },
   { href: "/chat", label: "Chats", icon: "/icons/Chat.svg" },
   { href: `/profile/${userId}`, label: "Profile", icon: "/icons/Profile.svg" },
 ];
-
-export default function Navigation() {
   const pathname = usePathname();
   const { bottomNavConfig } = useBottomNav();
   if (!bottomNavConfig.visible) return null;
