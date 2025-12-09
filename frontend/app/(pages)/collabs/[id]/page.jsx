@@ -5,7 +5,8 @@ import { MessageCircleMore } from "lucide-react";
 import { Tag } from "@/comps/ui/tag/Tag";
 import Image from "next/image";
 import { Button } from "@/comps/ui/button/Button";
-import { formatTimeAgo } from "@/lib/utils/timeAgo";
+import { formatTimeAgo } from "@/utils/timeAgo";
+import { authenticatedFetch } from "@/utils/auth";
 export default function Page() {
   const { id } = useParams();
   const [request, setRequest] = useState(null);
@@ -15,7 +16,7 @@ export default function Page() {
   useEffect(() => {
     const fetchRequest = async () => {
       try {
-        const res = await fetch(
+        const res = await authenticatedFetch(
           `${process.env.NEXT_PUBLIC_DATABASE_URL}/requests/${id}`,
           {
             cache: "no-store",

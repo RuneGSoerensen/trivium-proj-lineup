@@ -12,7 +12,7 @@ import {
 import { Tag } from "@/ui/Tag/Tag";
 import { CommentItem } from "./CommentItem";
 import { getUserId } from "@/utils/auth";
-
+import { formatTimeAgo } from "@/utils/timeAgo";
 export default function NoteCard({ note, showComments = false }) {
   const [commentText, setCommentText] = useState(""); // main input
   const [commentsOpen, setCommentsOpen] = useState(showComments);
@@ -115,16 +115,7 @@ export default function NoteCard({ note, showComments = false }) {
   };
   const commentTree = buildCommentTree(localComments);
 
-  const formatTimeAgo = (date) => {
-    const now = new Date();
-    const created = new Date(date);
-    const diff = Math.floor((now - created) / 1000);
 
-    if (diff < 60) return "Just now";
-    if (diff < 3600) return `${Math.floor(diff / 60)}m`;
-    if (diff < 86400) return `${Math.floor(diff / 3600)}h`;
-    return `${Math.floor(diff / 86400)}d`;
-  };
   return (
     <div className="p-4">
       {/* HEADER */}

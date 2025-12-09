@@ -48,10 +48,10 @@ export default function RequestFeed() {
 
   const router = useRouter();
   const handleClick = () => {
-    router.push("/requests");
+    router.push("/collabs");
   };
   const handleReadMore = (id) => {
-    router.push(`/requests/${id}`);
+    router.push(`/collabs/${id}`);
   };
   return (
     <div className="bg-gray-100">
