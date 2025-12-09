@@ -56,7 +56,6 @@ export default function RequestFeed() {
   return (
     <div className="bg-gray-100">
       {/* placeholder background*/}
-      <h1 className="text-lg ">Collaboration requests</h1>
       <div className=" flex overflow-x-auto w-full  h-[300px] py-4 ">
         {loading && <div>Loading...</div>}
         {error && <div>Error: {error}</div>}
