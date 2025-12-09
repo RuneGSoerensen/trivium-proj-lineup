@@ -8,4 +8,6 @@ const router = express.Router();
 router.post('/', requireAuth, createRequest);
 router.get('/', getAllRequests);
 router.get('/:id', getRequestById);
+
+router.get('/feed', getFeedRequests);
 export default router;
