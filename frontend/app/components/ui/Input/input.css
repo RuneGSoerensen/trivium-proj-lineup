@@ -4,7 +4,7 @@
   -------------------------------- */
 
   .trvm-input {
-    @apply w-full h-full rounded-lg px-12 py-14 transition-all duration-100;
+    @apply w-full h-full rounded-lg transition-all duration-100;
   }
 
   .input-wrapper:has(.input-icon.left) .trvm-input {

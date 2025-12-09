@@ -64,6 +64,7 @@ export default function Navbar() {
                                 type="icon"
                                 iconSize="lg"
                                 variant="ghost"
+                                className="color-default"
                                 aria-label={action.ariaLabel}
                                 onClick={action.onClick}
                                 icon={action.icon}

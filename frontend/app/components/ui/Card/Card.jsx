@@ -34,7 +34,7 @@ export function ServiceCard({
     >
       <div className="card-body space-y-3">
         {/* Top bar: avatar + navn + tag + bookmark */}
-        <header className="flex items-center justify-between gap-8">
+        <header className="flex items-center justify-between gap-8 pb-4 border-b border-muted/30">
           <div className="flex items-center gap-4 w-full">
             {avatarSrc && (
               <div className="avatar">

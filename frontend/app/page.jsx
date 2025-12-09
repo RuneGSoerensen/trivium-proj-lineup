@@ -21,7 +21,7 @@ export default function Home() {
   }, [setConfig]);
 
   return (
-    < section className="space-y-12 w-full " >
+    <section className="space-y-12 w-full ">
       <Stories />
 
       <RequestFeed />

@@ -54,9 +54,9 @@ export default function RequestFeed() {
     router.push(`/collabs/${id}`);
   };
   return (
-    <div className="bg-gray-100">
+    <div className="bg-alt full-bleed">
       {/* placeholder background*/}
-      <div className=" flex overflow-x-auto w-full  h-[300px] py-4 ">
+      <div className=" flex overflow-x-auto w-full h-300 py-4">
         {loading && <div>Loading...</div>}
         {error && <div>Error: {error}</div>}
         {!loading &&
@@ -64,7 +64,7 @@ export default function RequestFeed() {
           requests.map((request) => (
             <div
               key={request.id}
-              className="mb-4 p-4 border border-muted/10 rounded-[24px] min-w-[400px] max-w-sm flex-shrink-0 mr-4 p-12 bg-white flex flex-col"
+              className="mb-4 border border-muted/10 rounded-[24px] min-w-400 max-w-sm flex-shrink-0 mr-4 p-12 bg-white flex flex-col"
             >
               <div className="flex gap-4 items-center mb-2">
                 <div className=" w-20 h-20 mb-2 rounded-full overflow-hidden">
