@@ -6,7 +6,7 @@ import Input from "../ui/Input/Input";
 import Image from "next/image";
 import MultiSelectInput from "../ui/MultiSelectButton/MultiSelectButton";
 import { Tag } from "../ui/Tag/Tag";
-import { useState, useRef, useEffect } from "react";
+import { useState, useEffect } from "react";
 import { createRequest } from "@/utils/api";
 
 export default function CreateNotes({ userName, userImage }) {
@@ -19,10 +19,9 @@ export default function CreateNotes({ userName, userImage }) {
   const [isLoading, setIsLoading] = useState(false);
   const [error, setError] = useState(null);
   const [isPaid, setIsPaid] = useState(true);
-
-  const titleRef = useRef("");
-  const contentRef = useRef("");
-  const locationRef = useRef("");
+  const [title, setTitle] = useState("");
+  const [content, setContent] = useState("");
+  const [location, setLocation] = useState("");
 
   useEffect(() => {
     const loadGenres = async () => {
@@ -57,7 +56,7 @@ export default function CreateNotes({ userName, userImage }) {
   const handlePost = async () => {
     if (isLoading) return;
 
-    if (!titleRef.current.value.trim() || !contentRef.current.value.trim()) {
+    if (!title.trim() || !content.trim()) {
       setError("Title and content are required");
       return;
     }
@@ -66,9 +65,9 @@ export default function CreateNotes({ userName, userImage }) {
     setError(null);
 
     const requestData = {
-      title: titleRef.current.value,
-      description: contentRef.current.value,
-      location: locationRef.current.value,
+      title,
+      description: content,
+      location,
       people_user_ids: [],
       genres,
       paid_opportunity: isPaid,
@@ -81,9 +80,9 @@ export default function CreateNotes({ userName, userImage }) {
     try {
       await createRequest(requestData);
       console.log("Request created successfully");
-      titleRef.current.value = "";
-      contentRef.current.value = "";
-      locationRef.current.value = "";
+      setTitle("");
+      setContent("");
+      setLocation("");
       setGenres([]);
       setImages([]);
       setError(null);
@@ -116,7 +115,12 @@ export default function CreateNotes({ userName, userImage }) {
       </div>
 
       <div>
-        <Input className="mt-15" ref={titleRef} placeholder="Write a title" />
+        <Input
+          className="mt-15"
+          placeholder="Write a title"
+          value={title}
+          onChange={(e) => setTitle(e.target.value)}
+        />
       </div>
 
       <div>
@@ -172,11 +176,12 @@ export default function CreateNotes({ userName, userImage }) {
 
       <div>
         <textarea
-          ref={contentRef}
           placeholder="Write a description"
           cols="30"
           rows="4"
           className="w-full bg-default color-default border-muted rounded-lg px-12 py-14 placeholder:color-muted focus:ring-1 focus:ring-brand transition-all duration-100"
+          value={content}
+          onChange={(e) => setContent(e.target.value)}
         />
       </div>
 
@@ -226,7 +231,12 @@ export default function CreateNotes({ userName, userImage }) {
       </div>
 
       <div>
-        <Input className="" ref={locationRef} placeholder="Location.." />
+        <Input
+          className=""
+          placeholder="Location.."
+          value={location}
+          onChange={(e) => setLocation(e.target.value)}
+        />
       </div>
 
       <div className="flex items-center mt-15 mb-[50%] gap-4">

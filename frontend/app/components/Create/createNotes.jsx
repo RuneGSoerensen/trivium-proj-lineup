@@ -6,7 +6,7 @@ import Input from "../ui/Input/Input";
 import Image from "next/image";
 import MultiSelectInput from "../ui/MultiSelectButton/MultiSelectButton";
 import { Tag } from "../ui/Tag/Tag";
-import { useState, useRef } from "react";
+import { useState } from "react";
 import { createNote } from "@/utils/api";
 
 export default function CreateNotes({ userName, userImage }) {
@@ -17,9 +17,8 @@ export default function CreateNotes({ userName, userImage }) {
   const [imageUrl, setImageUrl] = useState("");
   const [isLoading, setIsLoading] = useState(false);
   const [error, setError] = useState(null);
-
-  const titleRef = useRef("");
-  const contentRef = useRef("");
+  const [title, setTitle] = useState("");
+  const [content, setContent] = useState("");
 
   const handleAddImage = () => {
     if (imageUrl.trim()) {
@@ -38,7 +37,7 @@ export default function CreateNotes({ userName, userImage }) {
     if (isLoading) return;
 
     // Validate input
-    if (!titleRef.current.value.trim() || !contentRef.current.value.trim()) {
+    if (!title.trim() || !content.trim()) {
       setError("Title and content are required");
       return;
     }
@@ -47,8 +46,8 @@ export default function CreateNotes({ userName, userImage }) {
     setError(null);
 
     const noteData = {
-      title: titleRef.current.value,
-      content: contentRef.current.value,
+      title,
+      content,
       people_user_ids: [],
       tags,
     };
@@ -61,8 +60,8 @@ export default function CreateNotes({ userName, userImage }) {
     try {
       await createNote(noteData);
       console.log("Note created successfully");
-      titleRef.current.value = "";
-      contentRef.current.value = "";
+      setTitle("");
+      setContent("");
       setTags([]);
       setImages([]);
       setError(null);
@@ -138,7 +137,11 @@ export default function CreateNotes({ userName, userImage }) {
         )}
       </div>
       <div>
-        <Input ref={titleRef} placeholder="Write a title" />
+        <Input
+          placeholder="Write a title"
+          value={title}
+          onChange={(e) => setTitle(e.target.value)}
+        />
       </div>
       <div>
         <Button
@@ -192,11 +195,12 @@ export default function CreateNotes({ userName, userImage }) {
       </div>
       <div>
         <textarea
-          ref={contentRef}
           placeholder="Write a description"
           cols="30"
           rows="4"
           className="w-full bg-default color-default border-muted rounded-lg px-12 py-14 placeholder:color-muted focus:ring-1 focus:ring-brand transition-all duration-100"
+          value={content}
+          onChange={(e) => setContent(e.target.value)}
         />
       </div>
       <div className="self-end mt-10 mb-[50%]">
