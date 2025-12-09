@@ -8,8 +8,8 @@ export async function createRequest(req, res) {
     title: z.string(),
     description: z.string(),
     paid_opportunity: z.boolean(),
-    image_url: z.url().default(null),
-    location: z.string().default(null),
+    image_url: z.string().url().nullable().optional(),
+    location: z.string().nullable().optional(),
     people_user_ids: z.array(z.uuid()).default([]),
     genres: z.array(z.string()).default([]),
   });
@@ -22,6 +22,9 @@ export async function createRequest(req, res) {
 
   const { title, description, paid_opportunity, image_url, location, people_user_ids, genres } =
     result.data;
+
+  const imageUrlValue = image_url ?? null;
+  const locationValue = location ?? null;
 
   // Make sure all user IDs exist before creating any table rows.
   for (const userId of people_user_ids) {
@@ -50,21 +53,23 @@ export async function createRequest(req, res) {
           ${title},
           ${description},
           ${paid_opportunity},
-          ${image_url},
-          ${location}
+          ${imageUrlValue},
+          ${locationValue}
         )
       RETURNING requests.id;
   `;
 
-    // insert the tagged people
-    await sql`
-      INSERT INTO requests_tagged_people ${sql(
-        people_user_ids.map((userId) => ({
-          request_id: newRequestId,
-          user_id: userId,
-        }))
-      )};
-    `;
+    // insert the tagged people when provided
+    if (people_user_ids.length > 0) {
+      await sql`
+        INSERT INTO requests_tagged_people ${sql(
+          people_user_ids.map((userId) => ({
+            request_id: newRequestId,
+            user_id: userId,
+          }))
+        )};
+      `;
+    }
 
     // Bulk insert genres and link them to the request
     if (genres.length > 0) {

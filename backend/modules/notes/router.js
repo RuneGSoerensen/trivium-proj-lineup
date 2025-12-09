@@ -8,6 +8,7 @@ import {
   getAllNoteTags,
   forYouNotes,
 } from './controller.js';
+import { requireAuth } from '../../middelware/auth.js';
 
 const router = express.Router();
 
@@ -24,7 +25,7 @@ router.post('/comment', commentNote);
 router.post('/comment/:id/like', likeComment);
 
 // Create a note
-router.post('/', createNote);
+router.post('/', requireAuth, createNote);
 
 router.get('/tags', getAllNoteTags);
 
