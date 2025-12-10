@@ -9,6 +9,7 @@ import EditSocials from "../../../components/profile/edit/EditSocials";
 import EditCollections from "../../../components/profile/edit/EditCollections";
 import EditQuestions from "../../../components/profile/edit/EditQuestions";
 import SaveBar from "../../../components/profile/edit/SaveBar";
+import { getUserId } from "@/utils/auth";
 
 const HARD_ARTISTS = [
   "https://images.unsplash.com/photo-1544005313-94ddf0286df2?w=200&q=80",
@@ -72,11 +73,11 @@ export default function EditProfilePage() {
   useEffect(() => {
     const loadOptions = async () => {
       try {
-        const genresRes = await fetch(
+        const genresRes = await authenticatedFetch(
           `${process.env.NEXT_PUBLIC_DATABASE_URL}/genres`
         );
 
-        const tagsRes = await fetch(
+        const tagsRes = await authenticatedFetch(
           `${process.env.NEXT_PUBLIC_DATABASE_URL}/looking_for_tags`
         );
 
@@ -106,14 +107,14 @@ export default function EditProfilePage() {
 
   const loadProfile = async () => {
     try {
-      const currentUser = localStorage.getItem("userId");
+      const currentUser = getUserId();
       if (!currentUser) {
         router.push("/login");
         return;
       }
       setUserId(currentUser);
 
-      const res = await fetch(
+      const res = await authenticatedFetch(
         `${process.env.NEXT_PUBLIC_DATABASE_URL}/users/${currentUser}`
       );
       if (!res.ok) throw new Error("Failed to load profile");
@@ -140,7 +141,7 @@ export default function EditProfilePage() {
               : HARD_VIDEOS,
           past_collaborations:
             data.user.past_collaborations &&
-            data.user.past_collaborations.length > 0
+              data.user.past_collaborations.length > 0
               ? data.user.past_collaborations
               : HARD_PAST_COLLABS,
           socials: {
@@ -166,7 +167,7 @@ export default function EditProfilePage() {
 
     setSaving(true);
     try {
-      const res = await fetch(
+      const res = await authenticatedFetch(
         `${process.env.NEXT_PUBLIC_DATABASE_URL}/users/${userId}`,
         {
           method: "PATCH",

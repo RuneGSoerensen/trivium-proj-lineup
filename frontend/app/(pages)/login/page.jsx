@@ -1,11 +1,13 @@
 "use client";
 
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { useRouter } from "next/navigation";
 import { signInWithPassword } from "@/utils/supabaseClient";
-import { setAuthToken } from "@/utils/auth";
-import Input from "@/components/ui/Input/Input";
-import { Button } from "@/components/ui/Button/Button";
+import Input from "@/ui/Input/Input";
+import { Button } from "@/ui/Button/Button";
+import { useBottomNav, useNavbar } from "@/utils/navbarContext";
+import Image from "next/image";
+import React from "react";
 
 export default function LoginPage() {
   const router = useRouter();
@@ -14,100 +16,132 @@ export default function LoginPage() {
   const [error, setError] = useState("");
   const [loading, setLoading] = useState(false);
 
+  const { setConfig } = useNavbar();
+  useEffect(() => {
+    setConfig((prev) => ({
+      ...prev,
+      type: "login",
+      showBack: false,
+      showLogo: false,
+      visible: false,
+    }));
+  }, [setConfig]);
+
+  const { setBottomNavConfig } = useBottomNav();
+  useEffect(() => {
+    setBottomNavConfig((prev) => ({
+      ...prev,
+      type: "login",
+      visible: false,
+    }));
+  }, [setBottomNavConfig]);
+
   const handleLogin = async (e) => {
     e.preventDefault();
     setError("");
     setLoading(true);
 
     try {
-      const {
-        user,
-        session,
-        error: signInError,
-      } = await signInWithPassword(email, password);
+      // Use Supabase Auth to sign in
+      const { user, error: authError } = await signInWithPassword(
+        email,
+        password
+      );
 
-      if (signInError) {
-        setError(signInError.message);
-        setLoading(false);
+      if (authError) {
+        setError(authError.message);
         return;
       }
 
-      if (user && session) {
-        // Store JWT token and userId in localStorage
-        setAuthToken(session.access_token, user.id);
-        console.log("Login successful!", {
-          userId: user.id,
-          email: user.email,
-        });
-        // Redirect to home or dashboard
+      if (user) {
         router.push("/");
       }
     } catch (err) {
       console.error("Login error:", err);
-      setError("An unexpected error occurred. Please try again.");
+      setError("An error occurred. Please try again.");
+    } finally {
       setLoading(false);
     }
   };
 
   return (
-    <div className="flex items-center justify-center text-center">
-      <div className="trvm-card max-w-md w-full">
-        <h1 className="text-h1 font-bold mb-30">Login</h1>
 
-        <form onSubmit={handleLogin} className="space-y-15">
-          <div>
-            <Input
-              id="email"
-              type="email"
-              aria-label="Email"
-              value={email}
-              onChange={(e) => setEmail(e.target.value)}
-              required
-              className="input w-full text-center placeholder:text-center"
-              placeholder="Enter your email"
-            />
-          </div>
-
-          <div>
-            <Input
-              id="password"
-              type="password"
-              aria-label="Password"
-              value={password}
-              onChange={(e) => setPassword(e.target.value)}
-              required
-              className="input w-full text-center placeholder:text-center"
-              placeholder="Enter your password"
-            />
-          </div>
-
-          {error && (
-            <div className="bg-red-100 border border-red-400 text-red-700 px-4 py-3 rounded">
-              {error}
-            </div>
-          )}
-          <div className="flex justify-center">
-            <Button variant="primary" type="submit" disabled={loading}>
-              {loading ? "Logging in..." : "Continue"}
-            </Button>
-          </div>
-        </form>
-        <div className="mt-10 mb-10">
-          <span>or</span>
-        </div>
-        <div className="space-y-20">
-          {/* These will be implemented later */}
-          <Button variant="secondary">Continue with Google</Button>
-          <Button variant="secondary">Continue with Apple</Button>
+    <div className="max-w-md w-full h-full flex flex-col items-center justify-center text-center space-y-8">
+      <h1 className="text-h1 font-bold mb-30 color-grey-300">Login</h1>
+      <form onSubmit={handleLogin} className="space-y-15">
+        <div>
+          <Input
+            id="email"
+            type="email"
+            aria-label="Email"
+            value={email}
+            onChange={(e) => setEmail(e.target.value)}
+            required
+            className="input w-full text-center placeholder:text-center"
+            placeholder="Enter your email"
+          />
         </div>
 
-        <p className="mt-25 text-center text-sm">
-          Don&apos;t have an account?{" "}
-          <a href="/onboarding/step1" className="text-cyan-500">
-            Sign up
-          </a>
-        </p>
+        <div>
+          <Input
+            id="password"
+            type="password"
+            aria-label="Password"
+            value={password}
+            onChange={(e) => setPassword(e.target.value)}
+            required
+            className="input w-full text-center placeholder:text-center"
+            placeholder="Enter your password"
+          />
+        </div>
+
+        {error && (
+          <div className="bg-red-100 border border-error color-error px-4 py-3 rounded">
+            {error}
+          </div>
+        )}
+        <div className="flex justify-center mt-24">
+          <Button variant="primary" type="submit" disabled={loading}>
+            {loading ? "Logging in..." : "Continue"}
+          </Button>
+        </div>
+      </form>
+      <div className="flex flex-col items-center justify-center my-10">
+        <p>or sign up with</p>
+        <div className="flex flex-col gap-10 items-center my-10 w-11/12">
+          <Button
+            size="lg"
+            variant="secondary"
+            onClick={() => {
+              /* google signup */
+            }}
+          >
+            <span className="flex justify-center gap-8">
+              <Image src="/icons/Google.svg" alt="Google Icon" width={20} height={20} className="mr-2" /> Google
+            </span>
+          </Button>
+
+          <Button
+            size="lg"
+            variant="secondary"
+            onClick={() => {
+              /* apple signup */
+            }}
+          >
+            <span className="flex justify-center gap-8">
+              <Image src="/icons/Apple.svg" alt="Apple Icon" width={20} height={20} className="mr-2" /> Apple
+            </span>
+          </Button>
+        </div>
       </div>
+
+      <p className="mt-30 text-center text-body">
+        Don&apos;t have an account?{" "}
+        <a href="/onboarding/step1" className="text-cyan-500">
+          Sign up
+        </a>
+      </p>
     </div>
+
   );
 }

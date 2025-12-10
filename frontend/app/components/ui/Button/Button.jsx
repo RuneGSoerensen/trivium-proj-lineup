@@ -16,14 +16,16 @@ import clsx from "clsx";
 const variantClass = {
   primary: "btn-primary",
   secondary: "btn-secondary",
-  glass: "btn-glass",
+  glass: "glass",
+  ghost: "btn-ghost",
 };
 
 // Made for mobile first design
 const sizeClass = {
-  sm: "py-6 px-16 text-sm",
-  md: "py-8 px-24 text-base",
-  lg: "py-12 px-32 text-lg",
+  sm: "py-2 px-8",
+  md: "py-4 px-20",
+  lg: "py-8 px-24",
+  xl: "py-12 px-32",
   'icon-sm': "p-8",
   'icon-md': "p-10",
   'icon-lg': "p-12",
@@ -57,6 +59,9 @@ export const Button = ({
   iconStroke = "medium",
   className,
   children,
+  dropdownClassName,
+  dropLeft = false,
+  dropRight = false,
   active = false, // toggle button state
   ...rest
 }) => {
@@ -134,7 +139,14 @@ export const Button = ({
       </button>
       {/* DROPDOWN CONTENT */}
       {isDropdown && open && (
-        <div className="absolute top-full left-0 mt-4 w-full bg-base-100 border border-muted rounded-lg shadow-lg p-8 z-50">
+        <div
+          className={clsx(
+            "absolute overflow-y-auto top-full wrap truncate mt-4 w-full bg-base-100 border border-muted rounded-lg shadow-lg p-8 z-25",
+            dropdownClassName,
+            dropLeft && "left-0",
+            dropRight && "right-0",
+          )}
+        >
           {rest.dropdownitems || (
             <p className="color-muted">No items provided</p>
           )}

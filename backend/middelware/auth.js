@@ -1,11 +1,11 @@
-import { createClient } from "@supabase/supabase-js";
+import { createClient } from '@supabase/supabase-js';
 
 const supabaseUrl = process.env.PROJECT_URL;
 const supabaseAnonKey = process.env.SUPABASE_ANON_KEY;
 
 if (!supabaseUrl || !supabaseAnonKey) {
   throw new Error(
-    "Missing required environment variables: SUPABASE_URL and SUPABASE_ANON_KEY must be set"
+    'Missing required environment variables: SUPABASE_URL and SUPABASE_ANON_KEY must be set'
   );
 }
 
@@ -17,6 +17,13 @@ export const supabase = createClient(supabaseUrl, supabaseAnonKey);
  * @param {NextFunction} next - Express next function (calls the next middleware/handler)
  */
 export async function requireAuth(req, res, next) {
+  // If the fake user auth option is enabled on the server,
+  // it will set the `req.userId`, so we check if that object key exists already
+  // and skip authorization if so.
+  if (req.userId) {
+    return next();
+  }
+
   try {
     // Step 1: Extract the Authorization header
     // Format should be: "Bearer <jwt-token>"
@@ -25,19 +32,19 @@ export async function requireAuth(req, res, next) {
     // Check if Authorization header exists
     if (!authHeader) {
       return res.status(401).json({
-        error: "Authentication required. Please provide a valid token.",
+        error: 'Authentication required. Please provide a valid token.',
       });
     }
 
     // Step 2: Extract the token from the "Bearer <token>" format
     // Split by space and take the second part
-    const parts = authHeader.split(" ");
+    const parts = authHeader.split(' ');
     const scheme = parts[0];
     const token = parts[1];
 
-    if (scheme !== "Bearer" || !token) {
+    if (scheme !== 'Bearer' || !token) {
       return res.status(401).json({
-        error: "Invalid authorization header format. Expected: Bearer <token>",
+        error: 'Invalid authorization header format. Expected: Bearer <token>',
       });
     }
 
@@ -51,7 +58,7 @@ export async function requireAuth(req, res, next) {
     // Check if token verification failed
     if (error || !user) {
       return res.status(401).json({
-        error: "Invalid or expired token. Please log in again.",
+        error: 'Invalid or expired token. Please log in again.',
       });
     }
 
@@ -65,9 +72,17 @@ export async function requireAuth(req, res, next) {
     next();
   } catch (error) {
     // Catch any unexpected errors during authentication
-    console.error("Authentication error:", error);
+    console.error('Authentication error:', error);
     return res.status(401).json({
-      error: "Authentication failed. Please try again.",
+      error: 'Authentication failed. Please try again.',
     });
   }
+}
+
+export function fakeAuthAs(userId) {
+  return async (req, res, next) => {
+    req.userId = userId;
+    console.log(`Fake auth as ${userId}`);
+    next();
+  };
 }

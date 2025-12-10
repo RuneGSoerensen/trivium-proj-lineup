@@ -5,23 +5,28 @@ import React from "react";
 import clsx from "clsx";
 import Image from "next/image";
 import { Button } from "../Button/Button";
+import { Bookmark } from "lucide-react";
 
 export function ServiceCard({
   // top bar
   avatarSrc, avatarAlt = "", authorName, tag, // fx "offers #art"
   // hovedindhold
   title, imageSrc, imageAlt = "", description,
+  imgWidth,
+  imgHeight,
   // footer
   ctaLabel = "Read more", location, timeAgo, // fx "4h ago"
+  btnVariant, btnPads = btnVariant = "ghost" ? "px-0! font-medium" : "",
   // interaktion
-  onClick = () => { }, onBookmarkClick = () => { }, className,
+  onClick = () => { }, onBookmarkClick = () => { },
+  className,
 }) {
   const clickable = typeof onClick === "function";
 
   return (
     <article
       className={clsx(
-        "card trvm-card sm:max-w-sm bg-default color-default border border-muted shadow-sm",
+        "card rounded-[24px] trvm-card sm:max-w-sm bg-default color-default border border-muted shadow-sm",
         clickable && "cursor-pointer",
         className
       )}
@@ -29,36 +34,38 @@ export function ServiceCard({
     >
       <div className="card-body space-y-3">
         {/* Top bar: avatar + navn + tag + bookmark */}
-        <header className="flex items-start justify-between gap-3">
-          <div className="flex items-center gap-3">
+        <header className="flex items-center justify-between gap-8 pb-4 border-b border-muted/30">
+          <div className="flex items-center gap-4 w-full">
             {avatarSrc && (
               <div className="avatar">
-                <div className="w-8 h-8 rounded-full overflow-hidden">
-                  <Image
-                    src={avatarSrc}
-                    alt={avatarAlt}
-                    width={25}
-                    height={25}
-                    className="w-full h-full object-cover" />
-                </div>
+                <Image
+                  src={avatarSrc}
+                  alt={avatarAlt}
+                  width={25}
+                  height={25}
+                  className="w-28 h-28 object-cover rounded-full overflow-hidden mr-8" />
               </div>
             )}
 
-            <div className="flex flex-col leading-tight">
+            <span className="truncate flex items-center gap-8">
+
               {authorName && (
-                <span className="text-[13px] font-semibold color-default">
+                <span className="text-base color-muted/70 mr-4">
                   {authorName}
                 </span>
               )}
               {tag && (
-                <span className="text-[12px] color-muted">{tag}</span>
+                <span className="text-sm color-muted">{tag}</span>
               )}
-            </div>
+            </span>
           </div>
 
           {onBookmarkClick && (
             <Button
-              className="btn btn-circle btn-ghost btn-xs bg-inverse color-inverse"
+              type="icon"
+              variant="ghost"
+              iconSize="lg"
+              icon={<Bookmark />}
               onClick={(e) => {
                 e.stopPropagation();
                 onBookmarkClick();
@@ -83,15 +90,15 @@ export function ServiceCard({
             <Image
               src={imageSrc}
               alt={imageAlt}
-              width={400}
-              height={176}
-              className="w-full h-44 object-cover" />
+              width={imgWidth}
+              height={imgHeight}
+              className="w-full h-full object-cover" />
           </figure>
         )}
 
         {/* Description */}
         {description && (
-          <p className="text-[13px] leading-snug color-muted">
+          <p className="text-base leading-snug color-muted/60">
             {description}
           </p>
         )}
@@ -99,9 +106,8 @@ export function ServiceCard({
         {/* Footer */}
         <footer className="flex items-center justify-between pt-1">
           <Button
-            className="w-fit"
-            size="sm"
-            variant="primary"
+            className={clsx("rounded-full", btnPads)}
+            variant={btnVariant}
             onClick={(e) => {
               if (!clickable) return;
               e.stopPropagation();
@@ -112,9 +118,9 @@ export function ServiceCard({
           </Button>
 
           {(location || timeAgo) && (
-            <span className="text-[12px] color-subtle">
+            <span className="text-sm color-subtle gap-4">
               {location && <span>{location}</span>}
-              {location && timeAgo && <span className="mx-1">·</span>}
+              {location && timeAgo && <span className="mx-4">-</span>}
               {timeAgo && <span>{timeAgo}</span>}
             </span>
           )}

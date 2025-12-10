@@ -1,36 +1,95 @@
-import express from "express";
-import cors from "cors";
-import usersRouter from "./modules/user/router.js";
-import connectionsRouter from "./modules/connections/router.js";
-import notesRouter from "./modules/notes/router.js";
-import lookingForTagsRouter from "./modules/looking_for/router.js";
-import { requireAuth } from "./middelware/auth.js";
-import genreRouter from "./modules/genres/router.js";
-import chatRouter from "./modules/chat/router.js";
-const app = express();
-const PORT = process.env.PORT || 3300;
-// Before production this needs to be changed to a valid url, or something more secure.
-app.use(
-  cors({
-    origin: ["http://localhost:3000", "http://localhost:3300"], // Adjust this to your frontend's origin
-    methods: ["GET", "POST", "PUT", "DELETE", "PATCH"],
-    allowedHeaders: ["Content-Type", "Authorization"],
-  })
-);
-app.use(express.json());
+import express from 'express';
+import cors from 'cors';
+import { validate as uuidValidate } from 'uuid';
+import { program } from 'commander';
+import { fakeAuthAs, requireAuth } from './middelware/auth.js';
+import usersRouter from './modules/user/router.js';
+import connectionsRouter from './modules/connections/router.js';
+import notesRouter from './modules/notes/router.js';
+import requestsRouter from './modules/requests/router.js';
+import lookingForTagsRouter from './modules/looking_for/router.js';
+import genreRouter from './modules/genres/router.js';
+import chatRouter from './modules/chat/router.js';
+import searchRouter from './modules/search/router.js';
+import storiesRouter from './modules/stories/router.js';
+import morgan from 'morgan';
+import { consoleLogger, logger } from './logger.js';
 
-// Mount users router
-app.use("/users", usersRouter);
-app.use("/connections", connectionsRouter);
-app.use("/notes", notesRouter);
+// Redirect console logs to winston logger.
+console.log = (...args) => {
+  consoleLogger('info', ...args);
+};
+console.info = (...args) => {
+  consoleLogger('info', ...args);
+};
+console.error = (...args) => {
+  consoleLogger('error', ...args);
+};
+console.warn = (...args) => {
+  consoleLogger('warn', ...args);
+};
 
-app.get("/", (req, res) => {
-  res.send("Server is running TRIVIUM");
-});
-app.use("/genres", genreRouter);
-app.use("/looking_for_tags", lookingForTagsRouter);
-app.use("/chat", requireAuth, chatRouter);
+program.option('--authorize-as <string>', "Override the authentication middleware.");
+program.parse();
 
-app.listen(PORT, () => {
-  console.log(`Server running on port ${PORT}`);
-});
+runApp(program.opts());
+
+function runApp(opts) {
+  const app = express();
+  const PORT = process.env.PORT || 3300;
+
+  const stream = {
+    write: (message) => logger.info(message.trim()),
+  };
+
+  // Set up HTTP request logging
+  app.use(morgan('tiny', { stream }));
+
+  // Set up custom error handler
+  app.use((err, _req, res, _next) => {
+    logger.error(err.stack);
+    res.status(err.status || 500).json({ error: err.message });
+  });
+
+  // Before production this needs to be changed to a valid url, or something more secure.
+  app.use(
+    cors({
+      origin: ['http://localhost:3000', 'http://localhost:3300'], // Adjust this to your frontend's origin
+      methods: ['GET', 'POST', 'PUT', 'DELETE', 'PATCH'],
+      allowedHeaders: ['Content-Type', 'Authorization'],
+    })
+  );
+  app.use(express.json());
+
+  if (opts.authorizeAs) {
+    if (uuidValidate(opts.authorizeAs)) {
+      console.warn(
+        `Fake authorization is enabled. All requests will be authorized as user ID: ${opts.authorizeAs}`
+      );
+      app.use(fakeAuthAs(opts.authorizeAs));
+    } else {
+      console.error(`Not a valid UUID: ${opts.authorizeAs}. Exiting..`);
+      return;
+    }
+  }
+
+  // Mount users router
+  app.use('/users', usersRouter);
+  app.use('/connections', connectionsRouter);
+  app.use('/notes', notesRouter);
+  app.use('/requests', requestsRouter);
+
+  app.get('/', (req, res) => {
+    res.send('Server is running TRIVIUM');
+  });
+  app.use('/genres', genreRouter);
+  app.use('/looking_for_tags', lookingForTagsRouter);
+  app.use('/chat', requireAuth, chatRouter);
+
+  app.use("/search", searchRouter);
+
+  app.use('/stories', storiesRouter);
+  app.listen(PORT, () => {
+    console.log(`Server running on port ${PORT}`);
+  });
+}

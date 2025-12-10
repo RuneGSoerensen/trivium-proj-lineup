@@ -1,10 +1,12 @@
 "use client";
 //NOTE - WORK IN PROGRESS - Navbar component to be expanded based on different types (search, title, chat, etc.)
 
-import { useNavbar } from "./NavbarContext";
 import { useRouter } from "next/navigation";
-import { Button } from "@/components/ui/Button/Button";
-import { Search, Bell, Menu } from "lucide-react";
+import { Button } from "@/ui/Button/Button";
+import { Search, Bell, Menu, ChevronLeftIcon } from "lucide-react";
+import { useNavbar } from "@/utils/navbarContext";
+import Image from "next/image";
+import Link from "next/link";
 
 const ACTION_DEFS = (router) => ({
     search: {
@@ -36,32 +38,41 @@ export default function Navbar() {
 
     // DEFAULT case:
     return (
-        <nav className="flex items-center justify-between px-4 py-2 bg-base-100">
-            {config.showBack ? (
-                <button onClick={() => router.back()} aria-label="Back">
-                    {/* back icon */}
-                </button>
-            ) : (
-                <div className="w-6" />
-            )}
 
-            <div className="flex items-center gap-3">
-                {config.actions.map((key) => {
-                    const action = ACTIONS[key];
-                    if (!action) return null;
-
-                    return (
-                        <Button
-                            key={key}
-                            type="icon"
-                            variant="ghost"
-                            aria-label={action.ariaLabel}
-                            onClick={action.onClick}
-                            icon={action.icon}
+            <nav className={`flex items-center justify-between w-full h-(--nav-height) px-24 py-18 ${config.backgroundColor} fixed top-0 left-0 right-0 z-50`}>
+                {config.showBack ? (
+                    <Button type="icon" variant="ghost" iconSize="xl" icon={<ChevronLeftIcon />} className="bg-transparent color-default" onClick={() => router.back()} aria-label="Back" />
+                ) : config.showLogo ? (
+                    <Link href="/">
+                        <Image
+                            src="/images/lineup-type-logo.svg"
+                            alt="Lineup Logo"
+                            width={100}
+                            height={40}
                         />
-                    );
-                })}
-            </div>
-        </nav>
+                    </Link>
+                ) : <span className="w-24"/>}
+
+                <div className="flex items-center gap-4">
+                    {config.actions.map((key) => {
+                        const action = ACTIONS[key];
+                        if (!action) return null;
+
+                        return (
+                            <Button
+                                key={key}
+                                type="icon"
+                                iconSize="lg"
+                                variant="ghost"
+                                className="color-default"
+                                aria-label={action.ariaLabel}
+                                onClick={action.onClick}
+                                icon={action.icon}
+                            />
+                        );
+                    })}
+                </div>
+            </nav>
+
     );
 }

@@ -1,4 +1,6 @@
-import sql from "../../db.js";
+import sql from '../../db.js';
+import z from 'zod';
+import normalizeTag from '../../utils/normalizeTag.js';
 
 export const getUserNotes = async (req, res) => {
   const { id } = req.params;
@@ -8,6 +10,12 @@ export const getUserNotes = async (req, res) => {
       n.*,
       u.name AS user_name,
       u.image_url AS user_image,
+      (
+        SELECT json_agg(tag.name ORDER BY tag.name)
+        FROM note_tagged nt
+        JOIN note_tags tag ON tag.id = nt.tag_id
+        WHERE nt.note_id = n.id
+    ) AS tags,
       (SELECT COUNT(*) FROM note_likes WHERE note_id = n.id) AS likes_count,
       (SELECT COUNT(*) FROM comments WHERE note_id = n.id) AS comments_count,
       (SELECT json_agg(
@@ -42,16 +50,37 @@ export const likeNote = async (req, res) => {
   const { user_id } = req.body;
 
   try {
-    await sql`
-      INSERT INTO note_likes (note_id, user_id)
-      VALUES (${id}, ${user_id})
-      ON CONFLICT (note_id, user_id)
-      DO NOTHING;
+    // Check if user already liked this note
+    const existing = await sql`
+      SELECT COUNT(*)::int AS count
+      FROM note_likes
+      WHERE note_id = ${id} AND user_id = ${user_id}
     `;
 
-    res.json({ success: true });
-  } catch {
-    res.status(500).json({ error: "Failed to like" });
+    const alreadyLiked = existing[0]?.count > 0;
+
+    if (alreadyLiked) {
+      // remove like
+      await sql`
+        DELETE FROM note_likes WHERE note_id = ${id} AND user_id = ${user_id}
+      `;
+    } else {
+      // add like
+      await sql`
+        INSERT INTO note_likes (note_id, user_id)
+        VALUES (${id}, ${user_id})
+        ON CONFLICT (note_id, user_id) DO NOTHING
+      `;
+    }
+
+    const [{ count: likes_count }] = await sql`
+      SELECT COUNT(*)::int AS count FROM note_likes WHERE note_id = ${id}
+    `;
+
+    res.json({ success: true, likes_count, is_liked: !alreadyLiked });
+  } catch (err) {
+    console.error('likeNote error', err);
+    res.status(500).json({ error: 'Failed to toggle note like' });
   }
 };
 
@@ -66,8 +95,8 @@ export const commentNote = async (req, res) => {
 
     res.json({ success: true });
   } catch (err) {
-    console.error("commentNote error", err);
-    res.status(500).json({ error: "Failed to comment" });
+    console.error('commentNote error', err);
+    res.status(500).json({ error: 'Failed to comment' });
   }
 };
 
@@ -105,7 +134,180 @@ export const likeComment = async (req, res) => {
 
     res.json({ success: true, likes_count, is_liked: !alreadyLiked });
   } catch (err) {
-    console.error("likeComment error", err);
-    res.status(500).json({ error: "Failed to toggle comment like" });
+    console.error('likeComment error', err);
+    res.status(500).json({ error: 'Failed to toggle comment like' });
   }
+};
+
+export async function createNote(req, res) {
+  const userId = req.userId;
+
+  const schema = z.object({
+    title: z.string(),
+    content: z.string(),
+    image_url: z.url().nullable().optional(),
+    people_user_ids: z.array(z.uuid()).default([]),
+    tags: z.array(z.string()).default([]),
+  });
+
+  const result = schema.safeParse(req.body);
+
+  if (!result.success) {
+    return res.status(400).json({ error: result.error.issues });
+  }
+
+  // if (!userId) {
+  //   console.error('userId is undefined - authentication failed');
+  //   return res.status(401).json({ error: 'User not authenticated' });
+  // }
+
+  const { title, content, image_url, people_user_ids, tags } = result.data;
+  const imageUrlValue = image_url ?? null;
+  let newNoteId;
+
+  // Make sure all user IDs exist before creating any table rows.
+  for (const userId of people_user_ids) {
+    const [{ exists }] = await sql`
+        SELECT EXISTS(SELECT id FROM users WHERE id = ${userId})
+      `;
+    if (!exists) {
+      return res.status(400).json({ error: `User with ID ${userId} does not exist.` });
+    }
+  }
+
+  await sql.begin(async (sql) => {
+    // insert note row
+    const [{ id }] = await sql`
+        INSERT INTO notes
+          (
+            user_id,
+            title,
+            content,
+            image_url
+          )
+        VALUES
+          (
+            ${userId},
+            ${title},
+            ${content},
+            ${imageUrlValue}
+          )
+        RETURNING notes.id;
+    `;
+    newNoteId = id;
+
+    // insert the tagged people
+    if (people_user_ids && people_user_ids.length != 0) {
+      await sql`
+        INSERT INTO notes_tagged_people ${sql(
+          people_user_ids.map((userId) => ({
+            note_id: newNoteId,
+            user_id: userId,
+          }))
+        )};
+      `;
+    }
+
+    // insert the tag links, creating any missing tags
+    for (const tagName of tags) {
+      // Check if tag already exists
+      const [existingTag] = await sql`
+          SELECT id FROM note_tags
+          WHERE name = ${tagName}
+          LIMIT 1
+      `;
+
+      const existingTagId = existingTag?.id;
+
+      if (existingTagId) {
+        // Existing tag found, use it
+        await sql`
+            INSERT INTO note_tagged
+            (note_id, tag_id)
+            VALUES
+            (${newNoteId}, ${existingTagId});
+          `;
+      } else {
+        // Not found, create new first
+        const [{ id: newTagId }] = await sql`
+            INSERT INTO note_tags
+            (name)
+            VALUES
+            (${tagName})
+            RETURNING id;
+          `;
+
+        // ..then use it
+        await sql`
+            INSERT INTO note_tagged
+            (note_id, tag_id)
+            VALUES
+            (${newNoteId}, ${newTagId});
+          `;
+      }
+    }
+  });
+
+  res.status(201).json({ success: true, note_id: newNoteId });
+}
+
+export async function getAllNoteTags(req, res) {
+  const rows = await sql`
+    SELECT name FROM note_tags
+  `;
+  const tagNamesNormalized = rows.map((row) => normalizeTag(row.name));
+
+  res.status(200).send(tagNamesNormalized);
+}
+
+export const forYouNotes = async (req, res) => {
+  const offset = parseInt(req.query.offset) || 0;
+  const id = req.userId || 'e63c9c36-2142-4a61-a152-118931631893';
+
+  const notes = await sql`
+    SELECT 
+      n.*,
+      u.name AS user_name,
+      u.image_url AS user_image,
+      (SELECT COUNT(*) FROM note_likes WHERE note_id = n.id) AS likes_count,
+      (SELECT COUNT(*) FROM comments WHERE note_id = n.id) AS comments_count,
+      (
+        SELECT json_agg(
+          jsonb_build_object(
+            'id', c.id,
+            'parent_comment_id', c.parent_comment_id,
+            'content', c.content,
+            'created_at', c.created_at,
+            'likes_count', (SELECT COUNT(*) FROM comment_likes cl WHERE cl.comment_id = c.id),
+            'user', jsonb_build_object(
+              'id', cu.id,
+              'name', cu.name,
+              'image_url', cu.image_url
+            )
+          )
+          ORDER BY c.created_at ASC
+        )
+        FROM comments c
+        JOIN users cu ON cu.id = c.user_id
+        WHERE c.note_id = n.id
+      ) AS comments
+    FROM notes n
+    JOIN users u ON u.id = n.user_id
+    WHERE n.user_id IN (
+      SELECT
+        CASE
+          WHEN follower_id = ${id} THEN following_id
+          WHEN following_id = ${id} THEN follower_id
+        END
+      FROM connections
+      WHERE (follower_id = ${id} OR following_id = ${id})
+        AND pending = false
+    )
+    AND n.user_id != ${id}
+    ORDER BY n.created_at DESC
+    LIMIT 5
+    OFFSET ${offset};
+  `;
+
+  res.json(notes);
 };

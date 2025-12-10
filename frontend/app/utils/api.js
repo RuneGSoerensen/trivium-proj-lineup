@@ -5,7 +5,8 @@
 
 import { authenticatedFetch } from "./auth";
 
-const API_BASE_URL = process.env.NEXT_PUBLIC_DATABASE_URL || "http://localhost:3300";
+const API_BASE_URL =
+  process.env.NEXT_PUBLIC_DATABASE_URL || "http://localhost:3300";
 
 /**
  * Create a new user (no authentication required)
@@ -62,23 +63,23 @@ export const updateUserProfile = async (userId, userData) => {
 
 /**
  * Fetch conversations for the authenticated user
-*/
+ */
 export const fetchThreads = async () => {
   const response = await authenticatedFetch(`${API_BASE_URL}/chat/threads`, {
     method: "GET",
   });
-  
+
   if (!response.ok) {
     const error = await response.json();
     throw new Error(error.message || "Failed to fetch threads");
   }
-  
+
   return response.json();
 };
 
 /**
-* Create a chat thread (1:1 or group)
-*/
+ * Create a chat thread (1:1 or group)
+ */
 export const createThread = async (threadData) => {
   const response = await authenticatedFetch(`${API_BASE_URL}/chat/threads`, {
     method: "POST",
@@ -149,3 +150,83 @@ export const sendMessage = async (threadId, messageData) => {
   return response.json();
 };
 
+/**
+ * Create a new note (requires authentication)
+ */
+export const createNote = async (noteData) => {
+  const response = await authenticatedFetch(`${API_BASE_URL}/notes`, {
+    method: "POST",
+    headers: {
+      "Content-Type": "application/json",
+    },
+    body: JSON.stringify(noteData),
+  });
+
+  if (!response.ok) {
+    let error;
+    try {
+      error = await response.json();
+    } catch (e) {
+      console.error("Failed to parse error response:", response.statusText);
+      throw new Error(`Failed to create note: ${response.statusText}`);
+    }
+    console.error("Backend error:", error);
+    const errorMessage =
+      error.message ||
+      (error.error ? JSON.stringify(error.error) : "Failed to create note");
+    throw new Error(errorMessage);
+  }
+
+  return response.json();
+};
+
+/**
+ * Create a new request (requires authentication)
+ */
+export const createRequest = async (requestData) => {
+  const response = await authenticatedFetch(`${API_BASE_URL}/requests`, {
+    method: "POST",
+    headers: {
+      "Content-Type": "application/json",
+    },
+    body: JSON.stringify(requestData),
+  });
+
+  if (!response.ok) {
+    let error;
+    try {
+      error = await response.json();
+    } catch (e) {
+      console.error("Failed to parse error response:", response.statusText);
+      throw new Error(`Failed to create request: ${response.statusText}`);
+    }
+    console.error("Backend error:", error);
+    const errorMessage =
+      error.message ||
+      (error.error ? JSON.stringify(error.error) : "Failed to create request");
+    throw new Error(errorMessage);
+  }
+
+  // Some endpoints may return 201/204 with no body
+  if (response.status === 201 || response.status === 204) {
+    return { success: true };
+  }
+
+  return response.json();
+};
+
+/**
+ * Fetch notes for the authenticated user
+ */
+export const fetchNotes = async () => {
+  const response = await authenticatedFetch(`${API_BASE_URL}/notes`, {
+    method: "GET",
+  });
+
+  if (!response.ok) {
+    const error = await response.json();
+    throw new Error(error.message || "Failed to fetch notes");
+  }
+
+  return response.json();
+};

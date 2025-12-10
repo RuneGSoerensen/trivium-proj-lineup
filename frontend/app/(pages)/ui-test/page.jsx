@@ -1,13 +1,15 @@
 'use client';
 
-import {Button} from "@/components/ui/Button/Button";
+import { Button } from "@/components/ui/Button/Button";
 import { ServiceCard } from "@/components/ui/Card/Card";
 import Input from "@/components/ui/Input/Input";
 import { TabContent, TabContentList, TabItem, Tabs, TabsList } from "@/components/ui/Tab/Tab";
 import { Tag } from "@/components/ui/Tag/Tag";
 import Image from "next/image";
 import { Angry, ArrowLeftCircle, Apple, MoreVertical, MoonIcon, ChevronDownIcon } from "lucide-react";
-import React from "react";
+import React, { useEffect } from "react";
+import { useNavbar } from "@/utils/navbarContext";
+import User from "@/ui/User/User";
 
 const documentElement = typeof window !== "undefined" ? window.document.documentElement : null;
 const dataTheme = documentElement ? documentElement.getAttribute("data-theme") : null;
@@ -18,10 +20,24 @@ const toggleTheme = () => {
 };
 export default function TestPage() {
 
+    const { setConfig } = useNavbar();
+
+    useEffect(() => {
+        setConfig({
+            type: "test",
+            title: "This is a test page",
+            showBack: true,
+            showLogo: false,
+            actions: ["search", "notifications", "menu"],
+            visible: true,
+        });
+    }, [setConfig]);
+
+
     return (
         <article className="space-y-12">
             <Button icon={<Angry />}>Primary</Button>
-            <Button icon={<Apple fill="inherit" />} variant="secondary" onClick={() => alert("Clicked!")}>
+            <Button icon={<Apple stroke="red" />} variant="secondary" onClick={() => alert("Clicked!")}>
                 Secondary
             </Button>
             <Button size="sm" variant="glass">Glass Button</Button>
@@ -62,7 +78,7 @@ export default function TestPage() {
             </Tabs>
 
             <Input placeholder="Enter your name" label="Name" />
-
+            <User avatarUrl={null} isConnected={true} userName="Victoria" />
 
             <ServiceCard
                 avatarSrc="/icons/chat.svg"

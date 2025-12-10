@@ -21,25 +21,49 @@ const variantClass = (variant) => {
     };
 };
 
-const Input = ({ variant, value, onChange = () => { }, placeholder, type = "text", className, hasMessage = false, message, id, ...rest }) => {
+const Input = ({
+    variant,
+    value,
+    onChange = () => { },
+    placeholder,
+    type = "text",
+    className,
+    hasMessage = false,
+    message,
+    id,
+    icon,
+    iconPosition = "left",
+    ...rest
+}) => {
     const inputId = useId(id);
-    
+
     return (
         <div className='w-full gap-4 flex flex-col'>
-            <input
-                className={clsx(
-                    "trvm-input",
-                    variantClass(variant === "error" && hasMessage ? "error" : variant),
-                    className
+            <div className={clsx(
+                "input-wrapper",
+                variantClass(variant === "error" && hasMessage ? "error" : variant),
+                className
+            )}>
+
+                {/* LEFT ICON */}
+                {icon && iconPosition === "left" && (
+                    <span className="input-icon left">{icon}</span>
                 )}
-                value={value}
-                onChange={onChange}
-                placeholder={placeholder}
-                type={type}
-                aria-invalid={hasMessage}
-                aria-describedby={hasMessage ? `${inputId}-error` : undefined}
-                {...rest}
-            />
+                <input
+                    className='trvm-input'
+                    value={value}
+                    onChange={onChange}
+                    placeholder={placeholder}
+                    type={type}
+                    aria-invalid={hasMessage}
+                    aria-describedby={hasMessage ? `${inputId}-error` : undefined}
+                    {...rest}
+                />
+                {/* RIGHT ICON */}
+                {icon && iconPosition === "right" && (
+                    <span className="input-icon right">{icon}</span>
+                )}
+            </div>
             {hasMessage && (
                 <p id={`${inputId}-error`} className="color-error text-sm">{message}</p>
             )}
@@ -65,6 +89,10 @@ Input.propTypes = {
     hasMessage: PropTypes.bool,
     /** Inline message text */
     message: PropTypes.string,
+    /** Icon */
+    icon: PropTypes.element,
+    /** Icon position */
+    iconPosition: PropTypes.oneOf(['left', 'right']),
 }
 
 export default Input
