@@ -1,3 +1,7 @@
+/**
+ * Authentication layer using supabase
+ */
+
 import { createClient } from "@supabase/supabase-js";
 
 const supabaseUrl = process.env.NEXT_PUBLIC_SUPABASE_URL;
@@ -21,44 +25,22 @@ export const signInWithPassword = async (email, password) => {
     password,
   });
 
-  if (data?.session && data?.user) {
-    // TODO: Not needed
-    setAuthToken(data.session.access_token, data.user.id);
-  }
-
   return { user: data?.user, session: data?.session, error };
 };
 
 /**
  * Sign out user and clear auth data
+ * @returns {Promise<{ error: AuthError|null }>} JWT token or null if not found
  */
 export const signOut = async () => {
-  const { error } = await supabase.auth.signOut();
-  // TODO: Not needed
-  clearAuthData();
+  await supabase.auth.signOut();
   return { error };
 };
 
-/**
- * Authentication utility functions for managing JWT tokens and user sessions
- */
 
 /**
- * Store authentication data in localStorage
- * @param {string} token - JWT access token from Supabase
- * @param {string} userId - User ID
- */
-export const setAuthToken = (token, userId) => {
-  // TODO: Remove. supabase already sets auth token and stores user details in localstorage.
-  if (typeof window !== "undefined") {
-    localStorage.setItem("jwt_token", token);
-    localStorage.setItem("user_id", userId);
-  }
-};
-
-/**
- * Get the stored JWT token
- * @returns {Promise<string|null>} JWT token or null if not found
+ * Get the stored user session token if the user is logged in.
+ * @returns {Promise<string|null>} JWT session token or null if not found
  */
 export const getAuthToken = async () => {
   const { data, error: _ } = await supabase.auth.getSession();
@@ -66,7 +48,7 @@ export const getAuthToken = async () => {
 };
 
 /**
- * Get the stored user ID
+ * Get the stored user ID if the user is logged in.
  * @returns {Promise<string|null>} User ID or null if not found
  */
 export const getUserId = async () => {
@@ -75,19 +57,8 @@ export const getUserId = async () => {
 };
 
 /**
- * Clear all authentication data from localStorage
- */
-export const clearAuthData = () => {
-  // TODO: REmove completely, use signOut always.
-  if (typeof window !== "undefined") {
-    localStorage.removeItem("jwt_token");
-    localStorage.removeItem("user_id");
-  }
-};
-
-/**
- * Check if user is authenticated
- * @returns {boolean} True if token exists
+ * Check if user is authenticated.
+ * @returns {boolean} True if authenticated
  */
 export const isAuthenticated = async () => {
   return (await getUserId()) !== null;
