@@ -204,12 +204,14 @@ export default function Step6() {
             {errorMessage}
           </p>
         )}
+
         {/* <Link
           className="text-sm text-muted-foreground text-center underline underline-offset-4"
           href="/"
         >
           Skip for now
-        </Link> */}
+        </Link> 
+        */}
       </div>
     </div>
   );
