@@ -35,6 +35,12 @@
     @apply absolute top-1/2 -translate-y-1/2 color-muted;
   }
 
+  .trvm-input.checkbox {
+    @apply w-24 h-24 checked:bg-brand-primary! checked:border-brand! rounded-full! border-muted cursor-pointer transition-colors duration-150;
+  }
+
+
+
   /* .input-icon.left {
     @apply left-8;
   } 

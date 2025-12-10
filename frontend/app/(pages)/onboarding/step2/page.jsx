@@ -178,9 +178,9 @@ export default function Step2() {
       </form>
 
 
-      <div className="flex flex-col items-center justify-center mt-24">
+      <div className="flex flex-col items-center justify-center mt-24 ">
         <p>or sign up with</p>
-        <div className="flex flex-col gap-10 items-center mb-12 w-11/12">
+        <div className="flex flex-col gap-10 items-center my-12 w-11/12">
           <Button
             size="lg"
             variant="secondary"

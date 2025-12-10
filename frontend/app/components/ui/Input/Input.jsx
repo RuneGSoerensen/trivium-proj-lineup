@@ -26,9 +26,9 @@ const Input = ({
     value,
     onChange = () => { },
     placeholder,
-    type = "text",
-    className,
+    className = type === "checkbox" ? "checkbox" : "",
     hasMessage = false,
+    type = "text",
     message,
     id,
     icon,
@@ -36,40 +36,54 @@ const Input = ({
     ...rest
 }) => {
     const inputId = useId(id);
-
+    const isCheckbox = type === "checkbox";
     return (
-        <div className='w-full gap-4 flex flex-col'>
-            <div className={clsx(
-                "input-wrapper",
-                variantClass(variant === "error" && hasMessage ? "error" : variant),
-                className
-            )}>
+        !isCheckbox ? (
+            <div className='w-full gap-4 flex flex-col'>
+                <div className={clsx(
+                    "input-wrapper",
+                    variantClass(variant === "error" && hasMessage ? "error" : variant),
+                    className
+                )}>
 
-                {/* LEFT ICON */}
-                {icon && iconPosition === "left" && (
-                    <span className="input-icon left">{icon}</span>
+                    {/* LEFT ICON */}
+                    {icon && iconPosition === "left" && (
+                        <span className="input-icon left">{icon}</span>
+                    )}
+                    <input
+                        className='trvm-input'
+                        value={value}
+                        onChange={onChange}
+                        placeholder={placeholder}
+                        type={type}
+                        aria-invalid={hasMessage}
+                        aria-describedby={hasMessage ? `${inputId}-error` : undefined}
+                        {...rest}
+                    />
+                    {/* RIGHT ICON */}
+                    {icon && iconPosition === "right" && (
+                        <span className="input-icon right">{icon}</span>
+                    )}
+                </div>
+                {hasMessage && !isCheckbox && (
+                    <p id={`${inputId}-error`} className="color-error text-sm">{message}</p>
                 )}
+            </div>
+
+        ) : (
+
                 <input
-                    className='trvm-input'
+                    className={`trvm-input ${className}`}
                     value={value}
                     onChange={onChange}
                     placeholder={placeholder}
-                    type={type}
-                    aria-invalid={hasMessage}
-                    aria-describedby={hasMessage ? `${inputId}-error` : undefined}
+                    type={type === "checkbox" ? "checkbox" : type}
                     {...rest}
                 />
-                {/* RIGHT ICON */}
-                {icon && iconPosition === "right" && (
-                    <span className="input-icon right">{icon}</span>
-                )}
-            </div>
-            {hasMessage && (
-                <p id={`${inputId}-error`} className="color-error text-sm">{message}</p>
-            )}
-        </div>
-    );
+
+        ))
 }
+
 
 Input.propTypes = {
     /** Input value */

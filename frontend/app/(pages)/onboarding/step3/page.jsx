@@ -19,19 +19,29 @@ export default function Step3() {
   }, [canAccessStep, stepNumber, router, maxStepReached]);
   // Local useState for form Input
   const [formData, setFormData] = useState({
-    is_musician: userData.is_musician ?? null,
+    is_musician: userData.is_musician ?? false,
   });
-
   const handleNext = () => {
     updateUser({ is_musician: formData.is_musician });
     advanceStep();
     router.push("/onboarding/step4");
   };
 
+  const isChecked = (value) => {
+    return formData.is_musician === value;
+  };
+
+  const handleboxStyle = (isChecked) => {
+    return isChecked
+      ? "border-subtle"
+      : "border-muted";
+  };
+
+
   return (
-    <div className="flex flex-col h-full justify-between">
+    <div className="flex flex-col h-full justify-between mt-12">
       <div className="flex flex-col gap-30 items-center justify-center flex-1">
-        <div className="mb-8">
+        <div className="mb-60">
           <Image
             src="/images/lineup-logo-letters-yellow.png"
             alt="LineUp Letter style logo"
@@ -41,12 +51,11 @@ export default function Step3() {
         </div>
 
         <div
-          className={`flex items-center flex-col gap-10 p-10 ${
-            formData.is_musician === true ? "border-subtle" : "border-muted"
-          } p-4 rounded-3xl text-center justify-center min-h-200 max-w-223`}
+          className={`flex items-center flex-col gap-20 p-20 border-${isChecked(true) ? "subtle" : "muted"
+            } p-4 rounded-3xl text-center justify-center w-fit h-fit min-h-155 max-w-223`}
         >
           <label
-            className="label-text text-base font-semibold"
+            className="text-h2 color-grey-300 text-base font-semibold"
             htmlFor="musicianTrue"
           >
             I am a musician
@@ -54,20 +63,19 @@ export default function Step3() {
           <p>I am a musician looking for collaboration and services.</p>
           <Input
             type="checkbox"
-            className="checkbox mx-auto rounded-full checked:border-(--color-primary) checked:bg-brand-primary"
+            className="checkbox mx-auto rounded-full"
             id="musicianTrue"
-            checked={formData.is_musician === true}
+            checked={isChecked(true)}
             onChange={() => setFormData({ is_musician: true })}
           />
         </div>
 
         <div
-          className={`flex items-center flex-col gap-10 p-10 ${
-            formData.is_musician === false ? "border-subtle" : "border-muted"
-          } p-4 rounded-3xl text-center justify-center min-h-200 max-w-223`}
+          className={`flex items-center flex-col gap-20 p-20 border-${isChecked(false) ? "subtle" : "muted"
+            } p-4 rounded-3xl text-center justify-center w-fit h-fit min-h-155 max-w-223`}
         >
           <label
-            className="label-text text-base font-semibold"
+            className="text-h2 color-grey-300 text-base font-semibold"
             htmlFor="musicianFalse"
           >
             Not a musician
@@ -75,9 +83,9 @@ export default function Step3() {
           <p>I want to provide services for musicians.</p>
           <Input
             type="checkbox"
-            className="checkbox mx-auto rounded-full checked:border-(--color-primary) checked:bg-brand-primary"
+            className="checkbox mx-auto rounded-full"
             id="musicianFalse"
-            checked={formData.is_musician === false}
+            checked={isChecked(false)}
             onChange={() => setFormData({ is_musician: false })}
           />
         </div>
@@ -86,7 +94,6 @@ export default function Step3() {
       <div className="items-end self-center pb-4">
         <Button
           variant="primary"
-          size="sm"
           onClick={handleNext}
           className="ml-4 w-fit"
         >
