@@ -1,6 +1,6 @@
 "use client";
 
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { useRouter } from "next/navigation";
 import { signInWithPassword } from "@/utils/supabaseClient";
 import Input from "@/ui/Input/Input";
