@@ -2,6 +2,7 @@
 import NoteCard from "../note/noteCard";
 import { useState, useEffect } from "react";
 import { authenticatedFetch } from "@/utils/auth.js";
+import { Button } from '@/ui/Button/Button';
 export default function UserFeed() {
   const [notes, setNotes] = useState([]);
   const [loading, setLoading] = useState(true);
@@ -71,13 +72,14 @@ export default function UserFeed() {
         <NoteCard key={note.id} note={note} showComments={false} />
       ))}
       {hasMore && (
-        <button
+        <Button
+          variant="ghost"
           onClick={loadMore}
           disabled={loadingMore}
-          className="btn btn-primary w-full"
+          className="w-full"
         >
           {loadingMore ? "Loading..." : "Load More"}
-        </button>
+        </Button>
       )}
     </div>
   );

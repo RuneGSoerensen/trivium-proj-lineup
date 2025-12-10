@@ -153,9 +153,7 @@ export default function NoteCard({ note, showComments = false }) {
           ))}
 
         </div>
-        <button className="flex items-center ml-auto">
-          <MoreHorizontal size={20} />
-        </button>
+        <Button type="icon" variant="ghost" icon={<MoreHorizontal/>} iconSize="md" className="flex items-center ml-auto" />
       </header>
 
       {/* TITLE */}
@@ -185,7 +183,7 @@ export default function NoteCard({ note, showComments = false }) {
             {/* ACTIONS */}
             <Button
               size="icon-sm"
-              iconSize="lg"
+              iconSize="md"
               icon={<Heart />}
               variant="ghost"
               className={`color-subtle ${localLiked ? "color-red" : ""} pl-0!`}
@@ -198,7 +196,7 @@ export default function NoteCard({ note, showComments = false }) {
 
             <Button
               size="icon-sm"
-              iconSize="lg"
+              iconSize="md"
               icon={<MessagesSquare />}
               variant="ghost"
               onClick={handleReplyClick}
@@ -208,7 +206,7 @@ export default function NoteCard({ note, showComments = false }) {
 
             <Button
               size="icon-sm"
-              iconSize="lg"
+              iconSize="md"
               icon={<Forward />}
               variant="ghost"
               className="color-subtle"
@@ -218,7 +216,7 @@ export default function NoteCard({ note, showComments = false }) {
             {commentsOpen && (
               <Button
                 size="icon-sm"
-                iconSize="lg"
+                iconSize="md"
                 icon={<Repeat2 />}
                 variant="ghost"
                 className="color-subtle"
