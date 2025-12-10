@@ -208,6 +208,7 @@ export default function CreateNotes({ userName, userImage }) {
       <div className="self-end mt-10 mb-[50%]">
         <Button
           variant="primary"
+          className="px-30"
           size="sm"
           onClick={handlePost}
           disabled={isLoading}

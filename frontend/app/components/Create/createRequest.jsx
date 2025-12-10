@@ -241,8 +241,8 @@ export default function CreateNotes({ userName, userImage }) {
         />
       </div>
 
-      <div className="flex items-center mt-15 mb-[50%] gap-4">
-        <div className="self-start flex flex-row items-center gap-4 bg-none">
+      <div className="flex items-center mt-15 gap-4">
+        <div className="self-start flex flex-row items-center gap-4 bg-none ">
           <input
             type="checkbox"
             className="switch switch-outline rounded-full bg-none border-grey-400"
@@ -257,17 +257,18 @@ export default function CreateNotes({ userName, userImage }) {
             {isPaid ? "Paid opportunity" : "Not paid"}
           </label>
         </div>
-        <div className="self-end ml-auto">
-          <Button
-            variant="primary"
-            size="sm"
-            onClick={handlePost}
-            disabled={isLoading}
-          >
-            {isLoading ? "Posting..." : "Post"}
-          </Button>
-          {error && <p className="text-error text-sm mt-2">{error}</p>}
-        </div>
+      </div>
+      <div className="self-end ">
+        <Button
+          variant="primary"
+          className="px-30 mb-[50%]"
+          size="sm"
+          onClick={handlePost}
+          disabled={isLoading}
+        >
+          {isLoading ? "Posting..." : "Post"}
+        </Button>
+        {error && <p className="text-error text-sm mt-2">{error}</p>}
       </div>
     </div>
   );
