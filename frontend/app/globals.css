@@ -79,12 +79,13 @@
 @theme {
   /* FONT FAMILY */
   --font-ui: "Helvetica Now Display", system-ui, sans-serif;
+  --font-display: "Inter", system-ui, sans-serif;
 
   /* FONT SIZE  */
   --text-h1: 1.5rem; /* 24px */
   --text-h2: 1.25rem; /* 20px */
   --text-h3: 1.125rem; /* 18px */
-  --text-subtitle: 0.875rem; /* 14px */
+  --text-subtitle: 1rem; /* 14px */
   --text-body: clamp(1rem, 1.125vw + 0.5rem, 1.2rem); /* 16px - 24px */
   --text-body-lg: 1.25rem; /* 20px */
   --text-body-sm: 0.875rem; /* 14px */
@@ -201,16 +202,14 @@
 
 /* Text size utilities */
 @utility text-h1 {
-  font-family: var(--font-ui);
   font-size: var(--text-h1);
   font-weight: 600;
+  color: var(--color-secondary-orange);
 }
 @utility text-h2 {
-  font-family: var(--font-ui);
   font-size: var(--text-h2);
 }
 @utility text-h3 {
-  font-family: var(--font-ui);
   font-size: var(--text-h3);
 }
 @utility text-subtitle {
@@ -425,6 +424,12 @@ p {
   font-size: var(--text-body);
   line-height: 1.6;
   margin-bottom: 1em;
+  font-weight: 400;
+}
+
+p.subtitle {
+  font-size: var(--text-subtitle);
+  color: var(--color-neutral-dark);
 }
 
 h1,
@@ -433,12 +438,12 @@ h3,
 h4,
 h5,
 h6 {
-  font-family: var(--font-ui);
+  font-family: var(--font-display);
   margin-bottom: 1em;
 }
 
 a {
-  color: "text-cyan-500";
+  color: #007AFF;
   transition: color 150ms ease-in-out;
 }
 

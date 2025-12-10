@@ -66,49 +66,49 @@ export default function LoginPage() {
 
   return (
 
-    <div className="max-w-md w-full h-full flex flex-col items-center justify-center text-center space-y-8">
-      <h1 className="text-h1 font-bold mb-30 color-grey-300">Login</h1>
-      <form onSubmit={handleLogin} className="space-y-15">
-        <div>
-          <Input
-            id="email"
-            type="email"
-            aria-label="Email"
-            value={email}
-            onChange={(e) => setEmail(e.target.value)}
-            required
-            className="input w-full text-center placeholder:text-center"
-            placeholder="Enter your email"
-          />
-        </div>
+    <div className="mt-12 max-w-md w-full h-full flex flex-col items-center justify-center text-center space-y-8">
+      <h1 className="text-h1">Login</h1>
+      <form onSubmit={handleLogin} className="flex flex-col gap-8 justify-center">
 
-        <div>
-          <Input
-            id="password"
-            type="password"
-            aria-label="Password"
-            value={password}
-            onChange={(e) => setPassword(e.target.value)}
-            required
-            className="input w-full text-center placeholder:text-center"
-            placeholder="Enter your password"
-          />
-        </div>
+        <Input
+          id="email"
+          type="email"
+          aria-label="Email"
+          value={email}
+          onChange={(e) => setEmail(e.target.value)}
+          required
+          className="border-muted mb-4 placeholder:text-center"
+          placeholder="Enter your email"
+        />
+
+
+
+        <Input
+          id="password"
+          type="password"
+          aria-label="Password"
+          value={password}
+          onChange={(e) => setPassword(e.target.value)}
+          required
+          className="border-muted mb-4 placeholder:text-center"
+          placeholder="Enter your password"
+        />
+
 
         {error && (
           <div className="bg-red-100 border border-error color-error px-4 py-3 rounded">
             {error}
           </div>
         )}
-        <div className="flex justify-center mt-24">
+        <div className="flex justify-center mt-24 mb-8">
           <Button variant="primary" type="submit" disabled={loading}>
             {loading ? "Logging in..." : "Continue"}
           </Button>
         </div>
       </form>
-      <div className="flex flex-col items-center justify-center my-10">
+      <div className="flex flex-col items-center justify-center mt-24">
         <p>or sign up with</p>
-        <div className="flex flex-col gap-10 items-center my-10 w-11/12">
+        <div className="flex flex-col gap-10 items-center mb-12 w-11/12">
           <Button
             size="lg"
             variant="secondary"

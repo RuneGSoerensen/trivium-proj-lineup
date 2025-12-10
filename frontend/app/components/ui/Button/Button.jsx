@@ -23,7 +23,7 @@ const variantClass = {
 // Made for mobile first design
 const sizeClass = {
   sm: "py-2 px-8",
-  md: "py-4 px-20",
+  md: "py-6 px-20",
   lg: "py-8 px-24",
   xl: "py-12 px-32",
   'icon-sm': "p-8",
