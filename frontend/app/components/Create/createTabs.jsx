@@ -56,7 +56,7 @@ export default function CreateTabs() {
       <Tabs className="bg-white">
         <TabsList
           hasSeparator={false}
-          className="bg-white rounded border-b border-gray-300"
+          className="bg-white rounded border-b border-gray-300 pb-24"
         >
           <TabItem activeClassName="bg-brand-primary p-2">Note</TabItem>
           <TabItem activeClassName="bg-brand-primary p-2">Story</TabItem>

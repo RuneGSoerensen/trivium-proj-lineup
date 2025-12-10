@@ -129,6 +129,7 @@ export default function CreateNotes({ userName, userImage }) {
             <MultiSelectInput
               options={[]}
               values={tags}
+              className="bg-alt"
               setValues={setTags}
               placeholder="Add a tag..."
               allowNew={true}
@@ -140,6 +141,7 @@ export default function CreateNotes({ userName, userImage }) {
         <Input
           placeholder="Write a title"
           value={title}
+          className="bg-alt"
           onChange={(e) => setTitle(e.target.value)}
         />
       </div>
@@ -198,7 +200,7 @@ export default function CreateNotes({ userName, userImage }) {
           placeholder="Write a description"
           cols="30"
           rows="4"
-          className="w-full bg-default color-default border-muted rounded-lg px-12 py-14 placeholder:color-muted focus:ring-1 focus:ring-brand transition-all duration-100"
+          className="w-full bg-alt color-default border-muted rounded-lg px-12 py-14 placeholder:color-muted focus:ring-1 focus:ring-brand transition-all duration-100"
           value={content}
           onChange={(e) => setContent(e.target.value)}
         />

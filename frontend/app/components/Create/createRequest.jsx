@@ -116,7 +116,7 @@ export default function CreateNotes({ userName, userImage }) {
 
       <div>
         <Input
-          className="mt-15"
+          className="mt-15 bg-alt"
           placeholder="Write a title"
           value={title}
           onChange={(e) => setTitle(e.target.value)}
@@ -139,6 +139,7 @@ export default function CreateNotes({ userName, userImage }) {
           <div className="mb-16 flex gap-2 items-center">
             <Input
               placeholder="Enter image URL..."
+              className="bg-alt"
               value={imageUrl}
               onChange={(e) => setImageUrl(e.target.value)}
               onKeyPress={(e) => e.key === "Enter" && handleAddImage()}
@@ -179,7 +180,7 @@ export default function CreateNotes({ userName, userImage }) {
           placeholder="Write a description"
           cols="30"
           rows="4"
-          className="w-full bg-default color-default border-muted rounded-lg px-12 py-14 placeholder:color-muted focus:ring-1 focus:ring-brand transition-all duration-100"
+          className="w-full bg-alt color-default border-muted rounded-lg px-12 py-14 placeholder:color-muted focus:ring-1 focus:ring-brand transition-all duration-100"
           value={content}
           onChange={(e) => setContent(e.target.value)}
         />
@@ -221,6 +222,7 @@ export default function CreateNotes({ userName, userImage }) {
           <div className="mb-4">
             <MultiSelectInput
               options={allGenres}
+              className="bg-alt"
               values={genres}
               setValues={setGenres}
               placeholder="Add a genre..."
@@ -232,7 +234,7 @@ export default function CreateNotes({ userName, userImage }) {
 
       <div>
         <Input
-          className=""
+          className="bg-alt"
           placeholder="Location.."
           value={location}
           onChange={(e) => setLocation(e.target.value)}
