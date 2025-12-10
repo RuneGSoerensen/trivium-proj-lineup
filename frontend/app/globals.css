@@ -19,7 +19,7 @@
   --color-primary: #ffcf70;
   --color-primary-content: #1e1e1e;
 
-  --color-secondary: #3F4D54;
+  --color-secondary: #3f4d54;
   --color-secondary-content: #f7f6f6;
 
   --color-accent: #40826d;
@@ -367,9 +367,30 @@
 
 /* createRequest rounded force */
 
-.switch.rounded-full {
-  border-radius: 9999px !important;
+.switch {
+  background: transparent !important;
+  border: 1px solid #000 !important;
+  box-shadow: none !important;
 }
+
+.switch::before {
+  border: 1px solid #000 !important;
+  background: transparent !important;
+}
+
+/* Keep the track transparent when checked; make the thumb black */
+.switch:checked {
+  background: transparent !important;
+  border: 1px solid #000 !important;
+}
+
+.switch:checked::before {
+  background: #000 !important;
+  border-color: #000 !important;
+}
+
+/* Preserve the pill shape on rounded variants */
+.switch.rounded-full,
 .switch.rounded-full::before {
   border-radius: 9999px !important;
 }
@@ -470,4 +491,3 @@ a:hover {
   white-space: nowrap;
   border: 0;
 }
-
