@@ -2,7 +2,7 @@
 
 import { useOnboarding } from "@/utils/userOnboardingContext";
 import { useRouter } from "next/navigation";
-import { supabase } from "@/utils/supabaseClient";
+import { supabase } from "@/utils/auth";
 import { setAuthToken } from "@/utils/auth";
 import { createUser } from "@/utils/api";
 import { useState, useEffect } from "react";
