@@ -16,7 +16,7 @@
   }
 
   .input-wrapper:has(.input-icon.right) .trvm-input {
-    @apply pr-24! right-4;
+    @apply pr-28! right-8;
   }
 
   .input-wrapper {
@@ -37,6 +37,9 @@
 
   .input-icon {
     @apply absolute top-1/2 -translate-y-1/2 color-muted;
+  }
+  .input-icon.right {
+    @apply absolute right-8 translate-x-1;
   }
 
   .trvm-input[type="checkbox"] {

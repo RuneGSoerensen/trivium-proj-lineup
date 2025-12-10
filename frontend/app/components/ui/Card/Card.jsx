@@ -20,18 +20,19 @@ export function Card({
   ctaLabel = "Read more", location, timeAgo, // fx "4h ago"
   ctaVariant, btnPads = ctaVariant = "ghost" ? "px-0! font-medium" : "",
   // interaktion
-  onClick = () => { }, onBookmarkClick = () => { },
+  onClick = () => { }, onIconClick = () => { },
   className,
 }) {
   const clickable = typeof onClick === "function";
   const isService = type === "Service";
   const isCollab = type === "Collab";
   const isSmall = variant === "Small";
+  const ServiceIcon = isService && !isSmall ? Bookmark : customElements.define;
 
   return (
     <article
       className={clsx(
-        `${isSmall ? "min-h-193" : "h-fit"} rounded-[24px] min-w-333 trvm-card sm:max-w-sm bg-default color-default border border-muted/30`,
+        `${isSmall ? "min-h-193" : "h-fit"} rounded-[24px] min-w-333 trvm-card bg-default color-default border border-muted/30`,
         clickable && "cursor-pointer",
         className
       )}
@@ -40,7 +41,7 @@ export function Card({
       <div className="card-body space-y-3">
         {/* Top bar: avatar + navn + tag + bookmark */}
         <header className="flex items-center justify-between gap-10 pb-15 border-b border-muted/30">
-          <div className="flex items-center gap-4 w-full">
+          <div className="flex items-center gap-8 w-full">
             {avatarSrc && (
               <div className="shrink-0">
                 <Image
@@ -52,36 +53,34 @@ export function Card({
               </div>
             )}
 
-            <span className="truncate flex items-center gap-4">
+            <span className="truncate flex items-center gap-8">
               {authorName && (
-                <span className="text-base color-muted/70 mr-4">
+                <span className="text-base color-muted/70">
                   {authorName}
                 </span>
               )}
               <div className="text-xs color-muted truncate flex">
                 {tag && isCollab ? (
-                  <p className="truncate">is looking for a {tag}</p>
+                  <p className="truncate">is looking for a #{tag}</p>
                 ) : (tag && isService && (
-                  <p className="truncate">{tag}</p>
+                  <p className="truncate">offers #{tag}</p>
                 ))}
               </div>
             </span>
           </div>
 
-          {onBookmarkClick && !isSmall && (
+          {onIconClick && isService && (
             <Button
               type="icon"
               variant="ghost"
               iconSize="lg"
-              icon={<Bookmark />}
+              icon={!isSmall ? <ServiceIcon size={24} /> : <ServiceIcon size={24} />}
               onClick={(e) => {
                 e.stopPropagation();
-                onBookmarkClick();
+                onIconClick();
               }}
-              aria-label="Save"
-            >
-              ?
-            </Button>
+              aria-label={"Service type icon"}
+            />
           )}
         </header>
 

@@ -5,18 +5,23 @@ import Image from "next/image";
 import {
   MoreHorizontal,
   Heart,
-  MessageSquare,
+  Forward,
   Upload,
   ArrowUp,
+  MessagesSquare,
+  Repeat2,
 } from "lucide-react";
 import { Tag } from "@/ui/Tag/Tag";
 import { CommentItem } from "./CommentItem";
-import { getUserId } from "@/utils/auth";
+import { authenticatedFetch, getUserId } from "@/utils/auth";
 import { formatTimeAgo } from "@/utils/timeAgo";
+import { Button } from '@/ui/Button/Button';
+import Input from "../ui/Input/Input";
+
 export default function NoteCard({ note, showComments = false }) {
   const [commentText, setCommentText] = useState(""); // main input
   const [commentsOpen, setCommentsOpen] = useState(showComments);
-  const [localLiked, setLocalLiked] = useState(note.is_liked || false);
+  const [localLiked, setLocalLiked] = useState(note.is_liked ?? 0);
   const [localLikesCount, setLocalLikesCount] = useState(
     parseInt(note.likes_count ?? 0)
   );
@@ -35,7 +40,7 @@ export default function NoteCard({ note, showComments = false }) {
       if (!updated) return;
       setLocalComments(updated.comments ?? []);
       setLocalLikesCount(parseInt(updated.likes_count ?? 0));
-      setLocalLiked(!!updated.is_liked);
+      setLocalLiked(updated.is_liked ?? 0);
     } catch (err) {
       console.error("refreshNoteData error", err);
     }
@@ -117,84 +122,111 @@ export default function NoteCard({ note, showComments = false }) {
 
 
   return (
-    <div className="p-4">
+    <div className="py-10 gap-15 flex flex-col border-b border-muted/20 px-10">
       {/* HEADER */}
-      <div className="flex items-center gap-3 mb-3">
-        <div className="w-20 h-20 rounded-full bg-muted overflow-hidden flex-shrink-0">
-          {note.user_image ? (
-            <Image
-              src={note.user_image}
-              alt={note.user_name}
-              width={40}
-              height={40}
-              className="w-full h-full object-cover"
-            />
-          ) : (
-            <div className="w-full h-full flex items-center justify-center text-muted font-semibold">
-              {note.user_name?.charAt(0)?.toUpperCase()}
-            </div>
-          )}
+      <header className="flex items-center gap-10">
+        <div className="flex items-center gap-10">
+          <div className="w-20 h-20 rounded-full border border-muted overflow-hidden flex-shrink-0">
+            {note.user_image ? (
+              <Image
+                src={note.user_image}
+                alt={note.user_name}
+                width={40}
+                height={40}
+                className="w-full h-full object-cover"
+              />
+            ) : (
+              <p className="w-full h-full font-regular flex items-center justify-center color-muted">
+                {note.user_name?.charAt(0)?.toUpperCase()}
+              </p>
+            )}
+          </div>
+
+          <p className="text-muted text-sm">{note.user_name}</p>
+          {note.tags?.map((tag) => (
+            <Tag
+              key={tag}
+              className="px-8 py-2 flex items-center bg-default border-gray-500 border text-gray-500 text-xs"
+            >
+              #<span className="color-subtle">{tag}</span>
+            </Tag>
+          ))}
+
         </div>
-
-        <p className="text-muted text-[12px]">{note.user_name}</p>
-        {note.tags?.map((tag) => (
-          <Tag
-            key={tag}
-            className="px-8 py-2 flex items-center bg-white border-gray-500 border text-gray-500 text-xs"
-          >
-            #<span className="text-muted">{tag}</span>
-          </Tag>
-        ))}
-
         <button className="flex items-center ml-auto">
           <MoreHorizontal size={20} />
         </button>
-      </div>
+      </header>
 
       {/* TITLE */}
-      <p className="text-h3 font-semibold mb-3 ml-4">
-        {note.title ?? "overskrift skal være her"}
-      </p>
+      <h3 className="text-h3 font-semibold mb-3 ml-4">
+        {note.title ?? "Title not provided"}
+      </h3>
 
-      {/* IMAGE */}
-      {note.image_url && (
-        <div className="rounded-[20px] overflow-hidden mb-3">
+      <section className="flex flex-col gap-15">
+        {/* IMAGE */}
+        {note.image_url && (
+
           <Image
             src={note.image_url}
             alt="Post image"
             width={500}
             height={300}
-            className="w-full h-auto object-cover"
+            className="w-full h-auto max-h-450 object-cover border-muted shadow-md rounded-[20px]"
           />
-        </div>
-      )}
+        )}
 
-      {/* CONTENT */}
-      <p className="text-muted font-light text-sm m-4">{note.content}</p>
+        <footer className="flex flex-col items-start w-full">
+          {/* CONTENT */}
+          <p className="color-muted/60 font-light text-sm">{note.content}</p>
+          <div className="flex justify-between py-9 w-full">
+            <div className="flex items-center gap-14 w-full">
 
-      {/* ACTIONS */}
-      <div className="flex items-center gap-16 text-muted text-[14px]">
-        <button onClick={handleLike} className="flex items-center gap-1.5">
-          <Heart
-            size={24}
-            strokeWidth={localLiked ? 0 : 4}
-            fill={localLiked ? "red" : "none"}
-            color={localLiked ? "red" : "currentColor"}
-          />
-          <span className={localLiked ? "text-red-500" : ""}>
-            {localLikesCount}
-          </span>
-        </button>
+            {/* ACTIONS */}
+            <Button
+              size="icon-sm"
+              iconSize="lg"
+              icon={<Heart />}
+              variant="ghost"
+              className={`color-subtle ${localLiked ? "color-red" : ""} pl-0!`}
+              onClick={handleLike}
+            >
+              <p className="color-subtle">
+                {localLikesCount}
+              </p>
+            </Button>
 
-        <button className="flex gap-4" onClick={handleReplyClick}>
-          <MessageSquare size={24} strokeWidth={4} />
-          <span>{localComments.length ?? 0}</span>
-        </button>
+            <Button
+              size="icon-sm"
+              iconSize="lg"
+              icon={<MessagesSquare />}
+              variant="ghost"
+              onClick={handleReplyClick}
+              className="color-subtle">
+              <p>{localComments.length ?? 0}</p>
+            </Button>
 
-        <button>
-          <Upload size={24} strokeWidth={4} />
-        </button>
-      </div>
+            <Button
+              size="icon-sm"
+              iconSize="lg"
+              icon={<Forward />}
+              variant="ghost"
+              className="color-subtle"
+
+            />
+            </div>
+            {commentsOpen && (
+              <Button
+                size="icon-sm"
+                iconSize="lg"
+                icon={<Repeat2 />}
+                variant="ghost"
+                className="color-subtle"
+            />
+            )}
+          </div>
+        </footer>
+      </section>
 
       {/* COMMENT LIST */}
 
@@ -202,27 +234,29 @@ export default function NoteCard({ note, showComments = false }) {
         <div>
           {/* MAIN COMMENT INPUT */}
           <div className="mt-3 pt-3 border-t border-muted/20">
-            <div className="flex gap-2 rounded-lg border border-muted p-2">
-              <input
-                type="text"
+            <div className="relative items-center h-fit flex gap-2 rounded-lg pt-12">
+              <Input
+                type="iconBtn"
                 placeholder="Leave a comment"
                 value={commentText}
                 onChange={(e) => setCommentText(e.target.value)}
                 onKeyDown={(e) => e.key === "Enter" && handleCommentSubmit()}
-                className="flex-1 px-3 py-2"
+                className="w-12/12!"
               />
-              <button
+              <Button
+                size="icon-sm"
+                type="icon"
+                iconSize="sm"
+                icon={<ArrowUp />}
                 onClick={handleCommentSubmit}
-                className="px-4 py-2 bg-brand-primary text-white rounded-lg"
-              >
-                <ArrowUp size={20} strokeWidth={4} />
-              </button>
+                className="absolute top-22  right-18! rounded-lg! border-none! p-4! bg-brand-primary color-default"
+              />
             </div>
           </div>
 
           {/* COMMENTS LIST (only shown when there are comments) */}
           {localComments.length > 0 && (
-            <div className="mt-3 pt-3 border-t border-muted/20 space-y-3">
+            <div className="pt-12 border-t border-muted/20 space-y-3">
               {commentTree.map((c) => (
                 <CommentItem
                   key={c.id}

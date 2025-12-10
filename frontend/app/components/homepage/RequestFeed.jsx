@@ -59,7 +59,7 @@ export default function RequestFeed() {
     <div className="bg-alt full-bleed py-15 gap-10">
       {/* placeholder background*/}
       <div>
-        <p className="font-thin color-muted px-15">Collaboration requests</p>
+        <p className="color-muted px-15">Collaboration requests</p>
         {loading && <p className="px-15">Loading...</p>}
         {error && <p className="px-15 color-danger">Error: {error}</p>}
         {!loading && !error && requests.length === 0 && (
@@ -75,9 +75,7 @@ export default function RequestFeed() {
               key={request.id}
               avatarSrc={request.image_url && request.image_url !== "" ? request.image_url : `https://ui-avatars.com/api/?name=${encodeURIComponent(request.user_name)}&background=ffcf70&color=1e1e1e&size=40`}
               avatarAlt={request.user_name}
-              imgWidth={40}
-              imgHeight={40}
-              tag={"#something"}
+              tag={"something"}
               className="w-full!"
               location={request.location}
               timeAgo={formatTimeAgo(request.created_at)}

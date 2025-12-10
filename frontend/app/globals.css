@@ -92,7 +92,7 @@
   --text-body-md: 1rem; /* 16px */
 
   /* COLOR PALETTE */
-  --color-primary-hover: rgba(232, 190, 105, 0.702)
+  --color-primary-hover: rgba(232, 190, 105, 0.702);
   --color-primary-dark: rgb(77, 63, 84);
   --color-muted: rgba(130, 130, 130, 0.7);
 
@@ -162,7 +162,6 @@
   );
 }
 .lucide {
-  color: inherit;
   width: inherit;
   height: inherit;
 }
