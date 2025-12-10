@@ -116,7 +116,7 @@ export default function CreateNotes({ userName, userImage }) {
 
       <div>
         <Input
-          className="mt-15"
+          className="mt-15 bg-alt"
           placeholder="Write a title"
           value={title}
           onChange={(e) => setTitle(e.target.value)}
@@ -136,9 +136,10 @@ export default function CreateNotes({ userName, userImage }) {
 
         {/* Image URL input */}
         {showImageUrlInput && (
-          <div className="mb-16 flex gap-2">
+          <div className="mb-16 flex gap-2 items-center">
             <Input
               placeholder="Enter image URL..."
+              className="bg-alt"
               value={imageUrl}
               onChange={(e) => setImageUrl(e.target.value)}
               onKeyPress={(e) => e.key === "Enter" && handleAddImage()}
@@ -179,7 +180,7 @@ export default function CreateNotes({ userName, userImage }) {
           placeholder="Write a description"
           cols="30"
           rows="4"
-          className="w-full bg-default color-default border-muted rounded-lg px-12 py-14 placeholder:color-muted focus:ring-1 focus:ring-brand transition-all duration-100"
+          className="w-full bg-alt color-default border-muted rounded-lg px-12 py-14 placeholder:color-muted focus:ring-1 focus:ring-brand transition-all duration-100"
           value={content}
           onChange={(e) => setContent(e.target.value)}
         />
@@ -221,6 +222,7 @@ export default function CreateNotes({ userName, userImage }) {
           <div className="mb-4">
             <MultiSelectInput
               options={allGenres}
+              className="bg-alt"
               values={genres}
               setValues={setGenres}
               placeholder="Add a genre..."
@@ -232,40 +234,41 @@ export default function CreateNotes({ userName, userImage }) {
 
       <div>
         <Input
-          className=""
+          className="bg-alt"
           placeholder="Location.."
           value={location}
           onChange={(e) => setLocation(e.target.value)}
         />
       </div>
 
-      <div className="flex items-center mt-15 mb-[50%] gap-4">
-        <div className="self-start flex flex-row items-center gap-4">
+      <div className="flex items-center mt-15 gap-4">
+        <div className="self-start flex flex-row items-center gap-4 bg-none ">
           <input
             type="checkbox"
-            className="switch switch-outline switch-secondary rounded-full"
+            className="switch switch-outline rounded-full bg-none border-grey-400"
             id="switchSecondary2"
             checked={isPaid}
             onChange={(e) => setIsPaid(e.target.checked)}
           />
           <label
-            className="label-text text-base rounded-full"
+            className="label-text text-base rounded-full bg-none"
             htmlFor="switchSecondary2"
           >
             {isPaid ? "Paid opportunity" : "Not paid"}
           </label>
         </div>
-        <div className="self-end ml-auto">
-          <Button
-            variant="primary"
-            size="sm"
-            onClick={handlePost}
-            disabled={isLoading}
-          >
-            {isLoading ? "Posting..." : "Post"}
-          </Button>
-          {error && <p className="text-error text-sm mt-2">{error}</p>}
-        </div>
+      </div>
+      <div className="self-end ">
+        <Button
+          variant="primary"
+          className="px-30 mb-[50%]"
+          size="sm"
+          onClick={handlePost}
+          disabled={isLoading}
+        >
+          {isLoading ? "Posting..." : "Post"}
+        </Button>
+        {error && <p className="text-error text-sm mt-2">{error}</p>}
       </div>
     </div>
   );
