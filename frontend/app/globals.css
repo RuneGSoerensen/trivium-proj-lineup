@@ -89,7 +89,7 @@
   --text-body: clamp(1rem, 1.125vw + 0.5rem, 1.2rem); /* 16px - 24px */
   --text-body-lg: 1.25rem; /* 20px */
   --text-body-sm: 0.875rem; /* 14px */
-  /*--text-body: 1rem; 16px */
+  --text-body-md: 1rem; /* 16px */
 
   /* COLOR PALETTE */
   --color-primary-hover: rgba(232, 190, 105, 0.7);

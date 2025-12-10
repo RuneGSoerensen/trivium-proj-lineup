@@ -101,8 +101,8 @@ export default function Step6() {
     }
   };
   return (
-    <div className="flex flex-col h-full w-full justify-between">
-      <div className="flex flex-col gap-10 items-center flex-1">
+    <div className="flex flex-col max-w-260 h-full w-full">
+      <div className="flex flex-col gap-36 items-center flex-1">
         <div className="mt-40 mb-10">
           <Image
             src="/images/lineup-pro.png"
@@ -111,100 +111,105 @@ export default function Step6() {
             height={51}
           />
         </div>
-        <h1 className="text-h2 self-start md:self-center">
-          Get full access to LineUp
-        </h1>
-        <div className="flex flex-col gap-4 max-w-md items-start self-start md:self-center">
-          <p className="flex flex-row gap-10">
-            <Check color="#ffcf70" /> Unlimited collabs
-          </p>
-          <p className="flex flex-row gap-10">
-            <Check color="#ffcf70" /> Unlimited connections
-          </p>
-          <p className="flex flex-row gap-10">
-            <Check color="#ffcf70" /> Advanced insights
-          </p>
-          <p className="flex flex-row gap-10">
-            <Check color="#ffcf70" /> See detailed reviews
-          </p>
+
+        <div>
+          <h2 className="text-h2 self-start mb-15 md:self-center">
+            Get full access to LineUp
+          </h2>
+
+          <div className="flex flex-col gap-8 max-w-md items-start self-start md:self-center">
+            <p className="flex flex-row gap-20">
+              <Check color="#ffcf70" /> Unlimited collabs
+            </p>
+            <p className="flex flex-row gap-20">
+              <Check color="#ffcf70" /> Unlimited connections
+            </p>
+            <p className="flex flex-row gap-20">
+              <Check color="#ffcf70" /> Advanced insights
+            </p>
+            <p className="flex flex-row gap-20">
+              <Check color="#ffcf70" /> See detailed reviews
+            </p>
+          </div>
         </div>
+
         {/* Monthly checkbox */}
-        <div
-          className={`flex items-center justify-between rounded-3xl py-5 px-10 w-full md:max-w-[50%] border-2 ${
-            selectedMembership === "premium" ? "border-subtle" : "border-muted"
-          }`}
-        >
-          <div className="flex items-center gap-4">
-            <Input
-              type="checkbox"
-              className="checkbox rounded-full checked:bg-brand-primary"
-              id="membership-premium"
-              checked={selectedMembership === "premium"}
-              onChange={() => handleMembershipChange("premium")}
-            />
-            <label htmlFor="membership-premium" className="cursor-pointer">
-              <p className="text-base font-semibold">Monthly</p>
-              <p className="text-sm text-muted">58 kr. / month</p>
-            </label>
-          </div>
-          <div>
-            <p className="text-base font-semibold">58 kr.</p>
-          </div>
-        </div>
-        {/* Yearly checkbox */}
-        <div className="relative w-full md:self-center md:max-w-[50%]">
-          <div className="absolute -top-3 left-12 bg-brand-primary text-xs font-bold px-7 py-1 rounded">
-            HIT
-          </div>
+        <div className="flex flex-col w-full gap-30 items-center">
           <div
-            className={`flex items-center justify-between rounded-3xl py-5 px-10 w-full ${
-              selectedMembership === "basic" ? "border-subtle" : "border-muted"
-            }`}
+            className={`flex items-center justify-between rounded-3xl py-5 px-10 w-full md:max-w-[50%] border-2 ${selectedMembership === "premium" ? "border-subtle" : "border-muted"
+              }`}
           >
-            <div className="flex items-center gap-4">
+            <div className="flex items-center gap-14 py-20 px-8">
               <Input
                 type="checkbox"
                 className="checkbox rounded-full checked:bg-brand-primary"
-                id="membership-basic"
-                checked={selectedMembership === "basic"}
-                onChange={() => handleMembershipChange("basic")}
+                id="membership-premium"
+                checked={selectedMembership === "premium"}
+                onChange={() => handleMembershipChange("premium")}
               />
-              <label htmlFor="membership-basic" className="cursor-pointer">
-                <p className="text-base font-semibold">Yearly</p>
-                <p className="text-sm text-muted">29 kr. / month</p>
+              <label htmlFor="membership-premium" className="cursor-pointer">
+                <p className="text-base font-semibold!">Monthly</p>
+                <p className="text-sm color-grey-300">58 kr. / month</p>
               </label>
             </div>
-            <div className="flex flex-col items-center gap-2">
-              <p className="text-base font-semibold">348 kr.</p>
-              <span className="bg-brand-primary text-sm font-semibold px-3 py-2">
-                save 50%
-              </span>
+            <div>
+              <p className="text-base font-semibold!">58 kr.</p>
             </div>
           </div>
+          {/* Yearly checkbox */}
+          <div className="relative w-full md:self-center md:max-w-[50%]">
+            <div className="absolute -top-3 left-12 bg-brand-primary text-xs font-bold px-7 py-1 rounded">
+              HIT
+            </div>
+            <div
+              className={`flex items-center justify-between rounded-3xl py-5 px-10 w-full ${selectedMembership === "basic" ? "border-subtle" : "border-muted"
+                }`}
+            >
+              <div className="flex items-center gap-14 py-20 px-8">
+                <Input
+                  type="checkbox"
+                  className="checkbox rounded-full checked:bg-brand-primary"
+                  id="membership-basic"
+                  checked={selectedMembership === "basic"}
+                  onChange={() => handleMembershipChange("basic")}
+                />
+                <label htmlFor="membership-basic" className="cursor-pointer">
+                  <p className="text-base font-semibold!">Yearly</p>
+                  <p className="text-sm color-grey-300">29 kr. / month</p>
+                </label>
+              </div>
+              <div className="flex flex-col items-center gap-2">
+                <p className="text-base font-semibold!">348 kr.</p>
+                <span className="bg-brand-primary text-sm px-3 py-2">
+                  save 50%
+                </span>
+              </div>
+            </div>
+          </div>
+          <div className="space-y-15 md:self-center md:text-center">
+            <Button
+              variant="primary"
+              onClick={handleSubmit}
+              className="ml-4 w-fit"
+              disabled={isSubmitting}
+            >
+              {isSubmitting ? "Submitting..." : "Start my 7-day free trial"}
+            </Button>
+            <p className="text-sm text-center">Terms of use and Privacy Policy</p>
+          </div>
         </div>
-        <div className="mt-20">
-          <Button
-            variant="primary"
-            size="sm"
-            onClick={handleSubmit}
-            className="ml-4 w-fit"
-            disabled={isSubmitting}
-          >
-            {isSubmitting ? "Submitting..." : "Start my 7-day free trial"}
-          </Button>
-        </div>
-        <p className="text-sm text-center">Terms of use and Privacy Policy</p>
+
         {errorMessage && (
           <p className="text-red-500 mt-2" role="alert">
             {errorMessage}
           </p>
         )}
-        <Link
+        {/* <Link
           className="text-sm text-muted-foreground text-center underline underline-offset-4"
           href="/"
         >
           Skip for now
-        </Link>
+        </Link> */}
       </div>
     </div>
   );
