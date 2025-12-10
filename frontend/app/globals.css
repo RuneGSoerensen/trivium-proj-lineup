@@ -151,7 +151,7 @@
   --glassmorphic-border: rgba(255, 255, 255, var(--glass-border-opacity));
 }
 
-@utility glass {
+@utility trvm-glass-dark {
   background: var(--glassmorphic-bg);
   backdrop-filter: blur(var(--glass-blur));
   border: 1.5px solid var(--glassmorphic-border);
