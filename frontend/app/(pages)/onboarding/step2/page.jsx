@@ -63,7 +63,7 @@ export default function Step2() {
   // then call the function when pressing continue ;)
   // Put this function inside the handleNext function
   return (
-    <section className="mt-12 flex flex-col gap-14 items-center">
+    <section className="mt-12 flex flex-col items-center gap-30">
       <h1 className="text-h1">Sign up</h1>
       <p className="subtitle mb-6 w-full text-center">
         By continuing you agree to LineUp! <br /> Terms of use and Privacy Policy.
@@ -78,7 +78,7 @@ export default function Step2() {
       >
         <Input
           variant={emailTouched && !!emailError ? "error" : "default"}
-          className="w-fit border-muted rounded mb-4 placeholder:text-center"
+          className="border-muted mb-4 placeholder:text-center"
           placeholder="Email address"
           type="email"
           value={formData.email}
@@ -105,7 +105,7 @@ export default function Step2() {
 
         <Input
           variant={confirmTouched && !!passwordMatchError ? "error" : "default"}
-          className="w-full border-muted rounded mb-6 placeholder:text-center"
+          className="w-full border-muted mb-6 placeholder:text-center"
           placeholder="Create a password"
           type="password"
           value={formData.password}
@@ -124,7 +124,7 @@ export default function Step2() {
 
         <Input
           variant={confirmTouched && !!passwordMatchError ? "error" : "default"}
-          className="w-full border-muted rounded mb-6 placeholder:text-center"
+          className="w-full border-muted mb-6 placeholder:text-center"
           placeholder="Confirm password"
           type="password"
           value={formData.confirmPassword}
@@ -178,10 +178,11 @@ export default function Step2() {
       </form>
 
 
-      <div className="flex flex-col items-center justify-center mt-6 mb-10">
+      <div className="flex flex-col items-center justify-center ">
         <p>or sign up with</p>
-        <div className="flex flex-col gap-10 items-center mt-20 w-11/12">
+        <div className="flex flex-col gap-10 items-center my-24 w-11/12">
           <Button
+            size="lg"
             variant="secondary"
             onClick={() => {
               /* google signup */
@@ -193,6 +194,7 @@ export default function Step2() {
           </Button>
 
           <Button
+            size="lg"
             variant="secondary"
             onClick={() => {
               /* apple signup */
@@ -204,16 +206,22 @@ export default function Step2() {
           </Button>
         </div>
         <div className="flex flex-col gap-10 items-center mt-20">
-          <p>
-            Already have an account?{" "}
-          </p>
-          <Link className="text-cyan-500" href="/login">
-            Log in
-          </Link>
+          <div className="flex  gap-8 h-fit">
+            <p>
+              Already have an account?{" "}
+            </p>
+            <Link className="text-cyan-500" href="/login">
+              Log in
+            </Link>
+          </div>
 
-          <Link className="underline text-sm p-12 color-muted" href="/home">
+          {
+            /* NOTE: Group decision to remove "Skip for now" from onboarding
+            <Link className="underline text-sm p-12 color-muted" href="/home">
             Skip for now
-          </Link>
+            </Link> 
+          */
+          }
         </div>
       </div>
     </section>

@@ -20,17 +20,17 @@
   }
 
   .tag--checkable {
-    @apply flex gap-10 px-16 cursor-pointer bg-default color-default border-2 border-muted;
+    @apply flex gap-10 py-15 px-10 cursor-pointer bg-default color-default border-2 border-muted;
   }
 
   .tag--checkable .checkbox {
-    @apply bg-default border border-brand;
+    @apply bg-default border border-brand ;
   }
 
-  .tag--checkable:has(input:checked) {
+  .tag--checkable:has(.checkbox:checked) {
     @apply border-brand color-default;
   }
-  .tag--checkable:has(input:checked) .checkbox {
+  .tag--checkable:has(.checkbox:checked) .checkbox {
     @apply color-default bg-brand-primary fill-accent-aquamarine;
   }
 
