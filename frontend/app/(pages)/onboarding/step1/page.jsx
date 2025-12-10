@@ -63,7 +63,7 @@ export default function Step1() {
   return (
     <div className="space-y-48 h-full flex flex-col items-center justify-center">
       <Carousel slides={renderSlides()} heightClass="h-fit" slideClassName="justify-center" />
-      <Button onClick={handleNext} className="w-fit" variant="primary">
+      <Button onClick={handleNext} variant="primary">
         Get started!
       </Button>
     </div>
