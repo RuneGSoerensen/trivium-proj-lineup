@@ -77,7 +77,7 @@ const Input = ({
                     value={value}
                     onChange={onChange}
                     placeholder={placeholder}
-                    type={type === "checkbox" ? "checkbox" : type}
+                    type="checkbox"
                     {...rest}
                 />
 
