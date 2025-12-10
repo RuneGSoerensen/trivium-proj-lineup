@@ -43,17 +43,17 @@ export default function Step1() {
     return onboard_content.map((content, index) => (
       <div
         key={index}
-        className="w-full h-full flex flex-col items-center justify-center"
+        className="w-full max-h-fit flex flex-col items-center justify-center"
       >
         <Image
-          width={350}
-          height={350}
+          width={250}
+          height={250}
           src={content.image}
           alt={`Onboarding ${index + 1}`}
-          className="object-contain w-full h-full"
+          className="object-contain w-8/12 h-11/12"
           loading="eager"
         />
-        <h2 className="text-center mt-6 text-lg font-semibold">
+        <h2 className="text-center mt-6 text-lg font-semibold flex-wrap px-12">
           {content.label}
         </h2>
       </div>
@@ -61,9 +61,8 @@ export default function Step1() {
   };
 
   return (
-    <div className="space-y-24 h-full flex flex-col items-center justify-center">
-      {/* TODO refine carousel, add images and click events */}
-      <Carousel slides={renderSlides()} heightClass="h-[450px]" />
+    <div className="space-y-48 h-full flex flex-col items-center justify-center">
+      <Carousel slides={renderSlides()} heightClass="h-fit" slideClassName="justify-center" />
       <Button onClick={handleNext} className="w-fit" variant="primary">
         Get started!
       </Button>
