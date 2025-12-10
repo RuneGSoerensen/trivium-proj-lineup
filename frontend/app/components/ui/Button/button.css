@@ -10,7 +10,7 @@
   }
 
   .btn-primary {
-    @apply bg-brand-primary color-default hover:bg-brand-primary-hover ;
+    @apply bg-brand-primary color-default hover:bg-brand-primary-hover border-brand-dark border;
   }
   .btn-secondary {
     @apply bg-default border-muted color-default hover:bg-brand-primary-hover focus:bg-brand-primary-hover;

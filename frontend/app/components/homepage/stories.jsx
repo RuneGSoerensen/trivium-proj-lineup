@@ -31,7 +31,7 @@ export default function Stories() {
   const defaultAvatarStyle = "background=ffcf70&color=1e1e1e&size=40";
 
   return (
-    <section className="w-full h-fit flex gap-12 overflow-x-auto py-12 px-16 full-bleed">
+    <section className="w-full h-fit min-h-120 flex gap-12 overflow-x-auto py-12 px-16 full-bleed">
       {stories.map((story) => (
         <div key={story.id} className="flex flex-col items-center gap-6 h-full">
    

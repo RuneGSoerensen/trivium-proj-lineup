@@ -1,16 +1,18 @@
 'use client';
 import React, { useEffect, useState } from "react";
 import { ListFilter, Search, X } from "lucide-react";
-import { ServiceCard } from "@/ui/Card/Card"
+import { Card } from "@/ui/Card/Card"
 import { Button } from '@/ui/Button/Button';
 import Input from '@/ui/Input/Input';
 import { Tag } from '@/ui/Tag/Tag';
 import { useNavbar } from "@/utils/navbarContext";
+import { useRouter } from "next/navigation";
 
 export default function Page() {
-  const [query, setQuery] = React.useState("");
-  const [selectedTag, setSelectedTag] = React.useState(null);
-
+  const [query, setQuery] = useState("");
+  const [selectedTag, setSelectedTag] = useState(null);
+  const [readMore, setReadMore] = useState(null);
+  const router = useRouter();
   const { setConfig } = useNavbar();
 
   useEffect(() => {
@@ -91,6 +93,12 @@ export default function Page() {
     }
   };
 
+  const handleReadMore = (serviceId) => {
+    console.log("Read more about service ID:", serviceId);
+    setReadMore(serviceId);
+    router.push(`/services/${serviceId}`);
+  };
+
   // Derived list of visible services based on query + selected tag
   const filteredServices = services.filter((s) => {
     const matchesTag = !selectedTag || s.tag === selectedTag;
@@ -157,17 +165,17 @@ export default function Page() {
                     </li>
                   ))}
                 </ul>
-                    {filterOptions.length > 0 && (
+                {filterOptions.length > 0 && (
                   <div className="absolute mt-12 bottom-0 w-full text-center">
-                      <Button
-                        variant="ghost"
-                        className="w-full flex justify-center items-center rounded-lg px-8 py-6 text-sm color-muted bg-muted/10 hover:bg-muted/30 hover:color-default!"
-                        onClick={() => setSelectedTag(null)}
-                      >
-                        Clear
-                      </Button>
+                    <Button
+                      variant="ghost"
+                      className="w-full flex justify-center items-center rounded-lg px-8 py-6 text-sm color-muted bg-muted/10 hover:bg-muted/30 hover:color-default!"
+                      onClick={() => setSelectedTag(null)}
+                    >
+                      Clear
+                    </Button>
                   </div>
-                    )}
+                )}
               </div>
             }>
             Filter
@@ -176,7 +184,8 @@ export default function Page() {
       </div>
       <div className="flex flex-col space-y-24 mt-18">
         {filteredServices.map((s) => (
-          <ServiceCard
+          <Card
+            type="Service"
             key={s.id}
             avatarSrc={s.image_url}
             avatarAlt={s.provider}
@@ -193,7 +202,7 @@ export default function Page() {
             btnVariant="ghost"
             ctaLabel="Read more"
             clickable={true}
-            onClick={`/services/${s.id}`}
+            onClick={() => handleReadMore(s.id)}
             className="border-none! border-transparent!"
           />
 
