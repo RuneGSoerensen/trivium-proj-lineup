@@ -4,7 +4,7 @@ import { useState } from "react";
 import Image from "next/image";
 import { Heart, Reply, ArrowUp } from "lucide-react";
 import { getUserId } from "@/utils/auth";
-
+import { authenticatedFetch } from "@/utils/auth.js";
 export const CommentItem = ({
   comment,
   depth = 0,
@@ -76,8 +76,9 @@ export const CommentItem = ({
       {/* Comment Content */}
       <div className="flex-1">
         <div
-          className={` ${depth > 0 ? "border-l border-gray-300" : ""
-            } px-3 py-2`}
+          className={` ${
+            depth > 0 ? "border-l border-gray-300" : ""
+          } px-3 py-2`}
         >
           <div className="flex gap-4">
             <div className="w-20 h-20 rounded-full overflow-hidden ">
@@ -107,7 +108,7 @@ export const CommentItem = ({
             >
               <Heart
                 size={24}
-                strokeWidth={comment.is_liked ? 0 : 4}
+                strokeWidth={comment.is_liked ? 0 : 2}
                 fill={comment.is_liked ? "red" : "none"}
                 color={comment.is_liked ? "red" : "currentColor"}
               />
@@ -124,7 +125,7 @@ export const CommentItem = ({
               className="text-muted text-[12px] font-semibold flex items-center gap-1"
             >
               <Reply />
-              {depth <= 0 && <p>reply</p>}
+              {depth <= 0 && <p className="!mb-0">reply</p>}
             </button>
           </div>
         </div>

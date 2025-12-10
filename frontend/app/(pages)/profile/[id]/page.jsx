@@ -80,7 +80,7 @@ export default function ProfilePage() {
             : HARD_VIDEOS,
         past_collaborations:
           userData.past_collaborations &&
-            userData.past_collaborations.length > 0
+          userData.past_collaborations.length > 0
             ? userData.past_collaborations
             : HARD_PAST_COLLABS,
         followers_count: statsData.followers_count || 0,
@@ -104,8 +104,32 @@ export default function ProfilePage() {
     }
   };
 
-  const handleClick = () => {
-    alert("Question submitted!");
+  const handleClick = async (questionText) => {
+    if (!currentUserId || !questionText.trim()) return;
+
+    try {
+      // Submit question to backend with blank answer
+      const res = await authenticatedFetch(
+        `${process.env.NEXT_PUBLIC_DATABASE_URL}/users/${params.id}/questions`,
+        {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({
+            question: questionText,
+            answer: "",
+          }),
+        }
+      );
+
+      if (!res.ok) throw new Error("Failed to submit question");
+
+      // Reload profile to show the new question
+      await loadProfile();
+      alert("Question submitted successfully!");
+    } catch (error) {
+      console.error("Error submitting question:", error);
+      alert("Failed to submit question. Please try again.");
+    }
   };
 
   const handleFollow = async () => {
@@ -161,7 +185,7 @@ export default function ProfilePage() {
   }
 
   return (
-    <div className="w-full bg-gray-100 ">
+    <div className="w-full  ">
       <ProfileHeader
         profile={profile}
         notesLength={notes.length}
@@ -170,7 +194,7 @@ export default function ProfilePage() {
       />
 
       <Tabs className="bg-white">
-        <TabsList className="bg-white rounded-b-none w-full justify-between">
+        <TabsList className="bg-white rounded-b-none w-full" hasSeparator>
           <TabItem>About</TabItem>
 
           <TabItem>Notes</TabItem>
@@ -179,7 +203,7 @@ export default function ProfilePage() {
           <TabContent>
             <ProfileAbout profile={profile} onQuestionSubmit={handleClick} />
           </TabContent>
-          <TabContent>
+          <TabContent className={"!p-0"}>
             <ProfileNotes notes={notes} />
           </TabContent>
         </TabContentList>

@@ -8,11 +8,13 @@ import {
   MessageSquare,
   Upload,
   ArrowUp,
+  Repeat,
 } from "lucide-react";
 import { Tag } from "@/ui/Tag/Tag";
 import { CommentItem } from "./CommentItem";
 import { getUserId } from "@/utils/auth";
 import { formatTimeAgo } from "@/utils/timeAgo";
+import { authenticatedFetch } from "@/utils/auth.js";
 export default function NoteCard({ note, showComments = false }) {
   const [commentText, setCommentText] = useState(""); // main input
   const [commentsOpen, setCommentsOpen] = useState(showComments);
@@ -28,7 +30,9 @@ export default function NoteCard({ note, showComments = false }) {
   const refreshNoteData = async () => {
     try {
       // fetch all notes for the note owner and find this note
-      const res = await authenticatedFetch(`${apiBase}/notes/user/${note.user_id}`);
+      const res = await authenticatedFetch(
+        `${apiBase}/notes/user/${note.user_id}`
+      );
       if (!res.ok) return;
       const notes = await res.json();
       const updated = notes.find((n) => n.id === note.id);
@@ -115,7 +119,6 @@ export default function NoteCard({ note, showComments = false }) {
   };
   const commentTree = buildCommentTree(localComments);
 
-
   return (
     <div className="p-4">
       {/* HEADER */}
@@ -136,7 +139,7 @@ export default function NoteCard({ note, showComments = false }) {
           )}
         </div>
 
-        <p className="text-muted text-[12px]">{note.user_name}</p>
+        <p className="text-muted text-[12px] !mb-0">{note.user_name}</p>
         {note.tags?.map((tag) => (
           <Tag
             key={tag}
@@ -173,11 +176,11 @@ export default function NoteCard({ note, showComments = false }) {
       <p className="text-muted font-light text-sm m-4">{note.content}</p>
 
       {/* ACTIONS */}
-      <div className="flex items-center gap-16 text-muted text-[14px]">
+      <div className="flex items-center gap-16 text-muted text-[14px] w-full">
         <button onClick={handleLike} className="flex items-center gap-1.5">
           <Heart
             size={24}
-            strokeWidth={localLiked ? 0 : 4}
+            strokeWidth={localLiked ? 0 : 2}
             fill={localLiked ? "red" : "none"}
             color={localLiked ? "red" : "currentColor"}
           />
@@ -187,12 +190,15 @@ export default function NoteCard({ note, showComments = false }) {
         </button>
 
         <button className="flex gap-4" onClick={handleReplyClick}>
-          <MessageSquare size={24} strokeWidth={4} />
+          <MessageSquare size={24} strokeWidth={2} />
           <span>{localComments.length ?? 0}</span>
         </button>
 
         <button>
-          <Upload size={24} strokeWidth={4} />
+          <Upload size={24} strokeWidth={2} />
+        </button>
+        <button className="ml-auto">
+          <Repeat size={24} strokeWidth={2} />
         </button>
       </div>
 
@@ -215,7 +221,7 @@ export default function NoteCard({ note, showComments = false }) {
                 onClick={handleCommentSubmit}
                 className="px-4 py-2 bg-brand-primary text-white rounded-lg"
               >
-                <ArrowUp size={20} strokeWidth={4} />
+                <ArrowUp size={20} strokeWidth={2} />
               </button>
             </div>
           </div>
