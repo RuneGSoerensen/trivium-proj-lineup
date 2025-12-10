@@ -9,9 +9,9 @@ export default function NavLink({ href, label, icon, isActive }) {
     // Links template
     <Link
       href={href ? href : "/"}
-      className={`flex flex-col items-center gap-1 px-8 py-8 w-full max-w-fit rounded-full transition-all m-4 ${isActive
+      className={`nav-link flex flex-col items-center gap-1 px-8 py-8 w-full max-w-fit rounded-full transition-all m-4 ${isActive
           ? "color-brand nav-link-gradient-border"
-          : "text-zinc-400 hover:color-brand"
+          : "color-inverse hover:color-brand"
         }`}
     >
       <Image
@@ -28,7 +28,7 @@ export default function NavLink({ href, label, icon, isActive }) {
             : { filter: "invert(1)" }
         }
       />
-      <span className="text-body font-medium">{label}</span>
+      <span className="text-sm font-medium">{label}</span>
     </Link>
   );
 }
