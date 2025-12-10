@@ -240,16 +240,16 @@ export default function CreateNotes({ userName, userImage }) {
       </div>
 
       <div className="flex items-center mt-15 mb-[50%] gap-4">
-        <div className="self-start flex flex-row items-center gap-4">
+        <div className="self-start flex flex-row items-center gap-4 bg-none">
           <input
             type="checkbox"
-            className="switch switch-outline switch-secondary rounded-full"
+            className="switch switch-outline rounded-full bg-none border-grey-400"
             id="switchSecondary2"
             checked={isPaid}
             onChange={(e) => setIsPaid(e.target.checked)}
           />
           <label
-            className="label-text text-base rounded-full"
+            className="label-text text-base rounded-full bg-none"
             htmlFor="switchSecondary2"
           >
             {isPaid ? "Paid opportunity" : "Not paid"}
