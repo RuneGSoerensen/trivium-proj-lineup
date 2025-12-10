@@ -22,6 +22,7 @@ export const signInWithPassword = async (email, password) => {
   });
 
   if (data?.session && data?.user) {
+    // TODO: Not needed
     setAuthToken(data.session.access_token, data.user.id);
   }
 
@@ -33,6 +34,7 @@ export const signInWithPassword = async (email, password) => {
  */
 export const signOut = async () => {
   const { error } = await supabase.auth.signOut();
+  // TODO: Not needed
   clearAuthData();
   return { error };
 };
@@ -47,6 +49,7 @@ export const signOut = async () => {
  * @param {string} userId - User ID
  */
 export const setAuthToken = (token, userId) => {
+  // TODO: Remove. supabase already sets auth token and stores user details in localstorage.
   if (typeof window !== "undefined") {
     localStorage.setItem("jwt_token", token);
     localStorage.setItem("user_id", userId);
@@ -55,30 +58,27 @@ export const setAuthToken = (token, userId) => {
 
 /**
  * Get the stored JWT token
- * @returns {string|null} JWT token or null if not found
+ * @returns {Promise<string|null>} JWT token or null if not found
  */
-export const getAuthToken = () => {
-  if (typeof window !== "undefined") {
-    return localStorage.getItem("jwt_token");
-  }
-  return null;
+export const getAuthToken = async () => {
+  const { data, error: _ } = await supabase.auth.getSession();
+  return data?.session?.access_token;
 };
 
 /**
  * Get the stored user ID
- * @returns {string|null} User ID or null if not found
+ * @returns {Promise<string|null>} User ID or null if not found
  */
-export const getUserId = () => {
-  if (typeof window !== "undefined") {
-    return localStorage.getItem("user_id");
-  }
-  return null;
+export const getUserId = async () => {
+  const { data, error: _ } = await supabase.auth.getUser();
+  return data?.user?.id;
 };
 
 /**
  * Clear all authentication data from localStorage
  */
 export const clearAuthData = () => {
+  // TODO: REmove completely, use signOut always.
   if (typeof window !== "undefined") {
     localStorage.removeItem("jwt_token");
     localStorage.removeItem("user_id");
@@ -89,8 +89,8 @@ export const clearAuthData = () => {
  * Check if user is authenticated
  * @returns {boolean} True if token exists
  */
-export const isAuthenticated = () => {
-  return !!getAuthToken();
+export const isAuthenticated = async () => {
+  return (await getUserId()) !== null;
 };
 
 /**
@@ -100,7 +100,7 @@ export const isAuthenticated = () => {
  * @returns {Promise<Response>} Fetch response
  */
 export const authenticatedFetch = async (url, options = {}) => {
-  const token = getAuthToken();
+  const token = await getAuthToken();
 
   if (!token) {
     throw new Error("No authentication token found. Please log in.");

@@ -51,7 +51,7 @@ export default function ProfilePage() {
       if (!res.ok) throw new Error("Failed to load user");
 
       const { user: userData } = await res.json();
-      const currentUser = getUserId();
+      const currentUser = await getUserId();
       setCurrentUserId(currentUser);
 
       const statsRes = await authenticatedFetch(
