@@ -30,7 +30,6 @@ export function Card({
 
   return (
     <article
-      type
       className={clsx(
         `${isSmall ? "min-h-193" : "h-fit"} rounded-[24px] min-w-333 trvm-card sm:max-w-sm bg-default color-default border border-muted/30`,
         clickable && "cursor-pointer",
