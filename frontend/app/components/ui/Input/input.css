@@ -16,7 +16,7 @@
   }
 
   .input-wrapper {
-    @apply relative input w-full color-default bg-default border-muted! rounded-lg focus:ring-1 focus:ring-brand p-10;
+    @apply relative input w-full color-default bg-default border-muted! rounded-lg focus:ring-1 focus:ring-brand;
   }
 
   .input--error {
