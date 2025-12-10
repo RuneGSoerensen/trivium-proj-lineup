@@ -22,9 +22,10 @@ const variantClass = {
 
 // Made for mobile first design
 const sizeClass = {
-  sm: "py-6 px-16 text-sm",
-  md: "py-8 px-24 text-base",
-  lg: "py-12 px-32 text-lg",
+  sm: "py-2 px-8",
+  md: "py-4 px-20",
+  lg: "py-8 px-24",
+  xl: "py-12 px-32",
   'icon-sm': "p-8",
   'icon-md': "p-10",
   'icon-lg': "p-12",

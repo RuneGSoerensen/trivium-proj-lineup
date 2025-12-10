@@ -4,7 +4,7 @@
   -------------------------------- */
 
   .trvm-input {
-    @apply w-full h-full rounded-lg transition-all duration-100;
+    @apply w-full h-full rounded-lg transition-all duration-100 border-muted placeholder:text-center;
   }
 
   .input-wrapper:has(.input-icon.left) .trvm-input {
@@ -16,7 +16,7 @@
   }
 
   .input-wrapper {
-    @apply relative input w-full color-default bg-default border-muted rounded-lg focus:ring-1 focus:ring-brand;
+    @apply relative input w-full color-default bg-default border-muted! rounded-lg focus:ring-1 focus:ring-brand p-10;
   }
 
   .input--error {
