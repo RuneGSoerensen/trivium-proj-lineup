@@ -3,8 +3,9 @@
 import { useState } from "react";
 import { useRouter } from "next/navigation";
 import { signInWithPassword } from "@/utils/supabaseClient";
-import Input from "@/components/ui/Input/Input";
-import { Button } from "@/components/ui/Button/Button";
+import Input from "@/ui/Input/Input";
+import { Button } from "@/ui/Button/Button";
+import { useBottomNav, useNavbar } from "@/utils/navbarContext";
 
 export default function LoginPage() {
   const router = useRouter();
@@ -12,6 +13,26 @@ export default function LoginPage() {
   const [password, setPassword] = useState("");
   const [error, setError] = useState("");
   const [loading, setLoading] = useState(false);
+
+    const {setConfig} = useNavbar();
+    useEffect(() => {
+      setConfig((prev) => ({
+        ...prev,
+        type: "login",
+        showBack: false,
+        showLogo: false,
+        visible: false,
+      }));
+    }, [setConfig]);
+  
+    const {setBottomNavConfig} = useBottomNav();
+    useEffect(() => {
+      setBottomNavConfig((prev) => ({
+        ...prev,
+        type: "login",
+        visible: false,
+      }));
+    }, [setBottomNavConfig]);
 
   const handleLogin = async (e) => {
     e.preventDefault();
