@@ -41,7 +41,7 @@ export default function Step3() {
   return (
     <div className="flex flex-col h-full justify-between mt-12">
       <div className="flex flex-col gap-30 items-center justify-center flex-1">
-        <div className="mb-60">
+        <div className="mb-30">
           <Image
             src="/images/lineup-logo-letters-yellow.png"
             alt="LineUp Letter style logo"

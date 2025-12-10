@@ -438,7 +438,7 @@ h4,
 h5,
 h6 {
   font-family: var(--font-display);
-  margin-bottom: 1em;
+  font-weight: 600;
 }
 
 a {

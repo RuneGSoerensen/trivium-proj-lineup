@@ -66,7 +66,7 @@ export default function LoginPage() {
 
   return (
 
-    <div className="mt-12 max-w-md w-full h-full flex flex-col items-center justify-center text-center space-y-8">
+    <div className="mt-12 max-w-md w-full h-full flex flex-col items-center justify-center text-center gap-30">
       <h1 className="text-h1">Login</h1>
       <form onSubmit={handleLogin} className="flex flex-col gap-8 justify-center">
 
@@ -106,9 +106,9 @@ export default function LoginPage() {
           </Button>
         </div>
       </form>
-      <div className="flex flex-col items-center justify-center mt-24">
+      <div className="flex flex-col items-center justify-center">
         <p>or sign up with</p>
-        <div className="flex flex-col gap-10 items-center my-12 w-11/12">
+        <div className="flex flex-col gap-10 items-center my-24 w-11/12">
           <Button
             size="lg"
             variant="secondary"

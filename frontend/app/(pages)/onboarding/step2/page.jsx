@@ -63,7 +63,7 @@ export default function Step2() {
   // then call the function when pressing continue ;)
   // Put this function inside the handleNext function
   return (
-    <section className="mt-12 flex flex-col items-center">
+    <section className="mt-12 flex flex-col items-center gap-30">
       <h1 className="text-h1">Sign up</h1>
       <p className="subtitle mb-6 w-full text-center">
         By continuing you agree to LineUp! <br /> Terms of use and Privacy Policy.
@@ -178,9 +178,9 @@ export default function Step2() {
       </form>
 
 
-      <div className="flex flex-col items-center justify-center mt-24 ">
+      <div className="flex flex-col items-center justify-center ">
         <p>or sign up with</p>
-        <div className="flex flex-col gap-10 items-center my-12 w-11/12">
+        <div className="flex flex-col gap-10 items-center my-24 w-11/12">
           <Button
             size="lg"
             variant="secondary"
