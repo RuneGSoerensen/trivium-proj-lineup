@@ -77,7 +77,7 @@ const TabsList = ({
   children,
   variant,
   className = "tabs--list",
-  hasSeparator = true,
+  hasSeparator = false,
   ...rest
 }) => {
   const items = React.Children.toArray(children);
