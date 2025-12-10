@@ -65,7 +65,7 @@ export default function RequestFeed() {
         {!loading && !error && requests.length === 0 && (
           <p className="px-15 color-muted">No collaboration requests found.</p>
         )}
-        <div className="flex py-10 px-15 gap-10 overflow-x-auto min-h-193">
+        <div className="flex py-10 px-15 gap-10 overflow-x-auto min-h-193 hide-scrollbar">
           {requests.map((request) => (
             <Card 
               type="Collab"
