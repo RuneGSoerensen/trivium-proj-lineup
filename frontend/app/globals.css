@@ -139,8 +139,28 @@
   --spacing-button-low: 36px;
   --spacing-button-medium: 24px;
   --spacing-button-high: 12px;
+
+  /*GLASSMORPHIC EFFECTS*/
+  --glass-opacity: 90%;
+  --glass-blur: 20px;
+  --glass-reflect-degree: 100deg;
+  --glass-reflect-opacity: 70%;
+  --glass-border-opacity: 20%;
+  
+  --glassmorphic-bg: rgba(var(--color-grey-darker), var(--glass-opacity));
+  --glassmorphic-border: rgba(255, 255, 255, var(--glass-border-opacity));
 }
 
+@utility glass {
+  background: var(--glassmorphic-bg);
+  backdrop-filter: blur(var(--glass-blur));
+  border: 1.5px solid var(--glassmorphic-border);
+  background-image: linear-gradient(
+    var(--glass-reflect-degree),
+    rgba(0, 0, 0, var(--glass-reflect-opacity)) 0%,
+    rgba(0, 0, 0, .6) 100%
+  );
+}
 .lucide {
   color: inherit;
   width: inherit;
@@ -462,13 +482,9 @@ h6 {
   font-weight: 600;
 }
 
-a {
+a:not(.nav-link) {
   color: #007AFF;
   transition: color 150ms ease-in-out;
-}
-
-a.nav-link {
-  color: var(--foreground);
 }
 
 a:hover {

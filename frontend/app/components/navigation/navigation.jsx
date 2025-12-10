@@ -40,7 +40,7 @@ export default function Navigation() {
     // Nav container
     // Remove Change color secondary darkgrey
     <nav className="fixed bottom-28 left-0 right-0 flex w-full justify-center">
-      <div className="flex items-center w-fit justify-center bg-inverse rounded-pill">
+      <div className="flex items-center w-fit justify-center rounded-pill glass">
         {/* Mapped links */}
         {links.map((link) => (
           <NavLink
