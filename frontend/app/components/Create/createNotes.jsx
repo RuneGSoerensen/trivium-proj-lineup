@@ -156,7 +156,7 @@ export default function CreateNotes({ userName, userImage }) {
 
         {/* Image URL input */}
         {showImageUrlInput && (
-          <div className="mb-16 flex gap-2">
+          <div className="mb-16 flex gap-2 items-center">
             <Input
               placeholder="Enter image URL..."
               value={imageUrl}
