@@ -2,7 +2,7 @@
 
 import { useEffect, useState } from "react";
 import { useRouter } from "next/navigation";
-import { signInWithPassword } from "@/utils/supabaseClient";
+import { signInWithPassword } from "@/utils/auth";
 import Input from "@/ui/Input/Input";
 import { Button } from "@/ui/Button/Button";
 import { useBottomNav, useNavbar } from "@/utils/navbarContext";

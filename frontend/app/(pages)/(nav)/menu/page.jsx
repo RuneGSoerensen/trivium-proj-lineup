@@ -13,8 +13,8 @@ import {
   Users,
   X,
 } from "lucide-react";
-import { clearAuthData } from "@/utils/auth";
 import { closeOverlay } from "@/utils/helpers";
+import { signOut } from "@/utils/auth";
 
 const MENU_ITEMS = [
   { icon: Sparkles, label: "Get Pro lineUp", href: "/pro" },
@@ -31,8 +31,8 @@ export default function MenuOverlay() {
   const router = useRouter();
   const handleClose = () => closeOverlay(router);
 
-  const handleLogout = () => {
-    clearAuthData();
+  const handleLogout = async () => {
+    await signOut();
     router.push("/login");
   };
 
@@ -67,9 +67,9 @@ export default function MenuOverlay() {
               }
             >
               <h4
-                className={`text-h4 font-normal! ${
-                  isDestructive ? "color-destructive" : "color-default"
-                }`}
+                 className={`text-h4 font-normal! ${
+                   isDestructive ? "color-destructive" : "color-default"
+                 }`}
               >
                 {item.label}
               </h4>

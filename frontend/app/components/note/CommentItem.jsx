@@ -21,7 +21,7 @@ export const CommentItem = ({
     process.env.NEXT_PUBLIC_DATABASE_URL || "http://localhost:3300";
 
   const handleReplySubmit = async () => {
-    const userId = getUserId();
+    const userId = await getUserId();
     if (!userId) {
       alert("You must be logged in to reply.");
       return;
@@ -51,7 +51,7 @@ export const CommentItem = ({
   };
 
   const handleCommentLike = async () => {
-    const userId = getUserId();
+    const userId = await getUserId();
     if (!userId) {
       alert("You must be logged in to like comments.");
       return;
