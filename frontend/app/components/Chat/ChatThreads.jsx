@@ -16,8 +16,14 @@ export function ChatThreadItem({ thread, isActive, onSelect }) {
         lastMessageAt,
     } = thread;
 
+    // Derive secondary initial for group avatar from comma-separated names
+    const nameList = typeof participantNames === "string"
+        ? participantNames.split(",").map((s) => s.trim()).filter(Boolean)
+        : [];
+    const secondInitial = nameList[1]?.charAt(0).toUpperCase() ?? "?";
+
     const displayName = isGroup
-        ? title || participantNames || "Untitled Group Chat"
+        ? title || nameList.join(", ") || "Untitled Group Chat"
         : participantName || "Untitled chat";
 
     const preview = lastMessagePreview || "No messages yet";
@@ -31,12 +37,7 @@ export function ChatThreadItem({ thread, isActive, onSelect }) {
     const fallbackInitial = participantName ? participantName.charAt(0).toUpperCase() : "";
     const fallbackInitialsGroup = isGroup && participantNames
         ? participantNames.split(",")[0]?.charAt(0).toUpperCase()
-        : '';
-    // Derive secondary initial for group avatar from comma-separated names
-    const nameList = typeof participantNames === "string"
-        ? participantNames.split(",").map((s) => s.trim()).filter(Boolean)
-        : [];
-    const secondInitial = nameList[1]?.charAt(0).toUpperCase() ?? "?";
+        : "";
     return (
         <Button
             variant='secondary'
@@ -51,33 +52,15 @@ export function ChatThreadItem({ thread, isActive, onSelect }) {
             <div className='flex items-center w-full gap-20'>
                 {/* Avatar: different based on chat type (1:1 or group) */}
                 {isGroup ? (
-                    <div className="relative rounded-full bg-brand-secondary flex items-center justify-center overflow-hidden shrink-0">
-                        <div className="absolute h-64 w-64 top-0 left-0 rounded-full bg-default overflow-hidden">
-                            {participantAvatarUrl ? (
+                    <div className="relative rounded-full bg-default flex items-center justify-center overflow-hidden shrink-0">
+                        <div className="absolute h-50 w-50 top-0 left-0 rounded-full bg-default border-2 border-white overflow-hidden">
                                 <Image
-                                    src={participantAvatarUrl}
-                                    alt={participantName || "Avatar"}
+                                    src={participantAvatarUrl ? participantAvatarUrl : fallbackInitialsGroup ? `https://ui-avatars.com/api/?name=${encodeURIComponent(participantNames)}&background=random&size=128` : "/default-avatar.png"}
+                                    alt={participantNames || "Avatar"}
                                     className="object-cover"
                                     width={200}
                                     height={200}
                                 />
-                            ) : (
-                                <span className="text-xs font-semibold">
-                                    {
-                                        fallbackInitialsGroup ? (
-                                            <Image
-                                                src={`https://ui-avatars.com/api/?name=${encodeURIComponent(participantNames)}&background=random&size=128`}
-                                                alt={participantNames || "Group Avatar"}
-                                                className="object-cover"
-                                                width={100}
-                                                height={100}
-                                            />
-                                        ) : (
-                                            <span className="text-xs font-semibold"></span>
-                                        )
-                                    }
-                                </span>
-                            )}
                         </div>
                         <div className="absolute bottom-0 right-0 h-50 w-50 rounded-full bg-default border-2 border-white overflow-hidden">
                             <span className="text-xs font-semibold">
@@ -86,30 +69,15 @@ export function ChatThreadItem({ thread, isActive, onSelect }) {
                         </div>
                     </div>
                 ) : (
-                    <div className="avatar h-64 w-64 rounded-full bg-brand-secondary flex items-center justify-center overflow-hidden shrink-0">
-                        {participantAvatarUrl ? (
+                    <div className="avatar bg-default h-50 w-50 rounded-full flex items-center justify-center overflow-hidden shrink-0">
                             <Image
-                                src={participantAvatarUrl}
+                                src={participantAvatarUrl ? participantAvatarUrl : fallbackInitial ? `https://ui-avatars.com/api/?name=${encodeURIComponent(participantName)}&background=random&size=128` : "/default-avatar.png"}
                                 alt={participantName || "Avatar"}
                                 className="object-cover"
                                 width={200}
                                 height={200}
                             />
-                        ) : (
-                            <span className="text-body font-semibold">
-                                {fallbackInitial ? (
-                                    <Image
-                                        src={`https://ui-avatars.com/api/?name=${encodeURIComponent(participantName)}&background=random&size=128`}
-                                        alt={participantName || "Avatar"}
-                                        className="object-cover"
-                                        width={100}
-                                        height={100}
-                                    />
-                                ) : (
-                                    <span className="text-xs font-semibold"></span>
-                                )}
-                            </span>
-                        )}
+         
                     </div>
                 )}
 

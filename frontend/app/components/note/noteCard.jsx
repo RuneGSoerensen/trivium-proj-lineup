@@ -129,26 +129,30 @@ export default function NoteCard({ note, showComments = false }) {
     setCommentsOpen((s) => !s);
   };
   const commentTree = buildCommentTree(localComments);
+  const userInitials = note.user_name
+    ? note.user_name
+        .split(" ")
+        .map((n) => n[0])
+        .join("")
+        .toUpperCase()
+    : "?";
+  
 
   return (
-    <div className="py-10 gap-15 flex flex-col border-b border-muted/20 px-10">
+    <div className="py-10 gap-15 flex flex-col border-b border-muted/20">
       {/* HEADER */}
       <header className="flex items-center justify-between gap-10">
         <div className="flex items-center gap-10 truncate w-full">
-          <div className="w-20 h-20 rounded-full border-muted overflow-hidden flex-shrink-0">
-            {note.user_image ? (
+          <div className="w-25 h-25 rounded-full border-muted overflow-hidden flex-shrink-0">
+      
               <Image
-                src={note.user_image}
+                src={note.user_image ? note.user_image : `https://ui-avatars.com/api/?name=${encodeURIComponent(userInitials)}&background=random&size=128`}
                 alt={note.user_name}
-                width={40}
-                height={40}
+                width={100}
+                height={100}
                 className="w-full h-full object-cover"
               />
-            ) : (
-              <div className="w-full h-full flex items-center justify-center color-muted">
-                  <p> {note.user_name?.charAt(0).toUpperCase()}</p> 
-              </div>
-            )}
+
           </div>
 
           <p className="text-muted text-sm">{note.user_name}</p>
@@ -246,13 +250,13 @@ export default function NoteCard({ note, showComments = false }) {
           {/* CONTENT */}
           <p className="color-muted/60 font-light text-sm">{note.content}</p>
           <div className="flex justify-between py-9 w-full">
-            <div className="flex items-center gap-14 w-full">
+            <div className="flex items-center gap-8 w-full">
 
               {/* ACTIONS */}
               <Button
                 type="icon"
                 size="icon-sm"
-                iconSize="xl"
+                iconSize="lg"
                 icon={<Heart fill={localLiked ? "var(--color-primary)" : "none"} stroke={localLiked ? "#d9b060" : "var(--color-neutral-medium)"} strokeWidth={1.5}/>}
                 variant="ghost"
                 className={`pl-0! hover:bg-transparent`}
@@ -266,7 +270,7 @@ export default function NoteCard({ note, showComments = false }) {
               <Button
                 type="icon"
                 size="icon-sm"
-                iconSize="xl"
+                iconSize="lg"
                 icon={<MessagesSquare stroke={commentsOpen ? "var(--color-primary-darker)" : "var(--color-neutral-medium)"} strokeWidth={1.5} />}
                 variant="ghost"
                 onClick={handleReplyClick}
@@ -277,7 +281,7 @@ export default function NoteCard({ note, showComments = false }) {
               <Button
                 type="icon"
                 size="icon-sm"
-                iconSize="xl"
+                iconSize="lg"
                 icon={<Forward strokeWidth={1.8} />}
                 variant="ghost"
                 className="color-subtle"
@@ -288,7 +292,7 @@ export default function NoteCard({ note, showComments = false }) {
               <Button
                 type="icon"
                 size="icon-sm"
-                iconSize="xl"
+                iconSize="lg"
                 icon={<Repeat2 strokeWidth={1.5} />}
                 variant="ghost"
                 className="color-subtle"
@@ -306,7 +310,7 @@ export default function NoteCard({ note, showComments = false }) {
           <div className="mt-3 pt-3 border-t border-muted/20">
             <div className="relative items-center h-fit flex gap-2 rounded-lg pt-12">
               <Input
-                type="icon"
+                type="text"
                 placeholder="Leave a comment"
                 value={commentText}
                 onChange={(e) => setCommentText(e.target.value)}
@@ -319,7 +323,7 @@ export default function NoteCard({ note, showComments = false }) {
                 iconSize="sm"
                 icon={<ArrowUp />}
                 onClick={handleCommentSubmit}
-                className="absolute top-22  right-18! rounded-lg! border-none! p-4! bg-brand-primary color-default"
+                className="absolute w-fit top-22 right-18! rounded-lg! border-none! p-4! bg-brand-primary color-default"
               />
             </div>
           </div>

@@ -16,13 +16,13 @@
     @apply bg-default border-muted color-default hover:bg-brand-primary-hover focus:bg-brand-primary-hover;
   }
 
-.trvm-icon-btn.btn-ghost, .btn-ghost {
-    @apply bg-transparent color-subtle hover:bg-base-200;
+.trvm-btn-icon.btn-ghost, .btn-ghost {
+    @apply bg-transparent! border-none! color-subtle hover:bg-base-200;
   }
 
   /* Icon-only buttons */
   .trvm-btn-icon {
-    @apply flex btn-circle color-inverse items-center justify-center max-w-48 bg-secondary-cyanblue hover:bg-secondary-blue;
+    @apply flex btn-circle color-on-secondary items-center justify-center w-fit! bg-secondary-cyanblue hover:bg-secondary-blue;
   }
 
 
