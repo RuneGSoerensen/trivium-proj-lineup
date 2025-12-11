@@ -1,7 +1,7 @@
 'use client';
 
 import { Button } from "@/components/ui/Button/Button";
-import { ServiceCard } from "@/components/ui/Card/Card";
+import { Card } from "@/components/ui/Card/Card";
 import Input from "@/components/ui/Input/Input";
 import { TabContent, TabContentList, TabItem, Tabs, TabsList } from "@/components/ui/Tab/Tab";
 import { Tag } from "@/components/ui/Tag/Tag";
@@ -80,7 +80,7 @@ export default function TestPage() {
             <Input placeholder="Enter your name" label="Name" />
             <User avatarUrl={null} isConnected={true} userName="Victoria" />
 
-            <ServiceCard
+            <Card
                 avatarSrc="/icons/chat.svg"
                 avatarAlt="LunaVisuals"
                 authorName="LunaVisuals"

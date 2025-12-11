@@ -185,7 +185,7 @@ export default function SearchOverlay() {
                             icon={<Search size={18} stroke="var(--color-base-content)" strokeWidth={2} />}
                             type="text"
                             placeholder="Search"
-                            className="grow mb-4 py-6 bg-muted/30 border-0 placeholder:color-muted/90"
+                            className="placeholder:text-left! flex py-6 bg-muted/30 border-0 placeholder:color-muted/90"
                             value={query}
                             onChange={(e) => setQuery(e.target.value)}
                             aria-label="Search input"
@@ -209,13 +209,13 @@ export default function SearchOverlay() {
                 </div>
             </div>
             {/* Tabs navigation */}
-            <Tabs>
-                <TabsList className="flex overflow-x-auto p-0! justify-start">
+            <Tabs isActive={activeTab !== null} defaultActiveTab={TABS[0]} onTabChange={(tab) => setActiveTab(tab)} activeClassName="search-tabs">
+                <TabsList className="flex p-0! gap-24 ">
                     {/* TODO: remove tab separator */}
                     {TABS.map((tab) => (
                         <TabItem
                             key={tab}
-                            className="flex w-fit px-0! gap-4 color-muted/80 font-normal! focus:underline! focus:font-normal!"
+                            className="flex justify-start p-0! px-0! w-fit "
                             onClick={() => setActiveTab(tab)}
                         >
                             {tab}
@@ -223,7 +223,7 @@ export default function SearchOverlay() {
                     ))}
                 </TabsList>
 
-                <TabContentList className="search-tabs">
+                <TabContentList className="search-tabs-content">
                     <TabContent>{renderForYou()}</TabContent>
                     <TabContent>{renderPeopleList(results?.people, 'People')}</TabContent>
                     <TabContent>{renderPeopleList(results?.collaborations, 'Collaborations')}</TabContent>

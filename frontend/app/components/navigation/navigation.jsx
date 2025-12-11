@@ -43,8 +43,8 @@ export default function Navigation() {
   return (
     // Nav container
     // Remove Change color secondary darkgrey
-    <nav className="fixed bottom-28 left-0 right-0 flex w-full justify-center z-50  ">
-      <div className="flex items-center w-fit justify-center bg-inverse rounded-pill">
+    <nav className="fixed bottom-28 left-0 right-0 flex w-full justify-center z-50">
+      <div className="flex items-center w-fit justify-center rounded-pill trvm-glass-dark">
         {/* Mapped links */}
         {links.map((link) => (
           <NavLink

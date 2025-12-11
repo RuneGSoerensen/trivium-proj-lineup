@@ -68,7 +68,7 @@ export default function LoginPage() {
 
     <div className="mt-12 max-w-md w-full h-full flex flex-col items-center justify-center text-center gap-30">
       <h1 className="text-h1">Login</h1>
-      <form onSubmit={handleLogin} className="flex flex-col gap-8 justify-center">
+      <form onSubmit={handleLogin} className="login flex flex-col gap-8 justify-center">
 
         <Input
           id="email"
@@ -77,7 +77,7 @@ export default function LoginPage() {
           value={email}
           onChange={(e) => setEmail(e.target.value)}
           required
-          className="border-muted mb-4 placeholder:text-center"
+          className="border-muted mb-4"
           placeholder="Enter your email"
         />
 
@@ -90,7 +90,7 @@ export default function LoginPage() {
           value={password}
           onChange={(e) => setPassword(e.target.value)}
           required
-          className="border-muted mb-4 placeholder:text-center"
+          className="border-muted mb-4"
           placeholder="Enter your password"
         />
 

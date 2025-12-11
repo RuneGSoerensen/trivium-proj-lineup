@@ -18,6 +18,7 @@
 
   --color-primary: #ffcf70;
   --color-primary-content: #1e1e1e;
+  --color-primary-darker: #d9b060;
 
   --color-secondary: #3f4d54;
   --color-secondary-content: #f7f6f6;
@@ -53,6 +54,7 @@
   /* Brand / primary stays the same, just with dark content */
   --color-primary: #ffcf70;
   --color-primary-content: #121212;
+  --color-primary-darker: #d9b060;
 
   /* Secondary and accent slightly lifted for dark backgrounds */
   --color-secondary: #7b8a92;
@@ -92,7 +94,7 @@
   --text-body-md: 1rem; /* 16px */
 
   /* COLOR PALETTE */
-  --color-primary-hover: rgba(232, 190, 105, 0.7);
+  --color-primary-hover: rgba(232, 190, 105, 0.702);
   --color-primary-dark: rgb(77, 63, 84);
   --color-muted: rgba(130, 130, 130, 0.7);
 
@@ -151,7 +153,7 @@
   --glassmorphic-border: rgba(255, 255, 255, var(--glass-border-opacity));
 }
 
-@utility glass {
+@utility trvm-glass-dark {
   background: var(--glassmorphic-bg);
   backdrop-filter: blur(var(--glass-blur));
   border: 1.5px solid var(--glassmorphic-border);
@@ -162,7 +164,6 @@
   );
 }
 .lucide {
-  color: inherit;
   width: inherit;
   height: inherit;
 }
@@ -176,13 +177,19 @@
   color: var(--color-base-100);
 }
 @utility color-muted {
-  color: --alpha(var(--color-base-content) / 20%);
+  color: --alpha(var(--color-base-content) / 40%);
 }
 @utility color-subtle {
-  color: var(--color-neutral-dark);
+  color: var(--color-neutral-medium);
 }
 @utility color-brand {
   color: var(--color-primary);
+}
+@utility color-on-primary {
+  color: var(--color-primary-content);
+}
+@utility color-brand-darker {
+  color: var(--color-primary-darker);
 }
 @utility color-on-secondary {
   color: var(--color-secondary-content);
@@ -322,11 +329,14 @@
 @utility border-brand {
   border: 1.5px solid var(--color-primary);
 }
+@utility border-brand-dark {
+  border: 1.5px solid #d9b060;
+}
 @utility border-muted {
   border: 1.5px solid --alpha(var(--color-base-content) / 20%);
 }
 @utility border-subtle {
-  border: 1.5px solid --alpha(var(--color-base-content) / 40%);
+  border: 1.5px solid var(--color-neutral-medium);
 }
 @utility border-error {
   border: 1.5px solid var(--color-error);

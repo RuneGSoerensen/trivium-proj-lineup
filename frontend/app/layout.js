@@ -12,7 +12,7 @@ export const metadata = {
 export default function RootLayout({ children }) {
   return (
     <html lang="en" data-theme="lineup-light">
-      <body className="overflow-x-hidden overflow-y-auto">
+      <body className="overflow-x-hidden overflow-y-auto hide-scrollbar">
         <NavbarProvider>
           <NavigationBottom>
             <Navbar />

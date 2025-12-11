@@ -60,6 +60,7 @@ export default function Step4() {
               </span>
             </Button>
             <Input
+              type="tel"
               placeholder="Enter your phone number"
               value={formData.phone_number}
               onChange={(e) =>

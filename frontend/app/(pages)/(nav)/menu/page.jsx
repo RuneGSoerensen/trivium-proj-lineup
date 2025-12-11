@@ -14,6 +14,7 @@ import {
   X,
 } from "lucide-react";
 import { clearAuthData } from "@/utils/auth";
+import { closeOverlay } from "@/utils/helpers";
 
 const MENU_ITEMS = [
   { icon: Sparkles, label: "Get Pro lineUp", href: "/pro" },
@@ -28,6 +29,7 @@ const MENU_ITEMS = [
 
 export default function MenuOverlay() {
   const router = useRouter();
+  const handleClose = () => closeOverlay(router);
 
   const handleLogout = () => {
     clearAuthData();
@@ -42,7 +44,7 @@ export default function MenuOverlay() {
       aria-labelledby="menu-overlay"
     >
       <div className="flex items-center justify-between mb-12 w-full">
-        <Button type="icon" variant="ghost" icon={<X />} />
+        <Button type="icon" iconSize="md" variant="ghost" icon={<X />} onClick={handleClose} />
         <h4 id="menu-overlay" className="text-h4 self-center">
           Menu
         </h4>
@@ -65,7 +67,7 @@ export default function MenuOverlay() {
               }
             >
               <h4
-                className={`text-h4 ${
+                className={`text-h4 font-normal! ${
                   isDestructive ? "color-destructive" : "color-default"
                 }`}
               >

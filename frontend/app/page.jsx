@@ -21,19 +21,12 @@ export default function Home() {
   }, [setConfig]);
 
   return (
-    <section className="space-y-12 w-full ">
+    <section className="space-y-12 w-full">
       <Stories />
 
       <RequestFeed />
 
       <UserFeed />
-
-      <div className="h-screen">
-        <h1 className="heading-2">Welcome to Trivium!</h1>
-        <NavLink href="/ui-test" label="UI Test" isActive={false} />
-        <NavLink href="/chat" label="Chat Page" isActive={false} />
-
-      </div>
     </section>
   );
 }

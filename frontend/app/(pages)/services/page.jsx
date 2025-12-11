@@ -2,17 +2,17 @@
 import React, { useEffect, useState } from "react";
 import { useRouter } from "next/navigation";
 import { ListFilter, Search, X } from "lucide-react";
-import { ServiceCard } from "@/ui/Card/Card";
-import { Button } from "@/ui/Button/Button";
-import Input from "@/ui/Input/Input";
-import { Tag } from "@/ui/Tag/Tag";
+import { Card } from "@/ui/Card/Card"
+import { Button } from '@/ui/Button/Button';
+import Input from '@/ui/Input/Input';
+import { Tag } from '@/ui/Tag/Tag';
 import { useNavbar } from "@/utils/navbarContext";
+import { services } from "./serviceData"; // Assume this is an array of service objects
 
 export default function Page() {
-  const [query, setQuery] = React.useState("");
-  const [selectedTag, setSelectedTag] = React.useState(null);
+  const [query, setQuery] = useState("");
+  const [selectedTag, setSelectedTag] = useState(null);
   const router = useRouter();
-
   const { setConfig } = useNavbar();
 
   useEffect(() => {
@@ -30,47 +30,7 @@ export default function Page() {
     console.log("Searching for:", query);
   };
 
-  // Static service data (can later come from API)
-  const services = [
-    {
-      id: "1",
-      provider: "LunaVisuals",
-      tagLabel: "Art & Design",
-      tag: "#art",
-      title: "Custom visuals for your next release",
-      excerpt:
-        "Album covers, tour posters, and stage visuals crafted to reflect your sound and style. Work directly with an artist experienced in branding for musicians.",
-      location: "Aarhus",
-      time: "4h ago",
-      image_url:
-        "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcROw1upqPjzbLnyLZuMHMKLhnny7-8tQr08Ew&s",
-    },
-    {
-      id: "2",
-      provider: "EchoLab Studios",
-      tagLabel: "Recording & Mixing",
-      tag: "#recording",
-      title: "Full-service recording and mixing",
-      excerpt:
-        "Studio sessions, mixing and mastering by engineers who have worked with indie and electronic acts. Fully equipped live room and vintage gear.",
-      location: "Odense",
-      time: "1d ago",
-      image_url:
-        "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcROw1upqPjzbLnyLZuMHMKLhnny7-8tQr08Ew&s",
-    },
-    {
-      id: "3",
-      provider: "MusicRock APS",
-      tagLabel: "Rehearsal Space",
-      tag: "#Rehearsal space",
-      title: "Rehearsal space for rent in højbjerg",
-      excerpt: "3 studio rooms available for rent every day",
-      location: "Odense",
-      time: "1d ago",
-      image_url:
-        "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcROw1upqPjzbLnyLZuMHMKLhnny7-8tQr08Ew&s",
-    },
-  ];
+ 
   // Unique tag options derived from services
   const uniqueTags = Array.from(new Set(services.map((s) => s.tag)));
 
@@ -92,6 +52,7 @@ export default function Page() {
       handleFilterSelect(option);
     }
   };
+
 
   // Derived list of visible services based on query + selected tag
   const filteredServices = services.filter((s) => {
@@ -183,7 +144,8 @@ export default function Page() {
       </div>
       <div className="flex flex-col space-y-24 mt-18">
         {filteredServices.map((s) => (
-          <ServiceCard
+          <Card
+            type="Service"
             key={s.id}
             avatarSrc={s.image_url}
             avatarAlt={s.provider}
@@ -197,11 +159,8 @@ export default function Page() {
             timeAgo={s.time}
             imgWidth={250}
             imgHeight={250}
-            btnVariant="ghost"
-            ctaLabel="Read more"
             clickable={true}
             onClick={() => router.push(`/services/${s.id}`)}
-            className="border-none! border-transparent!"
           />
         ))}
       </div>

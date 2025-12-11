@@ -3,8 +3,10 @@
 import { useState } from "react";
 import Image from "next/image";
 import { Heart, Reply, ArrowUp } from "lucide-react";
-import { getUserId } from "@/utils/auth";
-import { authenticatedFetch } from "@/utils/auth.js";
+import { authenticatedFetch, getUserId } from "@/utils/auth";
+import { Button } from "../ui/Button/Button";
+import Input from "../ui/Input/Input";
+
 export const CommentItem = ({
   comment,
   depth = 0,
@@ -70,18 +72,17 @@ export const CommentItem = ({
   return (
     <div
       key={comment.id}
-      className="flex gap-2"
-      style={{ marginLeft: depth * 16 }}
+      className="flex gap-2 mt-4"
+      style={{ marginLeft: depth * 12 }}
     >
       {/* Comment Content */}
-      <div className="flex-1">
+      <div className="flex-1 flex flex-col p-4 rounded-lg">
         <div
-          className={` ${
-            depth > 0 ? "border-l border-gray-300" : ""
-          } px-3 py-2`}
+          className={` ${depth > 0 ? " border-l border-l-muted/20" : ""
+            } pl-10 my-4`}
         >
-          <div className="flex gap-4">
-            <div className="w-20 h-20 rounded-full overflow-hidden ">
+          <div className="flex gap-6 items-center">
+            <div className="w-24 h-24 rounded-full overflow-hidden border-muted flex-shrink-0">
               {comment.user.image_url ? (
                 <Image
                   src={comment.user.image_url || "/placeholder.svg"}
@@ -91,63 +92,71 @@ export const CommentItem = ({
                   className="w-full h-full object-cover"
                 />
               ) : (
-                <div className="w-full h-full flex items-center justify-center text-muted text-[12px] font-semibold">
-                  {comment.user.name.charAt(0).toUpperCase()}
+                <div className="w-full h-full flex items-center justify-center color-muted text-sm">
+                  <p> {comment.user.name.charAt(0).toUpperCase()}</p>
                 </div>
               )}
             </div>
-            <p className="text-default font-semibold text-[13px]">
+            <p className="color-subtle font-semibold text-body">
               {comment.user.name}
             </p>
-          </div>
-          <p className="text-default text-[14px]">{comment.content}</p>
-          <div className="flex items-center justify-end gap-3 mt-1 px-3">
-            <button
-              onClick={handleCommentLike}
-              className="flex items-center gap-1.5"
-            >
-              <Heart
-                size={24}
-                strokeWidth={comment.is_liked ? 0 : 2}
-                fill={comment.is_liked ? "red" : "none"}
-                color={comment.is_liked ? "red" : "currentColor"}
-              />
-              <span className="text-muted text-[12px]">
-                {comment.likes_count ?? 0}
-              </span>
-            </button>
 
-            <button
+            <p className="text-default text-sm">{comment.content}</p>
+
+          </div>
+          <div className="flex items-center justify-end gap-2 px-3">
+
+            <Button
+              size="icon-sm"
+              iconSize="lg"
+              icon={<Heart fill={comment.is_liked ? "var(--color-primary)" : "none"} stroke={comment.is_liked ? "var(--color-primary-darker)" : "var(--color-neutral-medium)"} strokeWidth={1.5} />}
+              variant="ghost"
+              className={`hover:bg-transparent `}
+              onClick={handleCommentLike}
+            >
+              <p className="color-subtle">
+                {comment.likes_count ?? 0}
+              </p>
+            </Button>
+
+            <Button
+              variant="ghost"
+              size="icon-sm"
+              iconSize="lg"
+              icon={<Reply strokeWidth={1.5} />}
               onClick={() => {
                 setShowReplyInput(!showReplyInput);
                 setReplyText("");
               }}
-              className="text-muted text-[12px] font-semibold flex items-center gap-1"
+              className="color-subtle flex items-center gap-8 hover:bg-transparent"
             >
-              <Reply />
-              {depth <= 0 && <p className="!mb-0">reply</p>}
-            </button>
+              {depth <= 0 && <p>Reply</p>}
+            </Button>
           </div>
         </div>
 
         {/* REPLY INPUT */}
         {showReplyInput && (
           <div className="mt-2 ml-10">
-            <div className="flex gap-2 rounded-lg border border-muted p-2">
-              <input
-                type="text"
+            <div className="relative items-center h-fit flex gap-2 rounded-lg pb-12">
+
+              <Input
+                type="icon"
                 placeholder={`Reply to ${comment.user.name}`}
                 value={replyText}
                 onChange={(e) => setReplyText(e.target.value)}
                 onKeyDown={(e) => e.key === "Enter" && handleReplySubmit()}
-                className="flex-1 px-3 py-2"
+                className="w-12/12!"
+
               />
-              <button
+              <Button
+                size="icon-sm"
+                type="icon"
+                iconSize="sm"
+                icon={<ArrowUp />}
                 onClick={handleReplySubmit}
-                className="px-3 py-2 bg-brand-primary text-white rounded-lg"
-              >
-                <ArrowUp size={16} strokeWidth={3} />
-              </button>
+                className="absolute top-12 right-18! rounded-lg! border-none! p-4! bg-brand-primary color-default"
+              />
             </div>
           </div>
         )}
