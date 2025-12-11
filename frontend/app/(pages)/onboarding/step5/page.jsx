@@ -58,9 +58,6 @@ export default function LookingForOptions() {
           <Button variant="primary" onClick={handleNext} className="w-fit">
             Continue
           </Button>
-          <Link className="text-sm color-muted! text-center" href="/home">
-            Skip for now
-          </Link>
         </div>
       </div>
     </div>
