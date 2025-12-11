@@ -2,8 +2,7 @@
 
 import { useOnboarding } from "@/utils/userOnboardingContext";
 import { useRouter } from "next/navigation";
-import { supabase } from "@/utils/supabaseClient";
-import { setAuthToken } from "@/utils/auth";
+import { supabase } from "@/utils/auth";
 import { createUser } from "@/utils/api";
 import { useState, useEffect } from "react";
 import Image from "next/image";
@@ -59,13 +58,6 @@ export default function Step6() {
         setErrorMessage("Authentication failed. No access token received.");
         return;
       }
-
-      // Store JWT token and userId in localStorage
-      setAuthToken(session.access_token, userId);
-      console.log("Auth data stored in localStorage:", {
-        userId,
-        tokenLength: session.access_token.length,
-      });
 
       const updatedUserData = {
         id: userId,

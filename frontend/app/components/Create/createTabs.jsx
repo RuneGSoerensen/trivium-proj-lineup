@@ -25,7 +25,7 @@ export default function CreateTabs() {
   useEffect(() => {
     const loadCurrentUser = async () => {
       try {
-        const userId = getUserId();
+        const userId = await getUserId();
 
         if (!userId) return;
 
