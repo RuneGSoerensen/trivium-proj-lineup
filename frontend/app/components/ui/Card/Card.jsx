@@ -11,7 +11,7 @@ export function Card({
   variant = "Full", // Full || Small
   type, // Service || Collab
   // top bar
-  avatarSrc, avatarAlt = "", authorName, tag, // fx "offers #art"
+  avatarSrc, avatarAlt = "", authorName, tag, serviceIcon, // fx "offers #art"
   // hovedindhold
   title, imageSrc, imageAlt = "", description,
   imgWidth,
@@ -26,7 +26,7 @@ export function Card({
   const clickable = typeof onClick === "function";
   const isService = type === "Service";
   const isCollab = type === "Collab";
-  const isSmall = variant === "Small";
+  const isSmall = variant === "small";
   const ServiceIcon = isService && !isSmall ? Bookmark : customElements.define;
 
   return (
@@ -38,7 +38,7 @@ export function Card({
       )}
       onClick={onClick}
     >
-      <div className="card-body space-y-3">
+      <div className="card-body space-y-3 w-full">
         {/* Top bar: avatar + navn + tag + icon button */}
         <header className="flex items-center justify-between gap-10 pb-15 border-b border-muted/30">
           <div className="flex items-center gap-8 w-full">
@@ -74,7 +74,7 @@ export function Card({
               type="icon"
               variant="ghost"
               iconSize="lg"
-              icon={!isSmall ? <ServiceIcon size={24} /> : <ServiceIcon size={24} />}
+              icon={!isSmall ? <ServiceIcon size={24} /> : serviceIcon}
               onClick={(e) => {
                 e.stopPropagation();
                 onIconClick();
@@ -105,7 +105,7 @@ export function Card({
 
         {/* Description */}
         {description && (
-          <div className={`flex items-start ${isSmall ? "min-h-96" : ""}`}>
+          <div className={`flex items-start w-full ${isSmall && isCollab ? "min-h-96" : "h-fit"}`}>
             <p className="text-base leading-snug color-muted/60 truncate">
               {description}
             </p>

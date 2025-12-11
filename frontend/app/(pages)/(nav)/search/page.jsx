@@ -5,47 +5,21 @@ import { Search, X } from 'lucide-react';
 import { useRouter } from 'next/navigation';
 import { closeOverlay } from '@/utils/helpers';
 import { Tabs, TabsList, TabContentList, TabContent, TabItem } from '@/ui/Tab/Tab';
-import Image from 'next/image';
 import { useSearch } from '@/utils/useSearch';
-import { useCallback, useMemo, useState } from 'react';
-import User from '@/ui/User/User';
+import { useMemo, useState } from 'react';
+import {
+    SEARCH_SECTIONS,
+    TABS,
+    EMPTY_RESULTS,
+    isSearching,
+    noResults,
+    startSearching,
+    errorMsg,
+    renderUserItem,
+    renderServiceItem,
+} from './searchResults';
+import { services as SERVICE_DATA } from '@/(pages)/services/serviceData';
 
-const TABS = [
-    "For you", "People", "Collaborations", "Services", "Tags"
-];
-
-const EMPTY_RESULTS =
-{
-    "recent": [],
-    "forYou": {
-        "people": [],
-        "collaborations": [],
-        "services": [],
-        "tags": [],
-    },
-    "people": [],
-    "collaborations": [],
-    "services": [],
-    "tags": []
-}
-
-const isSearching = () => <p className="text-sm color-muted">Searching...</p>;
-
-const noResults = (query, label) => (
-    <p className="text-base color-muted/50">
-        No {label.toLowerCase()} found for &apos;{query.trim()}&apos;
-    </p>
-);
-
-const startSearching = (label) => (
-    <p className="text-base color-subtle">
-        Start typing to search {label.toLowerCase()}.
-    </p>
-);
-
-const errorMsg = (error) => (
-    <p className="text-base color-error">{error}</p>
-)
 
 export default function SearchOverlay() {
     const router = useRouter();
@@ -66,22 +40,17 @@ export default function SearchOverlay() {
             forYou: {
                 people: data,
                 collaborations: [],
-                services: [],
+                services: SERVICE_DATA,
                 tags: [],
             },
             people: data,
             collaborations: [],
-            services: [],
+            services: SERVICE_DATA,
             tags: [],
         }),
     });
-
-    const renderUserItem = (user) => (
-        <User key={user.id} userName={user.name} avatarUrl={user.imageUrl} />
-    );
-
     // Generic handler used by People, Services, Tags, etc.
-    const renderPeopleList = (items, label) => {
+const renderList = (items, label, type) => {
         const trimmedQuery = query.trim();
         const hasItems = Array.isArray(items) && items.length > 0;
 
@@ -90,7 +59,7 @@ export default function SearchOverlay() {
                 return startSearching(label);
             }
             // First-time search in progress (no previous results) -> show searching
-            if (isLoading && !error && results === null) {
+            if (isLoading && !error && noResults) {
                 return isSearching();
             }
             // Error with no items -> show error
@@ -112,14 +81,35 @@ export default function SearchOverlay() {
             return errorMsg(error);
         }
 
-        // Only map when items is a non-empty array
-        return <div className="flex flex-col gap-4">
-            <section className="flex flex-col gap-8">
-                <p className="text-sm font-medium">People</p>
-                <div className="flex flex-col gap-4">
-                    {items.map(renderUserItem)}
-                </div>
-            </section></div>;
+        // CHOOSE RENDERER BASED ON TYPE
+        let renderItem;
+        switch (type) {
+            case "people":
+                renderItem = renderUserItem;
+                break;
+            case "services":
+                renderItem = renderServiceItem;
+                break;
+            default:
+                renderItem = (item) => (
+                    <div key={item.id || item.slug || item.name}>
+                        {item.title || item.name || JSON.stringify(item)}
+                    </div>
+                );
+                break;
+        }
+
+        // RENDER LIST
+        return (
+            <div className="flex flex-col gap-4">
+                <section className="flex flex-col gap-8">
+                    <p className="text-sm font-medium">{label}</p>
+                    <div className="flex flex-col gap-4">
+                        {items.map(renderItem)}
+                    </div>
+                </section>
+            </div>
+        );
     };
 
     // Renderer for the "For you" tab with grouped selections
@@ -141,18 +131,39 @@ export default function SearchOverlay() {
             if (error) return errorMsg(error);
 
             return noResults(trimmedQuery, "results")
-
         }
+
+
         return (
             <div className="flex flex-col gap-12">
-                {people.length > 0 && (
-                    <section className="flex flex-col gap-4">
-                        <h6 className="text-h6">People</h6>
-                        <div className="flex flex-col gap-4">
-                            {people.map(renderUserItem)}
-                        </div>
-                    </section>
-                )}
+                {SEARCH_SECTIONS.map((section) => {
+                    const items = forYouData[section.key] || [];
+
+                    if (!Array.isArray(items) || items.length === 0) {
+                        return null;
+                    }
+
+                    // Choose renderer based on section key
+                    const renderItem =
+                        section.key === "people"
+                            ? renderUserItem
+                            : section.key === "services"
+                                ? renderServiceItem
+                                : (item) => (
+                                    <div key={item.id || item.slug || item.name}>
+                                        {item.title || item.name || JSON.stringify(item)}
+                                    </div>
+                                );
+
+                    return (
+                        <section className="flex flex-col gap-4" key={section.key}>
+                            <h6 className="text-h6">{section.label}</h6>
+                            <div className="flex flex-col gap-4">
+                                {items.map(renderItem)}
+                            </div>
+                        </section>
+                    );
+                })}
             </div>
         )
     };
@@ -195,7 +206,7 @@ export default function SearchOverlay() {
             {/* Tabs navigation */}
             <Tabs isActive={activeTab !== null} defaultActiveTab={TABS[0]} onTabChange={(tab) => setActiveTab(tab)} activeClassName="search-tabs">
                 <TabsList className="flex p-0! gap-24 ">
-                    {/* TODO: remove tab separator */}
+
                     {TABS.map((tab) => (
                         <TabItem
                             key={tab}
@@ -209,10 +220,11 @@ export default function SearchOverlay() {
 
                 <TabContentList className="search-tabs-content">
                     <TabContent>{renderForYou()}</TabContent>
-                    <TabContent>{renderPeopleList(results?.people, 'People')}</TabContent>
-                    <TabContent>{renderPeopleList(results?.collaborations, 'Collaborations')}</TabContent>
-                    <TabContent>{renderPeopleList(results?.services, 'Services')}</TabContent>
-                    <TabContent>{renderPeopleList(results?.tags, 'Tags')}</TabContent>
+                    {SEARCH_SECTIONS.map((section) => (
+                        <TabContent key={section.key}>
+                            {renderList(results?.[section.key], section.label, section.type)}
+                        </TabContent>
+                    ))}
                 </TabContentList>
             </Tabs>
             {/* Default state: no tab selected, show recent searches */}
