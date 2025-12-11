@@ -23,7 +23,11 @@ export default function Navigation() {
 
   // Only add the profile link after we have a userId on the client
   if (userId) {
-    links.push({ href: `/profile/${userId}`, label: "Profile", icon: "/icons/Profile.svg" });
+    links.push({
+      href: `/profile/${userId}`,
+      label: "Profile",
+      icon: "/icons/Profile.svg",
+    });
   }
 
   const pathname = usePathname();
@@ -39,8 +43,8 @@ export default function Navigation() {
   return (
     // Nav container
     // Remove Change color secondary darkgrey
-    <nav className="fixed bottom-28 left-0 right-0 flex w-full justify-center">
-      <div className="flex items-center w-fit justify-center rounded-pill glass">
+    <nav className="fixed bottom-28 left-0 right-0 flex w-full justify-center z-50  ">
+      <div className="flex items-center w-fit justify-center bg-inverse rounded-pill">
         {/* Mapped links */}
         {links.map((link) => (
           <NavLink

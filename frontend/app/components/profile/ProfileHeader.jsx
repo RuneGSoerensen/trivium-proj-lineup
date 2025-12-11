@@ -12,16 +12,21 @@ export default function ProfileHeader({
 }) {
   return (
     <div
-      className=" py-10  rounded-[40px] mb-10 w-[96%] mx-auto text-white"
+      className=" py-15 rounded-[40px] mb-16 w-[96%] mx-auto text-white "
       style={{ backgroundColor: profile.theme || "#3F4254" }}
     >
+      <div className="flex w-full justify-end px-20 mb-4 text-white font-bold  ">
+        <p className="!mb-0">. . .</p>
+      </div>
       <div className="flex flex-col items-center">
         <div className="flex items-center gap-16 mb-4 text-inverse w-full justify-center">
-          <div className="text-center w-50">
-            <p className="text-[20px] font-light">{profile.followers_count}</p>
-            <p className="text-[13px] opacity-80">Followers</p>
+          <div className="text-center w-75">
+            <p className="text-[20px] font-light !mb-0">
+              {profile.followers_count}
+            </p>
+            <p className="text-[13px] opacity-80 ">Connections</p>
           </div>
-          <div className=" w-150 h-150 rounded-full bg-default overflow-hidden border-4 border-white/20">
+          <div className=" w-125 h-125 rounded-full bg-default overflow-hidden border-4 border-white/20">
             {profile.image_url ? (
               <Image
                 src={profile.image_url || "/placeholder.svg"}
@@ -31,18 +36,18 @@ export default function ProfileHeader({
                 className=" fit-cover w-150 h-150 object-center "
               />
             ) : (
-              <div className="w-full h-full flex items-center justify-center text-muted text-[32px] ">
+              <div className="w-full h-full flex items-center justify-center text-muted text-[32px]  ">
                 <p>{profile.name.charAt(0).toUpperCase()}</p>
               </div>
             )}
           </div>
-          <div className="text-center w-50">
-            <p className="text-[20px] font-light ">{notesLength || 0}</p>
+          <div className="text-center w-75">
+            <p className="text-[20px] font-light !mb-0">{notesLength || 0}</p>
             <p className="text-[13px] opacity-80">Notes</p>
           </div>
         </div>
 
-        <h1 className="text-inverse text-[20px] font-bold ">{profile.name}</h1>
+        <h1 className="text-inverse text-[20px]  !mb-0 ">{profile.name}</h1>
         <p className="text-gray-200 text-xs mb-6"> {profile.bio}</p>
 
         {profile.is_own_profile ? (

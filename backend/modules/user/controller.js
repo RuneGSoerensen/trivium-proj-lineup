@@ -192,3 +192,34 @@ export const updateUser = async (req, res) => {
     res.status(500).json({ error: 'Failed to update user' });
   }
 };
+
+export const addQuestion = async (req, res) => {
+  const { id } = req.params;
+  const { question, answer } = req.body;
+
+  try {
+    // Find existing question or create new one
+    let [existingQuestion] = await sql`
+      SELECT id FROM questions WHERE question = ${question}
+    `;
+
+    if (!existingQuestion) {
+      [existingQuestion] = await sql`
+        INSERT INTO questions (question)
+        VALUES (${question})
+        RETURNING id
+      `;
+    }
+
+    // Insert user answer (with blank answer if not provided)
+    await sql`
+      INSERT INTO user_questions (user_id, question_id, answer)
+      VALUES (${id}, ${existingQuestion.id}, ${answer || ''})
+    `;
+
+    res.json({ success: true });
+  } catch (error) {
+    console.log(error);
+    res.status(500).json({ error: 'Failed to add question' });
+  }
+};
