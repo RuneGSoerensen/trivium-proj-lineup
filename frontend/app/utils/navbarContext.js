@@ -12,7 +12,7 @@ export function NavbarProvider({ children }) {
         showLogo: false,
         actions:["search", "notifications", "menu"],
         visible: true,
-        backgroundColor: "bg-default",
+        backgroundColor: "none",
     });    
 
     return (

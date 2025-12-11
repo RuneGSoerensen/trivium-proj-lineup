@@ -22,8 +22,8 @@ function Message({ role, children, avatarUrl, authorName }) {
                             : initials
                                 ? `https://ui-avatars.com/api/?name=${encodeURIComponent(authorName)}&background=random&size=128`
                                 : "/default-avatar.png"}
-                        width={20}
-                        height={20}
+                        width={100}
+                        height={100}
                         className="rounded-full h-30 w-30 object-cover border bg-base-200 flex items-center justify-center overflow-hidden shrink-0"
                     />
                 )}
@@ -110,7 +110,7 @@ function ChatInput({ threadId, onMessageSent }) {
     return (
 
         <div className="chat-input-form-container flex justify-between items-center gap-8 w-full">
-            <Button type="icon" variant="glass" icon={<Plus />} size="icon-md" onClick={() => alert("Feature: Add media")} />
+            <Button type="icon" variant="glass" iconSize="md" icon={<Plus />} size="icon-md" onClick={() => alert("Feature: Add media")} />
             <form
                 ref={formRef}
                 className="chat-input-form w-full"
@@ -119,14 +119,14 @@ function ChatInput({ threadId, onMessageSent }) {
                     handleSend();
                 }}>
                 <Input
-                    className="p-10 glass w-full bg-muted/40 color-default border-0 ring-0 outline-0 focus:outline-0 focus:ring-0 focus:border-0 flex-1"
+                    className="p-10 w-full color-default border-0 ring-0 outline-0 focus:outline-0 focus:ring-0 focus:border-0 flex-1"
                     type="text"
                     value={message}
                     onChange={(e) => setMessage(e.target.value)}
                     placeholder="Type your message..."
                 />
             </form>
-            <Button type="icon" variant="glass" icon={<Mic />} size="icon-md" onClick={() => alert("Feature: Voice input")} />
+            <Button type="icon" variant="glass" iconSize="md" icon={<Mic />} size="icon-md" onClick={() => alert("Feature: Voice input")} />
         </div>
 
     )

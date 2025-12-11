@@ -55,7 +55,7 @@ export default function NoteCard({ note, showComments = false }) {
   };
 
   const handleLike = async () => {
-    const userId = getUserId();
+    const userId = await getUserId();
     if (!userId) {
       alert("You must be logged in to like.");
       return;
@@ -79,7 +79,7 @@ export default function NoteCard({ note, showComments = false }) {
 
   // MAIN COMMENT SEND
   const handleCommentSubmit = async () => {
-    const userId = getUserId();
+    const userId = await getUserId();
     if (!userId) {
       alert("You must be logged in to comment.");
       return;

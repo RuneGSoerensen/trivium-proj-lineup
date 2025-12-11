@@ -31,12 +31,13 @@ export default function ChatPage() {
     }, []);
 
     useEffect(() => {
-        setConfig({
+        setConfig(prev => ({
+            ...prev,
             type: "chat",
             showBack: false,
             showLogo:false,
             visible: false,
-        });
+        }));
     }, [setConfig]);
 
     const handleSelectThread = async (threadId) => {
@@ -86,7 +87,7 @@ export default function ChatPage() {
 
         <Tabs className="bg-default color-default w-full">
             {!activeThread ? (
-                <TabsList className="mb-8 w-full justify-between">
+                <TabsList hasSeparator={true} className="mb-8 w-full justify-between">
                     <TabItem>Chats</TabItem>
                     <TabItem>Groups</TabItem>
                 </TabsList>

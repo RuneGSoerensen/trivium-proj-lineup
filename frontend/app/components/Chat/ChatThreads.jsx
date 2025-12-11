@@ -49,7 +49,7 @@ export function ChatThreadItem({ thread, isActive, onSelect }) {
             size='sm'
             onClick={() => onSelect(id)}
         >
-            <div className='flex items-center w-full gap-14'>
+            <div className='flex items-center w-full gap-20'>
                 {/* Avatar: different based on chat type (1:1 or group) */}
                 {isGroup ? (
                     <div className="relative rounded-full bg-default flex items-center justify-center overflow-hidden shrink-0">
@@ -58,8 +58,8 @@ export function ChatThreadItem({ thread, isActive, onSelect }) {
                                     src={participantAvatarUrl ? participantAvatarUrl : fallbackInitialsGroup ? `https://ui-avatars.com/api/?name=${encodeURIComponent(participantNames)}&background=random&size=128` : "/default-avatar.png"}
                                     alt={participantNames || "Avatar"}
                                     className="object-cover"
-                                    width={100}
-                                    height={100}
+                                    width={200}
+                                    height={200}
                                 />
                         </div>
                         <div className="absolute bottom-0 right-0 h-50 w-50 rounded-full bg-default border-2 border-white overflow-hidden">
@@ -74,8 +74,8 @@ export function ChatThreadItem({ thread, isActive, onSelect }) {
                                 src={participantAvatarUrl ? participantAvatarUrl : fallbackInitial ? `https://ui-avatars.com/api/?name=${encodeURIComponent(participantName)}&background=random&size=128` : "/default-avatar.png"}
                                 alt={participantName || "Avatar"}
                                 className="object-cover"
-                                width={100}
-                                height={100}
+                                width={200}
+                                height={200}
                             />
          
                     </div>
@@ -83,13 +83,13 @@ export function ChatThreadItem({ thread, isActive, onSelect }) {
 
                 <div className='flex-1 w-full'>
                     <div className='flex w-full items-center justify-between gap-2'>
-                        <span className='truncate font-medium'>
+                        <p className='truncate font-medium'>
                             {displayName}
-                        </span>
+                        </p>
                         {timestamp && (
-                            <span className='text-xs color-muted whitespace-nowrap'>
+                            <p className='text-sm color-muted whitespace-nowrap'>
                                 {timestamp}
-                            </span>
+                            </p>
                         )}
                     </div>
                     <p className='mt-0.5 text-sm color-muted truncate'>

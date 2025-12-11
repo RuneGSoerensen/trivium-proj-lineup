@@ -23,8 +23,8 @@ export default function ChatLayout({ children }) {
                         <>
                             <h1 className='text-h1 color-on-secondary'>Messages</h1>
                             <div className="flex gap-8">
-                                <Button type="icon" iconSize='lg' size='icon-md' icon={<Search />} />
-                                <Button type="icon" iconSize='lg' size='icon-md' icon={<Edit2 />} />
+                                <Button className="color-on-secondary" type="icon" variant="ghost" iconSize='lg' size='icon-md' icon={<Search />} />
+                                <Button className="color-on-secondary" type="icon" variant="ghost" iconSize='lg' size='icon-md' icon={<Edit2 />} />
                             </div>
                         </>
                     ) : (
@@ -33,8 +33,10 @@ export default function ChatLayout({ children }) {
                                 {/* Back button */}
                                 <Button
                                     type="icon"
+                                    variant="ghost"
                                     iconSize="lg"
                                     size="icon-md"
+                                        className="color-on-secondary"
                                     onClick={() => {
                                         if (onBack) onBack();
                                     }}
@@ -49,7 +51,7 @@ export default function ChatLayout({ children }) {
                                         height={50}
                                         className="rounded-full h-68 w-68 object-cover border bg-base-200 flex items-center justify-center overflow-hidden shrink-0"
                                     />
-                        
+
                                     <span className="text-h2 color-on-secondary truncate">
                                         {activeThread?.title
                                             || activeThread?.participantName
@@ -60,7 +62,7 @@ export default function ChatLayout({ children }) {
                                 </div>
                                 {/* More button on the right */}
                                 <div className="flex gap-8">
-                                    <Button type="icon" iconSize='lg' size="icon-md" icon={<MoreVertical />} />
+                                    <Button type="icon" className="color-on-secondary" variant="ghost" iconSize='lg' size="icon-md" icon={<MoreVertical />} />
                                 </div>
                             </div>
                         </>

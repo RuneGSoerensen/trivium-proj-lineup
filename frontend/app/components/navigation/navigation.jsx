@@ -10,7 +10,13 @@ export default function Navigation() {
   // Read userId only on the client after mount to avoid SSR/CSR hydration mismatch
   const [userId, setUserId] = useState(null);
   useEffect(() => {
-    setUserId(getUserId());
+
+    // NOTE: This is a workaround for getUserId being async now.
+    const setUserIdAsync = async () => {
+      setUserId(await getUserId());
+    }
+    setUserIdAsync();
+
   }, []);
 
   // Base links that are safe to render on the server

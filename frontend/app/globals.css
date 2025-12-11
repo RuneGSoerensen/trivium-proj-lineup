@@ -162,7 +162,21 @@
     rgba(0, 0, 0, var(--glass-reflect-opacity)) 0%,
     rgba(0, 0, 0, .6) 100%
   );
+  color: var(--color-base-100)
 }
+
+@utility trvm-glass-light {
+  background: var(--glassmorphic-bg);
+  backdrop-filter: blur(var(--glass-blur));
+  border: 1.5px solid var(--glassmorphic-border);
+  background-image: linear-gradient(
+    var(--glass-reflect-degree),
+    rgba(0, 0, 0, var(--glass-reflect-opacity)) 0%,
+    rgba(255, 255, 255, .6) 100%
+  );
+  color: var(--color-base-100)
+}
+
 .lucide {
   width: inherit;
   height: inherit;
@@ -438,6 +452,7 @@
 
 /*Styles for page layout*/
 main.app-main {
+  --background: var(--background);
   background-color: var(--background);
   color: var(--foreground);
   transition: all 300ms ease-in-out;
@@ -459,7 +474,7 @@ main.app-main:has(> section.full-page) {
 }
 
 main.app-main:has(> section.services) {
-  --background: var(--color-base-200) !important;
+  --background: var(--color-base-200);
 }
 
 html,

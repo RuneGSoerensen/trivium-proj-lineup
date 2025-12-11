@@ -108,7 +108,7 @@ export default function EditProfilePage() {
 
   const loadProfile = async () => {
     try {
-      const currentUser = getUserId();
+      const currentUser = await getUserId();
       if (!currentUser) {
         router.push("/login");
         return;
