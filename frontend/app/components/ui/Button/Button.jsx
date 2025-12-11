@@ -18,8 +18,6 @@ const variantClass = {
   secondary: "btn-secondary",
   glass: "trvm-glass-dark",
   ghost: "btn-ghost",
-  like: "trvm-like-btn",
-  save: "trvm-save-btn",
 };
 
 // Made for mobile first design
@@ -68,20 +66,31 @@ export const Button = ({
   ...rest
 }) => {
   const [open, setOpen] = useState(false);
-
   const isDropdown = type === "dropdown";
+  const base = "trvm-btn";
+  // const showLabel = type !== "icon"; //icon button
 
   const handleClick = (e) => {
     if (isDropdown) {
       e.preventDefault();
       setOpen((prev) => !prev);
+
+      const outsideClickListener = (event) => {
+        if (!event.target.closest('.trvm-btn')){
+          setOpen(false);
+          document.removeEventListener('click', outsideClickListener);
+        }
+      };
+
+      if (!open) {
+        document.addEventListener('click', outsideClickListener);
+      }
+      return;
     }
     if (rest.onClick) {
       rest.onClick(e);
     }
   };
-
-  const base = "trvm-btn";
 
   const typeClass = {
     default: "",
@@ -89,8 +98,6 @@ export const Button = ({
     toggle: active ? "trvm-toggle-btn-active" : "trvm-toggle-btn",
     dropdown: "trvm-dropdown-btn",
   }[type] || "";
-
-  const showLabel = type !== "icon"; //icon button
 
   return (
     <div className={clsx(isDropdown && "relative inline-block w-full")}>
@@ -120,7 +127,7 @@ export const Button = ({
         )}
 
         {/* LABEL / TEKST – skjules for icon-type */}
-        {showLabel && children && (
+        {children && (
           <>
             {children}
           </>
@@ -143,7 +150,7 @@ export const Button = ({
       {isDropdown && open && (
         <div
           className={clsx(
-            "absolute overflow-y-auto top-full wrap truncate mt-4 w-full bg-base-100 border border-muted rounded-lg shadow-lg p-8 z-25",
+            "trvm-dropdown-content absolute overflow-y-auto top-full wrap truncate mt-4 w-full bg-base-100 border border-muted rounded-lg shadow-lg p-8 z-25",
             dropdownClassName,
             dropLeft && "left-0",
             dropRight && "right-0",

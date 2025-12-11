@@ -4,7 +4,8 @@ import normalizeTag from '../../utils/normalizeTag.js';
 
 export const getUserNotes = async (req, res) => {
   const { id } = req.params;
-
+  const currentId = req.userId ||  req.query.viewer_id || null;
+  
   const notes = await sql`
     SELECT 
       n.*,
@@ -18,6 +19,7 @@ export const getUserNotes = async (req, res) => {
     ) AS tags,
       (SELECT COUNT(*) FROM note_likes WHERE note_id = n.id) AS likes_count,
       (SELECT COUNT(*) FROM comments WHERE note_id = n.id) AS comments_count,
+      COALESCE((SELECT TRUE FROM note_likes nl WHERE nl.note_id = n.id AND nl.user_id = ${currentId} LIMIT 1), FALSE) AS is_liked,
       (SELECT json_agg(
         jsonb_build_object(
           'id', c.id,
@@ -47,14 +49,14 @@ export const getUserNotes = async (req, res) => {
 
 export const likeNote = async (req, res) => {
   const { id } = req.params;
-  const { user_id } = req.body;
+  const currentId = req.userId || req.query.viewer_id || null;
 
   try {
     // Check if user already liked this note
     const existing = await sql`
       SELECT COUNT(*)::int AS count
       FROM note_likes
-      WHERE note_id = ${id} AND user_id = ${user_id}
+      WHERE note_id = ${id} AND user_id = ${currentId}
     `;
 
     const alreadyLiked = existing[0]?.count > 0;
@@ -62,13 +64,13 @@ export const likeNote = async (req, res) => {
     if (alreadyLiked) {
       // remove like
       await sql`
-        DELETE FROM note_likes WHERE note_id = ${id} AND user_id = ${user_id}
+        DELETE FROM note_likes WHERE note_id = ${id} AND user_id = ${currentId}
       `;
     } else {
       // add like
       await sql`
         INSERT INTO note_likes (note_id, user_id)
-        VALUES (${id}, ${user_id})
+        VALUES (${id}, ${currentId})
         ON CONFLICT (note_id, user_id) DO NOTHING
       `;
     }
@@ -200,11 +202,11 @@ export async function createNote(req, res) {
     if (people_user_ids && people_user_ids.length != 0) {
       await sql`
         INSERT INTO notes_tagged_people ${sql(
-          people_user_ids.map((userId) => ({
-            note_id: newNoteId,
-            user_id: userId,
-          }))
-        )};
+        people_user_ids.map((userId) => ({
+          note_id: newNoteId,
+          user_id: userId,
+        }))
+      )};
       `;
     }
 
@@ -271,6 +273,10 @@ export const forYouNotes = async (req, res) => {
       u.image_url AS user_image,
       (SELECT COUNT(*) FROM note_likes WHERE note_id = n.id) AS likes_count,
       (SELECT COUNT(*) FROM comments WHERE note_id = n.id) AS comments_count,
+            COALESCE(
+        (SELECT TRUE FROM note_likes nl WHERE nl.note_id = n.id AND nl.user_id = ${id} LIMIT 1),
+        FALSE
+      ) AS is_liked,
       (
         SELECT json_agg(
           jsonb_build_object(

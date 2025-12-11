@@ -22,7 +22,7 @@
 
   /* Icon-only buttons */
   .trvm-btn-icon {
-    @apply flex btn-circle color-inverse items-center justify-center bg-secondary-cyanblue hover:bg-secondary-blue;
+    @apply flex btn-circle color-inverse items-center justify-center max-w-48 bg-secondary-cyanblue hover:bg-secondary-blue;
   }
 
 
@@ -35,6 +35,8 @@
   .btn-icon--low {
     @apply btn-size-low;
   }
+
+
 
   /* NOTE - Will return to at later point
 @utility btn-primary {

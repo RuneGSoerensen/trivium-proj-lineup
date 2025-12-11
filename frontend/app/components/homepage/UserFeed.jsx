@@ -76,7 +76,7 @@ export default function UserFeed() {
           variant="ghost"
           onClick={loadMore}
           disabled={loadingMore}
-          className="w-full"
+          className="w-full focus:bg-alt"
         >
           {loadingMore ? "Loading..." : "Load More"}
         </Button>

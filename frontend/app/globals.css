@@ -18,6 +18,7 @@
 
   --color-primary: #ffcf70;
   --color-primary-content: #1e1e1e;
+  --color-primary-darker: #d9b060;
 
   --color-secondary: #3f4d54;
   --color-secondary-content: #f7f6f6;
@@ -53,6 +54,7 @@
   /* Brand / primary stays the same, just with dark content */
   --color-primary: #ffcf70;
   --color-primary-content: #121212;
+  --color-primary-darker: #d9b060;
 
   /* Secondary and accent slightly lifted for dark backgrounds */
   --color-secondary: #7b8a92;
@@ -178,10 +180,16 @@
   color: --alpha(var(--color-base-content) / 40%);
 }
 @utility color-subtle {
-  color: var(--color-neutral-dark);
+  color: var(--color-neutral-medium);
 }
 @utility color-brand {
   color: var(--color-primary);
+}
+@utility color-on-primary {
+  color: var(--color-primary-content);
+}
+@utility color-brand-darker {
+  color: var(--color-primary-darker);
 }
 @utility color-on-secondary {
   color: var(--color-secondary-content);
@@ -328,7 +336,7 @@
   border: 1.5px solid --alpha(var(--color-base-content) / 20%);
 }
 @utility border-subtle {
-  border: 1.5px solid --alpha(var(--color-base-content) / 40%);
+  border: 1.5px solid var(--color-neutral-medium);
 }
 @utility border-error {
   border: 1.5px solid var(--color-error);

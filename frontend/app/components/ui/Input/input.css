@@ -7,7 +7,7 @@
     @apply w-full h-fit text-body rounded-lg transition-all duration-100 border-muted;
   }
 
-  .onboarding .trvm-input {
+  .onboarding .trvm-input, .login .trvm-input {
     @apply placeholder:text-center!;
   }
 
