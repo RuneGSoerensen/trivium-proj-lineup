@@ -33,8 +33,7 @@ export const signInWithPassword = async (email, password) => {
  * @returns {Promise<{ error: AuthError|null }>} JWT token or null if not found
  */
 export const signOut = async () => {
-  await supabase.auth.signOut();
-  return { error };
+  return await supabase.auth.signOut();
 };
 
 
