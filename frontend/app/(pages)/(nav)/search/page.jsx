@@ -8,6 +8,7 @@ import { Tabs, TabsList, TabContentList, TabContent, TabItem } from '@/ui/Tab/Ta
 import Image from 'next/image';
 import { useSearch } from '@/utils/useSearch';
 import { useCallback, useMemo, useState } from 'react';
+import User from '@/ui/User/User';
 
 const TABS = [
     "For you", "People", "Collaborations", "Services", "Tags"
@@ -76,26 +77,7 @@ export default function SearchOverlay() {
     });
 
     const renderUserItem = (user) => (
-        <div
-            key={user.id}
-            className="flex items-center gap-8 py-4 border-b border-muted">
-            {user.imageUrl ? (
-                <Image
-                    src={user.imageUrl}
-                    alt={`${user.name}'s profile picture`}
-                    width={40}
-                    height={40}
-                    className="h-32 w-32 rounded-full object-cover bg-alt"
-                />
-            ) : (
-                <div className="h-32 w-32 rounded-full bg-alt flex items-center justify-center color-muted font-semibold">
-                    {user.name?.[0]?.toUpperCase() ?? '?'}
-                </div>
-            )}
-            <div className="flex flex-col">
-                <span className="text-sm font-medium">{user.name}</span>
-            </div>
-        </div>
+        <User key={user.id} userName={user.name} avatarUrl={user.imageUrl} />
     );
 
     // Generic handler used by People, Services, Tags, etc.
@@ -176,13 +158,13 @@ export default function SearchOverlay() {
     };
 
     return (
-        <section className="fixed inset-0 bg-default z-50 p-12 flex flex-col gap-8" role='dialog' aria-modal='true' aria-labelledby='search-overlay'>
+        <section className="fixed inset-0 bg-default z-60 p-12 flex flex-col gap-8" role='dialog' aria-modal='true' aria-labelledby='search-overlay'>
             <div className="flex flex-col mb-8">
                 <div className="flex justify-between items-center gap-8">
                     <div className="relative grow mb-4" id="search-overlay">
                         {/* Search Input */}
                         <Input
-                            icon={<Search size={18} stroke="var(--color-base-content)" strokeWidth={2} />}
+                            icon={<Search size={18} stroke="var(--color-neutral-medium)" strokeWidth={2} />}
                             type="text"
                             placeholder="Search"
                             className="placeholder:text-left! flex py-6 bg-muted/30 border-0 placeholder:color-muted/90"
@@ -194,8 +176,9 @@ export default function SearchOverlay() {
                             <Button
                                 icon={<X />}
                                 type="icon"
+                                iconSize='md'
                                 variant="ghost"
-                                className="absolute right-8 top-0 text-sm color-muted hover:color-default hover:bg-transparent"
+                                className="absolute right-0 top-1/2 translate-y-[-50%] text-sm color-subtle hover:color-default hover:bg-transparent"
                                 onClick={() => setQuery('')}
                                 aria-label="Clear search"
                             />

@@ -129,26 +129,30 @@ export default function NoteCard({ note, showComments = false }) {
     setCommentsOpen((s) => !s);
   };
   const commentTree = buildCommentTree(localComments);
+  const userInitials = note.user_name
+    ? note.user_name
+        .split(" ")
+        .map((n) => n[0])
+        .join("")
+        .toUpperCase()
+    : "?";
+  
 
   return (
     <div className="py-10 gap-15 flex flex-col border-b border-muted/20">
       {/* HEADER */}
       <header className="flex items-center justify-between gap-10">
         <div className="flex items-center gap-10 truncate w-full">
-          <div className="w-20 h-20 rounded-full border-muted overflow-hidden flex-shrink-0">
-            {note.user_image ? (
+          <div className="w-25 h-25 rounded-full border-muted overflow-hidden flex-shrink-0">
+      
               <Image
-                src={note.user_image}
+                src={note.user_image ? note.user_image : `https://ui-avatars.com/api/?name=${encodeURIComponent(userInitials)}&background=random&size=128`}
                 alt={note.user_name}
-                width={40}
-                height={40}
+                width={100}
+                height={100}
                 className="w-full h-full object-cover"
               />
-            ) : (
-              <div className="w-full h-full flex items-center justify-center color-muted">
-                  <p> {note.user_name?.charAt(0).toUpperCase()}</p> 
-              </div>
-            )}
+
           </div>
 
           <p className="text-muted text-sm">{note.user_name}</p>

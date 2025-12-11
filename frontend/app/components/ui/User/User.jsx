@@ -37,7 +37,7 @@ const User = ({ avatarUrl, userName, userTitle = 'User Title', connected = false
 
             {!isConnected ? (
                 <Button
-                    size="sm"
+                    size="icon-sm"
                     type="primary"
                     className="px-16! py-6! rounded-full flex items-center gap-4"
                     icon={<PlusCircle />}
