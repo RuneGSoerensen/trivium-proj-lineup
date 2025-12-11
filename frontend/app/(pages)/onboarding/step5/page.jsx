@@ -5,7 +5,7 @@ import { useOnboarding } from "@/utils/userOnboardingContext";
 import { useRouter } from "next/navigation";
 import { Button } from "@/ui/Button/Button";
 import Link from "next/link";
-import Input from '@/ui/Input/Input';
+import Input from "@/ui/Input/Input";
 import { Tag } from "@/ui/Tag/Tag";
 
 export default function LookingForOptions() {
@@ -47,24 +47,18 @@ export default function LookingForOptions() {
               label={opt.label}
               checkable={true}
               checked={formData.looking_for === opt.key}
-              onCheckChange={() => setFormData({ looking_for: opt.key })} 
+              onCheckChange={() => setFormData({ looking_for: opt.key })}
+              onClick={() => setFormData({ looking_for: opt.key })}
               htmlForLabel={`lookingfor_${opt.key}`}
-              />
+            />
           ))}
         </div>
 
         <div className="flex flex-col items-center gap-15 self-center pb-4">
-          <Button
-            variant="primary"
-            onClick={handleNext}
-            className="w-fit"
-          >
+          <Button variant="primary" onClick={handleNext} className="w-fit">
             Continue
           </Button>
-          <Link
-            className="text-sm color-muted! text-center"
-            href="/home"
-          >
+          <Link className="text-sm color-muted! text-center" href="/home">
             Skip for now
           </Link>
         </div>
