@@ -23,7 +23,11 @@ export default function Navigation() {
 
   // Only add the profile link after we have a userId on the client
   if (userId) {
-    links.push({ href: `/profile/${userId}`, label: "Profile", icon: "/icons/Profile.svg" });
+    links.push({
+      href: `/profile/${userId}`,
+      label: "Profile",
+      icon: "/icons/Profile.svg",
+    });
   }
 
   const pathname = usePathname();

@@ -21,7 +21,6 @@ import { formatTimeAgo } from "@/utils/timeAgo";
 import { Button } from '@/ui/Button/Button';
 import Input from "@/ui/Input/Input";
 
-
 export default function NoteCard({ note, showComments = false }) {
   const [commentText, setCommentText] = useState(""); // main input
   const [commentsOpen, setCommentsOpen] = useState(showComments);
@@ -130,7 +129,6 @@ export default function NoteCard({ note, showComments = false }) {
     setCommentsOpen((s) => !s);
   };
   const commentTree = buildCommentTree(localComments);
-
 
   return (
     <div className="py-10 gap-15 flex flex-col border-b border-muted/20 px-10">
