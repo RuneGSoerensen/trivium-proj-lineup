@@ -1,15 +1,17 @@
-'use client';
+"use client";
 import React, { useEffect, useState } from "react";
+import { useRouter } from "next/navigation";
 import { ListFilter, Search, X } from "lucide-react";
-import { ServiceCard } from "@/ui/Card/Card"
-import { Button } from '@/ui/Button/Button';
-import Input from '@/ui/Input/Input';
-import { Tag } from '@/ui/Tag/Tag';
+import { ServiceCard } from "@/ui/Card/Card";
+import { Button } from "@/ui/Button/Button";
+import Input from "@/ui/Input/Input";
+import { Tag } from "@/ui/Tag/Tag";
 import { useNavbar } from "@/utils/navbarContext";
 
 export default function Page() {
   const [query, setQuery] = React.useState("");
   const [selectedTag, setSelectedTag] = React.useState(null);
+  const router = useRouter();
 
   const { setConfig } = useNavbar();
 
@@ -103,14 +105,19 @@ export default function Page() {
     return matchesTag && matchesQuery;
   });
 
-
   return (
     <section className="services flex flex-col px-24 pb-24 bg-alt full-bleed">
       <div className="flex items-center w-full justify-between mb-12 gap-8">
         <div className="items-center w-full" id="searchbar">
           {/* Search Input */}
           <Input
-            icon={<Search size={18} stroke="var(--color-base-content)" strokeWidth={2} />}
+            icon={
+              <Search
+                size={18}
+                stroke="var(--color-base-content)"
+                strokeWidth={2}
+              />
+            }
             type="text"
             placeholder="Search services..."
             className="py-8 bg-muted/30 border-0 placeholder:color-muted/90 w-full!"
@@ -124,10 +131,9 @@ export default function Page() {
               type="icon"
               variant="ghost"
               className="absolute right-8 top-0 text-sm color-muted hover:color-default hover:bg-transparent"
-              onClick={() => setQuery('')}
+              onClick={() => setQuery("")}
               aria-label="Clear search"
             />
-
           )}
         </div>
         <div className="w-fit!">
@@ -157,19 +163,20 @@ export default function Page() {
                     </li>
                   ))}
                 </ul>
-                    {filterOptions.length > 0 && (
+                {filterOptions.length > 0 && (
                   <div className="absolute mt-12 bottom-0 w-full text-center">
-                      <Button
-                        variant="ghost"
-                        className="w-full flex justify-center items-center rounded-lg px-8 py-6 text-sm color-muted bg-muted/10 hover:bg-muted/30 hover:color-default!"
-                        onClick={() => setSelectedTag(null)}
-                      >
-                        Clear
-                      </Button>
+                    <Button
+                      variant="ghost"
+                      className="w-full flex justify-center items-center rounded-lg px-8 py-6 text-sm color-muted bg-muted/10 hover:bg-muted/30 hover:color-default!"
+                      onClick={() => setSelectedTag(null)}
+                    >
+                      Clear
+                    </Button>
                   </div>
-                    )}
+                )}
               </div>
-            }>
+            }
+          >
             Filter
           </Button>
         </div>
@@ -193,10 +200,9 @@ export default function Page() {
             btnVariant="ghost"
             ctaLabel="Read more"
             clickable={true}
-            onClick={`/services/${s.id}`}
+            onClick={() => router.push(`/services/${s.id}`)}
             className="border-none! border-transparent!"
           />
-
         ))}
       </div>
     </section>
