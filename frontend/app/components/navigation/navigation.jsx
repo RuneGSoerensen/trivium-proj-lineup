@@ -5,6 +5,7 @@ import { useState, useEffect } from "react";
 import NavLink from "./NavLink";
 import { useBottomNav } from "@/utils/navbarContext";
 import { getUserId } from "@/utils/auth";
+import { Circle, CirclePlus, Home, MessageCircleMore, Store, User } from "lucide-react";
 
 export default function Navigation() {
   // Read userId only on the client after mount to avoid SSR/CSR hydration mismatch
@@ -21,10 +22,10 @@ export default function Navigation() {
 
   // Base links that are safe to render on the server
   const links = [
-    { href: "/", label: "Home", icon: "/icons/Home.svg" },
-    { href: "/services", label: "Services", icon: "/icons/Services.svg" },
-    { href: "/create", label: "Create", icon: "/icons/Create.svg" },
-    { href: "/chat", label: "Chats", icon: "/icons/Chat.svg" },
+    { href: "/", label: "Home", icon: <Home /> },
+    { href: "/services", label: "Services", icon: <Store /> },
+    { href: "/create", label: "Create", icon: <CirclePlus /> },
+    { href: "/chat", label: "Chats", icon: <MessageCircleMore /> },
   ];
 
   // Only add the profile link after we have a userId on the client
@@ -32,7 +33,7 @@ export default function Navigation() {
     links.push({
       href: `/profile/${userId}`,
       label: "Profile",
-      icon: "/icons/Profile.svg",
+      icon: <User />,
     });
   }
 
@@ -50,7 +51,7 @@ export default function Navigation() {
     // Nav container
     // Remove Change color secondary darkgrey
     <nav className="fixed bottom-28 left-0 right-0 flex w-full justify-center z-50">
-      <div className="flex items-center w-fit justify-center rounded-pill trvm-glass-dark">
+      <div className="flex items-center justify-between rounded-pill trvm-glass-dark p-4 w-360">
         {/* Mapped links */}
         {links.map((link) => (
           <NavLink

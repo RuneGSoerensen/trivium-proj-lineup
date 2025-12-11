@@ -22,7 +22,7 @@
 
   /* Icon-only buttons */
   .trvm-btn-icon {
-    @apply flex btn-circle color-on-secondary items-center justify-center bg-secondary-cyanblue hover:bg-secondary-blue;
+    @apply flex btn-circle color-on-secondary items-center justify-center w-fit! bg-secondary-cyanblue hover:bg-secondary-blue;
   }
 
 

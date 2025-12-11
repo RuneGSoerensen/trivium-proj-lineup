@@ -250,13 +250,13 @@ export default function NoteCard({ note, showComments = false }) {
           {/* CONTENT */}
           <p className="color-muted/60 font-light text-sm">{note.content}</p>
           <div className="flex justify-between py-9 w-full">
-            <div className="flex items-center gap-14 w-full">
+            <div className="flex items-center gap-8 w-full">
 
               {/* ACTIONS */}
               <Button
                 type="icon"
                 size="icon-sm"
-                iconSize="xl"
+                iconSize="lg"
                 icon={<Heart fill={localLiked ? "var(--color-primary)" : "none"} stroke={localLiked ? "#d9b060" : "var(--color-neutral-medium)"} strokeWidth={1.5}/>}
                 variant="ghost"
                 className={`pl-0! hover:bg-transparent`}
@@ -270,7 +270,7 @@ export default function NoteCard({ note, showComments = false }) {
               <Button
                 type="icon"
                 size="icon-sm"
-                iconSize="xl"
+                iconSize="lg"
                 icon={<MessagesSquare stroke={commentsOpen ? "var(--color-primary-darker)" : "var(--color-neutral-medium)"} strokeWidth={1.5} />}
                 variant="ghost"
                 onClick={handleReplyClick}
@@ -281,7 +281,7 @@ export default function NoteCard({ note, showComments = false }) {
               <Button
                 type="icon"
                 size="icon-sm"
-                iconSize="xl"
+                iconSize="lg"
                 icon={<Forward strokeWidth={1.8} />}
                 variant="ghost"
                 className="color-subtle"
@@ -292,7 +292,7 @@ export default function NoteCard({ note, showComments = false }) {
               <Button
                 type="icon"
                 size="icon-sm"
-                iconSize="xl"
+                iconSize="lg"
                 icon={<Repeat2 strokeWidth={1.5} />}
                 variant="ghost"
                 className="color-subtle"
@@ -310,7 +310,7 @@ export default function NoteCard({ note, showComments = false }) {
           <div className="mt-3 pt-3 border-t border-muted/20">
             <div className="relative items-center h-fit flex gap-2 rounded-lg pt-12">
               <Input
-                type="icon"
+                type="text"
                 placeholder="Leave a comment"
                 value={commentText}
                 onChange={(e) => setCommentText(e.target.value)}
@@ -323,7 +323,7 @@ export default function NoteCard({ note, showComments = false }) {
                 iconSize="sm"
                 icon={<ArrowUp />}
                 onClick={handleCommentSubmit}
-                className="absolute top-22  right-18! rounded-lg! border-none! p-4! bg-brand-primary color-default"
+                className="absolute w-fit top-22 right-18! rounded-lg! border-none! p-4! bg-brand-primary color-default"
               />
             </div>
           </div>

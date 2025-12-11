@@ -150,6 +150,7 @@
   --glass-border-opacity: 20%;
   
   --glassmorphic-bg: rgba(var(--color-grey-darker), var(--glass-opacity));
+  --glassmorphic-bg-light: rgba(var(--color-grey-medium), var(--glass-opacity));
   --glassmorphic-border: rgba(255, 255, 255, var(--glass-border-opacity));
 }
 
@@ -165,16 +166,32 @@
   color: var(--color-base-100)
 }
 
-@utility trvm-glass-light {
-  background: var(--glassmorphic-bg);
-  backdrop-filter: blur(var(--glass-blur));
-  border: 1.5px solid var(--glassmorphic-border);
-  background-image: linear-gradient(
-    var(--glass-reflect-degree),
-    rgba(0, 0, 0, var(--glass-reflect-opacity)) 0%,
-    rgba(255, 255, 255, .6) 100%
+@utility nav-link-active {
+  background: var(--glassmorphic-bg-light);
+  backdrop-filter: blur(20px);
+  background-image: radial-gradient(
+    rgba(80, 80, 80, var(--glass-reflect-opacity)) 25%,
+    rgba(96, 96, 96, 0.6) 80%,
+    rgba(200, 200, 200, 0.5) 100%
   );
-  color: var(--color-base-100)
+  position: relative;
+  z-index: 0;
+}
+
+.nav-link-active::before {
+  content: "";
+  position: absolute;
+  inset: -1px; 
+  border-radius: inherit;
+  background: linear-gradient(
+    45deg,
+    rgba(255, 255, 255, 0.75) 0%,
+    rgba(255, 255, 255, 0.15) 25%,
+    rgba(255, 255, 255, 0) 50%,
+    rgba(255, 255, 255, 0.15) 75%,
+    rgba(255, 255, 255, 0.75) 100%
+  );
+  z-index: -1;
 }
 
 .lucide {
