@@ -2,9 +2,9 @@
 import { useState, useEffect } from "react";
 import { useParams } from "next/navigation";
 import { MessageCircleMore } from "lucide-react";
-import { Tag } from "@/comps/ui/tag/Tag";
+import { Tag } from "@/comps/ui/Tag/Tag";
 import Image from "next/image";
-import { Button } from "@/comps/ui/button/Button";
+import { Button } from "@/comps/ui/Button/Button";
 import { formatTimeAgo } from "@/utils/timeAgo";
 import { authenticatedFetch } from "@/utils/auth";
 export default function Page() {
