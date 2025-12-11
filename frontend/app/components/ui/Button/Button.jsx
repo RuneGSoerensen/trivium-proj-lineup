@@ -94,7 +94,7 @@ export const Button = ({
 
   const typeClass = {
     default: "",
-    icon: "trvm-btn-icon",
+    icon: "trvm-icon-btn",
     toggle: active ? "trvm-toggle-btn-active" : "trvm-toggle-btn",
     dropdown: "trvm-dropdown-btn",
   }[type] || "";

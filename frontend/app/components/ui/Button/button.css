@@ -16,7 +16,7 @@
     @apply bg-default border-muted color-default hover:bg-brand-primary-hover focus:bg-brand-primary-hover;
   }
 
-.trvm-btn-icon.btn-ghost, .btn-ghost {
+.trvm-icon-btn.btn-ghost, .btn-ghost {
     @apply bg-transparent color-subtle hover:bg-base-200;
   }
 

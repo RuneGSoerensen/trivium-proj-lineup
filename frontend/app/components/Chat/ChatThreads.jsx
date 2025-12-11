@@ -48,18 +48,18 @@ export function ChatThreadItem({ thread, isActive, onSelect }) {
             size='sm'
             onClick={() => onSelect(id)}
         >
-            <div className='flex items-center w-full gap-14'>
+            <div className='flex items-center w-full gap-20'>
                 {/* Avatar: different based on chat type (1:1 or group) */}
                 {isGroup ? (
                     <div className="relative rounded-full bg-brand-secondary flex items-center justify-center overflow-hidden shrink-0">
-                        <div className="absolute h-50 w-50 top-0 left-0 rounded-full bg-default border-2 border-white overflow-hidden">
+                        <div className="absolute h-64 w-64 top-0 left-0 rounded-full bg-default overflow-hidden">
                             {participantAvatarUrl ? (
                                 <Image
                                     src={participantAvatarUrl}
                                     alt={participantName || "Avatar"}
                                     className="object-cover"
-                                    width={100}
-                                    height={100}
+                                    width={200}
+                                    height={200}
                                 />
                             ) : (
                                 <span className="text-xs font-semibold">
@@ -86,18 +86,28 @@ export function ChatThreadItem({ thread, isActive, onSelect }) {
                         </div>
                     </div>
                 ) : (
-                    <div className="avatar h-50 w-50 rounded-full bg-brand-secondary flex items-center justify-center overflow-hidden shrink-0">
+                    <div className="avatar h-64 w-64 rounded-full bg-brand-secondary flex items-center justify-center overflow-hidden shrink-0">
                         {participantAvatarUrl ? (
                             <Image
                                 src={participantAvatarUrl}
                                 alt={participantName || "Avatar"}
                                 className="object-cover"
-                                width={100}
-                                height={100}
+                                width={200}
+                                height={200}
                             />
                         ) : (
-                            <span className="text-sm font-semibold">
-                                {fallbackInitial ? `https://ui-avatars.com/api/?name=${encodeURIComponent(participantName)}&background=random&size=128` : ""}
+                            <span className="text-body font-semibold">
+                                {fallbackInitial ? (
+                                    <Image
+                                        src={`https://ui-avatars.com/api/?name=${encodeURIComponent(participantName)}&background=random&size=128`}
+                                        alt={participantName || "Avatar"}
+                                        className="object-cover"
+                                        width={100}
+                                        height={100}
+                                    />
+                                ) : (
+                                    <span className="text-xs font-semibold"></span>
+                                )}
                             </span>
                         )}
                     </div>
@@ -105,13 +115,13 @@ export function ChatThreadItem({ thread, isActive, onSelect }) {
 
                 <div className='flex-1 w-full'>
                     <div className='flex w-full items-center justify-between gap-2'>
-                        <span className='truncate font-medium'>
+                        <p className='truncate font-medium'>
                             {displayName}
-                        </span>
+                        </p>
                         {timestamp && (
-                            <span className='text-xs color-muted whitespace-nowrap'>
+                            <p className='text-sm color-muted whitespace-nowrap'>
                                 {timestamp}
-                            </span>
+                            </p>
                         )}
                     </div>
                     <p className='mt-0.5 text-sm color-muted truncate'>
