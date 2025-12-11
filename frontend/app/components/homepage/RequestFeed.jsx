@@ -7,6 +7,7 @@ import { Button } from "@/comps/ui/Button/Button";
 import { useRouter } from "next/navigation";
 import { authenticatedFetch } from "@/utils/auth.js";
 import { Card } from "../ui/Card/Card";
+import { userAvatarInitials } from '@/utils/helpers';
 
 export default function RequestFeed() {
   const [requests, setRequests] = useState([]);
@@ -73,7 +74,7 @@ export default function RequestFeed() {
               title={request.title}
               authorName={request.user_name}
               key={request.id}
-              avatarSrc={request.image_url && request.image_url !== "" ? request.image_url : `https://ui-avatars.com/api/?name=${encodeURIComponent(request.user_name)}&background=ffcf70&color=1e1e1e&size=40`}
+              avatarSrc={request.user_image ? request.user_image : `https://ui-avatars.com/api/?name=${encodeURIComponent(request.user_name)}&background=random&size=128`}
               avatarAlt={request.user_name}
               tag={"something"}
               className="w-full!"

@@ -50,7 +50,7 @@ export default function SearchOverlay() {
         }),
     });
     // Generic handler used by People, Services, Tags, etc.
-const renderList = (items, label, type) => {
+    const renderList = (items, label, type) => {
         const trimmedQuery = query.trim();
         const hasItems = Array.isArray(items) && items.length > 0;
 
@@ -103,7 +103,7 @@ const renderList = (items, label, type) => {
         return (
             <div className="flex flex-col gap-4">
                 <section className="flex flex-col gap-8">
-                    <p className="text-sm font-medium">{label}</p>
+                    <p className="text-sm color-muted">{label}</p>
                     <div className="flex flex-col gap-4">
                         {items.map(renderItem)}
                     </div>
@@ -157,7 +157,7 @@ const renderList = (items, label, type) => {
 
                     return (
                         <section className="flex flex-col gap-4" key={section.key}>
-                            <h6 className="text-h6">{section.label}</h6>
+                            <p className="text-sm color-muted">{section.label}</p>
                             <div className="flex flex-col gap-4">
                                 {items.map(renderItem)}
                             </div>
@@ -228,9 +228,9 @@ const renderList = (items, label, type) => {
                 </TabContentList>
             </Tabs>
             {/* Default state: no tab selected, show recent searches */}
-            {!query.trim() && !activeTab && (      
+            {!query.trim() && !activeTab && (
                 <div className="flex flex-col gap-4 mb-4">
-                    <h5 className="text-sm color-muted/50">Recent</h5>
+                    <p className="text-sm color-muted">Recent</p>
                     {recentSearches.length === 0 ? (
                         <p className="text-base color-muted/30">No recent searches</p>
                     ) : (

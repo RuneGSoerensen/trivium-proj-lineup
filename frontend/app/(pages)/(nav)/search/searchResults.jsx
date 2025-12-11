@@ -30,7 +30,7 @@ export const SEARCH_SECTIONS = [
 
 export const isSearching = (label) => (
     <p className="text-sm color-muted">
-        Searching{label ? ` ${label.toLowerCase()}` : '...'}...
+        Searching{label ? ` ${label.toLowerCase()}` : '...'}
     </p>
 )
 
@@ -57,19 +57,6 @@ export const renderUserItem = (user) => (
 );
 
 export const renderServiceItem = (s) => (
-    // <div key={service.id} className="flex items-center gap-4">
-    //     <Image
-    //         src={service.image_url}
-    //         alt={service.title}
-    //         width={48}
-    //         height={48}
-    //         className="w-12 h-12 rounded-md object-cover"
-    //     />
-    //     <div className="flex flex-col">
-    //         <p className="text-sm font-medium">{service.title}</p>
-    //         <p className="text-xs color-subtle">{service.provider}</p>
-    //     </div>
-    // </div>
     <Card
         key={s.id}
         type="Service" 
