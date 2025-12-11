@@ -138,6 +138,7 @@ export default function NoteCard({ note, showComments = false }) {
         .toUpperCase()
     : "?";
   
+    const fallbackImage = `https://ui-avatars.com/api/?name=${encodeURIComponent(userInitials)}&background=random&size=128`;
 
   return (
     <div className="py-10 gap-15 flex flex-col border-b border-muted/20">
@@ -147,11 +148,12 @@ export default function NoteCard({ note, showComments = false }) {
           <div className="w-25 h-25 rounded-full border-muted overflow-hidden flex-shrink-0">
       
               <Image
-                src={note.user_image ? note.user_image : `https://ui-avatars.com/api/?name=${encodeURIComponent(userInitials)}&background=random&size=128`}
+                src={note.user_image ? note.user_image : fallbackImage}
                 alt={note.user_name}
                 width={100}
                 height={100}
-                className="w-full h-full object-cover"
+              className="w-full h-full object-cover"
+
               />
 
           </div>
