@@ -33,7 +33,7 @@ export default function Stories() {
   return (
     <section className="hide-scrollbar w-full h-fit min-h-120 flex gap-12 overflow-x-auto py-12 px-16 full-bleed">
       {stories.map((story) => (
-        <div key={story.id} className="flex flex-col items-center gap-6 h-full">
+        <div key={story.id} className="flex flex-col items-center gap-6 h-full w-full">
    
             <div className="rounded-full w-70 h-70">
               <Image

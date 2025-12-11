@@ -24,10 +24,9 @@ export function Card({
   className,
 }) {
   const clickable = typeof onClick === "function";
-  const isService = type === "Service";
-  const isCollab = type === "Collab";
-  const isSmall = variant === "small";
-  // const ServiceIcon = isService && !isSmall ? Bookmark : customElements.define;
+  const isService = type === "service" || type === "Service";
+  const isCollab = type === "collab" || type === "Collab";
+  const isSmall = variant === "small" || variant === "Small";
 
   return (
     <article

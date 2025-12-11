@@ -14,6 +14,8 @@ import ProfileHeader from "@/components/profile/ProfileHeader";
 import ProfileAbout from "@/components/profile/ProfileAbout";
 import ProfileNotes from "@/components/profile/ProfileNotes";
 import { getUserId } from "@/utils/auth";
+import { useNavbar } from "@/utils/navbarContext";
+import { set } from "lodash";
 
 const HARD_ARTISTS = [
   "https://images.unsplash.com/photo-1544005313-94ddf0286df2?w=200&q=80",
@@ -33,6 +35,7 @@ const HARD_PAST_COLLABS = ["Band A", "Band B"];
 export default function ProfilePage() {
   const params = useParams();
   const router = useRouter();
+  const { setConfig } = useNavbar();
   const [profile, setProfile] = useState(null);
   const [notes, setNotes] = useState([]);
   const [loading, setLoading] = useState(true);
@@ -40,8 +43,17 @@ export default function ProfilePage() {
 
   useEffect(() => {
     if (params?.id) loadProfile();
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [params?.id]);
+
+    setConfig({
+      type: "profile",
+      backgroundColor: "bg-alt",
+      showBack: true,
+      showLogo: false,
+      actions: ["search", "notifications", "menu"],
+      visible: true,
+    });
+  // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [params?.id, setConfig]);
 
   const loadProfile = async () => {
     try {
@@ -185,7 +197,7 @@ export default function ProfilePage() {
   }
 
   return (
-    <div className="w-full  ">
+    <section className="profile w-full bg-alt full-page altPage">
       <ProfileHeader
         profile={profile}
         notesLength={notes.length}
@@ -193,21 +205,20 @@ export default function ProfilePage() {
         router={router}
       />
 
-      <Tabs className="bg-white">
-        <TabsList className="bg-white rounded-b-none w-full" hasSeparator>
+      <Tabs defaultValue="about">
+        <TabsList className="bg-default" hasSeparator={true}>
           <TabItem>About</TabItem>
-
           <TabItem>Notes</TabItem>
         </TabsList>
-        <TabContentList className="bg-white">
+        <TabContentList className="bg-default pb-140">
           <TabContent>
             <ProfileAbout profile={profile} onQuestionSubmit={handleClick} />
           </TabContent>
-          <TabContent className={"!p-0"}>
+          <TabContent>
             <ProfileNotes notes={notes} />
           </TabContent>
         </TabContentList>
       </Tabs>
-    </div>
+    </section>
   );
 }

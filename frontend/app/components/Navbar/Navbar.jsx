@@ -39,7 +39,7 @@ export default function Navbar() {
   // DEFAULT case:
   return (
     <nav
-      className={`flex items-center justify-between w-full h-(--nav-height) px-16 py-18 ${config.backgroundColor} fixed top-0 left-0 right-0 z-50`}
+      className={`flex items-center justify-between w-full h-(--nav-height) px-16 py-8 ${config.backgroundColor} fixed top-0 left-0 right-0 z-50`}
     >
       {config.showBack ? (
         <Button

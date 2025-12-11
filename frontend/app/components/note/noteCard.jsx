@@ -29,6 +29,7 @@ export default function NoteCard({ note, showComments = false }) {
     parseInt(note.likes_count ?? 0)
   );
   const [localComments, setLocalComments] = useState(note.comments ?? []);
+  const setOpen = () => {}; // placeholder for dropdown open state
 
   const apiBase =
     process.env.NEXT_PUBLIC_DATABASE_URL || "http://localhost:3300";
@@ -161,7 +162,7 @@ export default function NoteCard({ note, showComments = false }) {
               key={tag}
               className="px-8 py-2 flex items-center bg-default border-gray-500 border text-gray-500 text-xs"
             >
-              #<span className="color-subtle">{tag}</span>
+              <span className="color-subtle">{tag}</span>
             </Tag>
           ))}
 

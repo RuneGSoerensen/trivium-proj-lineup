@@ -68,8 +68,8 @@ export default function RequestFeed() {
         <div className="flex py-10 px-15 gap-10 overflow-x-auto min-h-193 hide-scrollbar">
           {requests.map((request) => (
             <Card 
-              type="Collab"
-              variant="Small"
+              type="collab"
+              variant="small"
               title={request.title}
               authorName={request.user_name}
               key={request.id}
@@ -87,7 +87,7 @@ export default function RequestFeed() {
             </div>
           
       </div>
-      <div className="flex justify-start px-15">
+      <div className="flex justify-start px-15 pt-4">
         <Button size="lg" className={"px-10! rounded-full w-full"} onClick={handleClick}>
           See more collabs
         </Button>
