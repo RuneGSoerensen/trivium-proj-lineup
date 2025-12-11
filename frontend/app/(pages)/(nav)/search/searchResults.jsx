@@ -77,7 +77,7 @@ export const renderServiceItem = (s) => (
         title={s.title}
         timeAgo={s.time}
         location={s.location}
-        serviceIcon={s.tagIcons}
+        serviceIcon={s.tagIcon}
         avatarSrc={s.image_url}
         avatarAlt={s.title}
         authorName={s.provider}

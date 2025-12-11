@@ -218,7 +218,7 @@ const renderList = (items, label, type) => {
                     ))}
                 </TabsList>
 
-                <TabContentList className="search-tabs-content">
+                <TabContentList className="search-tabs-content overflow-y-auto hide-scrollbar pb-8">
                     <TabContent>{renderForYou()}</TabContent>
                     {SEARCH_SECTIONS.map((section) => (
                         <TabContent key={section.key}>
@@ -228,7 +228,7 @@ const renderList = (items, label, type) => {
                 </TabContentList>
             </Tabs>
             {/* Default state: no tab selected, show recent searches */}
-            {!query.trim() && !activeTab && (
+            {!query.trim() && !activeTab && (      
                 <div className="flex flex-col gap-4 mb-4">
                     <h5 className="text-sm color-muted/50">Recent</h5>
                     {recentSearches.length === 0 ? (

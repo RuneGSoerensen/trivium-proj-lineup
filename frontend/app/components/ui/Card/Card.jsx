@@ -27,7 +27,7 @@ export function Card({
   const isService = type === "Service";
   const isCollab = type === "Collab";
   const isSmall = variant === "small";
-  const ServiceIcon = isService && !isSmall ? Bookmark : customElements.define;
+  // const ServiceIcon = isService && !isSmall ? Bookmark : customElements.define;
 
   return (
     <article
@@ -74,7 +74,7 @@ export function Card({
               type="icon"
               variant="ghost"
               iconSize="lg"
-              icon={!isSmall ? <ServiceIcon size={24} /> : serviceIcon}
+              icon={!isSmall ? <Bookmark /> : serviceIcon}
               onClick={(e) => {
                 e.stopPropagation();
                 onIconClick();
