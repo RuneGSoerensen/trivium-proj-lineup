@@ -9,6 +9,7 @@ import EditSocials from "../../../components/profile/edit/EditSocials";
 import EditCollections from "../../../components/profile/edit/EditCollections";
 import EditQuestions from "../../../components/profile/edit/EditQuestions";
 import SaveBar from "../../../components/profile/edit/SaveBar";
+import { authenticatedFetch } from "@/utils/auth.js";
 import { getUserId } from "@/utils/auth";
 
 const HARD_ARTISTS = [
@@ -141,7 +142,7 @@ export default function EditProfilePage() {
               : HARD_VIDEOS,
           past_collaborations:
             data.user.past_collaborations &&
-              data.user.past_collaborations.length > 0
+            data.user.past_collaborations.length > 0
               ? data.user.past_collaborations
               : HARD_PAST_COLLABS,
           socials: {

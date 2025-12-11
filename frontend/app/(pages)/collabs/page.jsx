@@ -1,10 +1,10 @@
 "use client";
 import { useEffect, useState } from "react";
 import { Bookmark } from "lucide-react";
-import { Tag } from "@/comps/ui/tag/Tag";
+import { Tag } from "@/comps/ui/Tag/Tag";
 import Image from "next/image";
 import { MessageCircleMore } from "lucide-react";
-import { Button } from "@/comps/ui/button/Button";
+import { Button } from "@/comps/ui/Button/Button";
 import { useRouter } from "next/navigation";
 import { formatTimeAgo } from "@/utils/timeAgo";
 import { authenticatedFetch } from "@/utils/auth";

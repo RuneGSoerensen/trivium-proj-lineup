@@ -18,6 +18,7 @@ import { formatTimeAgo } from "@/utils/timeAgo";
 import { Button } from '@/ui/Button/Button';
 import Input from "../ui/Input/Input";
 
+import { authenticatedFetch } from "@/utils/auth.js";
 export default function NoteCard({ note, showComments = false }) {
   const [commentText, setCommentText] = useState(""); // main input
   const [commentsOpen, setCommentsOpen] = useState(showComments);
@@ -33,7 +34,9 @@ export default function NoteCard({ note, showComments = false }) {
   const refreshNoteData = async () => {
     try {
       // fetch all notes for the note owner and find this note
-      const res = await authenticatedFetch(`${apiBase}/notes/user/${note.user_id}`);
+      const res = await authenticatedFetch(
+        `${apiBase}/notes/user/${note.user_id}`
+      );
       if (!res.ok) return;
       const notes = await res.json();
       const updated = notes.find((n) => n.id === note.id);
@@ -119,7 +122,6 @@ export default function NoteCard({ note, showComments = false }) {
     setCommentsOpen((s) => !s);
   };
   const commentTree = buildCommentTree(localComments);
-
 
   return (
     <div className="py-10 gap-15 flex flex-col border-b border-muted/20 px-10">

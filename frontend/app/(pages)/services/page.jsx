@@ -1,5 +1,6 @@
-'use client';
+"use client";
 import React, { useEffect, useState } from "react";
+import { useRouter } from "next/navigation";
 import { ListFilter, Search, X } from "lucide-react";
 import { Card } from "@/ui/Card/Card"
 import { Button } from '@/ui/Button/Button';
@@ -66,14 +67,19 @@ export default function Page() {
     return matchesTag && matchesQuery;
   });
 
-
   return (
     <section className="services flex flex-col px-24 pb-24 bg-alt full-bleed">
       <div className="flex items-center w-full justify-between mb-12 gap-8">
         <div className="items-center w-full" id="searchbar">
           {/* Search Input */}
           <Input
-            icon={<Search size={18} stroke="var(--color-base-content)" strokeWidth={2} />}
+            icon={
+              <Search
+                size={18}
+                stroke="var(--color-base-content)"
+                strokeWidth={2}
+              />
+            }
             type="text"
             placeholder="Search services..."
             className="py-8 bg-muted/30 border-0 placeholder:color-muted/90 w-full!"
@@ -90,7 +96,6 @@ export default function Page() {
               onClick={() => setQuery("")}
               aria-label="Clear search"
             />
-
           )}
         </div>
         <div className="w-fit!">
@@ -132,7 +137,8 @@ export default function Page() {
                   </div>
                 )}
               </div>
-            }>
+            }
+          >
             Filter
           </Button>
         </div>
@@ -157,7 +163,6 @@ export default function Page() {
             clickable={true}
             onClick={() => router.push(`/services/${s.id}`)}
           />
-
         ))}
       </div>
     </section>

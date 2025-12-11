@@ -1,10 +1,20 @@
 "use client";
 
+import { useState } from "react";
 import Image from "next/image";
 import { Tag } from "@/ui/Tag/Tag.jsx";
 import { Send } from "lucide-react";
 
 export default function ProfileAbout({ profile, onQuestionSubmit }) {
+  const [questionText, setQuestionText] = useState("");
+
+  const handleSubmit = () => {
+    if (questionText.trim()) {
+      onQuestionSubmit(questionText);
+      setQuestionText("");
+    }
+  };
+
   const socialPlatforms = [
     { key: "instagram", icon: "/icons/instagram.png", alt: "Instagram" },
     { key: "x", icon: "/icons/x.png", alt: "X" },
@@ -26,7 +36,7 @@ export default function ProfileAbout({ profile, onQuestionSubmit }) {
         <label className="text-default text-muted  mb-8 ">
           What i am looking
         </label>
-        <div className="flex flex-wrap gap-6 mb-2">
+        <div className="flex flex-wrap gap-6 mb-2 ml-10">
           {profile.looking_for_tags.map((tag) => (
             <Tag
               key={tag}
@@ -155,7 +165,7 @@ export default function ProfileAbout({ profile, onQuestionSubmit }) {
                     height="100%"
                     allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture"
                     loading="lazy"
-                    className=" w-full h-250 rounded-[24px]"
+                    className=" w-full h-200 rounded-[24px]"
                   />
                 </div>
               </div>
@@ -238,11 +248,14 @@ export default function ProfileAbout({ profile, onQuestionSubmit }) {
             id="questionInput"
             className="w-full  p-20 focus:outline-none "
             placeholder="Type your question here..."
+            value={questionText}
+            onChange={(e) => setQuestionText(e.target.value)}
+            onKeyDown={(e) => e.key === "Enter" && handleSubmit()}
           />
           <button
             style={{ backgroundColor: profile.theme }}
             className="rounded-full  justify-center w-60 h-50 m-2 p-2  mr-10 flex items-center justify-center"
-            onClick={onQuestionSubmit}
+            onClick={handleSubmit}
           >
             <div className="h-25 w-25 ">
               <Send size={10} fill={"white"} stroke="0" />
