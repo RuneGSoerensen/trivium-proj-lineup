@@ -39,7 +39,7 @@ export function Card({
       onClick={onClick}
     >
       <div className="card-body space-y-3">
-        {/* Top bar: avatar + navn + tag + bookmark */}
+        {/* Top bar: avatar + navn + tag + icon button */}
         <header className="flex items-center justify-between gap-10 pb-15 border-b border-muted/30">
           <div className="flex items-center gap-8 w-full">
             {avatarSrc && (

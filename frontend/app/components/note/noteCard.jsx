@@ -131,7 +131,7 @@ export default function NoteCard({ note, showComments = false }) {
   const commentTree = buildCommentTree(localComments);
 
   return (
-    <div className="py-10 gap-15 flex flex-col border-b border-muted/20 px-10">
+    <div className="py-10 gap-15 flex flex-col border-b border-muted/20">
       {/* HEADER */}
       <header className="flex items-center justify-between gap-10">
         <div className="flex items-center gap-10 truncate w-full">

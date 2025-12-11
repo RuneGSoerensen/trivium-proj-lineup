@@ -75,13 +75,13 @@ export default function Page() {
             icon={
               <Search
                 size={18}
-                stroke="var(--color-base-content)"
+                stroke="var(--color-neutral-medium)"
                 strokeWidth={2}
               />
             }
             type="text"
             placeholder="Search services..."
-            className="py-8 bg-muted/30 border-0 placeholder:color-muted/90 w-full!"
+            className="py-8 bg-muted/10! border-none! border-transparent! placeholder:color-muted/90 w-full!"
             value={query}
             onChange={(e) => setQuery(e.target.value)}
             aria-label="Search input"
@@ -160,6 +160,7 @@ export default function Page() {
             imgWidth={250}
             imgHeight={250}
             clickable={true}
+            className="shadow-sm!"
             onClick={() => router.push(`/services/${s.id}`)}
           />
         ))}

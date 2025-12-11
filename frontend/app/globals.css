@@ -120,7 +120,7 @@
   --spacing: 0.0625rem;
   --nav-height: 78px;
   --page-px: 24px;
-  --page-py: calc(var(--nav-height) + 14px);
+  --page-py: calc(var(--nav-height) + 12px);
 
   /* BORDER RADIUS */
   --radius-chip: 9999px;
