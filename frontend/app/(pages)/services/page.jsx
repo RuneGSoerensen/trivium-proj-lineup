@@ -7,7 +7,6 @@ import { Button } from '@/ui/Button/Button';
 import Input from '@/ui/Input/Input';
 import { Tag } from '@/ui/Tag/Tag';
 import { useNavbar } from "@/utils/navbarContext";
-import { useRouter } from "next/navigation";
 import { services } from "./serviceData"; // Assume this is an array of service objects
 
 export default function Page() {
