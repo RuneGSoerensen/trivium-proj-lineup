@@ -177,9 +177,10 @@ export default function SearchOverlay() {
                                 icon={<X />}
                                 type="icon"
                                 iconSize='md'
+                                size='icon-md'
                                 variant="ghost"
-                                className="absolute right-0 top-1/2 translate-y-[-50%] text-sm color-subtle hover:color-default hover:bg-transparent"
-                                onClick={() => setQuery('')}
+                                className="absolute w-fit! right-0 top-1/2 translate-y-[-50%] text-sm color-subtle hover:color-default hover:bg-transparent"
+                                onClick={() => setQuery("")}
                                 aria-label="Clear search"
                             />
 
