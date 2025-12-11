@@ -11,11 +11,11 @@ export default function Navigation() {
   const [userId, setUserId] = useState(null);
   useEffect(() => {
 
-    // NOTE: This is a workaround for getUserId being async now
-    const cursedInnerAsyncFn = async () => {
+    // NOTE: This is a workaround for getUserId being async now.
+    const setUserIdAsync = async () => {
       setUserId(await getUserId());
     }
-    cursedInnerAsyncFn();
+    setUserIdAsync();
 
   }, []);
 
