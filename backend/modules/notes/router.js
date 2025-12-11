@@ -30,6 +30,6 @@ router.post('/', requireAuth, createNote);
 router.get('/tags', getAllNoteTags);
 
 // Get notes for you
-router.get('/for-you', forYouNotes);
+router.get('/for-you', requireAuth, forYouNotes);
 
 export default router;
