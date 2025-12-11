@@ -1,6 +1,6 @@
 'use client'
 
-import { getUserId } from "@/utils/auth";
+import { getUserId, isAuthenticated } from "@/utils/auth";
 import { usePathname, useRouter } from "next/navigation";
 import { useEffect } from "react";
 
@@ -18,9 +18,9 @@ export function AuthGuard({ children }) {
 
   useEffect(() => {
     const checkAuth = async () => {
-      const userId = await getUserId();
+      const authenticated = await isAuthenticated();
 
-      if (!userId && !pageIsPublic) {
+      if (!authenticated && !pageIsPublic) {
         router.push('/login');
       }
     };

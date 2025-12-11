@@ -57,10 +57,10 @@ export const getUserId = async () => {
 
 /**
  * Check if user is authenticated.
- * @returns {boolean} True if authenticated
+ * @returns {Promise<boolean>} True if authenticated
  */
 export const isAuthenticated = async () => {
-  return (await getUserId()) !== null;
+  return !!(await getUserId());
 };
 
 /**
