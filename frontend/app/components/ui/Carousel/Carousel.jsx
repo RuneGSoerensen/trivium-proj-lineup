@@ -37,17 +37,16 @@ function Carousel({
       className={`relative flex items-center justify-center w-full overflow-hidden ${className}`}
     >
       <div className="carousel relative mt-24 mb-36 w-full">
-        <div className={`carousel-body ${heightClass} overflow-hidden`}>
+        <div className={`carousel-body ${heightClass}`}>
           <div
-            className="flex h-full transition-transform duration-500 ease-out"
+            className="flex transition-transform duration-500 ease-out"
             style={{ transform: `translateX(-${activeIndex * 100}%)` }}
           >
             {slides.map((slideContent, index) => (
               <div
                 key={index}
-                className={`carousel-slide w-full shrink-0 ${
-                  index === activeIndex ? "active" : ""
-                }`}
+                className={`carousel-slide w-full shrink-0 ${index === activeIndex ? "active" : ""
+                  }`}
               >
                 <div className={`carousel-slide-content ${slideClassName}`}>
                   {typeof slideContent === "string" ? (
@@ -64,23 +63,25 @@ function Carousel({
         </div>
       </div>
       <div className="absolute inset-0 flex items-center justify-between pointer-events-none px-4 z-50">
-        <button
+        <Button
+          type="icon"
+          variant="ghost"
+          icon={<ChevronLeftCircle strokeWidth={1} fill="var(--color-base-100)"/>}
           onClick={prevSlide}
           disabled={!hasMultipleSlides}
           aria-label="Previous slide"
           className="carousel-btn pointer-events-auto"
-        >
-          <ChevronLeftCircle size={32} strokeWidth={2} />
-        </button>
+        />
 
-        <button
+        <Button
+          type="icon"
+          variant="ghost"
+          icon={<ChevronRightCircle strokeWidth={1} fill="var(--color-base-100)" />}
           onClick={nextSlide}
           disabled={!hasMultipleSlides}
           aria-label="Next slide"
           className="carousel-btn pointer-events-auto"
-        >
-          <ChevronRightCircle size={32} strokeWidth={2} />
-        </button>
+        />
       </div>
       <div className="carousel-pagination absolute bottom-0 end-0 start-0 flex justify-center gap-8">
         {slides.map((_, index) => (
@@ -89,9 +90,8 @@ function Carousel({
             type="button"
             aria-label={`Go to slide ${index + 1}`}
             onClick={() => goToIndex(index)}
-            className={`carousel-dot h-8 w-8 rounded-full ${
-              activeIndex === index ? "active bg-brand-primary" : ""
-            }`}
+            className={`carousel-dot h-8 w-8 rounded-full ${activeIndex === index ? "active bg-brand-primary" : ""
+              }`}
           />
         ))}
       </div>

@@ -23,7 +23,7 @@ const variantClass = {
 // Made for mobile first design
 const sizeClass = {
   sm: "py-2 px-8",
-  md: "py-4 px-20",
+  md: "py-6 px-20",
   lg: "py-8 px-24",
   xl: "py-12 px-32",
   'icon-sm': "p-8",
@@ -41,13 +41,13 @@ const iconSz = {
 };
 
 const strokeW = {
-  thin: "stroke-[1px]",
-  medium: "stroke-[2px]",
-  thick: "stroke-[2.5px]",
+  thin: 1,
+  medium: 2,
+  thick: 2.5,
 };
 
 const resolveIconSize = (size = "md") => iconSz[size] ?? size;
-const resolveStroke = (stroke = "md") => strokeW[stroke] ?? stroke;
+const resolveStroke = (strokeWidth = 2) => strokeW[strokeWidth] ?? strokeWidth;
 
 export const Button = ({
   type = "default", // default | icon | toggle | dropdown
@@ -55,8 +55,8 @@ export const Button = ({
   size = type === "icon" ? "icon-md" : "md",
   icon,
   iconPosition = "left", // left | right
-  iconSize = "md",
-  iconStroke = "medium",
+  iconSize = type === "icon" ? "xxl" : "md",
+  iconStroke = "thin",
   className,
   children,
   dropdownClassName,

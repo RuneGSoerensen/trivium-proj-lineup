@@ -19,7 +19,7 @@
   --color-primary: #ffcf70;
   --color-primary-content: #1e1e1e;
 
-  --color-secondary: #3F4D54;
+  --color-secondary: #3f4d54;
   --color-secondary-content: #f7f6f6;
 
   --color-accent: #40826d;
@@ -79,16 +79,17 @@
 @theme {
   /* FONT FAMILY */
   --font-ui: "Helvetica Now Display", system-ui, sans-serif;
+  --font-display: "Inter", system-ui, sans-serif;
 
   /* FONT SIZE  */
   --text-h1: 1.5rem; /* 24px */
   --text-h2: 1.25rem; /* 20px */
   --text-h3: 1.125rem; /* 18px */
-  --text-subtitle: 0.875rem; /* 14px */
+  --text-subtitle: 1rem; /* 14px */
   --text-body: clamp(1rem, 1.125vw + 0.5rem, 1.2rem); /* 16px - 24px */
   --text-body-lg: 1.25rem; /* 20px */
   --text-body-sm: 0.875rem; /* 14px */
-  /*--text-body: 1rem; 16px */
+  --text-body-md: 1rem; /* 16px */
 
   /* COLOR PALETTE */
   --color-primary-hover: rgba(232, 190, 105, 0.7);
@@ -138,8 +139,28 @@
   --spacing-button-low: 36px;
   --spacing-button-medium: 24px;
   --spacing-button-high: 12px;
+
+  /*GLASSMORPHIC EFFECTS*/
+  --glass-opacity: 90%;
+  --glass-blur: 20px;
+  --glass-reflect-degree: 100deg;
+  --glass-reflect-opacity: 70%;
+  --glass-border-opacity: 20%;
+  
+  --glassmorphic-bg: rgba(var(--color-grey-darker), var(--glass-opacity));
+  --glassmorphic-border: rgba(255, 255, 255, var(--glass-border-opacity));
 }
 
+@utility glass {
+  background: var(--glassmorphic-bg);
+  backdrop-filter: blur(var(--glass-blur));
+  border: 1.5px solid var(--glassmorphic-border);
+  background-image: linear-gradient(
+    var(--glass-reflect-degree),
+    rgba(0, 0, 0, var(--glass-reflect-opacity)) 0%,
+    rgba(0, 0, 0, .6) 100%
+  );
+}
 .lucide {
   color: inherit;
   width: inherit;
@@ -201,16 +222,14 @@
 
 /* Text size utilities */
 @utility text-h1 {
-  font-family: var(--font-ui);
   font-size: var(--text-h1);
   font-weight: 600;
+  color: var(--color-secondary-orange);
 }
 @utility text-h2 {
-  font-family: var(--font-ui);
   font-size: var(--text-h2);
 }
 @utility text-h3 {
-  font-family: var(--font-ui);
   font-size: var(--text-h3);
 }
 @utility text-subtitle {
@@ -367,9 +386,30 @@
 
 /* createRequest rounded force */
 
-.switch.rounded-full {
-  border-radius: 9999px !important;
+.switch {
+  background: transparent !important;
+  border: 1px solid #000 !important;
+  box-shadow: none !important;
 }
+
+.switch::before {
+  border: 1px solid #000 !important;
+  background: transparent !important;
+}
+
+/* Keep the track transparent when checked; make the thumb black */
+.switch:checked {
+  background: transparent !important;
+  border: 1px solid #000 !important;
+}
+
+.switch:checked::before {
+  background: #000 !important;
+  border-color: #000 !important;
+}
+
+/* Preserve the pill shape on rounded variants */
+.switch.rounded-full,
 .switch.rounded-full::before {
   border-radius: 9999px !important;
 }
@@ -424,7 +464,12 @@ main {
 p {
   font-size: var(--text-body);
   line-height: 1.6;
-  margin-bottom: 1em;
+  font-weight: 400;
+}
+
+p.subtitle {
+  font-size: var(--text-subtitle);
+  color: var(--color-neutral-dark);
 }
 
 h1,
@@ -433,17 +478,13 @@ h3,
 h4,
 h5,
 h6 {
-  font-family: var(--font-ui);
-  margin-bottom: 1em;
+  font-family: var(--font-display);
+  font-weight: 600;
 }
 
-a {
-  color: "text-cyan-500";
+a:not(.nav-link) {
+  color: #007AFF;
   transition: color 150ms ease-in-out;
-}
-
-a.nav-link {
-  color: var(--foreground);
 }
 
 a:hover {
@@ -470,4 +511,3 @@ a:hover {
   white-space: nowrap;
   border: 0;
 }
-

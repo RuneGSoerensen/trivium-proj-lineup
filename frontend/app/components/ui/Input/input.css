@@ -4,7 +4,7 @@
   -------------------------------- */
 
   .trvm-input {
-    @apply w-full h-full rounded-lg transition-all duration-100 border-muted placeholder:text-center;
+    @apply w-full h-fit text-body rounded-lg transition-all duration-100 border-muted placeholder:text-center;
   }
 
   .input-wrapper:has(.input-icon.left) .trvm-input {
@@ -16,7 +16,7 @@
   }
 
   .input-wrapper {
-    @apply relative input w-full color-default bg-default border-muted! rounded-lg focus:ring-1 focus:ring-brand;
+    @apply relative input w-full h-fit p-10 color-default bg-default border-muted! rounded-lg focus:ring-1 focus:ring-brand;
   }
 
   .input--error {
@@ -34,6 +34,12 @@
   .input-icon{
     @apply absolute top-1/2 -translate-y-1/2 color-muted;
   }
+
+  .trvm-input.checkbox {
+    @apply w-24 h-24 checked:bg-brand-primary! checked:border-brand! rounded-full! border-muted cursor-pointer transition-colors duration-150;
+  }
+
+
 
   /* .input-icon.left {
     @apply left-8;
