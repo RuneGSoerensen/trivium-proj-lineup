@@ -5,7 +5,7 @@ import { useState, useEffect } from "react";
 import NavLink from "./NavLink";
 import { useBottomNav } from "@/utils/navbarContext";
 import { getUserId } from "@/utils/auth";
-import { Circle, CirclePlus, Home, MessageCircleMore, Store, User } from "lucide-react";
+import { CirclePlus, Home, MessageCircleMore, Store, UserCircle } from "lucide-react";
 
 export default function Navigation() {
   // Read userId only on the client after mount to avoid SSR/CSR hydration mismatch
@@ -33,7 +33,7 @@ export default function Navigation() {
     links.push({
       href: `/profile/${userId}`,
       label: "Profile",
-      icon: <User />,
+      icon: <UserCircle />,
     });
   }
 
