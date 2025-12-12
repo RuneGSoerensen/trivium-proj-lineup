@@ -45,16 +45,10 @@ function runApp(opts) {
   // Set up HTTP request logging
   app.use(morgan('tiny', { stream }));
 
-  // Set up custom error handler
-  app.use((err, _req, res, _next) => {
-    logger.error(err.stack);
-    res.status(err.status || 500).json({ error: err.message });
-  });
-
   // Before production this needs to be changed to a valid url, or something more secure.
   app.use(
     cors({
-      origin: ['http://localhost:3000', 'http://localhost:3300'], // Adjust this to your frontend's origin
+      origin: getCORSAllowedOrigins(),
       methods: ['GET', 'POST', 'PUT', 'DELETE', 'PATCH'],
       allowedHeaders: ['Content-Type', 'Authorization'],
     })
@@ -87,7 +81,29 @@ function runApp(opts) {
   app.use('/search', searchRouter);
   app.use('/stories', storiesRouter);
 
+  // Set up custom error handler. must be registered *after* all other middleware and routing.
+  app.use((err, _req, res, _next) => {
+    logger.error(err.stack);
+    res.status(err.status || 500).json({ error: err.message });
+  });
+
   app.listen(PORT, () => {
     console.log(`Server running on port ${PORT}`);
   });
+}
+
+function getCORSAllowedOrigins() {
+  const corsAllowedOriginsString = process.env.CORS_ALLOWED_ORIGINS;
+  if (!corsAllowedOriginsString) {
+    throw new Error('Missing environment variable: CORS_ALLOWED_ORIGINS');
+  }
+
+  if (corsAllowedOriginsString === 'all') {
+    console.warn('CORS checks are disabled.');
+    return true; // Setting 'origin' to true will explicitly allow all origins
+  } else {
+    const allowedOrigins = corsAllowedOriginsString.split(';');
+    console.info(`CORS enabled with allowed origins: ${allowedOrigins}.`);
+    return allowedOrigins;
+  }
 }
