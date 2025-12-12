@@ -1,5 +1,4 @@
-
-'use client';
+"use client";
 
 import React from "react";
 import clsx from "clsx";
@@ -11,28 +10,42 @@ export function Card({
   variant = "Full", // Full || Small
   type, // Service || Collab
   // top bar
-  avatarSrc, avatarAlt = "", authorName, tag, // fx "offers #art"
+  avatarSrc,
+  avatarAlt = "",
+  authorName,
+  tag, // fx "offers #art"
   // hovedindhold
-  title, imageSrc, imageAlt = "", description,
+  title,
+  imageSrc,
+  imageAlt = "",
+  description,
   imgWidth,
   imgHeight,
   // footer
-  ctaLabel = "Read more", location, timeAgo, // fx "4h ago"
-  ctaVariant, btnPads = ctaVariant = "ghost" ? "px-0! font-medium" : "",
+  ctaLabel = "Read more",
+  location,
+  timeAgo, // fx "4h ago"
+  ctaVariant,
+  btnPads = (ctaVariant = "ghost" ? "px-0! font-medium" : ""),
   // interaktion
-  onClick = () => { }, onIconClick = () => { },
+  onClick = () => {},
+  onIconClick = () => {},
   className,
 }) {
   const clickable = typeof onClick === "function";
   const isService = type === "Service";
   const isCollab = type === "Collab";
   const isSmall = variant === "Small";
-  const ServiceIcon = isService && !isSmall ? Bookmark : customElements.define;
+  // const ServiceIcon = isService && !isSmall ? Bookmark : customElements.define;
+  // Use a safe default icon; avoid browser-only globals like customElements during SSR.
+  const ServiceIcon = Bookmark;
 
   return (
     <article
       className={clsx(
-        `${isSmall ? "min-h-193" : "h-fit"} rounded-[24px] min-w-333 trvm-card bg-default color-default border border-muted/30`,
+        `${
+          isSmall ? "min-h-193" : "h-fit"
+        } rounded-[24px] min-w-333 trvm-card bg-default color-default border border-muted/30`,
         clickable && "cursor-pointer",
         className
       )}
@@ -49,22 +62,23 @@ export function Card({
                   alt={avatarAlt}
                   width={25}
                   height={25}
-                  className={`${isSmall ? "w-20 h-20" : "w-40 h-40"} object-cover rounded-full`} />
+                  className={`${
+                    isSmall ? "w-20 h-20" : "w-40 h-40"
+                  } object-cover rounded-full`}
+                />
               </div>
             )}
 
             <span className="truncate flex items-center gap-8">
               {authorName && (
-                <span className="text-base color-muted/70">
-                  {authorName}
-                </span>
+                <span className="text-base color-muted/70">{authorName}</span>
               )}
               <div className="text-xs color-muted truncate flex">
                 {tag && isCollab ? (
                   <p className="truncate">is looking for a #{tag}</p>
-                ) : (tag && isService && (
-                  <p className="truncate">offers #{tag}</p>
-                ))}
+                ) : (
+                  tag && isService && <p className="truncate">offers #{tag}</p>
+                )}
               </div>
             </span>
           </div>
@@ -74,7 +88,9 @@ export function Card({
               type="icon"
               variant="ghost"
               iconSize="lg"
-              icon={!isSmall ? <ServiceIcon size={24} /> : <ServiceIcon size={24} />}
+              icon={
+                !isSmall ? <ServiceIcon size={24} /> : <ServiceIcon size={24} />
+              }
               onClick={(e) => {
                 e.stopPropagation();
                 onIconClick();
@@ -86,9 +102,7 @@ export function Card({
 
         {/* Title */}
         {title && (
-          <h3 className="text-h3 font-semibold color-default">
-            {title}
-          </h3>
+          <h3 className="text-h3 font-semibold color-default">{title}</h3>
         )}
 
         {/* Image */}
@@ -99,7 +113,8 @@ export function Card({
               alt={imageAlt}
               width={imgWidth}
               height={imgHeight}
-              className="w-full h-full object-cover" />
+              className="w-full h-full object-cover"
+            />
           </figure>
         )}
 
@@ -126,12 +141,14 @@ export function Card({
             {ctaLabel}
           </Button>
 
-          {isService || (isCollab && isSmall) ? (location || timeAgo) && (
-            <span className="text-sm color-muted gap-4">
-              {location && <span>{location}</span>}
-              {location && timeAgo && <span className="mx-4">-</span>}
-              {timeAgo && <span>{timeAgo}</span>}
-            </span>
+          {isService || (isCollab && isSmall) ? (
+            (location || timeAgo) && (
+              <span className="text-sm color-muted gap-4">
+                {location && <span>{location}</span>}
+                {location && timeAgo && <span className="mx-4">-</span>}
+                {timeAgo && <span>{timeAgo}</span>}
+              </span>
+            )
           ) : isCollab && !isSmall ? (
             <Button
               variant="primary"
@@ -146,6 +163,3 @@ export function Card({
     </article>
   );
 }
-
-
-
