@@ -81,7 +81,8 @@ export const CommentItem = ({
           className={` ${depth > 0 ? " border-l border-l-muted/20" : ""
             } pl-10 my-4`}
         >
-          <div className="flex gap-6 items-center">
+          <div className="flex gap-6 items-start pb-10">
+            
             <div className="w-24 h-24 rounded-full overflow-hidden border-muted flex-shrink-0">
               {comment.user.image_url ? (
                 <Image
@@ -101,9 +102,9 @@ export const CommentItem = ({
               {comment.user.name}
             </p>
 
+          </div>
             <p className="text-default text-sm">{comment.content}</p>
 
-          </div>
           <div className="flex items-center justify-end gap-2 px-3">
 
             <Button

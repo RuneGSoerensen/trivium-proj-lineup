@@ -158,7 +158,7 @@ export default function NoteCard({ note, showComments = false }) {
 
           </div>
 
-          <p className="text-muted text-sm">{note.user_name}</p>
+          <p className="color-muted text-sm">{note.user_name}</p>
           {note.tags?.map((tag) => (
             <Tag
               key={tag}
@@ -245,7 +245,7 @@ export default function NoteCard({ note, showComments = false }) {
             alt="Post image"
             width={500}
             height={300}
-            className="w-full h-auto max-h-450 object-cover border-muted shadow-md rounded-[20px]"
+            className="w-full h-full max-h-450 object-cover object-center border-muted shadow-md rounded-[20px]"
           />
         )}
 

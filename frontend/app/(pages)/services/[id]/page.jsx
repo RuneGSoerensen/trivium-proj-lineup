@@ -3,6 +3,7 @@ import Image from "next/image";
 import { Bookmark, MessageCircleMore, Star } from "lucide-react";
 import { Button } from "@/components/ui/Button/Button";
 import { useParams } from "next/navigation";
+
 export default function ServicePage() {
   const params = useParams();
   const id = params?.id ?? "1";
@@ -64,7 +65,7 @@ export default function ServicePage() {
 
       <div className="flex items-center gap-4 mb-6">
         <Button
-          className="rounded-full !px-8 !py-6 border border-muted"
+          className="rounded-full px-8! py-6! border border-muted"
           size="md"
         >
           <div className="flex items-center gap-2">
@@ -114,10 +115,11 @@ export default function ServicePage() {
             <p className="text-sm text-gray-600">36 reviews</p>
           </div>
           <p className="text-gray-600">
-            "She made amazing poster for us, love the style."
+            She made amazing poster for us, love the style. Fast and easy to
+            work with!
           </p>
         </section>
-        <p className="text-muted">See more</p>
+        <p className="color-muted">See more</p>
       </div>
     </main>
   );

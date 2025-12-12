@@ -18,7 +18,7 @@ export default function NavLink({ href, label, icon, isActive }) {
         iconSize="lg"
         variant="ghost"
         icon={icon}
-        className={`${isActive ? "color-brand nav-link-active" : "color-inverse hover:color-brand"} min-w-64! h-64 flex flex-col gap-2`}
+        className={`${isActive ? "color-brand glass-btn" : "color-inverse hover:color-brand"} min-w-64! h-64 flex flex-col gap-2`}
         aria-label={label}
       >
         <span className="text-[10px] font-medium">{label}</span>
