@@ -49,7 +49,7 @@ export default function RightSideMenu() {
   };
 
   return (
-    <aside className="hidden lg:flex fixed right-0 top-0 bottom-0 w-[240px] flex-col border-l border-base-300 bg-base-100 z-50 px-12 py-20">
+    <aside className="hidden lg:flex  bottom-0 w-[240px] flex-col border-l border-base-300 bg-base-100 z-50 px-12 py-20">
       {/* Menu Title */}
       <div className="mb-32 px-12">
         <h2 className="text-h2 font-semibold">More</h2>

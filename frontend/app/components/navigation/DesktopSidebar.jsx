@@ -66,7 +66,7 @@ export default function DesktopSidebar() {
   };
 
   return (
-    <aside className="hidden lg:flex fixed left-0 top-0 bottom-0 w-[240px] flex-col border-r border-base-300 bg-base-100 z-50 px-12 py-20">
+    <aside className="hidden lg:flex  left-0 top-0 bottom-0 w-[240px] flex-col border-r border-base-300 bg-base-100 z-50 px-12 py-20">
       {/* Logo */}
       <div className="mb-32 px-12">
         <Link href="/">

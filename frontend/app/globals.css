@@ -492,13 +492,6 @@ main.app-main {
   }
 }
 
-@media (min-width: 1024px) {
-  main.app-main {
-    margin-left: 240px; /* Space for left sidebar on desktop */
-    margin-right: 240px; /* Space for right sidebar on desktop */
-  }
-}
-
 @media (min-width: 1440px) {
   main.app-main {
     margin-left: auto;
