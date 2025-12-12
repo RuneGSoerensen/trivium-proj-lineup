@@ -108,7 +108,7 @@ export default function ChatPage() {
       <TabContentList>
         <TabContent className="w-full">
           {/* <SearchUser selectedUsers={selectedUsers} setSelectedUsers={setSelectedUsers} /> */}
-          <div className="flex flex-col gap-4 w-full">
+          <div className="flex flex-col gap-4 w-full min-h-[84vh] ">
             {activeThread && !activeThread.isGroup ? (
               <ActiveChatView
                 thread={activeThread}
@@ -127,8 +127,8 @@ export default function ChatPage() {
             )}
           </div>
         </TabContent>
-        <TabContent>
-          <div className="flex flex-col gap-4 w-full">
+        <TabContent className={"h-full"}>
+          <div className="flex flex-col gap-4 w-full min-h-[84vh] ">
             {activeThread && activeThread.isGroup ? (
               <ActiveChatView
                 thread={activeThread}

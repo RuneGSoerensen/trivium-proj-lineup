@@ -157,7 +157,7 @@ export default function SearchOverlay() {
 
   return (
     <section
-      className="fixed inset-0 bg-default z-60 p-12 flex flex-col gap-8 max-w-[1000px] mx-auto"
+      className="fixed inset-0 bg-default z-60 p-12 flex flex-col gap-8 lg:max-w-[600px] mx-auto"
       role="dialog"
       aria-modal="true"
       aria-labelledby="search-overlay"
