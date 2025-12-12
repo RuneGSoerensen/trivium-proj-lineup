@@ -1,5 +1,4 @@
-
-'use client';
+"use client";
 
 import React from "react";
 import clsx from "clsx";
@@ -13,14 +12,21 @@ export function Card({
   // top bar
   avatarSrc, avatarAlt = "", authorName, tag, serviceIcon, // fx "offers #art"
   // hovedindhold
-  title, imageSrc, imageAlt = "", description,
+  title,
+  imageSrc,
+  imageAlt = "",
+  description,
   imgWidth,
   imgHeight,
   // footer
-  ctaLabel = "Read more", location, timeAgo, // fx "4h ago"
-  ctaVariant, btnPads = ctaVariant = "ghost" ? "px-0! font-medium" : "",
+  ctaLabel = "Read more",
+  location,
+  timeAgo, // fx "4h ago"
+  ctaVariant,
+  btnPads = (ctaVariant = "ghost" ? "px-0! font-medium" : ""),
   // interaktion
-  onClick = () => { }, onIconClick = () => { },
+  onClick = () => {},
+  onIconClick = () => {},
   className,
 }) {
   const clickable = typeof onClick === "function";
@@ -48,22 +54,23 @@ export function Card({
                   alt={avatarAlt}
                   width={25}
                   height={25}
-                  className={`${isSmall ? "w-20 h-20" : "w-40 h-40"} object-cover rounded-full`} />
+                  className={`${
+                    isSmall ? "w-20 h-20" : "w-40 h-40"
+                  } object-cover rounded-full`}
+                />
               </div>
             )}
 
             <span className="truncate flex items-center gap-8">
               {authorName && (
-                <span className="text-base color-muted/70">
-                  {authorName}
-                </span>
+                <span className="text-base color-muted/70">{authorName}</span>
               )}
               <div className="text-xs color-muted truncate flex">
                 {tag && isCollab ? (
                   <p className="truncate">is looking for a #{tag}</p>
-                ) : (tag && isService && (
-                  <p className="truncate">offers #{tag}</p>
-                ))}
+                ) : (
+                  tag && isService && <p className="truncate">offers #{tag}</p>
+                )}
               </div>
             </span>
           </div>
@@ -85,9 +92,7 @@ export function Card({
 
         {/* Title */}
         {title && (
-          <h3 className="text-h3 font-semibold color-default">
-            {title}
-          </h3>
+          <h3 className="text-h3 font-semibold color-default">{title}</h3>
         )}
 
         {/* Image */}
@@ -98,7 +103,8 @@ export function Card({
               alt={imageAlt}
               width={imgWidth}
               height={imgHeight}
-              className="w-full h-full object-cover" />
+              className="w-full h-full object-cover"
+            />
           </figure>
         )}
 
@@ -147,6 +153,3 @@ export function Card({
     </article>
   );
 }
-
-
-

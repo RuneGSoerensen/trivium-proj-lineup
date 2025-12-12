@@ -8,6 +8,7 @@ import MultiSelectInput from "../ui/MultiSelectButton/MultiSelectButton";
 import { Tag } from "../ui/Tag/Tag";
 import { useState, useEffect } from "react";
 import { createRequest } from "@/utils/api";
+import { authenticatedFetch } from "@/utils/auth";
 
 export default function CreateNotes({ userName, userImage }) {
   const [genres, setGenres] = useState([]);
@@ -28,7 +29,7 @@ export default function CreateNotes({ userName, userImage }) {
       try {
         const baseUrl =
           process.env.NEXT_PUBLIC_DATABASE_URL || "http://localhost:3300";
-        const res = await fetch(`${baseUrl}/genres`);
+        const res = await authenticatedFetch(`${baseUrl}/genres`);
         if (res.ok) {
           const data = await res.json();
           setAllGenres(data.genres.map((g) => g.name));

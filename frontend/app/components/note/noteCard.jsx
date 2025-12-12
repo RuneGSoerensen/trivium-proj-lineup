@@ -63,7 +63,7 @@ export default function NoteCard({ note, showComments = false }) {
     }
 
     try {
-      await fetch(`${apiBase}/notes/${note.id}/like`, {
+      await authenticatedFetch(`${apiBase}/notes/${note.id}/like`, {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ user_id: userId }),
@@ -89,7 +89,7 @@ export default function NoteCard({ note, showComments = false }) {
     if (!commentText.trim()) return;
 
     try {
-      await fetch(`${apiBase}/notes/comment`, {
+      await authenticatedFetch(`${apiBase}/notes/comment`, {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({

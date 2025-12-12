@@ -14,6 +14,8 @@ export default function Step2() {
     useOnboarding();
   const [emailTouched, setEmailTouched] = useState(false);
   const [emailError, setEmailError] = useState("");
+  const [passwordTouched, setPasswordTouched] = useState(false);
+  const [passwordError, setPasswordError] = useState("");
   const [confirmTouched, setConfirmTouched] = useState(false);
   const [passwordMatchError, setPasswordMatchError] = useState("");
   const stepNumber = 2;
@@ -32,11 +34,41 @@ export default function Step2() {
     confirmPassword: "",
   });
 
+  const validateEmail = (email) => {
+    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    return emailRegex.test(email);
+  };
+
+  const validatePassword = (password) => {
+    const hasMinLength = password.length >= 8;
+    const hasLetter = /[a-zA-Z]/.test(password);
+    const hasNumber = /[0-9]/.test(password);
+    return hasMinLength && hasLetter && hasNumber;
+  };
+
+  const getPasswordError = (password) => {
+    if (password.length < 8) {
+      return "Password must be at least 8 characters";
+    }
+    if (!/[a-zA-Z]/.test(password)) {
+      return "Password must contain at least one letter";
+    }
+    if (!/[0-9]/.test(password)) {
+      return "Password must contain at least one number";
+    }
+    return "";
+  };
+
   const handleNext = () => {
     // Submit function, updates context and reroutes user to next step
     if (!validateEmail(formData.email)) {
       setEmailTouched(true);
       setEmailError("Please enter a valid email address");
+      return;
+    }
+    if (!validatePassword(formData.password)) {
+      setPasswordTouched(true);
+      setPasswordError(getPasswordError(formData.password));
       return;
     }
     if (formData.password !== formData.confirmPassword) {
@@ -55,18 +87,12 @@ export default function Step2() {
     router.push("/onboarding/step3");
   };
 
-  const validateEmail = (email) => {
-    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-    return emailRegex.test(email);
-  };
-  // change the inputs onChange to a submit function instead, this makes it so that it doesnt update your useOnboarding states until you press continue
-  // then call the function when pressing continue ;)
-  // Put this function inside the handleNext function
   return (
     <section className="mt-12 flex flex-col items-center gap-30">
       <h1 className="text-h1">Sign up</h1>
       <p className="subtitle mb-6 w-full text-center">
-        By continuing you agree to LineUp! <br /> Terms of use and Privacy Policy.
+        By continuing you agree to LineUp! <br /> Terms of use and Privacy
+        Policy.
       </p>
 
       <form
@@ -102,9 +128,8 @@ export default function Step2() {
           message={emailError}
         />
 
-
         <Input
-          variant={confirmTouched && !!passwordMatchError ? "error" : "default"}
+          variant={passwordTouched && !!passwordError ? "error" : "default"}
           className="w-full border-muted mb-6 placeholder:text-center"
           placeholder="Create a password"
           type="password"
@@ -112,6 +137,9 @@ export default function Step2() {
           onChange={(e) => {
             const newPassword = e.target.value;
             setFormData({ ...formData, password: newPassword });
+            if (passwordTouched) {
+              setPasswordError(getPasswordError(newPassword));
+            }
             if (confirmTouched) {
               if (newPassword !== formData.confirmPassword) {
                 setPasswordMatchError("Passwords do not match");
@@ -120,6 +148,12 @@ export default function Step2() {
               }
             }
           }}
+          onBlur={() => {
+            setPasswordTouched(true);
+            setPasswordError(getPasswordError(formData.password));
+          }}
+          hasMessage={passwordTouched && !!passwordError}
+          message={passwordError}
         />
 
         <Input
@@ -150,9 +184,11 @@ export default function Step2() {
           message={passwordMatchError}
         />
 
-        {(emailTouched && !!emailError) || (confirmTouched && !!passwordMatchError) ? (
+        {(emailTouched && !!emailError) ||
+        (passwordTouched && !!passwordError) ||
+        (confirmTouched && !!passwordMatchError) ? (
           <span className="sr-only" role="alert">
-            {emailError || passwordMatchError}
+            {emailError || passwordError || passwordMatchError}
           </span>
         ) : null}
 
@@ -162,13 +198,13 @@ export default function Step2() {
           className="mt-14 rounded-full w-fit"
           disabled={
             !validateEmail(formData.email) ||
-            !formData.password ||
+            !validatePassword(formData.password) ||
             !formData.confirmPassword ||
             formData.password !== formData.confirmPassword
           }
           aria-disabled={
             !validateEmail(formData.email) ||
-            !formData.password ||
+            !validatePassword(formData.password) ||
             !formData.confirmPassword ||
             formData.password !== formData.confirmPassword
           }
@@ -176,7 +212,6 @@ export default function Step2() {
           Continue
         </Button>
       </form>
-
 
       <div className="flex flex-col items-center justify-center ">
         <p>or sign up with</p>
@@ -189,7 +224,14 @@ export default function Step2() {
             }}
           >
             <span className="flex justify-center gap-8">
-              <Image src="/icons/Google.svg" alt="Google Icon" width={20} height={20} className="mr-2" /> Google
+              <Image
+                src="/icons/Google.svg"
+                alt="Google Icon"
+                width={20}
+                height={20}
+                className="mr-2"
+              />{" "}
+              Google
             </span>
           </Button>
 
@@ -201,27 +243,24 @@ export default function Step2() {
             }}
           >
             <span className="flex justify-center gap-8">
-              <Image src="/icons/Apple.svg" alt="Apple Icon" width={20} height={20} className="mr-2" /> Apple
+              <Image
+                src="/icons/Apple.svg"
+                alt="Apple Icon"
+                width={20}
+                height={20}
+                className="mr-2"
+              />{" "}
+              Apple
             </span>
           </Button>
         </div>
         <div className="flex flex-col gap-10 items-center mt-20">
           <div className="flex  gap-8 h-fit">
-            <p>
-              Already have an account?{" "}
-            </p>
+            <p>Already have an account? </p>
             <Link className="text-cyan-500" href="/login">
               Log in
             </Link>
           </div>
-
-          {
-            /* NOTE: Group decision to remove "Skip for now" from onboarding
-            <Link className="underline text-sm p-12 color-muted" href="/home">
-            Skip for now
-            </Link> 
-          */
-          }
         </div>
       </div>
     </section>

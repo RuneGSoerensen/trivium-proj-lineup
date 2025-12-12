@@ -1,11 +1,12 @@
 import { useEffect, useState } from "react";
 import Image from "next/image";
 import { userAvatarInitials } from "@/utils/helpers";
+import { authenticatedFetch } from "@/utils/auth";
 export default function Stories() {
   const [stories, setStories] = useState([]);
   const fetchStories = async () => {
     try {
-      const res = await fetch(
+      const res = await authenticatedFetch(
         `${process.env.NEXT_PUBLIC_DATABASE_URL}/stories`,
         {
           cache: "no-store",
