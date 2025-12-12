@@ -52,7 +52,7 @@ export default function ProfilePage() {
       actions: ["search", "notifications", "menu"],
       visible: true,
     });
-  // eslint-disable-next-line react-hooks/exhaustive-deps
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [params?.id, setConfig]);
 
   const loadProfile = async () => {
@@ -92,7 +92,7 @@ export default function ProfilePage() {
             : HARD_VIDEOS,
         past_collaborations:
           userData.past_collaborations &&
-          userData.past_collaborations.length > 0
+            userData.past_collaborations.length > 0
             ? userData.past_collaborations
             : HARD_PAST_COLLABS,
         followers_count: statsData.followers_count || 0,
@@ -183,7 +183,7 @@ export default function ProfilePage() {
   if (loading) {
     return (
       <div className="flex items-center justify-center min-h-screen">
-        <div className="text-muted">Loading...</div>
+        <div className="color-muted">Loading...</div>
       </div>
     );
   }
@@ -191,34 +191,37 @@ export default function ProfilePage() {
   if (!profile) {
     return (
       <div className="flex items-center justify-center min-h-screen">
-        <div className="text-muted">Profile not found</div>
+        <div className="color-muted">Profile not found</div>
       </div>
     );
   }
 
   return (
-    <section className="profile w-full bg-alt full-page altPage">
-      <ProfileHeader
-        profile={profile}
-        notesLength={notes.length}
-        onFollow={handleFollow}
-        router={router}
-      />
-
-      <Tabs defaultValue="about">
-        <TabsList className="bg-default" hasSeparator={true}>
-          <TabItem>About</TabItem>
-          <TabItem>Notes</TabItem>
-        </TabsList>
-        <TabContentList className="bg-default pb-140">
-          <TabContent>
-            <ProfileAbout profile={profile} onQuestionSubmit={handleClick} />
-          </TabContent>
-          <TabContent>
-            <ProfileNotes notes={notes} />
-          </TabContent>
-        </TabContentList>
-      </Tabs>
+    <section className="profile w-full bg-alt full-page altPage flex flex-col gap-15">
+      <div className="px-15">
+        <ProfileHeader
+          profile={profile}
+          notesLength={notes.length}
+          onFollow={handleFollow}
+          router={router}
+        />
+      </div>
+      <div>
+        <Tabs defaultValue="about">
+          <TabsList className="bg-default" hasSeparator={true}>
+            <TabItem>About</TabItem>
+            <TabItem>Notes</TabItem>
+          </TabsList>
+          <TabContentList className="bg-default pb-140">
+            <TabContent>
+              <ProfileAbout profile={profile} onQuestionSubmit={handleClick} />
+            </TabContent>
+            <TabContent>
+              <ProfileNotes notes={notes} />
+            </TabContent>
+          </TabContentList>
+        </Tabs>
+      </div>
     </section>
   );
 }

@@ -3,7 +3,7 @@
          PROFILE SECTION
     -------------------------------- */
     .profile-section {
-        @apply flex flex-col gap-24 px-15;
+        @apply flex flex-col gap-24 px-12;
     }
 
     .profile-section label {

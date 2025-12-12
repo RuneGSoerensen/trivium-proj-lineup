@@ -32,7 +32,6 @@ export default function ProfileAbout({ profile, onQuestionSubmit }) {
           <p className="color-default py-6">{profile.about ? profile.about : "No information provided."}</p>
         </div>
       </section>
-
       {/* LOOKING FOR */}
       <section className="profile-section">
         <label>
@@ -53,7 +52,6 @@ export default function ProfileAbout({ profile, onQuestionSubmit }) {
             )))}
         </div>
       </section>
-
       {/* GENRES */}
       <section className="profile-section">
         <label>Genres</label>
@@ -74,7 +72,6 @@ export default function ProfileAbout({ profile, onQuestionSubmit }) {
           }
         </div>
       </section>
-
       {/* SOCIAL MEDIA */}
       <section className="profile-section">
         <div className="flex items-center justify-between">
@@ -99,7 +96,6 @@ export default function ProfileAbout({ profile, onQuestionSubmit }) {
           ))}
         </div>
       </section>
-
       {/* ARTISTS */}
       <section className="profile-section">
         <label>
@@ -110,7 +106,7 @@ export default function ProfileAbout({ profile, onQuestionSubmit }) {
           {profile.artists_i_like.slice(0, 3).map((src, i) => (
             <div
               key={i}
-              className="w-65 h-65 rounded-full overflow-hidden border-4 border-white "
+              className="w-77 h-77 rounded-full p-4 bg-default"
               style={{ marginLeft: i === 0 ? 0 : -20, zIndex: i + 1 }}
             >
               <Image
@@ -119,29 +115,23 @@ export default function ProfileAbout({ profile, onQuestionSubmit }) {
                 height={100}
                 src={src}
                 alt={`artist-${i}`}
-                className="w-full h-full object-cover position"
+                className="w-full h-full object-cover overflow-hidden rounded-full position"
               />
             </div>
           ))}
 
           {profile.artists_i_like.length > 3 && (
             <div
-              className="w-65 h-65 rounded-full  flex items-center justify-center border-4 text-white"
-              style={{
-                marginLeft: -20,
-                zIndex: 5,
-                backgroundColor: profile.theme,
-              }}
+              className={`w-77 h-77 rounded-full border-4 border-base-100 flex items-center justify-center -ml-20 z-5 ${profile.theme || "bg-secondary-blue"} color-inverse`}
             >
               +{profile.artists_i_like.length - 3}
             </div>
           )}
           <div>
-            <p className="text-muted p-10">See all</p>
+            <p className="color-subtle p-10">See all</p>
           </div>
         </div>
       </section>
-
       {/* SPOTIFY */}
       <section className="profile-section">
         <label>
@@ -159,7 +149,6 @@ export default function ProfileAbout({ profile, onQuestionSubmit }) {
           ></iframe>
         </div>
       </section>
-
       {/* VIDEOS */}
       <section className="profile-section">
         <label>Videos</label>
@@ -203,7 +192,6 @@ export default function ProfileAbout({ profile, onQuestionSubmit }) {
         })}
         </div>
       </section>
-
       {/* PAST COLLABS */}
       <section className="profile-section">
         <label>
@@ -214,7 +202,7 @@ export default function ProfileAbout({ profile, onQuestionSubmit }) {
           {profile.artists_i_like.slice(0, 3).map((src, i) => (
             <div
               key={i}
-              className="w-65 h-65 rounded-full overflow-hidden"
+              className="w-77 h-77 rounded-full overflow-hidden p-4 bg-default"
               style={{ marginLeft: i === 0 ? 0 : -20, zIndex: i + 1 }}
             >
               <Image
@@ -222,25 +210,20 @@ export default function ProfileAbout({ profile, onQuestionSubmit }) {
                 height={100}
                 src={src}
                 alt={`artist-${i}`}
-                className="w-full h-full object-cover position"
+                className="w-full h-full object-cover rounded-full position"
               />
             </div>
           ))}
 
           {profile.artists_i_like.length > 3 && (
             <div
-              className="w-65 h-65 rounded-full  flex items-center justify-center border-4 text-white"
-              style={{
-                marginLeft: -20,
-                zIndex: 5,
-                backgroundColor: profile.theme,
-              }}
+              className={`${profile.theme || "bg-secondary-blue"} z-5 -ml-20 w-77 h-77 rounded-full flex items-center justify-center border-4 border-base-100 color-inverse`}
             >
               +{profile.artists_i_like.length - 3}
             </div>
           )}
           <div>
-            <p className="text-muted p-10">See all</p>
+            <p className="color-subtle p-10">See all</p>
           </div>
         </div>
       </section>
@@ -254,14 +237,13 @@ export default function ProfileAbout({ profile, onQuestionSubmit }) {
           <div key={idx} className="px-15">
             <div className="flex justify-between items-start">
               <h3 className="text-default font-semibold ">
-                {q.question || ""}
+                {q.question ? q.question : null}
               </h3>
             </div>
-            <p className=" mt-3 mb-4 font-light">{q.answer || "Be the first to ask a question!"}</p>
+            <p className="mt-3 mb-4 pl-15">{q.question ? q.answer ? q.answer : "No answer yet" : null}</p>
           </div>
         ))}
       </section>
-
       {/* ASK A QUESTION */}
       <section className="profile-section w-full px-0!">
         <label htmlFor="questionInput" className="text-h2 color-default">

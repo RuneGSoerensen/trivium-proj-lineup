@@ -8,7 +8,7 @@ export default function ProfileNotes({ notes }) {
       {notes && notes.length > 0 ? (
         notes.map((n) => <NoteCard key={n.id} note={n} showComments={false} />)
       ) : (
-        <div className="text-muted p-4">No notes yet.</div>
+        <div className="color-muted p-4">No notes yet.</div>
       )}
     </div>
   );

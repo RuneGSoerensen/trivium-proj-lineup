@@ -37,7 +37,7 @@ export default function EditProfilePage() {
     bio: "",
     about: "",
     image_url: "",
-    theme: "#3F4254",
+    theme: {name: "string", value: "bg-secondary-blue"},
     genres: [],
     looking_for_tags: [],
     artists_i_like: [],
@@ -64,11 +64,11 @@ export default function EditProfilePage() {
   const [showQuestionsEdit, setShowQuestionsEdit] = useState(false);
 
   const themeColors = [
-    { name: "Blue", value: "#3F4254" },
-    { name: "Cyan", value: "#3f4d54" },
-    { name: "Grey", value: "#575252" },
-    { name: "Pink", value: "#543f40" },
-    { name: "Orange", value: "#5d4c43" },
+    { name: "Blue", value: "bg-secondary-blue" },
+    { name: "Cyan", value: "bg-secondary-cyanblue" },
+    { name: "Grey", value: "bg-secondary-greyred" },
+    { name: "Pink", value: "bg-secondary-pinkred" },
+    { name: "Orange", value: "bg-secondary-orange" },
   ];
 
   useEffect(() => {
@@ -128,7 +128,7 @@ export default function EditProfilePage() {
           bio: data.user.bio || "",
           about: data.user.about || "",
           image_url: data.user.image_url || "",
-          theme: data.user.theme || "#3F4254",
+          theme: data.user.theme || "bg-secondary-blue",
           genres: data.user.genres || [],
           looking_for_tags: data.user.looking_for_tags || [],
           artists_i_like:
@@ -213,7 +213,7 @@ export default function EditProfilePage() {
   if (loading) {
     return (
       <div className="flex items-center justify-center min-h-screen">
-        <div className="text-muted">Loading...</div>
+        <div className="color-muted">Loading...</div>
       </div>
     );
   }

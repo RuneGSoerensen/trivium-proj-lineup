@@ -23,7 +23,7 @@ export default function EditPicture({ formData, setFormData, showImageUrl, setSh
               onChange={(e) =>
                 setFormData({ ...formData, image_url: e.target.value })
               }
-              className="w-full max-w-md px-4 py-3 rounded-[12px] bg-muted border-none text-[15px] bg-white text-default placeholder:text-muted/60 focus:outline-none focus:ring-2 focus:ring-brand-primary"
+              className="w-full max-w-md px-4 py-3 rounded-[12px] bg-muted border-none text-[15px] bg-white text-default placeholder:color-muted/60 focus:outline-none focus:ring-2 focus:ring-brand-primary"
             />
 
             <div className="flex gap-2">
@@ -53,7 +53,7 @@ export default function EditPicture({ formData, setFormData, showImageUrl, setSh
                   className="w-full h-full object-cover"
                 />
               ) : (
-                <div className="w-full h-full flex items-center justify-center text-muted text-[24px] font-bold">
+                <div className="w-full h-full flex items-center justify-center color-muted text-[24px] font-bold">
                   {formData.name.charAt(0).toUpperCase()}
                 </div>
               )}

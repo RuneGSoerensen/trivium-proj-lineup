@@ -2,7 +2,7 @@
 
 import Image from "next/image";
 import { Button } from "@/ui/Button/Button";
-import { CirclePlus, CircleCheck } from "lucide-react";
+import { CirclePlus, CircleCheck, MoreHorizontal } from "lucide-react";
 
 export default function ProfileHeader({
   profile,
@@ -11,83 +11,99 @@ export default function ProfileHeader({
   router,
 }) {
   return (
-    <div
-      className=" py-15 rounded-[40px] mb-16 w-[96%] mx-auto text-white "
-      style={{ backgroundColor: profile.theme || "#3F4254" }}
+    <article
+      className={`rounded-[45px] w-full color-inverse py-25 ${profile.theme || "bg-secondary-blue"}`}
     >
-      <div className="flex w-full justify-end px-20 mb-4 text-white font-bold  ">
-        <p className="!mb-0">. . .</p>
+      <div className="flex w-full justify-end px-20">
+        <Button
+          type="icon"
+          variant="ghost"
+          size="sm"
+          iconSize="lg"
+          className="color-inverse"
+          icon={<MoreHorizontal />}
+        />
       </div>
-      <div className="flex flex-col items-center">
-        <div className="flex items-center gap-16 mb-4 text-inverse w-full justify-center">
-          <div className="text-center w-75">
-            <p className="text-[20px] font-light !mb-0">
+      <div className="flex flex-col items-center gap-16">
+        <div className="flex w-full justify-between items-center">
+          <div className="text-center w-full">
+            <h1 className="color-inverse text-h1 font-normal! mb-0!">
               {profile.followers_count}
-            </p>
-            <p className="text-[13px] opacity-80 ">Connections</p>
+            </h1>
+            <p className="text-sm">Connections</p>
           </div>
-          <div className=" w-125 h-125 rounded-full bg-default overflow-hidden border-4 border-white/20">
-            {profile.image_url ? (
-              <Image
-                src={profile.image_url || "/placeholder.svg"}
-                alt={profile.name}
-                width={200}
-                height={200}
-                className=" fit-cover w-150 h-150 object-center "
-              />
-            ) : (
-              <div className="w-full h-full flex items-center justify-center text-muted text-[32px]  ">
-                <p>{profile.name.charAt(0).toUpperCase()}</p>
-              </div>
-            )}
+
+          <div className="flex flex-col items-center gap-16">
+            <div className="min-w-150 h-150 rounded-full bg-default overflow-hidden border-4 border-white/20">
+              {profile.image_url ? (
+                <Image
+                  src={profile.image_url || "/placeholder.svg"}
+                  alt={profile.name}
+                  width={200}
+                  height={200}
+                  className="aspect-auto w-full h-full object-cover object-center "
+                />
+              ) : (
+                <div className="w-full h-full flex items-center justify-center">
+                  <h1 className="text-xl">{profile.name.charAt(0).toUpperCase()}</h1>
+                </div>
+              )}
+            </div>
+
+            <div className="flex flex-col items-center">
+              <h1 className="color-inverse text-h1 font-normal! mb-0!">{profile.name}</h1>
+              <p className="text-gray-200 text-xs mb-6"> {profile.bio ? profile.bio : "Role / Title"}</p>
+            </div>
           </div>
-          <div className="text-center w-75">
-            <p className="text-[20px] font-light !mb-0">{notesLength || 0}</p>
-            <p className="text-[13px] opacity-80">Notes</p>
+
+          <div className="text-center w-full">
+            <h1 className="color-inverse text-h1 font-normal! mb-0!">{notesLength || 0}</h1>
+            <p className="text-sm">Notes</p>
           </div>
         </div>
 
-        <h1 className="text-inverse text-[20px]  !mb-0 ">{profile.name}</h1>
-        <p className="text-gray-200 text-xs mb-6"> {profile.bio}</p>
-
         {profile.is_own_profile ? (
-          <div className="flex gap-5 justify-center text-white w-full">
+          <div className="flex gap-16 items-center justify-center w-full max-w-326">
             <Button
+              size="lg"
               variant="glass"
-              className=" w-full py-3 rounded-full  "
+              className="w-full min-w-158 rounded-full"
               onClick={() => router.push("/profile/edit")}
             >
               Edit profile
             </Button>
-            <Button variant="glass" className=" w-full py-3 rounded-full">
+            <Button
+              size="lg"
+              variant="glass"
+              className="w-full min-w-158 rounded-full">
               Share profile
             </Button>
           </div>
         ) : (
-          <div className="flex gap-3 text-white gap-5 justify-center w-full">
+          <div className="flex gap-16 justify-center w-full">
             <Button
+              size="lg"
               variant="glass"
+              icon={profile.is_following ? <CircleCheck /> : <CirclePlus />}
+              iconPosition="right"
               onClick={onFollow}
-              className="w-full py-3 rounded-full"
+              className="w-full min-w-158 rounded-full"
             >
               {profile.is_following ? (
-                <div className="flex gap-4">
-                  <p>follow</p>
-                  <CirclePlus size={20} strokeWidth={4} />
-                </div>
+                "Connected"
               ) : (
-                <div className="flex gap-4">
-                  <p>following</p>
-                  <CircleCheck size={20} strokeWidth={4} />
-                </div>
+                "Connect"
               )}
             </Button>
-            <Button variant="glass" className="w-full py-3 rounded-full">
+            <Button
+              size="lg"
+              variant="glass"
+              className="w-full min-w-158 py-3 rounded-full">
               Message
             </Button>
           </div>
         )}
       </div>
-    </div>
+    </article>
   );
 }

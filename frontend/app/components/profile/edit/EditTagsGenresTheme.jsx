@@ -1,6 +1,7 @@
 "use client";
 import { Tag } from "@/ui/Tag/Tag.jsx";
 import MultiSelectInput from "@/ui/MultiSelectButton/MultiSelectButton.jsx";
+import { Button } from "@/components/ui/Button/Button";
 
 export default function EditTagsGenresTheme({
   formData,
@@ -16,7 +17,7 @@ export default function EditTagsGenresTheme({
   themeColors,
 }) {
   return (
-    <div className="bg-default rounded-[24px] p-10 border-1 border-gray-300 mt-20">
+    <div className="bg-default rounded-[24px] p-10 border border-gray-300 mt-20">
       <div className="flex m-4 items-center ">
         <label className="text-default font-semibold  mb-8 ">What i am looking</label>
 
@@ -110,15 +111,12 @@ export default function EditTagsGenresTheme({
       <hr className="border-gray-300 ml-30 mb-16" />
 
       <div className="flex m-4 items-center">
-        <label className="text-default font-semibold  mb-8 ">Theme</label>
+        <label className="text-default font-semibold mb-8 ">Theme</label>
         <div className="flex items-center gap-4 ml-10">
           <div
-            className="w-40 h-40 rounded-full "
-            style={{
-              backgroundColor: formData.theme,
-            }}
+            className={`w-40 h-40 rounded-full ${formData.theme ? formData.theme : "bg-secondary-blue"}`}
           />
-          <button onClick={() => setShowThemeEdit((s) => !s)} className="text-muted ">
+          <button onClick={() => setShowThemeEdit((s) => !s)} className="color-subtle">
             {showThemeEdit ? "Done" : "Edit"}
           </button>
         </div>
@@ -126,13 +124,12 @@ export default function EditTagsGenresTheme({
       {showThemeEdit && (
         <div className="flex gap-3 mt-4">
           {themeColors.map((color) => (
-            <button
+            <Button
               key={color.value}
               onClick={() => setFormData({ ...formData, theme: color.value })}
-              className={`w-40 h-40 rounded-full border-2 ${
-                formData.theme === color.value ? "border-brand-primary" : "border-transparent"
+              className={`w-20 h-30 rounded-full border-2 ${formData.theme ? color.value : "bg-secondary-blue"} ${
+                formData.theme === color.value ? "border-brand border-4" : "border-transparent"
               }`}
-              style={{ backgroundColor: color.value }}
             />
           ))}
         </div>
