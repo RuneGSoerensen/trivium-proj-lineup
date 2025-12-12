@@ -102,7 +102,24 @@ function getCORSAllowedOrigins() {
     console.warn('CORS checks are disabled.');
     return true; // Setting 'origin' to true will explicitly allow all origins
   } else {
-    const allowedOrigins = corsAllowedOriginsString.split(';');
+    // Split, trim, filter out empty, and validate each origin
+    const allowedOrigins = corsAllowedOriginsString
+      .split(';')
+      .map(origin => origin.trim())
+      .filter(origin => origin.length > 0)
+      .filter(origin => {
+        try {
+          // Only allow http and https origins
+          const url = new URL(origin);
+          return url.protocol === 'http:' || url.protocol === 'https:';
+        } catch (e) {
+          console.warn(`Invalid CORS origin skipped: "${origin}"`);
+          return false;
+        }
+      });
+    if (allowedOrigins.length === 0) {
+      throw new Error('No valid CORS origins provided in CORS_ALLOWED_ORIGINS');
+    }
     console.info(`CORS enabled with allowed origins: ${allowedOrigins}.`);
     return allowedOrigins;
   }
