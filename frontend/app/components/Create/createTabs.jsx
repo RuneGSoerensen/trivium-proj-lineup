@@ -11,7 +11,7 @@ import {
 import CreateNotes from "./createNotes.jsx";
 import CreateRequest from "./createRequest.jsx";
 import CreateStory from "./createStory.jsx";
-import { getUserId } from "@/utils/auth";
+import { authenticatedFetch, getUserId } from "@/utils/auth";
 
 export default function CreateTabs() {
   const API_BASE_URL =
@@ -30,7 +30,7 @@ export default function CreateTabs() {
         if (!userId) return;
 
         const url = `${API_BASE_URL}/users/${userId}`;
-        const res = await fetch(url);
+        const res = await authenticatedFetch(url);
 
         if (res.ok) {
           const data = await res.json();

@@ -29,7 +29,7 @@ console.warn = (...args) => {
   consoleLogger('warn', ...args);
 };
 
-program.option('--authorize-as <string>', "Override the authentication middleware.");
+program.option('--authorize-as <string>', 'Override the authentication middleware.');
 program.parse();
 
 runApp(program.opts());
@@ -73,22 +73,20 @@ function runApp(opts) {
     }
   }
 
-  // Mount users router
+  app.get('/', (req, res) => {
+    res.send('Server is running TRIVIUM');
+  });
+
   app.use('/users', usersRouter);
   app.use('/connections', connectionsRouter);
   app.use('/notes', notesRouter);
   app.use('/requests', requestsRouter);
-
-  app.get('/', (req, res) => {
-    res.send('Server is running TRIVIUM');
-  });
   app.use('/genres', genreRouter);
   app.use('/looking_for_tags', lookingForTagsRouter);
-  app.use('/chat', requireAuth, chatRouter);
-
-  app.use("/search", searchRouter);
-
+  app.use('/chat', chatRouter);
+  app.use('/search', searchRouter);
   app.use('/stories', storiesRouter);
+
   app.listen(PORT, () => {
     console.log(`Server running on port ${PORT}`);
   });
