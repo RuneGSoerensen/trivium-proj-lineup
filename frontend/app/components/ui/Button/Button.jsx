@@ -16,7 +16,7 @@ import clsx from "clsx";
 const variantClass = {
   primary: "btn-primary",
   secondary: "btn-secondary",
-  glass: "trvm-glass-dark",
+  glass: "glass-btn",
   ghost: "btn-ghost",
 };
 
@@ -128,9 +128,9 @@ export const Button = ({
 
         {/* LABEL / TEKST – skjules for icon-type */}
         {children && (
-          <>
+          <p className="w-full">
             {children}
-          </>
+          </p>
 
         )}
 

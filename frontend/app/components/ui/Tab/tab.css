@@ -4,7 +4,7 @@
   -------------------------------- */
 
   .trvm-tab {
-    @apply px-1 py-8 w-full flex items-center justify-center min-h-5 rounded-pill text-body font-normal font-ui;
+    @apply px-1 py-8 w-full truncate flex items-center justify-center min-h-5 rounded-pill text-body font-normal font-ui;
   }
 
   .tab--active {
@@ -20,7 +20,7 @@
   }
 
   .tabs--multiple {
-    @apply px-8 py-12 gap-8 relative inline-flex justify-between rounded-tabs! w-full;
+    @apply px-8 py-12 gap-8 relative inline-flex rounded-tabs w-full;
   }
 
   .tab-separator {

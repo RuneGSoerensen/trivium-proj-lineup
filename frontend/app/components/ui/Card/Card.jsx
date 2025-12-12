@@ -31,7 +31,7 @@ export function Card({
   return (
     <article
       className={clsx(
-        `${isSmall ? "min-h-193" : "h-fit"} rounded-[24px] min-w-333 trvm-card bg-default color-default border border-muted/30`,
+        `${isSmall ? "min-h-193" : "h-fit"} rounded-[24px] w-full min-w-333 trvm-card bg-default color-default border border-muted/30`,
         clickable && "cursor-pointer",
         className
       )}
@@ -114,7 +114,7 @@ export function Card({
         {/* Footer */}
         <footer className="flex items-center justify-between pt-1">
           <Button
-            className={clsx("rounded-full", btnPads)}
+            className={clsx("rounded-full w-full", btnPads)}
             variant={ctaVariant}
             onClick={(e) => {
               if (!clickable) return;
@@ -122,15 +122,17 @@ export function Card({
               onClick?.();
             }}
           >
-            {ctaLabel}
+            <p className="truncate">
+              {ctaLabel}
+            </p>
           </Button>
 
           {isService || (isCollab && isSmall) ? (location || timeAgo) && (
-            <span className="text-sm color-muted gap-4">
+            <caption className="text-sm color-muted gap-4 truncate">
               {location && <span>{location}</span>}
               {location && timeAgo && <span className="mx-4">-</span>}
               {timeAgo && <span>{timeAgo}</span>}
-            </span>
+            </caption>
           ) : isCollab && !isSmall ? (
             <Button
               variant="primary"

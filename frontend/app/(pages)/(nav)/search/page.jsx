@@ -6,7 +6,7 @@ import { useRouter } from 'next/navigation';
 import { closeOverlay } from '@/utils/helpers';
 import { Tabs, TabsList, TabContentList, TabContent, TabItem } from '@/ui/Tab/Tab';
 import { useSearch } from '@/utils/useSearch';
-import { useMemo, useState } from 'react';
+import { useEffect, useMemo, useState } from 'react';
 import {
     SEARCH_SECTIONS,
     TABS,
@@ -19,6 +19,7 @@ import {
     renderServiceItem,
 } from './searchResults';
 import { services as SERVICE_DATA } from '@/(pages)/services/serviceData';
+import { getUserId } from '@/utils/auth';
 
 
 export default function SearchOverlay() {
@@ -49,17 +50,33 @@ export default function SearchOverlay() {
             tags: [],
         }),
     });
+
+    const [currentUserId, setCurrentUserId] = useState(null);
+
+    useEffect(() => {
+        getUserId().then(setCurrentUserId);
+    }, []);
+
+
     // Generic handler used by People, Services, Tags, etc.
     const renderList = (items, label, type) => {
         const trimmedQuery = query.trim();
-        const hasItems = Array.isArray(items) && items.length > 0;
+
+        const itemsArray = Array.isArray(items) ? items : [];
+        const hasItems = itemsArray.length > 0;
+
+        // Filter out current user from people results
+        const filteredItems =
+            type === "people" && currentUserId
+                ? itemsArray.filter((user) => user.id !== currentUserId)
+                : itemsArray;
 
         if (!hasItems) {
             if (!trimmedQuery) {
                 return startSearching(label);
             }
             // First-time search in progress (no previous results) -> show searching
-            if (isLoading && !error && noResults) {
+            if (isLoading && !error && results === null) {
                 return isSearching();
             }
             // Error with no items -> show error
@@ -105,7 +122,7 @@ export default function SearchOverlay() {
                 <section className="flex flex-col gap-8">
                     <p className="text-sm color-muted">{label}</p>
                     <div className="flex flex-col gap-4">
-                        {items.map(renderItem)}
+                        {filteredItems.map(renderItem)}
                     </div>
                 </section>
             </div>
@@ -137,7 +154,10 @@ export default function SearchOverlay() {
         return (
             <div className="flex flex-col gap-12">
                 {SEARCH_SECTIONS.map((section) => {
-                    const items = forYouData[section.key] || [];
+                    const rawItems = forYouData[section.key] || [];
+                    const items = section.key === "people" && currentUserId
+                        ? rawItems.filter((user) => user.id !== currentUserId)
+                        : rawItems;
 
                     if (!Array.isArray(items) || items.length === 0) {
                         return null;
@@ -205,12 +225,12 @@ export default function SearchOverlay() {
             </div>
             {/* Tabs navigation */}
             <Tabs isActive={activeTab !== null} defaultActiveTab={TABS[0]} onTabChange={(tab) => setActiveTab(tab)} activeClassName="search-tabs">
-                <TabsList className="flex p-0! gap-24 ">
+                <TabsList className="flex p-0! gap-24 rounded-none! justify-start!">
 
                     {TABS.map((tab) => (
                         <TabItem
                             key={tab}
-                            className="flex justify-start p-0! px-0! w-fit "
+                            className="flex justify-start! p-0! px-0! w-fit! rounded-none!"
                             onClick={() => setActiveTab(tab)}
                         >
                             {tab}
