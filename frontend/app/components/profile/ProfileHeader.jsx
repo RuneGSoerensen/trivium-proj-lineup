@@ -12,7 +12,7 @@ export default function ProfileHeader({
 }) {
   return (
     <article
-      className={`rounded-[45px] w-full color-inverse py-25 ${profile.theme || "bg-secondary-blue"}`}
+      className={`rounded-[35px] w-full color-inverse py-25 ${profile.theme || "bg-secondary-blue"}`}
     >
       <div className="flex w-full justify-end px-20">
         <Button
@@ -24,8 +24,8 @@ export default function ProfileHeader({
           icon={<MoreHorizontal />}
         />
       </div>
-      <div className="flex flex-col items-center gap-16">
-        <div className="flex w-full justify-between items-center">
+      <div className="flex items-center justify-center gap-16">
+     
           <div className="text-center w-full">
             <h1 className="color-inverse text-h1 font-normal! mb-0!">
               {profile.followers_count}
@@ -33,7 +33,7 @@ export default function ProfileHeader({
             <p className="text-sm">Connections</p>
           </div>
 
-          <div className="flex flex-col items-center gap-16">
+          <div className="flex flex-col items-center justify-center gap-16">
             <div className="min-w-150 h-150 rounded-full bg-default overflow-hidden border-4 border-white/20">
               {profile.image_url ? (
                 <Image
@@ -52,7 +52,7 @@ export default function ProfileHeader({
 
             <div className="flex flex-col items-center">
               <h1 className="color-inverse text-h1 font-normal! mb-0!">{profile.name}</h1>
-              <p className="text-gray-200 text-xs mb-6"> {profile.bio ? profile.bio : "Role / Title"}</p>
+              <p className="color-grey-medium text-xs mb-6"> {profile.bio ? profile.bio : "Role / Title"}</p>
             </div>
           </div>
 
@@ -60,14 +60,15 @@ export default function ProfileHeader({
             <h1 className="color-inverse text-h1 font-normal! mb-0!">{notesLength || 0}</h1>
             <p className="text-sm">Notes</p>
           </div>
-        </div>
+    
+      </div>
 
         {profile.is_own_profile ? (
-          <div className="flex gap-16 items-center justify-center w-full max-w-326">
+          <div className="flex gap-16 items-center justify-center w-full pt-12">
             <Button
               size="lg"
               variant="glass"
-              className="w-full min-w-158 rounded-full"
+              className="w-full min-w-180 rounded-full"
               onClick={() => router.push("/profile/edit")}
             >
               Edit profile
@@ -75,7 +76,7 @@ export default function ProfileHeader({
             <Button
               size="lg"
               variant="glass"
-              className="w-full min-w-158 rounded-full">
+              className="w-full min-w-180 rounded-full">
               Share profile
             </Button>
           </div>
@@ -87,7 +88,7 @@ export default function ProfileHeader({
               icon={profile.is_following ? <CircleCheck /> : <CirclePlus />}
               iconPosition="right"
               onClick={onFollow}
-              className="w-full min-w-158 rounded-full"
+              className="w-full min-w-180 rounded-full"
             >
               {profile.is_following ? (
                 "Connected"
@@ -98,12 +99,11 @@ export default function ProfileHeader({
             <Button
               size="lg"
               variant="glass"
-              className="w-full min-w-158 py-3 rounded-full">
+              className="w-full max-w-180 py-3 rounded-full">
               Message
             </Button>
           </div>
         )}
-      </div>
     </article>
   );
 }
