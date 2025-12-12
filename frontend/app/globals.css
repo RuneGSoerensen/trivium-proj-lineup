@@ -148,7 +148,7 @@
   --glass-reflect-degree: 100deg;
   --glass-reflect-opacity: 70%;
   --glass-border-opacity: 20%;
-  
+
   --glassmorphic-bg: rgba(var(--color-grey-darker), var(--glass-opacity));
   --glassmorphic-bg-light: rgba(var(--color-grey-medium), var(--glass-opacity));
   --glassmorphic-border: rgba(255, 255, 255, var(--glass-border-opacity));
@@ -161,9 +161,9 @@
   background-image: linear-gradient(
     var(--glass-reflect-degree),
     rgba(0, 0, 0, var(--glass-reflect-opacity)) 0%,
-    rgba(0, 0, 0, .6) 100%
+    rgba(0, 0, 0, 0.6) 100%
   );
-  color: var(--color-base-100)
+  color: var(--color-base-100);
 }
 
 @utility nav-link-active {
@@ -181,7 +181,7 @@
 .nav-link-active::before {
   content: "";
   position: absolute;
-  inset: -1px; 
+  inset: -1px;
   border-radius: inherit;
   background: linear-gradient(
     45deg,
@@ -478,6 +478,32 @@ main.app-main {
   flex-direction: column;
   display: flex;
   padding: var(--page-py) var(--page-px);
+
+  /* Instagram-like responsive container */
+  width: 100%;
+  max-width: 100%;
+}
+
+/* Responsive container system - Instagram style */
+@media (min-width: 768px) {
+  main.app-main {
+    max-width: 935px; /* Instagram's feed max width */
+    margin: 0 auto;
+  }
+}
+
+@media (min-width: 1024px) {
+  main.app-main {
+    margin-left: 240px; /* Space for left sidebar on desktop */
+    margin-right: 240px; /* Space for right sidebar on desktop */
+  }
+}
+
+@media (min-width: 1440px) {
+  main.app-main {
+    margin-left: auto;
+    margin-right: auto;
+  }
 }
 
 .full-bleed {
@@ -525,7 +551,7 @@ h6 {
 }
 
 a:not(.nav-link) {
-  color: #007AFF;
+  color: #007aff;
   transition: color 150ms ease-in-out;
 }
 

@@ -2,10 +2,10 @@
 import React, { useEffect, useState } from "react";
 import { useRouter } from "next/navigation";
 import { ListFilter, Search, X } from "lucide-react";
-import { Card } from "@/ui/Card/Card"
-import { Button } from '@/ui/Button/Button';
-import Input from '@/ui/Input/Input';
-import { Tag } from '@/ui/Tag/Tag';
+import { Card } from "@/ui/Card/Card";
+import { Button } from "@/ui/Button/Button";
+import Input from "@/ui/Input/Input";
+import { Tag } from "@/ui/Tag/Tag";
 import { useNavbar } from "@/utils/navbarContext";
 import { services } from "./serviceData"; // Assume this is an array of service objects
 
@@ -30,7 +30,6 @@ export default function Page() {
     console.log("Searching for:", query);
   };
 
- 
   // Unique tag options derived from services
   const uniqueTags = Array.from(new Set(services.map((s) => s.tag)));
 
@@ -53,7 +52,6 @@ export default function Page() {
     }
   };
 
-
   // Derived list of visible services based on query + selected tag
   const filteredServices = services.filter((s) => {
     const matchesTag = !selectedTag || s.tag === selectedTag;
@@ -67,8 +65,8 @@ export default function Page() {
   });
 
   return (
-    <section className="services flex flex-col px-24 pb-24 bg-alt full-bleed">
-      <div className="flex items-center w-full justify-between mb-12 gap-8">
+    <section className="services  px-24 pb-24 bg-alt full-bleed ">
+      <div className="flex items-center  justify-between mb-12 gap-8">
         <div className="items-center w-full" id="searchbar">
           {/* Search Input */}
           <Input
@@ -142,7 +140,7 @@ export default function Page() {
           </Button>
         </div>
       </div>
-      <div className="flex flex-col space-y-24 mt-18">
+      <div className="flex flex-col space-y-24 mt-18 lg:mx-auto ">
         {filteredServices.map((s) => (
           <Card
             type="Service"
