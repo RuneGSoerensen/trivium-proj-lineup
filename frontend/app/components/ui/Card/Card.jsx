@@ -36,7 +36,9 @@ export function Card({
   const isService = type === "Service";
   const isCollab = type === "Collab";
   const isSmall = variant === "Small";
-  const ServiceIcon = isService && !isSmall ? Bookmark : customElements.define;
+  // const ServiceIcon = isService && !isSmall ? Bookmark : customElements.define;
+  // Use a safe default icon; avoid browser-only globals like customElements during SSR.
+  const ServiceIcon = Bookmark;
 
   return (
     <article
