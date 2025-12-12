@@ -76,11 +76,11 @@ export default function CreateNotes({ userName, userImage }) {
   return (
     <div className="flex flex-col mt-10">
       <div className="flex flex-row justify-between">
-        <div className="flex flex-row gap-8 w-40 h-40">
+        <div className="flex flex-row gap-8">
           <Image
             src={userImage}
             alt={userName}
-            className="rounded-full border-none object-cover"
+            className="rounded-full border-none object-cover w-44 h-44"
             width={44}
             height={44}
           />
