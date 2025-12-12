@@ -117,7 +117,7 @@ function ChatInput({ threadId, onMessageSent }) {
                     handleSend();
                 }}>
                 <Input
-                    className="p-10 w-full color-default border-0 ring-0 outline-0 focus:outline-0 focus:ring-0 focus:border-0 flex-1"
+                    className="p-10 w-full color-default bg-neutral-300! border-0 ring-0 outline-0 focus:outline-0 focus:ring-0 focus:border-0 flex-1"
                     type="text"
                     value={message}
                     onChange={(e) => setMessage(e.target.value)}

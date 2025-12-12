@@ -156,7 +156,7 @@ export const CommentItem = ({
                 iconSize="sm"
                 icon={<ArrowUp />}
                 onClick={handleReplySubmit}
-                className="absolute w-fit top-12 right-18! rounded-lg! border-none! p-4! bg-brand-primary color-default"
+                className="absolute w-fit! h-fit! top-12 right-18! rounded-lg! border-none! p-4! bg-brand-primary color-default"
               />
             </div>
           </div>

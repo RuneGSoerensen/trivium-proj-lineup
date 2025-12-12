@@ -128,9 +128,9 @@ export const Button = ({
 
         {/* LABEL / TEKST – skjules for icon-type */}
         {children && (
-          <p className="w-full">
+          <div className="w-full">
             {children}
-          </p>
+          </div>
 
         )}
 

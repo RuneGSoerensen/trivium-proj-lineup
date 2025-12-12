@@ -53,7 +53,7 @@ export const errorMsg = (error) => (
 )
 
 export const renderUserItem = (user) => (
-    <User key={user.id} userName={user.name} avatarUrl={user.imageUrl} />
+    <User key={user.id} goTo={`/profile/${user.id}`} userName={user.name} avatarUrl={user.imageUrl} />
 );
 
 export const renderServiceItem = (s) => (
