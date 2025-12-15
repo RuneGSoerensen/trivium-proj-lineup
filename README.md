@@ -1,23 +1,45 @@
 # Trivium
 
+> Udviklet af: Thomas, Morten, Rune og Victoria
+
 [![Next.js](https://img.shields.io/badge/Next.js-16.0-black?style=flat&logo=next.js)](https://nextjs.org/)
 [![React](https://img.shields.io/badge/React-19.2-blue?style=flat&logo=react)](https://reactjs.org/)
 [![Node.js](https://img.shields.io/badge/Node.js-Express-green?style=flat&logo=node.js)](https://nodejs.org/)
 [![PostgreSQL](https://img.shields.io/badge/PostgreSQL-Supabase-blue?style=flat&logo=postgresql)](https://supabase.com/)
 
-Udover selve koden skal jeres repository indeholde
-en **README.md** fil (i roden af projektet, så den
-er synlig på forsiden af jeres repository på
-GitHub) som indeholder:
+---
 
-## Links:
+## Table of Contents
+
+- [Links](#-links)
+- [Projekt Board](#-projekt-board)
+- [Login test brugere](#-login-test-brugere)
+- [Tech Stack Beskrivelse](#-tech-stack-beskrivelse)
+- [Implementeret features](#-implementeret-features)
+- [Kendte issues](#-kendte-issues)
+- [Manglende features](#-manglende-features)
+- [Interne design beslutninger](#-interne-design-beslutninger)
+- [GitHub issues eksempler](#-github-issues-eksempler)
+- [Ekstra implementeret features](#-ekstra-implementeret-features)
+- [ER Diagram](#-er-diagram)
+- [Opsummering og refleksion](#-opsummering-og-refleksion)
+
+## Links
 
     - **Frontend**: `https://trivium.lol`
       - Omdirigerer til:
         `https://trivium-proj-lineup.vercel.app/`
     - **Backend**: `https://trivium.lol/api`
 
-## Login Test brugere:
+    _(Note: Update with actual test credentials once available)_
+
+## Projekt board
+
+    - `https://github.com/orgs/eaaa-dob-wu-e25a/projects/17`
+
+---
+
+## Login Test brugere
 
     - Morten Pedersen:
       - Email:
@@ -26,7 +48,9 @@ GitHub) som indeholder:
       - Email: `john@pork.com`
       - Password: `password123`
 
-## Tech Stack kort beskrivelse:
+---
+
+## Tech Stack beskrivelse
 
     - Backend: `node.js` app med følgende
       dependencies:
@@ -42,7 +66,7 @@ GitHub) som indeholder:
     - Frontend: `next.js` app med server-side
       rendering
 
-## Implementeret features:
+## Implementeret features
 
 - En liste og kort beskrivelse af de features, I
   har implementeret, med angivelse af den
@@ -59,23 +83,23 @@ GitHub) som indeholder:
   - **Mobile design** (mobile-first)
   - **Desktop design**
 
-## Eventuelle kendte issues eller manglende features:
+## Kendte issues
 
     -
 
-## Ekstra implementeret features:
+## Manglende features
 
     -
 
-## Interne design beslutninger, samt arguementation:
+## Ekstra implementeret features
+
+    -
+
+## Interne design beslutninger, samt arguementation
 
     - ??
 
-## Projekt board:
-
-    - `https://github.com/orgs/eaaa-dob-wu-e25a/projects/17`
-
-## GitHub issues eksempler:
+## GitHub issues eksempler
 
     - Et eksempel på et af jeres GitHub issues,
       der illustrerer analyse og planlægning af en
@@ -84,11 +108,11 @@ GitHub) som indeholder:
       der viser konstruktiv feedback og
       forbedringer på en feature
 
-## ER Diagram.
+## ER Diagram
 
     - ???
 
-## Opsummering og refleksion:
+## Opsummering og refleksion
 
 Post-mortem: En kort opsummering og refleksion
 over hvad har fungeret godt i projektet, og
