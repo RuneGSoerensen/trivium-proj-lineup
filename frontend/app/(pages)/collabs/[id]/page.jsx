@@ -58,7 +58,7 @@ export default function Page() {
           <p>{request.created_by?.name || "Unknown"}</p>
           <p className="mr-auto">Looking for #{"someone"}</p>
 
-          <p className="ml-auto text-sm text-muted">
+          <p className="ml-auto text-sm color-muted">
             {formatTimeAgo(request.created_at)}
           </p>
         </div>
@@ -101,7 +101,7 @@ export default function Page() {
                 </Tag>
               ))
             ) : (
-              <p className="text-muted">No genres specified</p>
+              <p className="color-muted">No genres specified</p>
             )}
           </div>
         </div>
@@ -120,7 +120,7 @@ export default function Page() {
                 </Tag>
               ))
             ) : (
-              <p className="text-muted">No skills specified</p>
+              <p className="color-muted">No skills specified</p>
             )}
           </div>
         </div>

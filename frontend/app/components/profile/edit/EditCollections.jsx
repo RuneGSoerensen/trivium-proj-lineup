@@ -7,7 +7,7 @@ export default function EditCollections({ formData, setFormData }) {
       <div className="bg-default rounded-[24px] p-10 border-1 border-gray-300 mt-20 pb-20">
         <div className="flex items-center justify-between mb-3">
           <label className="text-default font-semibold  my-16 mx-4 ">Artists I like</label>
-          <button className="text-muted " onClick={() => alert("edit artists - later")}>Edit</button>
+          <button className="color-muted " onClick={() => alert("edit artists - later")}>Edit</button>
         </div>
 
         <div className="flex items-center justify-center">
@@ -34,7 +34,7 @@ export default function EditCollections({ formData, setFormData }) {
 
       <div className="bg-default rounded-[24px] p-10 border-1 border-gray-300 mt-20 pb-20">
         <div className="flex flex-col ">
-          <p className="flex justify-end text-muted">Edit</p>
+          <p className="flex justify-end color-muted">Edit</p>
           <div className="flex items-center gap-4">
             <label className="text-default font-semibold  my-16 mx-4 ">My music</label>
             <p>Spotify linked</p>
@@ -43,7 +43,7 @@ export default function EditCollections({ formData, setFormData }) {
       </div>
 
       <div className="bg-default rounded-[24px] p-10 border-1 border-gray-300 mt-20 pb-20 flex flex-col">
-        <button className="text-muted self-end" onClick={() => alert("add video - later")}>Edit</button>
+        <button className="color-muted self-end" onClick={() => alert("add video - later")}>Edit</button>
         <div className="flex items-center gap-4">
           <label className="text-default font-semibold  my-16 mx-4 "> Videos</label>
 
@@ -65,7 +65,7 @@ export default function EditCollections({ formData, setFormData }) {
       </div>
 
       <div className="bg-default rounded-[24px] p-10 border-1 border-gray-300 mt-20 pb-20 flex flex-col ">
-        <button className="text-muted self-end " onClick={() => alert("edit past collabs - later")}>Edit</button>
+        <button className="color-muted self-end " onClick={() => alert("edit past collabs - later")}>Edit</button>
         <div className="flex items-center ">
           <label className="text-default font-semibold  my-16 mx-4 ">Past collaborations</label>
         </div>

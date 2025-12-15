@@ -14,6 +14,8 @@ import ProfileHeader from "@/components/profile/ProfileHeader";
 import ProfileAbout from "@/components/profile/ProfileAbout";
 import ProfileNotes from "@/components/profile/ProfileNotes";
 import { getUserId } from "@/utils/auth";
+import { useNavbar } from "@/utils/navbarContext";
+import { set } from "lodash";
 
 const HARD_ARTISTS = [
   "https://images.unsplash.com/photo-1544005313-94ddf0286df2?w=200&q=80",
@@ -33,6 +35,7 @@ const HARD_PAST_COLLABS = ["Band A", "Band B"];
 export default function ProfilePage() {
   const params = useParams();
   const router = useRouter();
+  const { setConfig } = useNavbar();
   const [profile, setProfile] = useState(null);
   const [notes, setNotes] = useState([]);
   const [loading, setLoading] = useState(true);
@@ -40,8 +43,17 @@ export default function ProfilePage() {
 
   useEffect(() => {
     if (params?.id) loadProfile();
+
+    setConfig({
+      type: "profile",
+      backgroundColor: "bg-alt",
+      showBack: true,
+      showLogo: false,
+      actions: ["search", "notifications", "menu"],
+      visible: true,
+    });
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [params?.id]);
+  }, [params?.id, setConfig]);
 
   const loadProfile = async () => {
     try {
@@ -80,7 +92,7 @@ export default function ProfilePage() {
             : HARD_VIDEOS,
         past_collaborations:
           userData.past_collaborations &&
-          userData.past_collaborations.length > 0
+            userData.past_collaborations.length > 0
             ? userData.past_collaborations
             : HARD_PAST_COLLABS,
         followers_count: statsData.followers_count || 0,
@@ -171,7 +183,7 @@ export default function ProfilePage() {
   if (loading) {
     return (
       <div className="flex items-center justify-center min-h-screen">
-        <div className="text-muted">Loading...</div>
+        <div className="color-muted">Loading...</div>
       </div>
     );
   }
@@ -179,35 +191,37 @@ export default function ProfilePage() {
   if (!profile) {
     return (
       <div className="flex items-center justify-center min-h-screen">
-        <div className="text-muted">Profile not found</div>
+        <div className="color-muted">Profile not found</div>
       </div>
     );
   }
 
   return (
-    <div className="w-full  ">
-      <ProfileHeader
-        profile={profile}
-        notesLength={notes.length}
-        onFollow={handleFollow}
-        router={router}
-      />
-
-      <Tabs className="bg-white">
-        <TabsList className="bg-white rounded-b-none w-full" hasSeparator>
-          <TabItem>About</TabItem>
-
-          <TabItem>Notes</TabItem>
-        </TabsList>
-        <TabContentList className="bg-white">
-          <TabContent>
-            <ProfileAbout profile={profile} onQuestionSubmit={handleClick} />
-          </TabContent>
-          <TabContent className={"!p-0"}>
-            <ProfileNotes notes={notes} />
-          </TabContent>
-        </TabContentList>
-      </Tabs>
-    </div>
+    <section className="profile w-full bg-alt full-page altPage flex flex-col gap-15">
+      <div className="px-15">
+        <ProfileHeader
+          profile={profile}
+          notesLength={notes.length}
+          onFollow={handleFollow}
+          router={router}
+        />
+      </div>
+      <div>
+        <Tabs defaultValue="about">
+          <TabsList className="bg-default" hasSeparator={true}>
+            <TabItem>About</TabItem>
+            <TabItem>Notes</TabItem>
+          </TabsList>
+          <TabContentList className="bg-default pb-140">
+            <TabContent>
+              <ProfileAbout profile={profile} onQuestionSubmit={handleClick} />
+            </TabContent>
+            <TabContent>
+              <ProfileNotes notes={notes} />
+            </TabContent>
+          </TabContentList>
+        </Tabs>
+      </div>
+    </section>
   );
 }

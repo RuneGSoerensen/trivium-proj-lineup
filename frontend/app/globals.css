@@ -98,7 +98,7 @@
   --color-primary-dark: rgb(77, 63, 84);
   --color-muted: rgba(130, 130, 130, 0.7);
 
-  /* SECONDARY */
+  /* PROFILE THEME COLORS */
   --color-secondary-greyred: #575252;
   --color-secondary-cyanblue: #3f4d54;
   --color-secondary-blue: #3f4254;
@@ -118,9 +118,10 @@
 
   /* SPACING SCALE (base unit: 1px = 0.0625rem) */
   --spacing: 0.0625rem;
-  --nav-height: 78px;
+  --nav-height: 68px;
   --page-px: 24px;
-  --page-py: calc(var(--nav-height) + 12px);
+  --page-pt: var(--nav-height);
+  --page-pb: calc(24px + var(--nav-height));
 
   /* BORDER RADIUS */
   --radius-chip: 9999px;
@@ -145,8 +146,8 @@
   /*GLASSMORPHIC EFFECTS*/
   --glass-opacity: 90%;
   --glass-blur: 20px;
-  --glass-reflect-degree: 100deg;
-  --glass-reflect-opacity: 70%;
+  --glass-reflect-degree: 145deg;
+  --glass-reflect-opacity: 80%;
   --glass-border-opacity: 20%;
 
   --glassmorphic-bg: rgba(var(--color-grey-darker), var(--glass-opacity));
@@ -161,35 +162,37 @@
   background-image: linear-gradient(
     var(--glass-reflect-degree),
     rgba(0, 0, 0, var(--glass-reflect-opacity)) 0%,
-    rgba(0, 0, 0, 0.6) 100%
+    rgba(0, 0, 0, 0.5) 100%
   );
   color: var(--color-base-100);
 }
 
-@utility nav-link-active {
+@utility glass-btn {
   background: var(--glassmorphic-bg-light);
   backdrop-filter: blur(20px);
   background-image: radial-gradient(
-    rgba(80, 80, 80, var(--glass-reflect-opacity)) 25%,
-    rgba(96, 96, 96, 0.6) 80%,
+    rgba(80, 80, 80, var(--glass-reflect-opacity)) 40%,
+    rgba(24, 24, 24, 0.6) 80%,
+    rgba(48, 48, 48, 0.6) 100%,
     rgba(200, 200, 200, 0.5) 100%
   );
   position: relative;
   z-index: 0;
+
 }
 
-.nav-link-active::before {
+.glass-btn::before {
   content: "";
   position: absolute;
-  inset: -1px;
+  inset: -2px;
   border-radius: inherit;
   background: linear-gradient(
     45deg,
-    rgba(255, 255, 255, 0.75) 0%,
-    rgba(255, 255, 255, 0.15) 25%,
+    rgba(255, 255, 255, 0.5) 0%,
+    rgba(255, 255, 255, 0.1) 25%,
     rgba(255, 255, 255, 0) 50%,
-    rgba(255, 255, 255, 0.15) 75%,
-    rgba(255, 255, 255, 0.75) 100%
+    rgba(255, 255, 255, 0.1) 75%,
+    rgba(255, 255, 255, 0.5) 100%
   );
   z-index: -1;
 }
@@ -197,6 +200,10 @@
 .lucide {
   width: inherit;
   height: inherit;
+}
+
+img{
+  aspect-ratio: auto;
 }
 
 /* Short semantic utilities */
@@ -321,6 +328,7 @@
 @utility bg-brand-primary-hover {
   background-color: var(--color-primary-hover);
 }
+/* THEME COLOURS */
 @utility bg-secondary-orange {
   background-color: var(--color-secondary-orange);
 }
@@ -330,6 +338,13 @@
 @utility bg-secondary-blue {
   background-color: var(--color-secondary-blue);
 }
+@utility bg-secondary-greyred {
+  background-color: var(--color-secondary-greyred);
+}
+@utility bg-secondary-pinkred {
+  background-color: var(--color-secondary-pinkred);
+}
+
 
 @utility primary-style {
   background-color: var(--color-primary);
@@ -509,7 +524,12 @@ main.app-main:has(> section.full-page) {
   height: 100%;
 }
 
-main.app-main:has(> section.services) {
+main.app-main:has(> section.full-bleed.altBG) {
+  --background: var(--color-base-200);
+}
+
+main.app-main:has(> section.full-page.altPage) {
+  padding: var(--page-pt) calc(var(--page-px) * -1) calc(var(--page-pb) * -1);
   --background: var(--color-base-200);
 }
 

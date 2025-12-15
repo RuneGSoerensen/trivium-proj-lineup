@@ -7,6 +7,7 @@ import { Button } from "@/comps/ui/Button/Button";
 import { useRouter } from "next/navigation";
 import { authenticatedFetch } from "@/utils/auth.js";
 import { Card } from "../ui/Card/Card";
+import { userAvatarInitials } from '@/utils/helpers';
 
 export default function RequestFeed() {
   const [requests, setRequests] = useState([]);
@@ -68,12 +69,12 @@ export default function RequestFeed() {
         <div className="flex py-10 px-15 gap-10 overflow-x-auto min-h-193 hide-scrollbar">
           {requests.map((request) => (
             <Card 
-              type="Collab"
-              variant="Small"
+              type="collab"
+              variant="small"
               title={request.title}
               authorName={request.user_name}
               key={request.id}
-              avatarSrc={request.image_url && request.image_url !== "" ? request.image_url : `https://ui-avatars.com/api/?name=${encodeURIComponent(request.user_name)}&background=ffcf70&color=1e1e1e&size=40`}
+              avatarSrc={request.user_image ? request.user_image : `https://ui-avatars.com/api/?name=${encodeURIComponent(request.user_name)}&background=random&size=128`}
               avatarAlt={request.user_name}
               tag={"something"}
               className="w-full!"
@@ -87,7 +88,7 @@ export default function RequestFeed() {
             </div>
           
       </div>
-      <div className="flex justify-start px-15">
+      <div className="flex justify-start px-15 pt-4">
         <Button size="lg" className={"px-10! rounded-full w-full"} onClick={handleClick}>
           See more collabs
         </Button>

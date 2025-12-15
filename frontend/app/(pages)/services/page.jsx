@@ -65,8 +65,8 @@ export default function Page() {
   });
 
   return (
-    <section className="services  px-24 pb-24 bg-alt full-bleed ">
-      <div className="flex items-center  justify-between mb-12 gap-8">
+    <section className="services flex flex-col px-24 pb-24 bg-alt full-bleed altBG">
+      <div className="flex items-center w-full justify-between mb-12 gap-8">
         <div className="items-center w-full" id="searchbar">
           {/* Search Input */}
           <Input
@@ -95,7 +95,7 @@ export default function Page() {
             />
           )}
         </div>
-        <div className="w-fit!">
+        <div className="w-fit!" id="filters">
           {/* Filters button */}
           <Button
             icon={<ListFilter />}
@@ -108,7 +108,7 @@ export default function Page() {
             dropdownitems={
               <div className="relative w-full h-full">
                 {/* Scrollable list area */}
-                <ul className="flex flex-col space-y-12 h-full overflow-y-auto pb-40">
+                <ul className="flex flex-col space-y-12 h-full pb-40">
                   {filterOptions.map((option) => (
                     <li key={option.value} className="rounded-md h-full w-full">
                       <Button

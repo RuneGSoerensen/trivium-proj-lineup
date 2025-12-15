@@ -10,10 +10,7 @@ export function Card({
   variant = "Full", // Full || Small
   type, // Service || Collab
   // top bar
-  avatarSrc,
-  avatarAlt = "",
-  authorName,
-  tag, // fx "offers #art"
+  avatarSrc, avatarAlt = "", authorName, tag, serviceIcon, // fx "offers #art"
   // hovedindhold
   title,
   imageSrc,
@@ -33,25 +30,20 @@ export function Card({
   className,
 }) {
   const clickable = typeof onClick === "function";
-  const isService = type === "Service";
-  const isCollab = type === "Collab";
-  const isSmall = variant === "Small";
-  // const ServiceIcon = isService && !isSmall ? Bookmark : customElements.define;
-  // Use a safe default icon; avoid browser-only globals like customElements during SSR.
-  const ServiceIcon = Bookmark;
+  const isService = type === "service" || type === "Service";
+  const isCollab = type === "collab" || type === "Collab";
+  const isSmall = variant === "small" || variant === "Small";
 
   return (
     <article
       className={clsx(
-        `${
-          isSmall ? "min-h-193" : "h-fit"
-        } rounded-[24px] min-w-333 lg:max-w-[800px] trvm-card bg-default color-default border border-muted/30`,
+        `${isSmall ? "min-h-193" : "h-fit"} rounded-[24px] min-w-333 w-full trvm-card bg-default color-default border border-muted/30`,
         clickable && "cursor-pointer",
         className
       )}
       onClick={onClick}
     >
-      <div className="card-body space-y-3">
+      <div className="card-body space-y-3 w-full">
         {/* Top bar: avatar + navn + tag + icon button */}
         <header className="flex items-center justify-between gap-10 pb-15 border-b border-muted/30">
           <div className="flex items-center gap-8 w-full">
@@ -88,9 +80,7 @@ export function Card({
               type="icon"
               variant="ghost"
               iconSize="lg"
-              icon={
-                !isSmall ? <ServiceIcon size={24} /> : <ServiceIcon size={24} />
-              }
+              icon={!isSmall ? <Bookmark /> : serviceIcon}
               onClick={(e) => {
                 e.stopPropagation();
                 onIconClick();
@@ -120,7 +110,7 @@ export function Card({
 
         {/* Description */}
         {description && (
-          <div className={`flex items-start ${isSmall ? "min-h-96" : ""}`}>
+          <div className={`flex items-start w-full ${isSmall && isCollab ? "min-h-96" : "h-fit"}`}>
             <p className="text-base leading-snug color-muted/60 truncate">
               {description}
             </p>
@@ -130,7 +120,7 @@ export function Card({
         {/* Footer */}
         <footer className="flex items-center justify-between pt-1">
           <Button
-            className={clsx("rounded-full", btnPads)}
+            className={clsx("rounded-full w-fit mr-2", btnPads)}
             variant={ctaVariant}
             onClick={(e) => {
               if (!clickable) return;
@@ -138,17 +128,17 @@ export function Card({
               onClick?.();
             }}
           >
-            {ctaLabel}
+            <p className="truncate">
+              {ctaLabel}
+            </p>
           </Button>
 
-          {isService || (isCollab && isSmall) ? (
-            (location || timeAgo) && (
-              <span className="text-sm color-muted gap-4">
-                {location && <span>{location}</span>}
-                {location && timeAgo && <span className="mx-4">-</span>}
-                {timeAgo && <span>{timeAgo}</span>}
-              </span>
-            )
+          {isService || (isCollab && isSmall) ? (location || timeAgo) && (
+            <p className="text-sm color-muted gap-4 truncate w-full flex items-center justify-end">
+              {location && <span>{location}</span>}
+              {location && timeAgo && <span className="mx-4">-</span>}
+              {timeAgo && <span>{timeAgo}</span>}
+            </p>
           ) : isCollab && !isSmall ? (
             <Button
               variant="primary"

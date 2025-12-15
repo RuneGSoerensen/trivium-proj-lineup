@@ -6,7 +6,7 @@ export default function EditSocials({ formData, setFormData, showSocialEdit, set
     <div className="bg-default rounded-[24px] p-10 border-1 border-gray-300 mt-20 pb-20">
       <div className="flex items-center justify-between">
         <label className="text-default font-semibold  my-16 mx-4  ">Social Media</label>
-        <button onClick={() => setShowSocialEdit((s) => !s)} className="text-muted ">
+        <button onClick={() => setShowSocialEdit((s) => !s)} className="color-muted ">
           {showSocialEdit ? "Done" : "Edit"}
         </button>
       </div>
@@ -38,35 +38,35 @@ export default function EditSocials({ formData, setFormData, showSocialEdit, set
             onChange={(e) =>
               setFormData({ ...formData, socials: { ...formData.socials, instagram: e.target.value } })
             }
-            className="w-full px-4 py-3 rounded-[12px] bg-muted border-none text-[15px] text-default placeholder:text-muted/60 focus:outline-none focus:ring-2 focus:ring-brand-primary"
+            className="w-full px-4 py-3 rounded-[12px] bg-muted border-none text-[15px] text-default placeholder:color-muted/60 focus:outline-none focus:ring-2 focus:ring-brand-primary"
           />
           <input
             type="text"
             placeholder="X (Twitter) URL"
             value={formData.socials.x ?? ""}
             onChange={(e) => setFormData({ ...formData, socials: { ...formData.socials, x: e.target.value } })}
-            className="w-full px-4 py-3 rounded-[12px] bg-muted border-none text-[15px] text-default placeholder:text-muted/60 focus:outline-none focus:ring-2 focus:ring-brand-primary"
+            className="w-full px-4 py-3 rounded-[12px] bg-muted border-none text-[15px] text-default placeholder:color-muted/60 focus:outline-none focus:ring-2 focus:ring-brand-primary"
           />
           <input
             type="text"
             placeholder="YouTube URL"
             value={formData.socials.youtube ?? ""}
             onChange={(e) => setFormData({ ...formData, socials: { ...formData.socials, youtube: e.target.value } })}
-            className="w-full px-4 py-3 rounded-[12px] bg-muted border-none text-[15px] text-default placeholder:text-muted/60 focus:outline-none focus:ring-2 focus:ring-brand-primary"
+            className="w-full px-4 py-3 rounded-[12px] bg-muted border-none text-[15px] text-default placeholder:color-muted/60 focus:outline-none focus:ring-2 focus:ring-brand-primary"
           />
           <input
             type="text"
             placeholder="TikTok URL"
             value={formData.socials.tiktok ?? ""}
             onChange={(e) => setFormData({ ...formData, socials: { ...formData.socials, tiktok: e.target.value } })}
-            className="w-full px-4 py-3 rounded-[12px] bg-muted border-none text-[15px] text-default placeholder:text-muted/60 focus:outline-none focus:ring-2 focus:ring-brand-primary"
+            className="w-full px-4 py-3 rounded-[12px] bg-muted border-none text-[15px] text-default placeholder:color-muted/60 focus:outline-none focus:ring-2 focus:ring-brand-primary"
           />
           <input
             type="text"
             placeholder="Facebook URL"
             value={formData.socials.facebook ?? ""}
             onChange={(e) => setFormData({ ...formData, socials: { ...formData.socials, facebook: e.target.value } })}
-            className="w-full px-4 py-3 rounded-[12px] bg-muted border-none text-[15px] text-default placeholder:text-muted/60 focus:outline-none focus:ring-2 focus:ring-brand-primary"
+            className="w-full px-4 py-3 rounded-[12px] bg-muted border-none text-[15px] text-default placeholder:color-muted/60 focus:outline-none focus:ring-2 focus:ring-brand-primary"
           />
         </div>
       )}

@@ -10,7 +10,7 @@ export default function EditMainFields({ formData, setFormData }) {
             type="text"
             value={formData.name}
             onChange={(e) => setFormData({ ...formData, name: e.target.value })}
-            className="w-full  placeholder:text-muted/60 focus:outline-none focus:ring-2 focus:ring-brand-primary rounded-full pl-32"
+            className="w-full  placeholder:color-muted/60 focus:outline-none focus:ring-2 focus:ring-brand-primary rounded-full pl-32"
           />
         </div>
       </div>
@@ -22,7 +22,7 @@ export default function EditMainFields({ formData, setFormData }) {
             value={formData.bio}
             onChange={(e) => setFormData({ ...formData, bio: e.target.value })}
             rows={1}
-            className=" w-full placeholder:text-muted/60 focus:outline-none focus:ring-2 focus:ring-brand-primary rounded-full pl-20"
+            className=" w-full placeholder:color-muted/60 focus:outline-none focus:ring-2 focus:ring-brand-primary rounded-full pl-20"
             placeholder="Tell us about yourself..."
           />
         </div>
@@ -36,7 +36,7 @@ export default function EditMainFields({ formData, setFormData }) {
             value={formData.about}
             onChange={(e) => setFormData({ ...formData, about: e.target.value })}
             rows={4}
-            className=" w-full placeholder:text-muted/60 focus:outline-none focus:ring-2 focus:ring-brand-primary  "
+            className=" w-full placeholder:color-muted/60 focus:outline-none focus:ring-2 focus:ring-brand-primary  "
             placeholder="More details about yourself..."
           />
         </div>

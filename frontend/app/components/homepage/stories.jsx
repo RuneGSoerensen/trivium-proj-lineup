@@ -34,7 +34,7 @@ export default function Stories() {
   return (
     <section className="hide-scrollbar w-full h-fit min-h-120 flex gap-12 overflow-x-auto py-12 px-16 full-bleed">
       {stories.map((story) => (
-        <div key={story.id} className="flex flex-col items-center gap-6 h-full">
+        <div key={story.id} className="flex flex-col items-center gap-6 h-full w-full">
    
             <div className="rounded-full w-70 h-70">
               <Image
@@ -44,9 +44,9 @@ export default function Stories() {
                     : `https://ui-avatars.com/api/?name=${encodeURIComponent(userAvatarInitials(story.name))}&${defaultAvatarStyle}&size=128`
                 }
                 alt={story.name}
-                className=" w-74 h-74 rounded-full object-cover border-brand"
-                width={48}
-                height={48}
+                className="w-74 h-74 rounded-full object-cover border-brand"
+                width={77}
+                height={77}
               />
             </div>
             <p className="text-sm text-center leading-16!">{story.name}</p>

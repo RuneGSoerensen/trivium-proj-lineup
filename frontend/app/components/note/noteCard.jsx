@@ -29,6 +29,7 @@ export default function NoteCard({ note, showComments = false }) {
     parseInt(note.likes_count ?? 0)
   );
   const [localComments, setLocalComments] = useState(note.comments ?? []);
+  const setOpen = () => {}; // placeholder for dropdown open state
 
   const apiBase =
     process.env.NEXT_PUBLIC_DATABASE_URL || "http://localhost:3300";
@@ -137,6 +138,7 @@ export default function NoteCard({ note, showComments = false }) {
         .toUpperCase()
     : "?";
   
+    const fallbackImage = `https://ui-avatars.com/api/?name=${encodeURIComponent(userInitials)}&background=random&size=128`;
 
   return (
     <div className="py-10 gap-15 flex flex-col border-b border-muted/20">
@@ -146,22 +148,23 @@ export default function NoteCard({ note, showComments = false }) {
           <div className="w-25 h-25 rounded-full border-muted overflow-hidden flex-shrink-0">
       
               <Image
-                src={note.user_image ? note.user_image : `https://ui-avatars.com/api/?name=${encodeURIComponent(userInitials)}&background=random&size=128`}
+                src={note.user_image ? note.user_image : fallbackImage}
                 alt={note.user_name}
                 width={100}
                 height={100}
-                className="w-full h-full object-cover"
+              className="w-full h-full object-cover"
+
               />
 
           </div>
 
-          <p className="text-muted text-sm">{note.user_name}</p>
+          <p className="color-muted text-sm">{note.user_name}</p>
           {note.tags?.map((tag) => (
             <Tag
               key={tag}
               className="px-8 py-2 flex items-center bg-default border-gray-500 border text-gray-500 text-xs"
             >
-              #<span className="color-subtle">{tag}</span>
+              <span className="color-subtle">{tag}</span>
             </Tag>
           ))}
 
@@ -242,7 +245,7 @@ export default function NoteCard({ note, showComments = false }) {
             alt="Post image"
             width={500}
             height={300}
-            className="w-full h-auto max-h-450 object-cover border-muted shadow-md rounded-[20px]"
+            className="w-full h-full max-h-450 object-cover object-center border-muted shadow-md rounded-[20px]"
           />
         )}
 

@@ -198,7 +198,7 @@ export default function Step6() {
         )}
 
         {/* <Link
-          className="text-sm text-muted-foreground text-center underline underline-offset-4"
+          className="text-sm color-muted-foreground text-center underline underline-offset-4"
           href="/"
         >
           Skip for now

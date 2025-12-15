@@ -102,11 +102,11 @@ export default function RequestFeed() {
                 {/* request.looking_for[0] || */}
                 <Bookmark size={20} />
               </div>
-              <hr className="w-[90%] mx-auto text-muted/30 my-8" />
+              <hr className="w-[90%] mx-auto color-muted/30 my-8" />
               <h2 className="text-lg font-bold mb-8">{request.title}</h2>
               <div className="flex">
                 <Tag>tags here</Tag>
-                <p className="ml-auto text-sm text-muted">
+                <p className="ml-auto text-sm color-muted">
                   {request.location} - {formatTimeAgo(request.created_at) || ""}
                 </p>
               </div>
@@ -120,7 +120,7 @@ export default function RequestFeed() {
               <p className="mb-2 truncate">{request.description}</p>
               <div className="flex items-center mt-auto w-full gap-4 justify-between">
                 <button
-                  className=" font-bold text-muted"
+                  className=" font-bold color-muted"
                   onClick={() => handleReadMore(request.id)}
                 >
                   Read more
