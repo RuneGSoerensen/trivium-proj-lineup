@@ -24,7 +24,7 @@ export default function RootLayout({ children }) {
 
               {/* Top Navbar - Visible on mobile/tablet, hidden on desktop */}
               <Navbar />
-              <div className="flex  lg:pt-0">
+              <div className="flex lg:pt-0 h-full">
                 <DesktopSidebar />
                 {/* Main Content */}
                 <main className="app-main">{children}</main>

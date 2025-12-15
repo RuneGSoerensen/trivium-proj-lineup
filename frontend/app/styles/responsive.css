@@ -34,7 +34,7 @@
     }
 
     .trvm-btn {
-      @apply btn-spc-high text-h3 max-w-fit;
+      @apply btn-spc-high text-h3;
     }
 
     .trvm-card {

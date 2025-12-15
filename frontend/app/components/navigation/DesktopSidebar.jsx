@@ -66,7 +66,7 @@ export default function DesktopSidebar() {
   };
 
   return (
-    <aside className="hidden lg:flex  left-0 top-0 bottom-0 w-[240px] flex-col border-r border-base-300 bg-base-100 z-50 px-12 py-20">
+    <aside className="hidden lg:flex left-0 top-0 bottom-0 w-400 flex-col border-r border-base-300 bg-alt z-50 px-12 py-20">
       {/* Logo */}
       <div className="mb-32 px-12">
         <Link href="/">
@@ -75,7 +75,6 @@ export default function DesktopSidebar() {
             alt="Lineup Logo"
             width={120}
             height={48}
-            className="w-auto h-12"
           />
         </Link>
       </div>
@@ -88,7 +87,7 @@ export default function DesktopSidebar() {
             href={link.href}
             className={`flex items-center gap-16 px-12 py-12 rounded-lg transition-all  duration-200  ${
               isActive(link.href)
-                ? "bg-base-200 font-semibold  "
+                ? "bg-base-100 font-semibold  "
                 : "hover:bg-base-200"
             }`}
           >

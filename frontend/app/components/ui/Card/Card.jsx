@@ -120,7 +120,7 @@ export function Card({
         {/* Footer */}
         <footer className="flex items-center justify-between pt-1">
           <Button
-            className={clsx("rounded-full w-fit mr-2", btnPads)}
+            className={clsx("rounded-full w-fit! px-0! mr-2", btnPads)}
             variant={ctaVariant}
             onClick={(e) => {
               if (!clickable) return;

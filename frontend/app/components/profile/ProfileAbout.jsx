@@ -151,7 +151,7 @@ export default function ProfileAbout({ profile, onQuestionSubmit }) {
       {/* VIDEOS */}
       <section className="profile-section">
         <label>Videos</label>
-        <div className="px-15 flex flex-col gap-10">
+        <div className="px-15 flex flex-col gap-15">
 
           {(profile.videos || []).map((v, i) => {
             if (typeof v === "string" && /^https?:\/\//.test(v)) {
@@ -176,7 +176,7 @@ export default function ProfileAbout({ profile, onQuestionSubmit }) {
                       height="100%"
                       allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture"
                       loading="lazy"
-                      className=" w-full h-full max-h-210 rounded-4xl"
+                      className=" w-full h-full rounded-4xl"
                     />
                   </div>
                 </div>
