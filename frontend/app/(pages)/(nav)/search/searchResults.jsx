@@ -1,6 +1,6 @@
+'use client';
 import { Card } from "@/components/ui/Card/Card";
 import User from "@/components/ui/User/User";
-import Image from "next/image";
 
 export const TABS = [
     "For you", "People", "Collaborations", "Services", "Tags"
@@ -8,17 +8,17 @@ export const TABS = [
 
 export const EMPTY_RESULTS =
 {
-    "recent": [],
-    "forYou": {
-        "people": [],
-        "collaborations": [],
-        "services": [],
-        "tags": [],
+    recent: [],
+    forYou: {
+        people: [],
+        collaborations: [],
+        services: [],
+        tags: [],
     },
-    "people": [],
-    "collaborations": [],
-    "services": [],
-    "tags": []
+  people: [],
+    collaborations: [],
+    services: [],
+    tags: []
 }
 
 export const SEARCH_SECTIONS = [

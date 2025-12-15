@@ -5,6 +5,7 @@ import { Search, X } from 'lucide-react';
 import { useRouter } from 'next/navigation';
 import { closeOverlay } from '@/utils/helpers';
 import { Tabs, TabsList, TabContentList, TabContent, TabItem } from '@/ui/Tab/Tab';
+import Image from 'next/image';
 import { useSearch } from '@/utils/useSearch';
 import { useEffect, useMemo, useState } from 'react';
 import {
@@ -26,6 +27,7 @@ export default function SearchOverlay() {
     const router = useRouter();
     const handleClose = () => closeOverlay(router);
     const [activeTab, setActiveTab] = useState(null)
+    const [currentUserId, setCurrentUserId] = useState(null);
     const {
         query,
         setQuery,
@@ -51,17 +53,14 @@ export default function SearchOverlay() {
         }),
     });
 
-    const [currentUserId, setCurrentUserId] = useState(null);
 
     useEffect(() => {
         getUserId().then(setCurrentUserId);
     }, []);
 
-
     // Generic handler used by People, Services, Tags, etc.
     const renderList = (items, label, type) => {
         const trimmedQuery = query.trim();
-
         const itemsArray = Array.isArray(items) ? items : [];
         const hasItems = itemsArray.length > 0;
 
@@ -92,7 +91,6 @@ export default function SearchOverlay() {
             // => show noResults for this tab
             return noResults(trimmedQuery, label);
         }
-
 
         if (error && !isLoading) {
             return errorMsg(error);
@@ -129,9 +127,10 @@ export default function SearchOverlay() {
         );
     };
 
-    // Renderer for the "For you" tab with grouped selections
-    const forYouData = useMemo(() => results?.forYou || EMPTY_RESULTS.forYou, [results]);
 
+    // Renderer for the "For you" tab with grouped selections
+
+    const forYouData = useMemo(() => results?.forYou || EMPTY_RESULTS.forYou, [results]);
     const renderForYou = () => {
         const { people, collaborations, services, tags } = forYouData;
         const hasAny = people.length || collaborations.length || services.length || tags.length;
@@ -188,131 +187,50 @@ export default function SearchOverlay() {
         )
     };
 
-    return noResults(trimmedQuery, "results");
-}
+
 return (
-    <section className="flex flex-col gap-12">
-        {people.length > 0 && (
-            <section className="flex flex-col gap-4">
-                <h6 className="text-h6">People</h6>
-                <div className="flex flex-col gap-4">
-                    {people.map(renderUserItem)}
-                </div>
-                {/* Tabs navigation */}
-                <Tabs isActive={activeTab !== null} defaultActiveTab={TABS[0]} onTabChange={(tab) => setActiveTab(tab)} activeClassName="search-tabs">
-                    <TabsList className="flex p-0! gap-24 rounded-none! justify-start!">
-
-                        {TABS.map((tab) => (
-                            <TabItem
-                                key={tab}
-                                className="flex justify-start! p-0! px-0! w-fit! rounded-none!"
-                                onClick={() => setActiveTab(tab)}
-                            >
-                                {tab}
-                            </TabItem>
-                        ))}
-                    </TabsList>
-
-                    <TabContentList className="search-tabs-content overflow-y-auto hide-scrollbar pb-8">
-                        <TabContent>{renderForYou()}</TabContent>
-                        {SEARCH_SECTIONS.map((section) => (
-                            <TabContent key={section.key}>
-                                {renderList(results?.[section.key], section.label, section.type)}
-                            </TabContent>
-                        ))}
-                    </TabContentList>
-                </Tabs>
-                {/* Default state: no tab selected, show recent searches */}
-                {!query.trim() && !activeTab && (
-                    <div className="flex flex-col gap-4 mb-4">
-                        <p className="text-sm color-muted">Recent</p>
-                        {recentSearches.length === 0 ? (
-                            <p className="text-base color-muted/30">No recent searches</p>
-                        ) : (
-                            <div className="flex flex-col justify-start items-start gap-4">
-                                {recentSearches.map((term) => (
-                                    <Button
-                                        key={term}
-                                        variant="ghost"
-                                        className="px-8 py-4 text-sm"
-                                        onClick={() => setQuery(term)}
-                                    >
-                                        {term}
-                                    </Button>
-                                ))}
-                            </div>
-                        )}
-                    </div>
-                )
-                }
-            </section>
-        )
-  };
-
-        return (
-        <section
-            className="fixed inset-0 bg-default z-60 p-12 flex flex-col gap-8 lg:max-w-600 mx-auto"
-            role="dialog"
-            aria-modal="true"
-            aria-labelledby="search-overlay"
-        >
-            <div className="flex flex-col mb-8">
-                <div className="flex justify-between items-center gap-8">
-                    <div className="relative grow mb-4" id="search-overlay">
-                        {/* Search Input */}
-                        <Input
-                            icon={
-                                <Search
-                                    size={18}
-                                    stroke="var(--color-neutral-medium)"
-                                    strokeWidth={2}
-                                />
-                            }
-                            type="text"
-                            placeholder="Search"
-                            className="placeholder:text-left! flex py-6 bg-muted/30 border-0 placeholder:color-muted/90"
-                            value={query}
-                            onChange={(e) => setQuery(e.target.value)}
-                            aria-label="Search input"
+    <section className="fixed inset-0 bg-default z-60 p-12 flex flex-col gap-8" role='dialog' aria-modal='true' aria-labelledby='search-overlay'>
+        <div className="flex flex-col mb-8">
+            <div className="flex justify-between items-center gap-8">
+                <div className="relative grow mb-4" id="search-overlay">
+                    {/* Search Input */}
+                    <Input
+                        icon={<Search size={18} stroke="var(--color-neutral-medium)" strokeWidth={2} />}
+                        type="text"
+                        placeholder="Search"
+                        className="placeholder:text-left! flex py-6 bg-muted/30 border-0 placeholder:color-muted/90"
+                        value={query}
+                        onChange={(e) => setQuery(e.target.value)}
+                        aria-label="Search input"
+                    />
+                    {query && (
+                        <Button
+                            icon={<X />}
+                            type="icon"
+                            iconSize='md'
+                            size='icon-md'
+                            variant="ghost"
+                            className="absolute w-fit! right-0 top-1/2 translate-y-[-50%] text-sm color-subtle hover:color-default hover:bg-transparent"
+                            onClick={() => setQuery("")}
+                            aria-label="Clear search"
                         />
-                        {query && (
-                            <Button
-                                icon={<X />}
-                                type="icon"
-                                iconSize="md"
-                                size="icon-md"
-                                variant="ghost"
-                                className="absolute w-fit! right-0 top-1/2 translate-y-[-50%] text-sm color-subtle hover:color-default hover:bg-transparent"
-                                onClick={() => setQuery("")}
-                                aria-label="Clear search"
-                            />
-                        )}
-                    </div>
+
+                    )}
                 </div>
                 {/* Close overlay button */}
-                <Button
-                    type="default"
-                    variant="ghost"
-                    className="mb-4 pl-8! pr-4!"
-                    onClick={handleClose}
-                >
+                <Button type="default" variant="ghost" className="mb-4 pl-8! pr-4!" onClick={handleClose}>
                     Cancel
                 </Button>
             </div>
-        </section>
+        </div>
         {/* Tabs navigation */}
-        <Tabs
-            isActive={activeTab !== null}
-            defaultActiveTab={TABS[0]}
-            onTabChange={(tab) => setActiveTab(tab)}
-            activeClassName="search-tabs"
-        >
-            <TabsList className="flex p-0! gap-24 ">
-                {/* TODO: remove tab separator */}
+        <Tabs isActive={activeTab !== null} defaultActiveTab={TABS[0]} onTabChange={(tab) => setActiveTab(tab)} activeClassName="search-tabs">
+            <TabsList className="flex p-0! gap-24 rounded-none! justify-start!">
+
                 {TABS.map((tab) => (
                     <TabItem
                         key={tab}
-                        className="flex justify-start p-0! px-0! w-fit "
+                        className="flex justify-start! p-0! px-0! w-fit! rounded-none!"
                         onClick={() => setActiveTab(tab)}
                     >
                         {tab}
@@ -320,41 +238,38 @@ return (
                 ))}
             </TabsList>
 
-            <TabContentList className="search-tabs-content">
+            <TabContentList className="search-tabs-content overflow-y-auto hide-scrollbar pb-8">
                 <TabContent>{renderForYou()}</TabContent>
-                <TabContent>{renderPeopleList(results?.people, "People")}</TabContent>
-                <TabContent>
-                    {renderPeopleList(results?.collaborations, "Collaborations")}
-                </TabContent>
-                <TabContent>
-                    {renderPeopleList(results?.services, "Services")}
-                </TabContent>
-                <TabContent>{renderPeopleList(results?.tags, "Tags")}</TabContent>
+                {SEARCH_SECTIONS.map((section) => (
+                    <TabContent key={section.key}>
+                        {renderList(results?.[section.key], section.label, section.type)}
+                    </TabContent>
+                ))}
             </TabContentList>
         </Tabs>
         {/* Default state: no tab selected, show recent searches */}
-        {
-            !query.trim() && !activeTab && (
-                <div className="flex flex-col gap-4 mb-4">
-                    <h5 className="text-sm color-muted/50">Recent</h5>
-                    {recentSearches.length === 0 ? (
-                        <p className="text-base color-muted/30">No recent searches</p>
-                    ) : (
-                        <div className="flex flex-col justify-start items-start gap-4">
-                            {recentSearches.map((term) => (
-                                <Button
-                                    key={term}
-                                    variant="ghost"
-                                    className="px-8 py-4 text-sm"
-                                    onClick={() => setQuery(term)}
-                                >
-                                    {term}
-                                </Button>
-                            ))}
-                        </div>
-                    )}
-                </div>
-            )
+        {!query.trim() && !activeTab && (
+            <div className="flex flex-col gap-4 mb-4">
+                <p className="text-sm color-muted">Recent</p>
+                {recentSearches.length === 0 ? (
+                    <p className="text-base color-muted/30">No recent searches</p>
+                ) : (
+                    <div className="flex flex-col justify-start items-start gap-4">
+                        {recentSearches.map((term) => (
+                            <Button
+                                key={term}
+                                variant="ghost"
+                                className="px-8 py-4 text-sm"
+                                onClick={() => setQuery(term)}
+                            >
+                                {term}
+                            </Button>
+                        ))}
+                    </div>
+                )}
+            </div>
+        )
         }
-    </section >
-);
+    </section>
+)}
+
