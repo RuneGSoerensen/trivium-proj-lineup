@@ -56,17 +56,23 @@ https://github.com/orgs/eaaa-dob-wu-e25a/projects/17`
 
 ## Tech Stack beskrivelse
 
-- Backend: `node.js` app med følgende
-  dependencies:
-  - **express.js**
-  - **cors**
-  - **postgres**
-  - **uuid**
-  - **supabase/supabase-js**
-  - **commander**
-  - **morgan**
-  - **winston**
-  - **zod**
+- Backend: `node.js` REST API
+  - Backend står for kontakt med Postgres databasen
+    hos Supabase. Frontend sender `fetch` requests
+    til backend, som så gemmer/henter osv fra database
+  - De fleste endpoints er sikret med en middleware,
+    der forkaster requests uden en `Authorization` header og
+    valid JWT token. Vi validerer tokens hos Supabase
+  - Vi bruger følgende dependencies:
+    - `express.js`
+    - `cors`
+    - `postgres`
+    - `uuid`
+    - `@supabase/supabase-js`
+    - `commander`
+    - `morgan`
+    - `winston`
+    - `zod`
 - Frontend: `next.js` app med server-side
   rendering
   - **react.js**
@@ -165,5 +171,14 @@ https://github.com/orgs/eaaa-dob-wu-e25a/projects/17`
     rækker. Det bør ikke være muligt at lave
     en follow request fra B til A, hvis der
     allerede er en fra A til B.
+- **Backend request-validering**
+  - I enkelte endpoints har vi brugt Zod som løsning
+    på at få valideret den input, der sendes til backend.
+    Da man bør anse alt data i en backend request som
+    upålidelig er det vigtigt den bliver valideret før
+    den fx gemmes i databasen, ellers er der stor risiko
+    for at vi gemmer invalid data eller crasher backenden helt.
+    Zod genererer også en liste over valideringsfejl, der kan gøre
+    det nemmere at implementere fejlbeskeder i frontend.
 
 ---
