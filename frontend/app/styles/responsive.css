@@ -15,7 +15,7 @@
     }
     /*BUTTON*/
     .trvm-btn {
-      @apply btn-spc-high text-h3 w-full max-w-fit;
+      @apply btn-spc-high text-h3 w-full;
     }
 
     .trvm-card {

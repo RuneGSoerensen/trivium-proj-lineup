@@ -44,9 +44,9 @@ export default function Stories() {
                     : `https://ui-avatars.com/api/?name=${encodeURIComponent(userAvatarInitials(story.name))}&${defaultAvatarStyle}&size=128`
                 }
                 alt={story.name}
-                className=" w-74 h-74 rounded-full object-cover border-brand"
-                width={48}
-                height={48}
+                className="w-74 h-74 rounded-full object-cover border-brand"
+                width={77}
+                height={77}
               />
             </div>
             <p className="text-sm text-center leading-16!">{story.name}</p>

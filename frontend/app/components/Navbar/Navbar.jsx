@@ -34,12 +34,12 @@ export default function Navbar() {
 
   const ACTIONS = ACTION_DEFS(router);
 
-  // ... dine forskellige type-cases (search, title, chat, osv.)
+  // ... de forskellige type-cases (search, title, chat, osv.)
 
   // DEFAULT case:
   return (
     <nav
-      className={`flex items-center justify-between w-full h-(--nav-height) px-16 py-8 ${config.backgroundColor} fixed top-0 left-0 right-0 z-50`}
+      className={`flex items-center justify-between w-full h-(--nav-height) px-16 py-8 ${config.backgroundColor} fixed top-0 left-0 right-0 z-50 lg:hidden`}
     >
       {config.showBack ? (
         <Button

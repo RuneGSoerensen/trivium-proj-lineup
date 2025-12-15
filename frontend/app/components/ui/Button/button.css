@@ -6,7 +6,7 @@
     @apply flex items-center! justify-center gap-8 rounded-full
            font-normal font-ui text-body
            transition-colors duration-150 
-           cursor-pointer w-full h-full md:max-w-md xl:max-w-xl;
+           cursor-pointer w-full h-full;
   }
 
   .btn-primary {

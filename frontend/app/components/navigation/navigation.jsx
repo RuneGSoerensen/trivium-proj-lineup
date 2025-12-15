@@ -50,7 +50,7 @@ export default function Navigation() {
   return (
     // Nav container
     // Remove Change color secondary darkgrey
-    <nav className="fixed bottom-28 left-0 right-0 flex w-full justify-center z-50">
+    <nav className="fixed bottom-28 left-0 right-0 flex w-full justify-center z-50 lg:hidden">
       <div className="flex items-center justify-between rounded-pill trvm-glass-dark px-4 py-6 w-360">
         {/* Mapped links */}
         {links.map((link) => (

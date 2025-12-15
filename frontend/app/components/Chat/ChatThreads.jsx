@@ -41,7 +41,6 @@ export function ChatThreadItem({ thread, isActive, onSelect }) {
     return (
         <Button
             variant='secondary'
-            type="button"
             className={clsx(
                 "chat-thread-item overflow-x-hidden w-full! flex flex-col items-start gap-3 py-12 my-4 text-left border-0 border-b border-gray-200 rounded-none hover:bg-base-200 rounded-t-lg text-body focus:bg-base-200",
                 isActive && "active"
