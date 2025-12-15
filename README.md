@@ -11,6 +11,8 @@
 [![Commander](https://img.shields.io/badge/Commander-CLI-purple?style=flat&logo=command-line-interface)](https://github.com/tj/commander.js)
 [![Winston](https://img.shields.io/badge/Winston-Logging-orange?style=flat&logo=logstash)](https://github.com/winstonjs/winston)
 [![Morgan](https://img.shields.io/badge/Morgan-HTTP%20Logger-red?style=flat&logo=logstash)](https://github.com/expressjs/morgan)
+[![Tailwind CSS](https://img.shields.io/badge/Tailwind_CSS-Design-blue?style=flat&logo=tailwind-css)](https://tailwindcss.com/)
+[![Flyonui](https://img.shields.io/badge/Flyonui-Component%20Library-yellow?style=flat&logo=react)](https://flyonui.com/)
 
 ---
 
@@ -31,16 +33,13 @@
 
 ## Links
 
-    - **Frontend**: `https://trivium.lol`
-      - Omdirigerer til:
-        `https://trivium-proj-lineup.vercel.app/`
-    - **Backend**: `https://trivium.lol/api`
-
-    _(Note: Update with actual test credentials once available)_
+- **Frontend**: `https://trivium.lol`
+  - Omdirigerer til: `https://trivium-proj-lineup.vercel.app/`
+- **Backend API**: `https://trivium.lol/api`
 
 ## Projekt board
 
-    - `https://github.com/orgs/eaaa-dob-wu-e25a/projects/17`
+https://github.com/orgs/eaaa-dob-wu-e25a/projects/17`
 
 ---
 
@@ -57,19 +56,22 @@
 
 ## Tech Stack beskrivelse
 
-    - Backend: `node.js` app med følgende
-      dependencies:
-      - `express.js`
-      - `cors`
-      - `postgres`
-      - `uuid`
-      - `@supabase/supabase-js`
-      - `commander`
-      - `morgan`
-      - `winston`
-      - `zod`
-    - Frontend: `next.js` app med server-side
-      rendering
+- Backend: `node.js` app med følgende
+  dependencies:
+  - **express.js**
+  - **cors**
+  - **postgres**
+  - **uuid**
+  - **supabase/supabase-js**
+  - **commander**
+  - **morgan**
+  - **winston**
+  - **zod**
+- Frontend: `next.js` app med server-side
+  rendering
+  - **react.js**
+  - **tailwind**
+  - **flyonui**
 
 ---
 
