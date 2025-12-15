@@ -56,20 +56,19 @@ export default function ProfileAbout({ profile, onQuestionSubmit }) {
       <section className="profile-section">
         <label>Genres</label>
         <div className="flex flex-wrap gap-6 ml-10">
-          {
-            profile.genres.map((g) => (
-              g ? (
-                <Tag
-                  key={g}
-                  colorScheme="info"
-                  className="px-8 py-2 flex items-center"
-                >
-                  {g}
-                </Tag>
-              ) : (
-                <p key={g} className="color-default py-6">No genres specified.</p>
-              )))
-          }
+          {profile.genres && profile.genres.length > 0 && profile.genres.some((g) => g) ? (
+            profile.genres.filter((g) => g).map((g) => (
+              <Tag
+                key={g}
+                colorScheme="info"
+                className="px-8 py-2 flex items-center"
+              >
+                {g}
+              </Tag>
+            ))
+          ) : (
+            <p className="color-default py-6">No genres specified.</p>
+          )}
         </div>
       </section>
       {/* SOCIAL MEDIA */}
