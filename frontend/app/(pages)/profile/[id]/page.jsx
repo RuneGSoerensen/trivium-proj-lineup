@@ -76,7 +76,8 @@ export default function ProfilePage() {
         const followingRes = await authenticatedFetch(
           `${process.env.NEXT_PUBLIC_DATABASE_URL}/connections/${currentUser}/following/${params.id}`
         );
-        isFollowing = followingRes.ok;
+        const { is_following } = await followingRes.json();
+        isFollowing = is_following;
       }
 
       setProfile({
