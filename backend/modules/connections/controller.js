@@ -1,6 +1,7 @@
 import sql from '../../db.js';
 export const follow = async (req, res) => {
-  const { follower_id, following_id } = req.body;
+  const follower_id = req.userId;
+  const following_id = req.params.profileId;
 
   try {
     await sql`
@@ -16,7 +17,8 @@ export const follow = async (req, res) => {
 };
 
 export const unfollow = async (req, res) => {
-  const { follower_id, following_id } = req.body;
+  const follower_id = req.userId;
+  const following_id = req.params.profileId;
 
   try {
     await sql`

@@ -5,7 +5,7 @@
 @import "../components/ui/Input/input.css";
 @import "../components/ui/Carousel/carousel.css";
 @import "../components/Chat/chat-styles.css";
-@import "../components/Profile/profile.css";
+@import "../components/profile/profile.css";
 
 /* Mobile First - Base styles */
 @layer components {

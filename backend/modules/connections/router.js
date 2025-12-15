@@ -5,10 +5,10 @@ import { requireAuth } from '../../middelware/auth.js';
 const router = express.Router();
 
 // Follow user
-router.post('/follow', requireAuth, follow);
+router.post('/follow/:profileId', requireAuth, follow);
 
 // Unfollow user
-router.delete('/unfollow', requireAuth, unfollow);
+router.delete('/unfollow/:profileId', requireAuth, unfollow);
 
 // Stats: followers + following count
 router.get('/:id/stats', requireAuth, getStats);

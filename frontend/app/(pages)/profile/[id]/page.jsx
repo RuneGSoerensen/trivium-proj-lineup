@@ -76,7 +76,8 @@ export default function ProfilePage() {
         const followingRes = await authenticatedFetch(
           `${process.env.NEXT_PUBLIC_DATABASE_URL}/connections/${currentUser}/following/${params.id}`
         );
-        isFollowing = followingRes.ok;
+        const { is_following } = await followingRes.json();
+        isFollowing = is_following;
       }
 
       setProfile({
@@ -150,26 +151,18 @@ export default function ProfilePage() {
     try {
       if (profile?.is_following) {
         await authenticatedFetch(
-          `${process.env.NEXT_PUBLIC_DATABASE_URL}/connections/unfollow`,
+          `${process.env.NEXT_PUBLIC_DATABASE_URL}/connections/unfollow/${params.id}`,
           {
             method: "DELETE",
-            headers: { "Content-Type": "application/json" },
-            body: JSON.stringify({
-              follower_id: currentUserId,
-              following_id: params.id,
-            }),
+            headers: { "Content-Type": "application/json" }
           }
         );
       } else {
         await authenticatedFetch(
-          `${process.env.NEXT_PUBLIC_DATABASE_URL}/connections/follow`,
+          `${process.env.NEXT_PUBLIC_DATABASE_URL}/connections/follow/${params.id}`,
           {
             method: "POST",
-            headers: { "Content-Type": "application/json" },
-            body: JSON.stringify({
-              follower_id: currentUserId,
-              following_id: params.id,
-            }),
+            headers: { "Content-Type": "application/json" }
           }
         );
       }
