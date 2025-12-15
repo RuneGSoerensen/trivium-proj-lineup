@@ -71,13 +71,28 @@ export default function ProfilePage() {
       );
       const statsData = (await statsRes.json()) || {};
 
+      // Check follow relationship in both directions so "pending" state
+      // becomes false if either user follows the other.
       let isFollowing = false;
       if (currentUser) {
-        const followingRes = await authenticatedFetch(
-          `${process.env.NEXT_PUBLIC_DATABASE_URL}/connections/${currentUser}/following/${params.id}`
-        );
-        const { is_following } = await followingRes.json();
-        isFollowing = is_following;
+        try {
+          // Does currentUser follow the profile?
+          const followingRes = await authenticatedFetch(
+            `${process.env.NEXT_PUBLIC_DATABASE_URL}/connections/${currentUser}/following/${params.id}`
+          );
+          const { is_following } = (await followingRes.json()) || {};
+
+          // Does profile follow the currentUser?
+          const followerRes = await authenticatedFetch(
+            `${process.env.NEXT_PUBLIC_DATABASE_URL}/connections/${params.id}/following/${currentUser}`
+          );
+          const { is_following: is_followed_by } = (await followerRes.json()) || {};
+
+          // Consider the users connected if either direction exists.
+          isFollowing = !!is_following || !!is_followed_by;
+        } catch (err) {
+          console.error("Error checking follow relationships:", err);
+        }
       }
 
       setProfile({
