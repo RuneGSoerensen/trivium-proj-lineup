@@ -11,18 +11,18 @@
 
 ## Table of Contents
 
-- [Links](#-links)
-- [Projekt Board](#-projekt-board)
-- [Login test brugere](#-login-test-brugere)
-- [Tech Stack Beskrivelse](#-tech-stack-beskrivelse)
-- [Implementeret features](#-implementeret-features)
-- [Kendte issues](#-kendte-issues)
-- [Manglende features](#-manglende-features)
-- [Interne design beslutninger](#-interne-design-beslutninger)
-- [GitHub issues eksempler](#-github-issues-eksempler)
-- [Ekstra implementeret features](#-ekstra-implementeret-features)
-- [ER Diagram](#-er-diagram)
-- [Opsummering og refleksion](#-opsummering-og-refleksion)
+- [Links](#links)
+- [Projekt Board](#projekt-board)
+- [Login Test brugere](#login-test-brugere)
+- [Tech Stack beskrivelse](#tech-stack-beskrivelse)
+- [Implementeret features](#implementeret-features)
+- [Kendte issues](#kendte-issues)
+- [Manglende features](#manglende-features)
+- [Ekstra implementeret features](#ekstra-implementeret-features)
+- [Interne design beslutninger, samt arguementation](#interne-design-beslutninger-samt-arguementation)
+- [GitHub issues eksempler](#github-issues-eksempler)
+- [ER Diagram](#er-diagram)
+- [Opsummering og refleksion](#opsummering-og-refleksion)
 
 ## Links
 
