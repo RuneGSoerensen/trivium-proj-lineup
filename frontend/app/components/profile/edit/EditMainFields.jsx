@@ -2,7 +2,7 @@
 
 export default function EditMainFields({ formData, setFormData }) {
   return (
-    <div className="bg-default rounded-[24px] p-10 border-1 border-gray-300 mt-20">
+    <div className="bg-default rounded-[24px] p-10 border border-gray-300 mt-20">
       <div className="flex m-4 ">
         <label className="text-default font-semibold  mb-8 ">Name</label>
         <div>

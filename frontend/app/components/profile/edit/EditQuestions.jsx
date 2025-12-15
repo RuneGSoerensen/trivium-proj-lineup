@@ -2,7 +2,7 @@
 
 export default function EditQuestions({ formData, updateQuestion, removeQuestion, addQuestion, showQuestionsEdit, setShowQuestionsEdit }) {
   return (
-    <div className="bg-default rounded-[24px] p-10 border-1 border-gray-300 mt-20 pb-20 flex flex-col">
+    <div className="bg-default rounded-[24px] p-10 border border-gray-300 mt-20 pb-20 flex flex-col">
       <div className="flex items-center justify-between">
         <label className="text-default font-semibold  my-16 mx-4 ">Questions</label>
         <button onClick={() => setShowQuestionsEdit((s) => !s)} className="color-muted mr-4">

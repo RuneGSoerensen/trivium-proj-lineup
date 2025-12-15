@@ -500,14 +500,6 @@ main.app-main {
   max-width: 100%;
 }
 
-/* Responsive container system - Instagram style */
-@media (min-width: 768px) {
-  main.app-main {
-    max-width: 935px; /* Instagram's feed max width */
-    margin: 0 auto;
-  }
-}
-
 @media (min-width: 1440px) {
   main.app-main {
     margin-left: auto;

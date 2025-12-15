@@ -44,7 +44,7 @@ export default function Page() {
 
   return (
     <div className="max-w-4xl mx-auto">
-      <div className="mb-4 p-4 rounded-[24px] min-h-[620px] bg-white flex flex-col">
+      <div className="mb-4 p-4 rounded-[24px] min-h-620 bg-white flex flex-col">
         <div className="flex gap-8 items-center mb-8">
           <div className="w-40 h-40 mb-2 rounded-full overflow-hidden">
             <Image
@@ -78,7 +78,7 @@ export default function Page() {
         <p className="mb-2 text-lg">{request.description}</p>
         <div className="flex items-center w-full gap-4 mt-8">
           <Button
-            className="rounded-full !px-8 !py-6 border border-muted"
+            className="rounded-full px-8! py-6! border border-muted"
             size="md"
           >
             <div className="flex items-center gap-2">
@@ -94,7 +94,7 @@ export default function Page() {
             {request.genres && request.genres.length > 0 ? (
               request.genres.map((genre) => (
                 <Tag
-                  className={"!px-8 !py-4 bg-black text-white"}
+                  className={"px-8! py-4! bg-black text-white"}
                   key={genre.id}
                 >
                   {genre.name}
@@ -113,7 +113,7 @@ export default function Page() {
             {request.musthaveskills && request.musthaveskills.length > 0 ? (
               request.musthaveskills.map((skill) => (
                 <Tag
-                  className={"!px-8 !py-4 bg-black text-white"}
+                  className={"px-8! py-4! bg-black text-white"}
                   key={skill.id}
                 >
                   {skill.name}

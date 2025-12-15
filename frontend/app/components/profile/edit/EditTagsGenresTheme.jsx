@@ -56,7 +56,7 @@ export default function EditTagsGenresTheme({
                 setFormData({ ...formData, looking_for_tags: [...formData.looking_for_tags, tagName] });
               }
             }}
-            className="w-full px-4 py-3 rounded-[12px] bg-muted border-none text-[15px] text-default focus:outline-none focus:ring-2 focus:ring-brand-primary"
+            className="w-full px-4 py-3 rounded-xl bg-muted border-none text-[15px] text-default focus:outline-none focus:ring-2 focus:ring-brand-primary"
           >
             <option value="" disabled>
               Select a tag...

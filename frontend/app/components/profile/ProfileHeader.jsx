@@ -62,7 +62,9 @@ export default function ProfileHeader({
           </div>
     
       </div>
-
+<div>
+  
+</div>
         {profile.is_own_profile ? (
           <div className="flex gap-16 items-center justify-center w-full pt-12">
             <Button
@@ -85,21 +87,21 @@ export default function ProfileHeader({
             <Button
               size="lg"
               variant="glass"
-              icon={profile.is_following ? <CircleCheck /> : <CirclePlus />}
+              icon={profile?.is_following ? <CircleCheck /> : <CirclePlus />}
               iconPosition="right"
               onClick={onFollow}
               className="w-full min-w-180 rounded-full"
             >
-              {profile.is_following ? (
-                "Connected"
-              ) : (
+              {profile?.is_following ? (
                 "Connect"
+              ) : (
+                "Connected"
               )}
             </Button>
             <Button
               size="lg"
               variant="glass"
-              className="w-full max-w-180 py-3 rounded-full">
+              className="w-full min-w-180 py-3 rounded-full">
               Message
             </Button>
           </div>

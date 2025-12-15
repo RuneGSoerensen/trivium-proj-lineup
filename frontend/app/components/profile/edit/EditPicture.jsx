@@ -7,7 +7,7 @@ export default function EditPicture({ formData, setFormData, showImageUrl, setSh
       <div className="flex flex-col items-center gap-4">
         {showImageUrl ? (
           <div className="w-full flex flex-col items-center gap-3">
-            <div className="w-[120px] h-[120px] rounded-full bg-muted overflow-hidden">
+            <div className="w-120 h-120 rounded-full bg-muted overflow-hidden">
               <Image
                 src={formData.image_url || "/placeholder.svg"}
                 alt="Profile"
@@ -23,7 +23,7 @@ export default function EditPicture({ formData, setFormData, showImageUrl, setSh
               onChange={(e) =>
                 setFormData({ ...formData, image_url: e.target.value })
               }
-              className="w-full max-w-md px-4 py-3 rounded-[12px] bg-muted border-none text-[15px] bg-white text-default placeholder:color-muted/60 focus:outline-none focus:ring-2 focus:ring-brand-primary"
+              className="w-full max-w-md px-4 py-3 rounded-xl bg-muted border-none text-[15px] bg-white text-default placeholder:color-muted/60 focus:outline-none focus:ring-2 focus:ring-brand-primary"
             />
 
             <div className="flex gap-2">
@@ -43,7 +43,7 @@ export default function EditPicture({ formData, setFormData, showImageUrl, setSh
           </div>
         ) : (
           <>
-            <div className="w-[120px] h-[120px] rounded-full bg-muted overflow-hidden">
+            <div className="w-120 h-120 rounded-full bg-muted overflow-hidden">
               {formData.image_url ? (
                 <Image
                   src={formData.image_url || "/placeholder.svg"}

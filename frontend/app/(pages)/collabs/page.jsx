@@ -83,7 +83,7 @@ export default function RequestFeed() {
           requests.map((request) => (
             <div
               key={request.id}
-              className="mb-4 p-4 border border-muted/10 rounded-[24px] min-h-[620px]  p-12 bg-white flex flex-col "
+              className="mb-4 p-4 border border-muted/10 rounded-[24px] min-h-620 bg-default flex flex-col "
             >
               <div className="flex gap-8 items-center mb-2">
                 <div className=" w-40 h-40 mb-2 rounded-full overflow-hidden">
@@ -115,7 +115,7 @@ export default function RequestFeed() {
                 alt={request.title}
                 width={400}
                 height={300}
-                className="  w-full object-cover my-8 rounded-2xl max-h-[600px]"
+                className="  w-full object-cover my-8 rounded-2xl max-h-600"
               />
               <p className="mb-2 truncate">{request.description}</p>
               <div className="flex items-center mt-auto w-full gap-4 justify-between">
@@ -126,7 +126,7 @@ export default function RequestFeed() {
                   Read more
                 </button>
                 <Button
-                  className="rounded-full !px-8 !py-6 border border-muted"
+                  className="rounded-full px-8! py-6! border border-muted"
                   size="md"
                 >
                   <div className="flex items-center gap-2">
@@ -140,7 +140,7 @@ export default function RequestFeed() {
       {hasMore && (
         <div className="max-w-140 mx-auto pb-12">
           <Button
-            className={"!px-4 rounded-full !py-6 border border-muted"}
+            className={"px-4! rounded-full py-6! border border-muted"}
             onClick={loadMore}
             disabled={loadingMore}
           >
