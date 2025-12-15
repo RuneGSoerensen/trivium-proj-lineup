@@ -118,7 +118,7 @@ export default function DesktopSidebar() {
             href={link.href}
             className={`flex items-center gap-16 px-12 py-12 rounded-lg color-default! transition-all duration-200 ${isOpen ? "w-full" : "w-fit"} ${isActive(link.href)
               ? "bg-brand-primary font-semibold"
-              : "hover:bg-gray-300 color-default!"
+              : "hover:bg-grey-300 color-default!"
               }`}
           >
             <span>

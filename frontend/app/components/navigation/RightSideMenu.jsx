@@ -91,9 +91,9 @@ export default function RightSideMenu() {
               onClick={() => handleItemClick(item)}
               className={`flex bg-alt! items-center border-none! gap-16 px-12 py-12 rounded-lg transition-all duration-200 w-full text-left 
               ${isActive(item.href)
-                  ? "bg-default font-semibold"
-                  : "hover:bg-gray-300 color-default!"
-                } ${isDestructive ? "text-error hover:text-error" : ""}`}
+                  ? "bg-default! font-semibold"
+                  : "hover:bg-grey-300! color-default!"
+                } ${isDestructive ? "color-error hover:color-error" : ""}`}
             >
               {isOpen && (
                 <span
