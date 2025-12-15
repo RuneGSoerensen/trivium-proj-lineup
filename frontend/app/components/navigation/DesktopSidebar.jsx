@@ -13,11 +13,27 @@ import {
   CirclePlus,
   UserCircle,
   Bell,
+  ChevronLeft,
+  X,
+  ChevronRight,
+  PanelLeftOpen,
 } from "lucide-react";
+import { Button } from "@/ui/Button/Button";
 
 export default function DesktopSidebar() {
   const [userId, setUserId] = useState(null);
+  const [isOpen, setIsOpen] = useState(false);
   const pathname = usePathname();
+
+  const handleOpenClose = () => {
+    if (isOpen) {
+      setIsOpen(false);
+    } else {
+      setIsOpen(true);
+    }
+  }
+
+
 
   useEffect(() => {
     const setUserIdAsync = async () => {
@@ -66,17 +82,32 @@ export default function DesktopSidebar() {
   };
 
   return (
-    <aside className="hidden lg:flex left-0 top-0 bottom-0 w-400 flex-col border-r border-base-300 bg-alt z-50 px-12 py-20">
+    <aside className={`hidden transition-all duration-200 lg:flex left-0 top-0 bottom-0 w-400 flex-col border-r border-base-300 bg-alt z-50 px-12 py-20 ${isOpen ? "w-400" : "w-fit"}`}>
       {/* Logo */}
-      <div className="mb-32 px-12">
-        <Link href="/">
-          <Image
-            src="/images/lineup-type-logo.svg"
-            alt="Lineup Logo"
-            width={120}
-            height={48}
-          />
-        </Link>
+      <div className={`${isOpen ? "justify-between" : "justify-center"} flex pb-12 items-center`}>
+
+        {isOpen && (
+          <Button
+            variant="ghost"
+            onClick="/">
+
+            <Image
+              src="/images/lineup-type-logo.svg"
+              alt="Lineup Logo"
+              width={120}
+              height={48}
+            />
+
+          </Button>)}
+
+        <Button
+          type="icon"
+          variant={isOpen ? "ghost" : "secondary"}
+          size="icon-sm"
+          iconSize="md"
+          icon={isOpen ? <X className="cursor-pointer" /> : <PanelLeftOpen className="cursor-pointer" />}
+          onClick={handleOpenClose}
+        />
       </div>
 
       {/* Navigation Links */}
@@ -85,24 +116,23 @@ export default function DesktopSidebar() {
           <Link
             key={link.href}
             href={link.href}
-            className={`flex items-center gap-16 px-12 py-12 rounded-lg transition-all  duration-200  ${
-              isActive(link.href)
-                ? "bg-base-100 font-semibold  "
-                : "hover:bg-base-200"
-            }`}
+            className={`flex items-center gap-16 px-12 py-12 rounded-lg color-default! transition-all duration-200 ${isOpen ? "w-full" : "w-fit"} ${isActive(link.href)
+              ? "bg-brand-primary font-semibold"
+              : "hover:bg-gray-300 color-default!"
+              }`}
           >
-            <span
-              className={isActive(link.href) ? "text-primary" : "text-black"}
-            >
+            <span>
               {link.icon}
             </span>
-            <span
-              className={`text-body ${
-                isActive(link.href) ? "font-semibold text-black" : "text-black"
-              }`}
-            >
-              {link.label}
-            </span>
+
+            {isOpen && (
+              <span
+                className={`text-body transition-all duration-200 ${isActive(link.href) ? "font-semibold text-black" : "text-black"
+                  }`}
+              >
+                {link.label}
+              </span>
+            )}
           </Link>
         ))}
       </nav>

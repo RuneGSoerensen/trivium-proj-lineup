@@ -4,7 +4,7 @@
   -------------------------------- */
 
   .trvm-card {
-    @apply bg-default rounded-card p-8 w-full xl:max-w-xl;
+    @apply bg-default rounded-card p-8 w-full;
   }
 
   /* Tabs: typografi til FlyonUI tabs/pills */
