@@ -127,7 +127,7 @@ export default function EditTagsGenresTheme({
             <Button
               key={color.value}
               onClick={() => setFormData({ ...formData, theme: color.value })}
-              className={`w-20 h-30 rounded-full border-2 ${formData.theme ? color.value : "bg-secondary-blue"} ${
+              className={`w-20 h-30 rounded-full border-2 ${formData.theme || "bg-secondary-blue"} ${
                 formData.theme === color.value ? "border-brand border-4" : "border-transparent"
               }`}
             />

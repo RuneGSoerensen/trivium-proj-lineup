@@ -128,7 +128,7 @@ export default function EditProfilePage() {
           bio: data.user.bio || "",
           about: data.user.about || "",
           image_url: data.user.image_url || "",
-          theme: data.user.theme || "bg-secondary-blue",
+          theme: data.user.theme.value || "bg-secondary-blue",
           genres: data.user.genres || [],
           looking_for_tags: data.user.looking_for_tags || [],
           artists_i_like:

@@ -134,11 +134,11 @@ export function Card({
           </Button>
 
           {isService || (isCollab && isSmall) ? (location || timeAgo) && (
-            <caption className="text-sm color-muted gap-4 truncate">
+            <p className="text-sm color-muted gap-4 truncate">
               {location && <span>{location}</span>}
               {location && timeAgo && <span className="mx-4">-</span>}
               {timeAgo && <span>{timeAgo}</span>}
-            </caption>
+            </p>
           ) : isCollab && !isSmall ? (
             <Button
               variant="primary"

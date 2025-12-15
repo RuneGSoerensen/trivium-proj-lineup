@@ -154,42 +154,42 @@ export default function ProfileAbout({ profile, onQuestionSubmit }) {
         <label>Videos</label>
         <div className="px-15 flex flex-col gap-10">
 
-        {(profile.videos || []).map((v, i) => {
-          if (typeof v === "string" && /^https?:\/\//.test(v)) {
-            const ytMatch = v.match(
-              /(?:youtu\.be\/|youtube\.com\/(?:watch\?v=|embed\/))([\w-\-]{11})/i
-            );
-            const vimeoMatch = v.match(/vimeo\.com\/(?:video\/)?(\d+)/i);
-            let src = v;
-            if (ytMatch && ytMatch[1]) {
-              src = `https://www.youtube.com/embed/${ytMatch[1]}`;
-            } else if (vimeoMatch && vimeoMatch[1]) {
-              src = `https://player.vimeo.com/video/${vimeoMatch[1]}`;
+          {(profile.videos || []).map((v, i) => {
+            if (typeof v === "string" && /^https?:\/\//.test(v)) {
+              const ytMatch = v.match(
+                /(?:youtu\.be\/|youtube\.com\/(?:watch\?v=|embed\/))([\w-\-]{11})/i
+              );
+              const vimeoMatch = v.match(/vimeo\.com\/(?:video\/)?(\d+)/i);
+              let src = v;
+              if (ytMatch && ytMatch[1]) {
+                src = `https://www.youtube.com/embed/${ytMatch[1]}`;
+              } else if (vimeoMatch && vimeoMatch[1]) {
+                src = `https://player.vimeo.com/video/${vimeoMatch[1]}`;
+              }
+
+              return (
+                <div key={i} className="w-full">
+                  <div className="aspect-video w-full">
+                    <iframe
+                      src={src}
+                      title={`video-${i}`}
+                      width="100%"
+                      height="100%"
+                      allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture"
+                      loading="lazy"
+                      className=" w-full h-full max-h-210 rounded-4xl"
+                    />
+                  </div>
+                </div>
+              );
             }
 
             return (
-              <div key={i} className="w-full">
-                <div className="aspect-video w-full">
-                  <iframe
-                    src={src}
-                    title={`video-${i}`}
-                    width="100%"
-                    height="100%"
-                    allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture"
-                    loading="lazy"
-                    className=" w-full h-full max-h-210 rounded-4xl"
-                  />
-                </div>
-              </div>
+              <Tag key={i} className="px-8 py-2" colorScheme="info">
+                <span className="">{v}</span>
+              </Tag>
             );
-          }
-
-          return (
-            <Tag key={i} className="px-8 py-2" colorScheme="info">
-              <span className="">{v}</span>
-            </Tag>
-          );
-        })}
+          })}
         </div>
       </section>
       {/* PAST COLLABS */}
