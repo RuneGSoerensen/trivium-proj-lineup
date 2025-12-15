@@ -66,6 +66,8 @@
     - Frontend: `next.js` app med server-side
       rendering
 
+---
+
 ## Implementeret features
 
 - En liste og kort beskrivelse af de features, I
@@ -83,6 +85,8 @@
   - **Mobile design** (mobile-first)
   - **Desktop design**
 
+---
+
 ## Kendte issues
 
     -
@@ -95,9 +99,13 @@
 
     -
 
+---
+
 ## Interne design beslutninger, samt arguementation
 
     - ??
+
+---
 
 ## GitHub issues eksempler
 
@@ -108,9 +116,13 @@
       der viser konstruktiv feedback og
       forbedringer på en feature
 
+---
+
 ## ER Diagram
 
     - ???
+
+---
 
 ## Opsummering og refleksion
 
@@ -119,3 +131,5 @@ over hvad har fungeret godt i projektet, og
 hvad I ville gøre anderledes hvis I skulle
 lave projektet igen — både i forhold til
 tekniske valg, samarbejde og projektstyring. - ???
+
+---
