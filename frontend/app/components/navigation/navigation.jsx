@@ -5,19 +5,23 @@ import { useState, useEffect } from "react";
 import NavLink from "./NavLink";
 import { useBottomNav } from "@/utils/navbarContext";
 import { getUserId } from "@/utils/auth";
-import { CirclePlus, Home, MessageCircleMore, Store, UserCircle } from "lucide-react";
+import {
+  CirclePlus,
+  Home,
+  MessageCircleMore,
+  Store,
+  UserCircle,
+} from "lucide-react";
 
 export default function Navigation() {
   // Read userId only on the client after mount to avoid SSR/CSR hydration mismatch
   const [userId, setUserId] = useState(null);
   useEffect(() => {
-
     // NOTE: This is a workaround for getUserId being async now.
     const setUserIdAsync = async () => {
       setUserId(await getUserId());
-    }
+    };
     setUserIdAsync();
-
   }, []);
 
   // Base links that are safe to render on the server
@@ -48,10 +52,9 @@ export default function Navigation() {
   };
 
   return (
-    // Nav container
-    // Remove Change color secondary darkgrey
-    <nav className="fixed bottom-28 left-0 right-0 flex w-full justify-center z-50">
-      <div className="flex items-center justify-between rounded-pill trvm-glass-dark p-4 w-360">
+    // Nav container - Hidden on desktop (lg+), visible on mobile/tablet
+    <nav className="fixed bottom-28 left-0 right-0 flex w-full justify-center z-50 lg:hidden">
+      <div className="flex items-center justify-between rounded-pill trvm-glass-dark p-4 w-360 ">
         {/* Mapped links */}
         {links.map((link) => (
           <NavLink

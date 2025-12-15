@@ -45,7 +45,7 @@ export function Card({
       className={clsx(
         `${
           isSmall ? "min-h-193" : "h-fit"
-        } rounded-[24px] min-w-333 trvm-card bg-default color-default border border-muted/30`,
+        } rounded-[24px] min-w-333 lg:max-w-[800px] trvm-card bg-default color-default border border-muted/30`,
         clickable && "cursor-pointer",
         className
       )}
@@ -113,7 +113,7 @@ export function Card({
               alt={imageAlt}
               width={imgWidth}
               height={imgHeight}
-              className="w-full h-full object-cover"
+              className="w-full h-full  object-cover"
             />
           </figure>
         )}

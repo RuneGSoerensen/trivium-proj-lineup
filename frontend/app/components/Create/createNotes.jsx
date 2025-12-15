@@ -80,7 +80,7 @@ export default function CreateNotes({ userName, userImage }) {
           <Image
             src={userImage}
             alt={userName}
-            className="rounded-full border-none"
+            className="rounded-full border-none object-cover w-44 h-44"
             width={44}
             height={44}
           />
