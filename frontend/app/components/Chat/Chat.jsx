@@ -1,9 +1,9 @@
-import React, { useEffect, useRef, useState } from "react"
+import React, { useEffect, useRef, useState } from "react";
 import ReactMarkdown from "react-markdown";
-import { Prism as SyntaxHighlighter } from 'react-syntax-highlighter';
+import { Prism as SyntaxHighlighter } from "react-syntax-highlighter";
 import { sendMessage } from "@/utils/api";
 import Input from "@/ui/Input/Input";
-import { Button } from '@/ui/Button/Button';
+import { Button } from "@/ui/Button/Button";
 import { Mic, Plus } from "lucide-react";
 import Image from "next/image";
 
@@ -129,6 +129,5 @@ function ChatInput({ threadId, onMessageSent }) {
 
     )
 }
-
 
 export { Message, ChatMessages, ChatInput };

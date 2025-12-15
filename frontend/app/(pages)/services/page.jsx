@@ -2,10 +2,10 @@
 import React, { useEffect, useState } from "react";
 import { useRouter } from "next/navigation";
 import { ListFilter, Search, X } from "lucide-react";
-import { Card } from "@/ui/Card/Card"
-import { Button } from '@/ui/Button/Button';
-import Input from '@/ui/Input/Input';
-import { Tag } from '@/ui/Tag/Tag';
+import { Card } from "@/ui/Card/Card";
+import { Button } from "@/ui/Button/Button";
+import Input from "@/ui/Input/Input";
+import { Tag } from "@/ui/Tag/Tag";
 import { useNavbar } from "@/utils/navbarContext";
 import { services } from "./serviceData"; // Assume this is an array of service objects
 
@@ -30,7 +30,6 @@ export default function Page() {
     console.log("Searching for:", query);
   };
 
- 
   // Unique tag options derived from services
   const uniqueTags = Array.from(new Set(services.map((s) => s.tag)));
 
@@ -52,7 +51,6 @@ export default function Page() {
       handleFilterSelect(option);
     }
   };
-
 
   // Derived list of visible services based on query + selected tag
   const filteredServices = services.filter((s) => {
@@ -142,7 +140,7 @@ export default function Page() {
           </Button>
         </div>
       </div>
-      <div className="flex flex-col space-y-24 mt-14 overflow-y-auto">
+      <div className="flex flex-col space-y-24 mt-18 lg:mx-auto ">
         {filteredServices.map((s) => (
           <Card
             type="Service"

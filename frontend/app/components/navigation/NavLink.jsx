@@ -5,7 +5,6 @@ import Image from "next/image";
 import { Button } from "../ui/Button/Button";
 
 export default function NavLink({ href, label, icon, isActive }) {
-
   return (
     // Links template
     <Link
@@ -22,7 +21,6 @@ export default function NavLink({ href, label, icon, isActive }) {
         aria-label={label}
       >
         <span className="text-[10px] font-medium">{label}</span>
-
       </Button>
     </Link>
   );

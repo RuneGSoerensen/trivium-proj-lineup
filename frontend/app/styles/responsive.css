@@ -7,13 +7,58 @@
 @import "../components/Chat/chat-styles.css";
 @import "../components/Profile/profile.css";
 
-/*desktop layout*/
+/* Mobile First - Base styles */
+@layer components {
+  .responsive-grid {
+    @apply grid grid-cols-1 gap-16;
+  }
+
+  .content-container {
+    @apply w-full px-16;
+  }
+
+  .feed-column {
+    @apply w-full;
+  }
+}
+
+/* Tablet (768px+) - Instagram style breakpoint */
+@media (min-width: 768px) {
+  @layer components {
+    .responsive-grid {
+      @apply grid-cols-2 gap-20;
+    }
+
+    .content-container {
+      @apply px-20 max-w-[935px] mx-auto;
+    }
+
+    .trvm-btn {
+      @apply btn-spc-high text-h3 max-w-fit;
+    }
+
+    .trvm-card {
+      @apply p-12;
+    }
+
+    .trvm-tag {
+      @apply px-10 py-5 text-body-sm;
+    }
+  }
+}
+
+/* Desktop (1024px+) - Multi-column layout */
 @media (min-width: 1024px) {
   @layer components {
     main {
       flex-direction: row;
     }
-    /*BUTTON*/
+
+    .responsive-grid {
+      @apply grid-cols-3 gap-24;
+    }
+
+    /* BUTTON */
     .trvm-btn {
       @apply btn-spc-high text-h3 w-full;
     }
@@ -25,15 +70,58 @@
     .trvm-tag {
       @apply px-12 py-6 text-body;
     }
+
     .tabs--list {
       @apply px-16 py-12 w-full;
     }
+
     .tabs--list .trvm-tab {
       @apply px-16 py-8 text-body w-full;
     }
 
     .nav--item {
       @apply px-16 py-8 text-h3;
+    }
+
+    /* Feed layout with sidebar space */
+    .feed-column {
+      @apply max-w-[600px];
+    }
+
+    .sidebar-column {
+      @apply w-[280px] ml-auto;
+    }
+  }
+}
+
+/* Large Desktop (1440px+) - Maximum width constraint */
+@media (min-width: 1440px) {
+  @layer components {
+    .content-container {
+      @apply max-w-[1200px];
+    }
+
+    .feed-layout {
+      @apply flex gap-24 max-w-[1200px] mx-auto;
+    }
+  }
+}
+
+/* Extra utility classes for Instagram-like experience */
+@layer utilities {
+  .instagram-container {
+    @apply w-full max-w-full mx-auto px-16;
+  }
+
+  @media (min-width: 768px) {
+    .instagram-container {
+      @apply max-w-[935px] px-20;
+    }
+  }
+
+  @media (min-width: 1024px) {
+    .instagram-container {
+      @apply px-24;
     }
   }
 }

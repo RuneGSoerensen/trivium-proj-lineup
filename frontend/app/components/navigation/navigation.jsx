@@ -5,19 +5,23 @@ import { useState, useEffect } from "react";
 import NavLink from "./NavLink";
 import { useBottomNav } from "@/utils/navbarContext";
 import { getUserId } from "@/utils/auth";
-import { CirclePlus, Home, MessageCircleMore, Store, UserCircle } from "lucide-react";
+import {
+  CirclePlus,
+  Home,
+  MessageCircleMore,
+  Store,
+  UserCircle,
+} from "lucide-react";
 
 export default function Navigation() {
   // Read userId only on the client after mount to avoid SSR/CSR hydration mismatch
   const [userId, setUserId] = useState(null);
   useEffect(() => {
-
     // NOTE: This is a workaround for getUserId being async now.
     const setUserIdAsync = async () => {
       setUserId(await getUserId());
-    }
+    };
     setUserIdAsync();
-
   }, []);
 
   // Base links that are safe to render on the server

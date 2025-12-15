@@ -492,7 +492,26 @@ main.app-main {
   align-items: center;
   flex-direction: column;
   display: flex;
-  padding: var(--page-pt) var(--page-px) var(--page-pb);
+  padding: var(--page-py) var(--page-px);
+
+  /* Instagram-like responsive container */
+  width: 100%;
+  max-width: 100%;
+}
+
+/* Responsive container system - Instagram style */
+@media (min-width: 768px) {
+  main.app-main {
+    max-width: 935px; /* Instagram's feed max width */
+    margin: 0 auto;
+  }
+}
+
+@media (min-width: 1440px) {
+  main.app-main {
+    margin-left: auto;
+    margin-right: auto;
+  }
 }
 
 .full-bleed {

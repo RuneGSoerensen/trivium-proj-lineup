@@ -103,7 +103,7 @@ export function Card({
               alt={imageAlt}
               width={imgWidth}
               height={imgHeight}
-              className="w-full h-full object-cover"
+              className="w-full h-full  object-cover"
             />
           </figure>
         )}
