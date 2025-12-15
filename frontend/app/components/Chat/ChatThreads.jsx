@@ -6,32 +6,32 @@ import { Button } from "@/ui/Button/Button";
 import { DivideSquare } from "lucide-react";
 
 export function ChatThreadItem({ thread, isActive, onSelect }) {
-  const {
-    id,
-    isGroup,
-    participantName, // 1:1 chat
-    participantAvatarUrl, // 1:1 chat
-    participantNames, // group chat
-    title, // group title
-    lastMessagePreview,
-    lastMessageAt,
-  } = thread;
+    const {
+        id,
+        isGroup,
+        participantName, // 1:1 chat
+        participantAvatarUrl, // 1:1 chat
+        participantNames, // group chat
+        title, // group title
+        lastMessagePreview,
+        lastMessageAt,
+    } = thread;
 
-  // Derive secondary initial for group avatar from comma-separated names
-  const nameList =
-    typeof participantNames === "string"
-      ? participantNames
-          .split(",")
-          .map((s) => s.trim())
-          .filter(Boolean)
-      : [];
-  const secondInitial = nameList[1]?.charAt(0).toUpperCase() ?? "?";
+    // Derive secondary initial for group avatar from comma-separated names
+    const nameList =
+        typeof participantNames === "string"
+            ? participantNames
+                .split(",")
+                .map((s) => s.trim())
+                .filter(Boolean)
+            : [];
+    const secondInitial = nameList[1]?.charAt(0).toUpperCase() ?? "?";
 
-  const displayName = isGroup
-    ? title || nameList.join(", ") || "Untitled Group Chat"
-    : participantName || "Untitled chat";
+    const displayName = isGroup
+        ? title || nameList.join(", ") || "Untitled Group Chat"
+        : participantName || "Untitled chat";
 
-  const preview = lastMessagePreview || "No messages yet";
+    const preview = lastMessagePreview || "No messages yet";
 
     const timestamp = lastMessageAt
         ? new Date(lastMessageAt).toLocaleTimeString([], {
@@ -58,13 +58,13 @@ export function ChatThreadItem({ thread, isActive, onSelect }) {
                 {isGroup ? (
                     <div className="relative rounded-full bg-default flex items-center justify-center overflow-hidden shrink-0">
                         <div className="absolute h-50 w-50 top-0 left-0 rounded-full bg-default border-2 border-white overflow-hidden">
-                                <Image
-                                    src={participantAvatarUrl ? participantAvatarUrl : fallbackInitialsGroup ? `https://ui-avatars.com/api/?name=${encodeURIComponent(participantNames)}&background=random&size=128` : "/default-avatar.png"}
-                                    alt={participantNames || "Avatar"}
-                                    className="object-cover"
-                                    width={200}
-                                    height={200}
-                                />
+                            <Image
+                                src={participantAvatarUrl ? participantAvatarUrl : fallbackInitialsGroup ? `https://ui-avatars.com/api/?name=${encodeURIComponent(participantNames)}&background=random&size=128` : "/default-avatar.png"}
+                                alt={participantNames || "Avatar"}
+                                className="object-cover"
+                                width={200}
+                                height={200}
+                            />
                         </div>
                         <div className="absolute bottom-0 right-0 h-50 w-50 rounded-full bg-default border-2 border-white overflow-hidden">
                             <span className="text-xs font-semibold">
@@ -73,18 +73,18 @@ export function ChatThreadItem({ thread, isActive, onSelect }) {
                         </div>
                     </div>
                 ) : (
+
                     <div className="avatar bg-default h-50 w-50 rounded-full flex items-center justify-center overflow-hidden shrink-0">
-                            <Image
-                                src={participantAvatarUrl ? participantAvatarUrl : fallbackInitial ? `https://ui-avatars.com/api/?name=${encodeURIComponent(participantName)}&background=random&size=128` : "/default-avatar.png"}
-                                alt={participantName || "Avatar"}
-                                className="object-cover"
-                                width={200}
-                                height={200}
-                            />
-         
+                        <Image
+                            src={participantAvatarUrl ? participantAvatarUrl : fallbackInitial ? `https://ui-avatars.com/api/?name=${encodeURIComponent(participantName)}&background=random&size=128` : "/default-avatar.png"}
+                            alt={participantName || "Avatar"}
+                            className="object-cover"
+                            width={200}
+                            height={200}
+                        />
+
                     </div>
                 )}
-
                 <div className='flex-1 w-full'>
                     <div className='flex w-full items-center justify-between gap-2'>
                         <p className='truncate font-medium'>
@@ -99,63 +99,63 @@ export function ChatThreadItem({ thread, isActive, onSelect }) {
                     <p className='mt-0.5 text-sm color-muted truncate'>
                         {preview}
                     </p>
+
+                </div>
+                <div className="absolute bottom-0 right-0 h-50 w-50 rounded-full bg-default border-2 border-white overflow-hidden">
+                    <span className="text-xs font-semibold">{secondInitial}</span>
+                </div>
+
+                ) : (
+                <div className="avatar bg-default h-50 w-50 rounded-full flex items-center justify-center overflow-hidden shrink-0">
+                    <Image
+                        src={
+                            participantAvatarUrl
+                                ? participantAvatarUrl
+                                : fallbackInitial
+                                    ? `https://ui-avatars.com/api/?name=${encodeURIComponent(
+                                        participantName
+                                    )}&background=random&size=128`
+                                    : "/default-avatar.png"
+                        }
+                        alt={participantName || "Avatar"}
+                        className="object-cover"
+                        width={200}
+                        height={200}
+                    />
+                </div>
+
+                <div className="flex-1 w-full">
+                    <div className="flex w-full items-center justify-between gap-2">
+                        <p className="truncate font-medium">{displayName}</p>
+                        {timestamp && (
+                            <p className="text-sm color-muted whitespace-nowrap">
+                                {timestamp}
+                            </p>
+                        )}
+                    </div>
+                    <p className="mt-0.5 text-sm color-muted truncate">{preview}</p>
                 </div>
             </div>
-            <div className="absolute bottom-0 right-0 h-50 w-50 rounded-full bg-default border-2 border-white overflow-hidden">
-              <span className="text-xs font-semibold">{secondInitial}</span>
-            </div>
-          </div>
-        ) : (
-          <div className="avatar bg-default h-50 w-50 rounded-full flex items-center justify-center overflow-hidden shrink-0">
-            <Image
-              src={
-                participantAvatarUrl
-                  ? participantAvatarUrl
-                  : fallbackInitial
-                  ? `https://ui-avatars.com/api/?name=${encodeURIComponent(
-                      participantName
-                    )}&background=random&size=128`
-                  : "/default-avatar.png"
-              }
-              alt={participantName || "Avatar"}
-              className="object-cover"
-              width={200}
-              height={200}
-            />
-          </div>
-        )}
+        </Button>
 
-        <div className="flex-1 w-full">
-          <div className="flex w-full items-center justify-between gap-2">
-            <p className="truncate font-medium">{displayName}</p>
-            {timestamp && (
-              <p className="text-sm color-muted whitespace-nowrap">
-                {timestamp}
-              </p>
-            )}
-          </div>
-          <p className="mt-0.5 text-sm color-muted truncate">{preview}</p>
-        </div>
-      </div>
-    </button>
-  );
+    );
 }
 
 export default function ChatThreads({
-  threads,
-  activeThreadId,
-  onSelectThread,
+    threads,
+    activeThreadId,
+    onSelectThread,
 }) {
-  return (
-    <div className="chat-threads overflow-y-auto gap-8 flex flex-col w-full">
-      {threads.map((thread) => (
-        <ChatThreadItem
-          key={thread.id}
-          thread={thread}
-          isActive={thread.id === activeThreadId}
-          onSelect={onSelectThread}
-        />
-      ))}
-    </div>
-  );
+    return (
+        <div className="chat-threads overflow-y-auto gap-8 flex flex-col w-full">
+            {threads.map((thread) => (
+                <ChatThreadItem
+                    key={thread.id}
+                    thread={thread}
+                    isActive={thread.id === activeThreadId}
+                    onSelect={onSelectThread}
+                />
+            ))}
+        </div>
+    );
 }
