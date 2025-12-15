@@ -125,16 +125,43 @@
 
 ## ER Diagram
 
-    - ???
+- Vi bruger Supabase som vores
+  database-provider, og samtidig til vores
+  bruger-authentication.
+- Vores backend har en forbindelse til
+  Supabase gennem deres sql transaction
+  pooler. Vi bruger også Supabase's JS library
+  til at verificere brugernes JWT-token når de
+  laver backend-requests.
+- Vores frontend bruger også Supabase's JS
+  library til at oprette nye brugere og til
+  authorization, bl.a. for at få en ny JWT
+  token når brugere logger ind.
 
 ---
 
 ## Opsummering og refleksion
 
-Post-mortem: En kort opsummering og refleksion
-over hvad har fungeret godt i projektet, og
-hvad I ville gøre anderledes hvis I skulle
-lave projektet igen — både i forhold til
-tekniske valg, samarbejde og projektstyring. - ???
+> Post-mortem: En kort opsummering og refleksion
+> over hvad har fungeret godt i projektet, og
+> hvad I ville gøre anderledes hvis I skulle
+> lave projektet igen — både i forhold til
+> tekniske valg, samarbejde og projektstyring
+
+- **Following/connections**
+  - Vi har fejl og mangler i vores
+    following-system som det er nu. I designet
+    er der lagt op til, at "connections" er en
+    to-vejs following, altså hvis bruger A
+    følger bruger B, gælder det samme omvendt.
+    Til det har vi lavet en "pending-state"
+    når man anmoder om at følge andre, men vi
+    har endnu ikke funktionalitet til at
+    godkende følgning. Et andet problem vi har
+    er, at "A-vil-følge-B" og "B-vil-følge-A"
+    bliver gemt i databasen som to forskellige
+    rækker. Det bør ikke være muligt at lave
+    en follow request fra B til A, hvis der
+    allerede er en fra A til B.
 
 ---
