@@ -120,6 +120,7 @@
   --spacing: 0.0625rem;
   --nav-height: 68px;
   --page-px: 24px;
+  --page-py: calc(24px + var(--nav-height));
   --page-pt: var(--nav-height);
   --page-pb: calc(24px + var(--nav-height));
 

@@ -30,7 +30,7 @@
     }
 
     .content-container {
-      @apply px-20 max-w-[935px] mx-auto;
+      @apply px-20 max-w-935 mx-auto;
     }
 
     .trvm-btn {
@@ -85,11 +85,11 @@
 
     /* Feed layout with sidebar space */
     .feed-column {
-      @apply max-w-[600px];
+      @apply max-w-600;
     }
 
     .sidebar-column {
-      @apply w-[280px] ml-auto;
+      @apply w-280 ml-auto;
     }
   }
 }
@@ -98,11 +98,11 @@
 @media (min-width: 1440px) {
   @layer components {
     .content-container {
-      @apply max-w-[1200px];
+      @apply max-w-1200;
     }
 
     .feed-layout {
-      @apply flex gap-24 max-w-[1200px] mx-auto;
+      @apply flex gap-24 max-w-1200 mx-auto;
     }
   }
 }
@@ -115,7 +115,7 @@
 
   @media (min-width: 768px) {
     .instagram-container {
-      @apply max-w-[935px] px-20;
+      @apply max-w-935 px-20;
     }
   }
 

@@ -73,7 +73,6 @@ export function ChatThreadItem({ thread, isActive, onSelect }) {
                         </div>
                     </div>
                 ) : (
-
                     <div className="avatar bg-default h-50 w-50 rounded-full flex items-center justify-center overflow-hidden shrink-0">
                         <Image
                             src={participantAvatarUrl ? participantAvatarUrl : fallbackInitial ? `https://ui-avatars.com/api/?name=${encodeURIComponent(participantName)}&background=random&size=128` : "/default-avatar.png"}
@@ -99,41 +98,6 @@ export function ChatThreadItem({ thread, isActive, onSelect }) {
                     <p className='mt-0.5 text-sm color-muted truncate'>
                         {preview}
                     </p>
-
-                </div>
-                <div className="absolute bottom-0 right-0 h-50 w-50 rounded-full bg-default border-2 border-white overflow-hidden">
-                    <span className="text-xs font-semibold">{secondInitial}</span>
-                </div>
-
-                ) : (
-                <div className="avatar bg-default h-50 w-50 rounded-full flex items-center justify-center overflow-hidden shrink-0">
-                    <Image
-                        src={
-                            participantAvatarUrl
-                                ? participantAvatarUrl
-                                : fallbackInitial
-                                    ? `https://ui-avatars.com/api/?name=${encodeURIComponent(
-                                        participantName
-                                    )}&background=random&size=128`
-                                    : "/default-avatar.png"
-                        }
-                        alt={participantName || "Avatar"}
-                        className="object-cover"
-                        width={200}
-                        height={200}
-                    />
-                </div>
-
-                <div className="flex-1 w-full">
-                    <div className="flex w-full items-center justify-between gap-2">
-                        <p className="truncate font-medium">{displayName}</p>
-                        {timestamp && (
-                            <p className="text-sm color-muted whitespace-nowrap">
-                                {timestamp}
-                            </p>
-                        )}
-                    </div>
-                    <p className="mt-0.5 text-sm color-muted truncate">{preview}</p>
                 </div>
             </div>
         </Button>
