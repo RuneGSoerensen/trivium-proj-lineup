@@ -68,20 +68,25 @@ TODO: indsæt når teksten er færdig.
 
 ## Implementerede features
 
-- En liste og kort beskrivelse af de features, I
-  har implementeret, med angivelse af den primære
-  ansvarlige udvikler for hver feature, hvor det
-  er relevant
-  - **Onboarding flow**
-  - **User profil**
-  - **User feed side**
-  - **Services side**
-  - **Create side**
-  - **Chats side**
-  - **Search**
-  - **Navigation**
-  - **Mobile design** (mobile-first)
-  - **Desktop design**
+- **Onboarding flow**
+
+- **User profil**
+
+- **User feed side**
+
+- **Services side**
+
+- **Create side**
+
+- **Chats side**
+
+- **Search**
+
+- **Navigation**
+
+- **Mobile design** (mobile-first)
+
+- **Desktop design**
 
 ## Kendte issues
 
