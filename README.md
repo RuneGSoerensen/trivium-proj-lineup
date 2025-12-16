@@ -16,54 +16,37 @@
 
 ---
 
-## Table of Contents
+## Indholdsfortegnelse
 
-- [Links](#links)
-- [Projekt Board](#projekt-board)
-- [Login Test brugere](#login-test-brugere)
-- [Tech Stack beskrivelse](#tech-stack-beskrivelse)
-- [Implementeret features](#implementeret-features)
-- [Kendte issues](#kendte-issues)
-- [Manglende features](#manglende-features)
-- [Ekstra implementeret features](#ekstra-implementeret-features)
-- [Interne design beslutninger, samt arguementation](#interne-design-beslutninger-samt-arguementation)
-- [GitHub issues eksempler](#github-issues-eksempler)
-- [ER Diagram](#er-diagram)
-- [Opsummering og refleksion](#opsummering-og-refleksion)
+TODO: indsæt når teksten er færdig.
 
 ## Links
 
-- **Frontend**: `https://trivium.lol`
-  - Omdirigerer til: `https://trivium-proj-lineup.vercel.app/`
-- **Backend API**: `https://trivium.lol/api`
+- **Frontend**: <https://trivium.lol>
+  - Omdirigerer til:
+    <https://trivium-proj-lineup.vercel.app/>
+- **Backend API**: <https://trivium.lol/api>
+- **Projekt board**:
+  <https://github.com/orgs/eaaa-dob-wu-e25a/projects/17>
 
-## Projekt board
+## Login til test-brugere
 
-https://github.com/orgs/eaaa-dob-wu-e25a/projects/17`
-
----
-
-## Login Test brugere
-
-    - Morten Pedersen:
-      - Email:
-      - Password:
-    - John Pork:
-      - Email: `john@pork.com`
-      - Password: `password123`
-
----
+- John Pork:
+  - Email: `john@pork.com`
+  - Password: `password123`
 
 ## Tech Stack beskrivelse
 
 - Backend: `node.js` REST API
-  - Backend står for kontakt med Postgres databasen
-    hos Supabase. Frontend sender `fetch` requests
-    til backend, som så gemmer/henter osv fra database
-  - De fleste endpoints er sikret med en middleware,
-    der forkaster requests uden en `Authorization` header og
-    valid JWT token. Vi validerer tokens hos Supabase
-  - Vi bruger følgende dependencies:
+  - Backend står for kontakt med Postgres
+    databasen hos Supabase. Frontend sender
+    `fetch` requests til backend, som så
+    gemmer/henter osv fra database
+  - De fleste endpoints er sikret med en
+    middleware, der forkaster requests uden en
+    `Authorization` header og valid JWT token. Vi
+    validerer tokens hos Supabase
+  - Vi bruger følgende dependencies m.m.:
     - `express.js`
     - `cors`
     - `postgres`
@@ -74,19 +57,21 @@ https://github.com/orgs/eaaa-dob-wu-e25a/projects/17`
     - `winston`
     - `zod`
 - Frontend: `next.js` app med server-side
-  rendering
-  - **react.js**
-  - **tailwind**
-  - **flyonui**
+  rendering samt:
+  - `react.js`
+  - `tailwind`
+  - `flyonui`
 
 ---
 
-## Implementeret features
+# Implementeringsdetaljer
+
+## Implementerede features
 
 - En liste og kort beskrivelse af de features, I
-  har implementeret, med angivelse af den
-  primære ansvarlige udvikler for hver feature,
-  hvor det er relevant
+  har implementeret, med angivelse af den primære
+  ansvarlige udvikler for hver feature, hvor det
+  er relevant
   - **Onboarding flow**
   - **User profil**
   - **User feed side**
@@ -98,87 +83,87 @@ https://github.com/orgs/eaaa-dob-wu-e25a/projects/17`
   - **Mobile design** (mobile-first)
   - **Desktop design**
 
----
-
 ## Kendte issues
-
-    -
 
 ## Manglende features
 
-    -
+- **Bruger-profil tilgang**
+  - Der er pt ikke nogen måde at komme ind på
+    andre brugeres profil, uden manuelt at
+    indtaste deres bruger-id i addressebaren. Her
+    er et fungerende link til en brugerprofil:
+    <https://trivium.lol/profile/1d83fc00-a50e-48f4-9e23-e423d1112dee>
+- **Login tjek**
+  - Vi har en fungerende redirect til `/login` i
+    frontend, når brugeren ikke er logget ind, men
+    pga vores Supabase opsætning kunne vi ikke få
+    det til at ske server-side, så der er et kort
+    "content-flash" inden man lander på
+    login-formularen.
+- **Following/connections**
+  - Vi har fejl og mangler i vores
+    following-system som det er nu. I designet er
+    der lagt op til, at "connections" er en
+    to-vejs following, altså hvis bruger A følger
+    bruger B, gælder det samme omvendt. Til det
+    har vi lavet en "pending-state" når man
+    anmoder om at følge andre, men vi har endnu
+    ikke funktionalitet til at godkende følgning.
+    Et andet problem vi har er, at "A-vil-følge-B"
+    og "B-vil-følge-A" bliver gemt i databasen som
+    to forskellige rækker. Det bør ikke være
+    muligt at lave en follow request fra B til A,
+    hvis der allerede er en fra A til B.
+- **Backend request-validering**
+  - I enkelte endpoints har vi brugt Zod som
+    løsning på at få valideret den input, der
+    sendes til backend. Da man bør anse alt data i
+    en backend request som upålidelig er det
+    vigtigt den bliver valideret før den fx gemmes
+    i databasen, ellers er der stor risiko for at
+    vi gemmer invalid data eller crasher backenden
+    helt. Zod genererer også en liste over
+    valideringsfejl, der kan gøre det nemmere at
+    implementere fejlbeskeder i frontend.
 
-## Ekstra implementeret features
+## Ekstra implementerede features
 
-    -
+## Database og bruger-autorisering
+
+- Vi bruger Supabase som vores database-provider,
+  og samtidig til vores bruger-autorisering.
+  - Supabase har et indbygget bruger-system
+    (`auth.users`), hvori vi opretter brugere. Ved
+    siden har vi vores egen bruger-tabel med data
+    til brugernes personlige profil
+    (`public.users`), hvor primary key matcher
+    primary key i den tilsbarende Supabase bruger.
+- Vores backend har en forbindelse til Supabase
+  gennem deres sql transaction pooler. Vi bruger
+  også Supabase's JS library til at verificere
+  brugernes JWT-token når de laver
+  backend-requests.
+- Vores frontend bruger også Supabase's JS library
+  til at oprette nye brugere og til authorization,
+  bl.a. for at få en ny JWT token når brugere
+  logger ind.
 
 ---
 
-## Interne design beslutninger, samt arguementation
+# Arbejdsproces
 
-    - ??
-
----
+## Interne design beslutninger, samt argumentation
 
 ## GitHub issues eksempler
-
-    - Et eksempel på et af jeres GitHub issues,
-      der illustrerer analyse og planlægning af en
-      feature eller user story
-    - Et eksempel på et af jeres pull requests,
-      der viser konstruktiv feedback og
-      forbedringer på en feature
-
----
-
-## ER Diagram
-
-- Vi bruger Supabase som vores
-  database-provider, og samtidig til vores
-  bruger-authentication.
-- Vores backend har en forbindelse til
-  Supabase gennem deres sql transaction
-  pooler. Vi bruger også Supabase's JS library
-  til at verificere brugernes JWT-token når de
-  laver backend-requests.
-- Vores frontend bruger også Supabase's JS
-  library til at oprette nye brugere og til
-  authorization, bl.a. for at få en ny JWT
-  token når brugere logger ind.
 
 ---
 
 ## Opsummering og refleksion
 
 > Post-mortem: En kort opsummering og refleksion
-> over hvad har fungeret godt i projektet, og
-> hvad I ville gøre anderledes hvis I skulle
-> lave projektet igen — både i forhold til
-> tekniske valg, samarbejde og projektstyring
-
-- **Following/connections**
-  - Vi har fejl og mangler i vores
-    following-system som det er nu. I designet
-    er der lagt op til, at "connections" er en
-    to-vejs following, altså hvis bruger A
-    følger bruger B, gælder det samme omvendt.
-    Til det har vi lavet en "pending-state"
-    når man anmoder om at følge andre, men vi
-    har endnu ikke funktionalitet til at
-    godkende følgning. Et andet problem vi har
-    er, at "A-vil-følge-B" og "B-vil-følge-A"
-    bliver gemt i databasen som to forskellige
-    rækker. Det bør ikke være muligt at lave
-    en follow request fra B til A, hvis der
-    allerede er en fra A til B.
-- **Backend request-validering**
-  - I enkelte endpoints har vi brugt Zod som løsning
-    på at få valideret den input, der sendes til backend.
-    Da man bør anse alt data i en backend request som
-    upålidelig er det vigtigt den bliver valideret før
-    den fx gemmes i databasen, ellers er der stor risiko
-    for at vi gemmer invalid data eller crasher backenden helt.
-    Zod genererer også en liste over valideringsfejl, der kan gøre
-    det nemmere at implementere fejlbeskeder i frontend.
+> over hvad har fungeret godt i projektet, og hvad
+> I ville gøre anderledes hvis I skulle lave
+> projektet igen — både i forhold til tekniske
+> valg, samarbejde og projektstyring
 
 ---
