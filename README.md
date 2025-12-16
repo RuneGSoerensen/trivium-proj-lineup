@@ -70,23 +70,38 @@ TODO: indsæt når teksten er færdig.
 
 - **Onboarding flow**
 
+<img width="715" height="820" alt="image" src="https://github.com/user-attachments/assets/b9d8737b-cc9f-4ab7-b4b1-ef715ba1bb1c" />
+
 - **User profil**
+
+<img width="710" height="655" alt="image" src="https://github.com/user-attachments/assets/9cddbb87-2574-496e-ab53-7cb20215ab64" />
 
 - **User feed side**
 
+<img width="718" height="748" alt="image" src="https://github.com/user-attachments/assets/09982e60-5b68-426a-bf6f-8590fea6ba9f" />
+
 - **Services side**
+
+<img width="725" height="858" alt="image" src="https://github.com/user-attachments/assets/8d8a44a2-f292-46a3-8868-2a2eb4e0d3d5" />
 
 - **Create side**
 
+<img width="708" height="720" alt="image" src="https://github.com/user-attachments/assets/4c3340e7-a06a-4fa1-8374-1bbbb8204167" />
+
 - **Chats side**
+
+<img width="717" height="243" alt="image" src="https://github.com/user-attachments/assets/4373717a-962b-4008-82d5-e82731ff41ac" />
 
 - **Search**
 
+<img width="719" height="842" alt="image" src="https://github.com/user-attachments/assets/46fc6b2a-4f0f-450d-b54c-d201e332ff42" />
+
 - **Navigation**
+<img width="455" height="104" alt="image" src="https://github.com/user-attachments/assets/29ee6660-3e45-48ed-8b14-3cc7f2d830be" />
+<img width="273" height="673" alt="image" src="https://github.com/user-attachments/assets/11db6084-5c46-4914-b66f-12c2e363902d" />
+<img width="450" height="657" alt="image" src="https://github.com/user-attachments/assets/8fd969e1-1fe4-4e75-b9d6-5b58b722f029" />
 
-- **Mobile design** (mobile-first)
-
-- **Desktop design**
+- **Mobile-first design with desktop mode**
 
 ## Kendte issues
 
