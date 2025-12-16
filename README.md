@@ -193,17 +193,18 @@ Strukturen er konsistent på tværs af views og skalerer op til desktop uden at 
 
 Nedenstående features er identificeret som enten delvist implementerede eller ikke fuldt færdiggjort inden for projektets tidsramme.
 
-### 💬 Chat
+### Chat
 - Chat-funktionaliteten er implementeret og understøtter både private beskeder og gruppechats.
 - Det er dog på nuværende tidspunkt **ikke muligt at oprette nye chats** (hverken private eller gruppechats) via brugergrænsefladen.
 - Funktionaliteten er teknisk forberedt, men mangler det afsluttende UI-flow.
 
-### 🛠️ Services
+### Services
 - Services-featuren anvender i øjeblikket **hard-coded data i frontend**.
 - Der er endnu ikke implementeret kobling til backend eller database.
 - Featuren fungerer derfor primært som et visuelt og konceptuelt proof-of-concept i MVP’en.
 
 ---
+
 ## Ekstra implementerede features
 
 Udover de krævede funktioner har vi implementeret følgende ekstra features og forbedringer.
