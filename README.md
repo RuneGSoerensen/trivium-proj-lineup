@@ -229,33 +229,34 @@ Strukturen er konsistent på tværs af views og skalerer op til desktop uden at 
 
 ---
 
-# Arbejdsproces
+## Arbejdsproces
 
-Vi har haft en moderat struktureret arbejdsproces.
-Vi har ikke arbejdet i deciderede sprints, men
-stadig agilt, hvor vi har løbende har vurderet hvad
-der er lavet, hvad der mangler og hvilke ting der
-skal prioriteres. 
+Vi har haft en moderat struktureret, men agil arbejdsproces. Projektet har ikke været opdelt i formelle sprints, men er i stedet blevet drevet iterativt, hvor vi løbende har vurderet fremdrift, mangler og prioriteringer med fokus på at levere en velfungerende MVP.
 
-Vi har gjort brug af GitHub issues til
-opgavebeskrivelser, samlet i et "kanban board" på
-et GitHub Project. Vi har fordelt arbejde ved at mødes fysisk
-og aftale en prioriteringsliste for at opnå en optimal MVP. 
+### Planlægning og opgavestyring
+- Vi har anvendt **GitHub Issues** til at beskrive opgaver og features.
+- Issues er blevet organiseret i et **Kanban board** via GitHub Projects.
+- For at skabe overblik og prioritering er issues blevet suppleret med **labels** (fx feature, bug, frontend, backend) samt **milestones** knyttet til projektets overordnede faser.
+- Arbejdsfordelingen er primært sket gennem fysiske møder, hvor vi i fællesskab har prioriteret opgaver ud fra MVP-scope og tidsramme.
 
-Derefter ville vi oprette issues med små beskrivelser
-på opgaven og "assigne" os selv på den feature vi er i gang med.
-Udvikling har med undtagelser foregået på "feature
-branches". Når en feature har været færdig, er der
-blevet oprettet Pull Requests op imod vores `dev`
-branch, hvor der blev udført code review.
+### Udviklingsworkflow
+- For hver feature er der oprettet et issue med en kort, konkret beskrivelse.
+- Udviklere har selv assignet sig til issues for at skabe ejerskab.
+- Udvikling er som udgangspunkt foregået på **feature branches**.
+- Når en feature var færdig, blev der oprettet en **Pull Request** mod vores `dev`-branch.
+- Pull Requests er blevet brugt til code review og kvalitetssikring før merge.
 
-Af og til har vi brugt GitHub Copilot som et
-assisterende code review.
+### Code review og værktøjer
+- Code reviews er primært udført manuelt af teamet.
+- I enkelte tilfælde har vi benyttet **GitHub Copilot** som et assisterende værktøj til code review og forbedringsforslag.
 
-Undtagelsesvis, fx ved små bug fixes, har vi lavet
-ændringer direkte i `dev` branch.
+### Afvigelser fra workflow
+- Ved mindre ændringer eller simple bug fixes er der i enkelte tilfælde arbejdet direkte i `dev`-branchen.
+- Disse afvigelser er vurderet acceptable for at opretholde momentum i projektets afsluttende fase.
 
-## 🎨 Interne designbeslutninger og argumentation
+Samlet set har arbejdsprocessen givet en god balance mellem struktur og fleksibilitet, samtidig med at den har understøttet hurtig iteration og løbende kvalitetssikring.
+
+## Interne designbeslutninger og argumentation
 
 Vi har overordnet set holdt os tæt op ad det udleverede Figma-design og det tilhørende design system. Vores tilgang har været at respektere de eksisterende stilistiske valg og sikre en så tro implementering som muligt.
 
