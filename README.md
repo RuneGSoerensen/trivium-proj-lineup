@@ -149,13 +149,13 @@ Strukturen er konsistent på tværs af views og skalerer op til desktop uden at 
 
 ## Kendte issues
 
-- **Bruger-profil tilgang**
-  - Der er pt ikke nogen måde at komme ind på
-    andre brugeres profil end via search overlayet.
-    Derudover kan man også manuelt indtaste deres bruger-id i addressebaren. Her
-    er et fungerende link til en brugerprofil:
+- **Adgang til brugerprofiler**
+  - Det er muligt at tilgå brugerprofiler via **search overlayet**.
+  - Derudover kan profiler tilgås direkte via URL ved manuelt at indtaste brugerens ID.
+  - Eksempel på fungerende brugerprofil:
     <https://trivium.lol/profile/1d83fc00-a50e-48f4-9e23-e423d1112dee>
-    Dette kræver dog adgang til bruger-id.
+> Bemærk: Direkte adgang via URL kræver kendskab til brugerens ID og er derfor primært tænkt som en teknisk løsning i MVP-fasen.
+
 - **Login tjek**
   - Vi har en fungerende redirect til `/login` i
     frontend, når brugeren ikke er logget ind, men
@@ -191,21 +191,27 @@ Strukturen er konsistent på tværs af views og skalerer op til desktop uden at 
 
 ## Manglende features
 
-- **Chat**
-  - Vi har en velfungerende chat funktion der
-    endda undersøtter gruppechats, men desværre er
-    det pt ikke muligt at _oprette_ hverken
-    privat- eller gruppechats.
-- **Services**
-  - Vores Services feature bruger "hard-coded
-    data" i frontend, altså er der ikke nogen
-    kobling til backend eller database.
+Nedenstående features er identificeret som enten delvist implementerede eller ikke fuldt færdiggjort inden for projektets tidsramme.
 
+### 💬 Chat
+- Chat-funktionaliteten er implementeret og understøtter både private beskeder og gruppechats.
+- Det er dog på nuværende tidspunkt **ikke muligt at oprette nye chats** (hverken private eller gruppechats) via brugergrænsefladen.
+- Funktionaliteten er teknisk forberedt, men mangler det afsluttende UI-flow.
+
+### 🛠️ Services
+- Services-featuren anvender i øjeblikket **hard-coded data i frontend**.
+- Der er endnu ikke implementeret kobling til backend eller database.
+- Featuren fungerer derfor primært som et visuelt og konceptuelt proof-of-concept i MVP’en.
+
+---
 ## Ekstra implementerede features
 
-- Vores desktop-design er originalt, vi ønskede at
-  vise samme indhold som i mobil-udgaven på en
-  mere desktop-venlig måde.
+Udover de krævede funktioner har vi implementeret følgende ekstra features og forbedringer.
+
+### Desktop-design
+- Desktop-layoutet er designet særskilt og er ikke blot en opskalering af mobil-udgaven.
+- Målet har været at bevare samme indhold som på mobil, men præsentere det på en mere overskuelig og desktop-venlig måde.
+- Dette har krævet supplerende designbeslutninger ud over Figma-prototypen.
 
 ## Database og bruger-autorisering
 
