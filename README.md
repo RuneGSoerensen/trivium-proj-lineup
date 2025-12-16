@@ -97,15 +97,13 @@ TODO: indsæt når teksten er færdig.
 <img width="719" height="842" alt="image" src="https://github.com/user-attachments/assets/46fc6b2a-4f0f-450d-b54c-d201e332ff42" />
 
 - **Navigation**
-<img width="455" height="104" alt="image" src="https://github.com/user-attachments/assets/29ee6660-3e45-48ed-8b14-3cc7f2d830be" />
-<img width="273" height="673" alt="image" src="https://github.com/user-attachments/assets/11db6084-5c46-4914-b66f-12c2e363902d" />
-<img width="450" height="657" alt="image" src="https://github.com/user-attachments/assets/8fd969e1-1fe4-4e75-b9d6-5b58b722f029" />
+  <img width="455" height="104" alt="image" src="https://github.com/user-attachments/assets/29ee6660-3e45-48ed-8b14-3cc7f2d830be" />
+  <img width="273" height="673" alt="image" src="https://github.com/user-attachments/assets/11db6084-5c46-4914-b66f-12c2e363902d" />
+  <img width="450" height="657" alt="image" src="https://github.com/user-attachments/assets/8fd969e1-1fe4-4e75-b9d6-5b58b722f029" />
 
 - **Mobile-first design with desktop mode**
 
 ## Kendte issues
-
-## Manglende features
 
 - **Bruger-profil tilgang**
   - Der er pt ikke nogen måde at komme ind på
@@ -146,7 +144,19 @@ TODO: indsæt når teksten er færdig.
     valideringsfejl, der kan gøre det nemmere at
     implementere fejlbeskeder i frontend.
 
+## Manglende features
+
+- **Chat**
+  - Vi har en velfungerende chat funktion der
+    endda undersøtter gruppechats, men desværre er
+    det pt ikke muligt at _oprette_ hverken
+    privat- eller gruppechats.
+
 ## Ekstra implementerede features
+
+- Vores desktop-design er originalt, vi ønskede at
+  vise samme indhold som i mobil-udgaven på en
+  mere desktop-venlig måde.
 
 ## Database og bruger-autorisering
 
