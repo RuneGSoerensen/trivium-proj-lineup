@@ -50,7 +50,7 @@ export default function OnboardingLayout({ children }) {
         label={`Onboarding step ${currentStep}`}
         className="self-start"
       />
-      <div className="flex flex-col items-center w-full h-full max-w-3xl justify-center">
+      <div className="onboarding flex flex-col items-center w-full h-full max-w-270 justify-center space-y-58">
         {children}
       </div>
     </UserOnboardingProvider>

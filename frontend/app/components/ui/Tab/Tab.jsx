@@ -62,9 +62,9 @@ const TabItem = ({
         disabled
           ? undefined
           : () => {
-              setActiveIndex(index);
-              onClick?.();
-            }
+            setActiveIndex(index);
+            onClick?.();
+          }
       }
       {...rest}
     >
@@ -76,8 +76,8 @@ const TabItem = ({
 const TabsList = ({
   children,
   variant,
-  className = "tabs--list",
-  hasSeparator = true,
+  className,
+  hasSeparator = false,
   ...rest
 }) => {
   const items = React.Children.toArray(children);
@@ -97,7 +97,7 @@ const TabsList = ({
           <Fragment key={index}>
             {React.cloneElement(child, { index })}
             {hasSeparator && index < items.length - 1 && (
-              <div className="tab-separator" />
+              <span className="tab-separator"></span>
             )}
           </Fragment>
         );

@@ -21,18 +21,19 @@ export default function Home() {
   }, [setConfig]);
 
   return (
-    <section className="space-y-12 w-full ">
-      <Stories />
+    <section className="space-y-12 w-full h-full lg:max-w-full">
+      {/* Stories - Full width on mobile, contained on desktop */}
+      <div className="w-full">
+        <Stories />
+      </div>
 
-      <RequestFeed />
-
-      <UserFeed />
-
-      <div className="h-screen">
-        <h1 className="heading-2">Welcome to Trivium!</h1>
-        <NavLink href="/ui-test" label="UI Test" isActive={false} />
-        <NavLink href="/chat" label="Chat Page" isActive={false} />
-
+      {/* Feed Layout - Single column on mobile, multi-column on desktop */}
+      <div className="flex flex-col lg:flex-row gap-24 w-full">
+        {/* Main Feed Column */}
+        <div className="flex-1 space-y-16 max-w-full ">
+          <RequestFeed />
+          <UserFeed />
+        </div>
       </div>
     </section>
   );

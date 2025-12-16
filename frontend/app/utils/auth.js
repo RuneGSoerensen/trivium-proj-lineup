@@ -1,57 +1,66 @@
 /**
- * Authentication utility functions for managing JWT tokens and user sessions
+ * Authentication layer using supabase
  */
 
+import { createClient } from "@supabase/supabase-js";
+
+const supabaseUrl = process.env.NEXT_PUBLIC_SUPABASE_URL;
+const supabaseAnonKey = process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY;
+
+if (!supabaseUrl || !supabaseAnonKey) {
+  throw new Error("Missing Supabase environment variables");
+}
+
+export const supabase = createClient(supabaseUrl, supabaseAnonKey);
+
 /**
- * Store authentication data in localStorage
- * @param {string} token - JWT access token from Supabase
- * @param {string} userId - User ID
+ * Sign in user and store auth data
+ * @param {string} email
+ * @param {string} password
+ * @returns {Promise<{user, session, error}>}
  */
-export const setAuthToken = (token, userId) => {
-  if (typeof window !== "undefined") {
-    localStorage.setItem("jwt_token", token);
-    localStorage.setItem("user_id", userId);
-  }
+export const signInWithPassword = async (email, password) => {
+  const { data, error } = await supabase.auth.signInWithPassword({
+    email,
+    password,
+  });
+
+  return { user: data?.user, session: data?.session, error };
 };
 
 /**
- * Get the stored JWT token
- * @returns {string|null} JWT token or null if not found
+ * Sign out user and clear auth data
+ * @returns {Promise<{ error: AuthError|null }>} JWT token or null if not found
  */
-export const getAuthToken = () => {
-  if (typeof window !== "undefined") {
-    return localStorage.getItem("jwt_token");
-  }
-  return null;
+export const signOut = async () => {
+  return await supabase.auth.signOut();
+};
+
+
+/**
+ * Get the stored user session token if the user is logged in.
+ * @returns {Promise<string|null>} JWT session token or null if not found
+ */
+export const getAuthToken = async () => {
+  const { data, error: _ } = await supabase.auth.getSession();
+  return data?.session?.access_token;
 };
 
 /**
- * Get the stored user ID
- * @returns {string|null} User ID or null if not found
+ * Get the stored user ID if the user is logged in.
+ * @returns {Promise<string|null>} User ID or null if not found
  */
-export const getUserId = () => {
-  if (typeof window !== "undefined") {
-    return localStorage.getItem("user_id");
-  }
-  return null;
+export const getUserId = async () => {
+  const { data, error: _ } = await supabase.auth.getUser();
+  return data?.user?.id;
 };
 
 /**
- * Clear all authentication data from localStorage
+ * Check if user is authenticated.
+ * @returns {Promise<boolean>} True if authenticated
  */
-export const clearAuthData = () => {
-  if (typeof window !== "undefined") {
-    localStorage.removeItem("jwt_token");
-    localStorage.removeItem("user_id");
-  }
-};
-
-/**
- * Check if user is authenticated
- * @returns {boolean} True if token exists
- */
-export const isAuthenticated = () => {
-  return !!getAuthToken();
+export const isAuthenticated = async () => {
+  return !!(await getUserId());
 };
 
 /**
@@ -61,7 +70,7 @@ export const isAuthenticated = () => {
  * @returns {Promise<Response>} Fetch response
  */
 export const authenticatedFetch = async (url, options = {}) => {
-  const token = getAuthToken();
+  const token = await getAuthToken();
 
   if (!token) {
     throw new Error("No authentication token found. Please log in.");

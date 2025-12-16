@@ -80,7 +80,7 @@ export default function CreateNotes({ userName, userImage }) {
           <Image
             src={userImage}
             alt={userName}
-            className="rounded-full border-none"
+            className="rounded-full border-none object-cover w-44 h-44"
             width={44}
             height={44}
           />
@@ -129,6 +129,7 @@ export default function CreateNotes({ userName, userImage }) {
             <MultiSelectInput
               options={[]}
               values={tags}
+              className="bg-alt"
               setValues={setTags}
               placeholder="Add a tag..."
               allowNew={true}
@@ -140,6 +141,7 @@ export default function CreateNotes({ userName, userImage }) {
         <Input
           placeholder="Write a title"
           value={title}
+          className="bg-alt"
           onChange={(e) => setTitle(e.target.value)}
         />
       </div>
@@ -156,7 +158,7 @@ export default function CreateNotes({ userName, userImage }) {
 
         {/* Image URL input */}
         {showImageUrlInput && (
-          <div className="mb-16 flex gap-2">
+          <div className="mb-16 flex gap-2 items-center">
             <Input
               placeholder="Enter image URL..."
               value={imageUrl}
@@ -198,7 +200,7 @@ export default function CreateNotes({ userName, userImage }) {
           placeholder="Write a description"
           cols="30"
           rows="4"
-          className="w-full bg-default color-default border-muted rounded-lg px-12 py-14 placeholder:color-muted focus:ring-1 focus:ring-brand transition-all duration-100"
+          className="w-full bg-alt color-default border-muted rounded-lg px-12 py-14 placeholder:color-muted focus:ring-1 focus:ring-brand transition-all duration-100"
           value={content}
           onChange={(e) => setContent(e.target.value)}
         />
@@ -206,6 +208,7 @@ export default function CreateNotes({ userName, userImage }) {
       <div className="self-end mt-10 mb-[50%]">
         <Button
           variant="primary"
+          className="px-30"
           size="sm"
           onClick={handlePost}
           disabled={isLoading}

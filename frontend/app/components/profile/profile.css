@@ -1,0 +1,12 @@
+@layer components {
+    /* -------------------------------
+         PROFILE SECTION
+    -------------------------------- */
+    .profile-section {
+        @apply flex flex-col gap-24 px-12;
+    }
+
+    .profile-section label {
+        @apply color-subtle text-body;
+    }
+}

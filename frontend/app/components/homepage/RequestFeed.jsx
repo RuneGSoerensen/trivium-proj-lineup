@@ -6,6 +6,9 @@ import Image from "next/image";
 import { Button } from "@/comps/ui/Button/Button";
 import { useRouter } from "next/navigation";
 import { authenticatedFetch } from "@/utils/auth.js";
+import { Card } from "../ui/Card/Card";
+import { userAvatarInitials } from '@/utils/helpers';
+
 export default function RequestFeed() {
   const [requests, setRequests] = useState([]);
   const [loading, setLoading] = useState(true);
@@ -54,55 +57,43 @@ export default function RequestFeed() {
     router.push(`/collabs/${id}`);
   };
   return (
-    <div className="bg-alt full-bleed">
+    <div className="bg-alt full-bleed py-15 gap-10">
       {/* placeholder background*/}
-      <div className=" flex overflow-x-auto w-full h-300 py-4">
-        {loading && <div>Loading...</div>}
-        {error && <div>Error: {error}</div>}
-        {!loading &&
-          !error &&
-          requests.map((request) => (
-            <div
+      <div>
+        <p className="color-muted px-15">Collaboration requests</p>
+        {loading && <p className="px-15">Loading...</p>}
+        {error && <p className="px-15 color-danger">Error: {error}</p>}
+        {!loading && !error && requests.length === 0 && (
+          <p className="px-15 color-muted">No collaboration requests found.</p>
+        )}
+        <div className="flex py-10 px-15 gap-10 overflow-x-auto min-h-193 hide-scrollbar">
+          {requests.map((request) => (
+            <Card 
+              type="collab"
+              variant="small"
+              title={request.title}
+              authorName={request.user_name}
               key={request.id}
-              className="mb-4 border border-muted/10 rounded-[24px] min-w-400 max-w-sm flex-shrink-0 mr-4 p-12 bg-white flex flex-col"
-            >
-              <div className="flex gap-4 items-center mb-2">
-                <div className=" w-20 h-20 mb-2 rounded-full overflow-hidden">
-                  <Image
-                    src={request.image_url || "/placeholder-image.png"}
-                    alt={request.title}
-                    width={40}
-                    height={40}
-                    className="w-full h-full object-cover"
-                  />
-                </div>
-                <p>{request.user_name}</p>
-                <p className="mr-auto">Looking for #{"someone"}</p>
-                {/* request.looking_for[0] || */}
-                <Bookmark size={20} />
-              </div>
-              <hr className="w-3/4 mx-auto text-muted my-8" />
-              <h2 className="text-lg font-bold mb-8">{request.title}</h2>
-              <p className="mb-2 truncate">{request.description}</p>
-              <div className="flex items-center mt-auto">
-                <button
-                  className="mb-auto"
-                  onClick={() => handleReadMore(request.id)}
-                >
-                  Read more
-                </button>
-                <p className="ml-auto text-sm text-muted">
-                  {request.location} - {formatTimeAgo(request.created_at)}
-                </p>
-              </div>
+              avatarSrc={request.user_image ? request.user_image : `https://ui-avatars.com/api/?name=${encodeURIComponent(request.user_name)}&background=random&size=128`}
+              avatarAlt={request.user_name}
+              tag={"something"}
+              className="w-full!"
+              location={request.location}
+              timeAgo={formatTimeAgo(request.created_at)}
+              description={request.description}
+              onClick={() => handleReadMore(request.id)}
+          />
+          ))} 
+
             </div>
-          ))}
+          
       </div>
-      <div className="max-w-140">
-        <Button className={"!px-4 rounded-full"} onClick={handleClick}>
-          see more collabs
+      <div className="flex justify-start px-15 pt-4">
+        <Button size="lg" className={"px-10! rounded-full w-full"} onClick={handleClick}>
+          See more collabs
         </Button>
       </div>
     </div>
   );
 }
+     

@@ -1,30 +1,28 @@
-import React, { useEffect, useRef, useState } from "react"
+import React, { useEffect, useRef, useState } from "react";
 import ReactMarkdown from "react-markdown";
-import { Prism as SyntaxHighlighter } from 'react-syntax-highlighter';
+import { Prism as SyntaxHighlighter } from "react-syntax-highlighter";
 import { sendMessage } from "@/utils/api";
 import Input from "@/ui/Input/Input";
-import { Button } from '@/ui/Button/Button';
+import { Button } from "@/ui/Button/Button";
 import { Mic, Plus } from "lucide-react";
 import Image from "next/image";
 
-function Message({ role, children, avatarUrl, authorName }) {
+function Message({ role, children, authorAvatarUrl, authorName }) {
     const isOwn = role === 'user';
     const initials = authorName ? authorName.charAt(0).toUpperCase() : '';
+    const fallBackAvatar = initials ? `https://ui-avatars.com/api/?name=${encodeURIComponent(authorName)}&background=random&size=128` : "/default-avatar.png";
     return (
-
             <div className={`message-row flex items-end gap-8 ${isOwn ? "justify-end" : "justify-start"}`}>
                 {/* Incoming message: avatar on the left */}
                 {!isOwn && (
                     <Image
                         alt={authorName || "Avatar"}
-                        src={avatarUrl
-                            ? avatarUrl
-                            : initials
-                                ? `https://ui-avatars.com/api/?name=${encodeURIComponent(authorName)}&background=random&size=128`
-                                : "/default-avatar.png"}
-                        width={20}
-                        height={20}
-                        className="rounded-full h-30 w-30 object-cover border bg-base-200 flex items-center justify-center overflow-hidden shrink-0"
+                    src={authorAvatarUrl
+                        ? authorAvatarUrl
+                            : fallBackAvatar}
+                        width={100}
+                        height={100}
+                        className="rounded-full h-30 w-30 object-cover border border-neutral-ultralight flex items-center justify-center overflow-hidden shrink-0"
                     />
                 )}
 
@@ -65,14 +63,14 @@ function ChatMessages({ messages = [] }) {
         }
     }, [messages]);
     // TODO optimize rendering for large message lists (e.g., react-window)
-    // TODO add time, other persons styling + avatar, unreadmarker, etc.
+    // TODO unreadmarker, etc.
     return (
         <div className="chat-messages">
             {messages.map((msg, index) => (
                 <Message
                     key={msg.id ?? index}
                     role={msg.role}
-                    avatarUrl={msg.avatarUrl}
+                    authorAvatarUrl={msg.authorAvatarUrl}
                     authorName={msg.authorName}>
                     {msg.content}
                 </Message>
@@ -110,7 +108,7 @@ function ChatInput({ threadId, onMessageSent }) {
     return (
 
         <div className="chat-input-form-container flex justify-between items-center gap-8 w-full">
-            <Button type="icon" variant="glass" icon={<Plus />} size="icon-md" onClick={() => alert("Feature: Add media")} />
+            <Button type="icon" variant="glass" iconSize="md" icon={<Plus />} size="icon-md" onClick={() => alert("Feature: Add media")} />
             <form
                 ref={formRef}
                 className="chat-input-form w-full"
@@ -119,18 +117,17 @@ function ChatInput({ threadId, onMessageSent }) {
                     handleSend();
                 }}>
                 <Input
-                    className="p-10 glass w-full bg-muted/40 color-default border-0 ring-0 outline-0 focus:outline-0 focus:ring-0 focus:border-0 flex-1"
+                    className="p-10 w-full color-default bg-neutral-300! border-0 ring-0 outline-0 focus:outline-0 focus:ring-0 focus:border-0 flex-1"
                     type="text"
                     value={message}
                     onChange={(e) => setMessage(e.target.value)}
                     placeholder="Type your message..."
                 />
             </form>
-            <Button type="icon" variant="glass" icon={<Mic />} size="icon-md" onClick={() => alert("Feature: Voice input")} />
+            <Button type="icon" variant="glass" iconSize="md" icon={<Mic />} size="icon-md" onClick={() => alert("Feature: Voice input")} />
         </div>
 
     )
 }
-
 
 export { Message, ChatMessages, ChatInput };

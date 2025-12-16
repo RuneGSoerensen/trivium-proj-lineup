@@ -2,9 +2,9 @@
 import { useState, useEffect } from "react";
 import { useParams } from "next/navigation";
 import { MessageCircleMore } from "lucide-react";
-import { Tag } from "@/comps/ui/tag/Tag";
+import { Tag } from "@/comps/ui/Tag/Tag";
 import Image from "next/image";
-import { Button } from "@/comps/ui/button/Button";
+import { Button } from "@/comps/ui/Button/Button";
 import { formatTimeAgo } from "@/utils/timeAgo";
 import { authenticatedFetch } from "@/utils/auth";
 export default function Page() {
@@ -44,7 +44,7 @@ export default function Page() {
 
   return (
     <div className="max-w-4xl mx-auto">
-      <div className="mb-4 p-4 rounded-[24px] min-h-[620px] bg-white flex flex-col">
+      <div className="mb-4 p-4 rounded-[24px] min-h-620 bg-white flex flex-col">
         <div className="flex gap-8 items-center mb-8">
           <div className="w-40 h-40 mb-2 rounded-full overflow-hidden">
             <Image
@@ -58,7 +58,7 @@ export default function Page() {
           <p>{request.created_by?.name || "Unknown"}</p>
           <p className="mr-auto">Looking for #{"someone"}</p>
 
-          <p className="ml-auto text-sm text-muted">
+          <p className="ml-auto text-sm color-muted">
             {formatTimeAgo(request.created_at)}
           </p>
         </div>
@@ -78,7 +78,7 @@ export default function Page() {
         <p className="mb-2 text-lg">{request.description}</p>
         <div className="flex items-center w-full gap-4 mt-8">
           <Button
-            className="rounded-full !px-8 !py-6 border border-muted"
+            className="rounded-full px-8! py-6! border border-muted"
             size="md"
           >
             <div className="flex items-center gap-2">
@@ -94,14 +94,14 @@ export default function Page() {
             {request.genres && request.genres.length > 0 ? (
               request.genres.map((genre) => (
                 <Tag
-                  className={"!px-8 !py-4 bg-black text-white"}
+                  className={"px-8! py-4! bg-black text-white"}
                   key={genre.id}
                 >
                   {genre.name}
                 </Tag>
               ))
             ) : (
-              <p className="text-muted">No genres specified</p>
+              <p className="color-muted">No genres specified</p>
             )}
           </div>
         </div>
@@ -113,14 +113,14 @@ export default function Page() {
             {request.musthaveskills && request.musthaveskills.length > 0 ? (
               request.musthaveskills.map((skill) => (
                 <Tag
-                  className={"!px-8 !py-4 bg-black text-white"}
+                  className={"px-8! py-4! bg-black text-white"}
                   key={skill.id}
                 >
                   {skill.name}
                 </Tag>
               ))
             ) : (
-              <p className="text-muted">No skills specified</p>
+              <p className="color-muted">No skills specified</p>
             )}
           </div>
         </div>

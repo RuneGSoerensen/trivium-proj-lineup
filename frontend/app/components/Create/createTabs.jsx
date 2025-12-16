@@ -11,7 +11,7 @@ import {
 import CreateNotes from "./createNotes.jsx";
 import CreateRequest from "./createRequest.jsx";
 import CreateStory from "./createStory.jsx";
-import { getUserId } from "@/utils/auth";
+import { authenticatedFetch, getUserId } from "@/utils/auth";
 
 export default function CreateTabs() {
   const API_BASE_URL =
@@ -25,12 +25,12 @@ export default function CreateTabs() {
   useEffect(() => {
     const loadCurrentUser = async () => {
       try {
-        const userId = getUserId();
+        const userId = await getUserId();
 
         if (!userId) return;
 
         const url = `${API_BASE_URL}/users/${userId}`;
-        const res = await fetch(url);
+        const res = await authenticatedFetch(url);
 
         if (res.ok) {
           const data = await res.json();
@@ -56,7 +56,7 @@ export default function CreateTabs() {
       <Tabs className="bg-white">
         <TabsList
           hasSeparator={false}
-          className="bg-white rounded border-b border-gray-300"
+          className="bg-white rounded border-b border-gray-300 pb-24"
         >
           <TabItem activeClassName="bg-brand-primary p-2">Note</TabItem>
           <TabItem activeClassName="bg-brand-primary p-2">Story</TabItem>

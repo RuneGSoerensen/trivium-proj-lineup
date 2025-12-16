@@ -14,6 +14,8 @@ import ProfileHeader from "@/components/profile/ProfileHeader";
 import ProfileAbout from "@/components/profile/ProfileAbout";
 import ProfileNotes from "@/components/profile/ProfileNotes";
 import { getUserId } from "@/utils/auth";
+import { useNavbar } from "@/utils/navbarContext";
+import { set } from "lodash";
 
 const HARD_ARTISTS = [
   "https://images.unsplash.com/photo-1544005313-94ddf0286df2?w=200&q=80",
@@ -33,6 +35,7 @@ const HARD_PAST_COLLABS = ["Band A", "Band B"];
 export default function ProfilePage() {
   const params = useParams();
   const router = useRouter();
+  const { setConfig } = useNavbar();
   const [profile, setProfile] = useState(null);
   const [notes, setNotes] = useState([]);
   const [loading, setLoading] = useState(true);
@@ -40,8 +43,17 @@ export default function ProfilePage() {
 
   useEffect(() => {
     if (params?.id) loadProfile();
+
+    setConfig({
+      type: "profile",
+      backgroundColor: "bg-alt",
+      showBack: true,
+      showLogo: false,
+      actions: ["search", "notifications", "menu"],
+      visible: true,
+    });
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [params?.id]);
+  }, [params?.id, setConfig]);
 
   const loadProfile = async () => {
     try {
@@ -51,7 +63,7 @@ export default function ProfilePage() {
       if (!res.ok) throw new Error("Failed to load user");
 
       const { user: userData } = await res.json();
-      const currentUser = getUserId();
+      const currentUser = await getUserId();
       setCurrentUserId(currentUser);
 
       const statsRes = await authenticatedFetch(
@@ -59,12 +71,28 @@ export default function ProfilePage() {
       );
       const statsData = (await statsRes.json()) || {};
 
+      // Check follow relationship in both directions so "pending" state
+      // becomes false if either user follows the other.
       let isFollowing = false;
       if (currentUser) {
-        const followingRes = await authenticatedFetch(
-          `${process.env.NEXT_PUBLIC_DATABASE_URL}/connections/${currentUser}/following/${params.id}`
-        );
-        isFollowing = followingRes.ok;
+        try {
+          // Does currentUser follow the profile?
+          const followingRes = await authenticatedFetch(
+            `${process.env.NEXT_PUBLIC_DATABASE_URL}/connections/${currentUser}/following/${params.id}`
+          );
+          const { is_following } = (await followingRes.json()) || {};
+
+          // Does profile follow the currentUser?
+          const followerRes = await authenticatedFetch(
+            `${process.env.NEXT_PUBLIC_DATABASE_URL}/connections/${params.id}/following/${currentUser}`
+          );
+          const { is_following: is_followed_by } = (await followerRes.json()) || {};
+
+          // Consider the users connected if either direction exists.
+          isFollowing = !!is_following || !!is_followed_by;
+        } catch (err) {
+          console.error("Error checking follow relationships:", err);
+        }
       }
 
       setProfile({
@@ -104,8 +132,32 @@ export default function ProfilePage() {
     }
   };
 
-  const handleClick = () => {
-    alert("Question submitted!");
+  const handleClick = async (questionText) => {
+    if (!currentUserId || !questionText.trim()) return;
+
+    try {
+      // Submit question to backend with blank answer
+      const res = await authenticatedFetch(
+        `${process.env.NEXT_PUBLIC_DATABASE_URL}/users/${params.id}/questions`,
+        {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({
+            question: questionText,
+            answer: "",
+          }),
+        }
+      );
+
+      if (!res.ok) throw new Error("Failed to submit question");
+
+      // Reload profile to show the new question
+      await loadProfile();
+      alert("Question submitted successfully!");
+    } catch (error) {
+      console.error("Error submitting question:", error);
+      alert("Failed to submit question. Please try again.");
+    }
   };
 
   const handleFollow = async () => {
@@ -114,26 +166,18 @@ export default function ProfilePage() {
     try {
       if (profile?.is_following) {
         await authenticatedFetch(
-          `${process.env.NEXT_PUBLIC_DATABASE_URL}/connections/unfollow`,
+          `${process.env.NEXT_PUBLIC_DATABASE_URL}/connections/unfollow/${params.id}`,
           {
             method: "DELETE",
-            headers: { "Content-Type": "application/json" },
-            body: JSON.stringify({
-              follower_id: currentUserId,
-              following_id: params.id,
-            }),
+            headers: { "Content-Type": "application/json" }
           }
         );
       } else {
         await authenticatedFetch(
-          `${process.env.NEXT_PUBLIC_DATABASE_URL}/connections/follow`,
+          `${process.env.NEXT_PUBLIC_DATABASE_URL}/connections/follow/${params.id}`,
           {
             method: "POST",
-            headers: { "Content-Type": "application/json" },
-            body: JSON.stringify({
-              follower_id: currentUserId,
-              following_id: params.id,
-            }),
+            headers: { "Content-Type": "application/json" }
           }
         );
       }
@@ -147,7 +191,7 @@ export default function ProfilePage() {
   if (loading) {
     return (
       <div className="flex items-center justify-center min-h-screen">
-        <div className="text-muted">Loading...</div>
+        <div className="color-muted">Loading...</div>
       </div>
     );
   }
@@ -155,35 +199,37 @@ export default function ProfilePage() {
   if (!profile) {
     return (
       <div className="flex items-center justify-center min-h-screen">
-        <div className="text-muted">Profile not found</div>
+        <div className="color-muted">Profile not found</div>
       </div>
     );
   }
 
   return (
-    <div className="w-full bg-gray-100 ">
-      <ProfileHeader
-        profile={profile}
-        notesLength={notes.length}
-        onFollow={handleFollow}
-        router={router}
-      />
-
-      <Tabs className="bg-white">
-        <TabsList className="bg-white rounded-b-none w-full justify-between">
-          <TabItem>About</TabItem>
-
-          <TabItem>Notes</TabItem>
-        </TabsList>
-        <TabContentList className="bg-white">
-          <TabContent>
-            <ProfileAbout profile={profile} onQuestionSubmit={handleClick} />
-          </TabContent>
-          <TabContent>
-            <ProfileNotes notes={notes} />
-          </TabContent>
-        </TabContentList>
-      </Tabs>
-    </div>
+    <section className="profile w-full bg-alt full-page altPage flex flex-col gap-15">
+      <div className="px-15">
+        <ProfileHeader
+          profile={profile}
+          notesLength={notes.length}
+          onFollow={handleFollow}
+          router={router}
+        />
+      </div>
+      <div>
+        <Tabs defaultValue="about">
+          <TabsList className="bg-default" hasSeparator={true}>
+            <TabItem>About</TabItem>
+            <TabItem>Notes</TabItem>
+          </TabsList>
+          <TabContentList className="bg-default pb-140">
+            <TabContent>
+              <ProfileAbout profile={profile} onQuestionSubmit={handleClick} />
+            </TabContent>
+            <TabContent>
+              <ProfileNotes notes={notes} />
+            </TabContent>
+          </TabContentList>
+        </Tabs>
+      </div>
+    </section>
   );
 }

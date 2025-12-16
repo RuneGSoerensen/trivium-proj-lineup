@@ -16,14 +16,14 @@ import clsx from "clsx";
 const variantClass = {
   primary: "btn-primary",
   secondary: "btn-secondary",
-  glass: "glass",
+  glass: "glass-btn",
   ghost: "btn-ghost",
 };
 
 // Made for mobile first design
 const sizeClass = {
   sm: "py-2 px-8",
-  md: "py-4 px-20",
+  md: "py-6 px-20",
   lg: "py-8 px-24",
   xl: "py-12 px-32",
   'icon-sm': "p-8",
@@ -41,13 +41,13 @@ const iconSz = {
 };
 
 const strokeW = {
-  thin: "stroke-[1px]",
-  medium: "stroke-[2px]",
-  thick: "stroke-[2.5px]",
+  thin: 1,
+  medium: 2,
+  thick: 2.5,
 };
 
 const resolveIconSize = (size = "md") => iconSz[size] ?? size;
-const resolveStroke = (stroke = "md") => strokeW[stroke] ?? stroke;
+const resolveStroke = (strokeWidth = 2) => strokeW[strokeWidth] ?? strokeWidth;
 
 export const Button = ({
   type = "default", // default | icon | toggle | dropdown
@@ -55,8 +55,8 @@ export const Button = ({
   size = type === "icon" ? "icon-md" : "md",
   icon,
   iconPosition = "left", // left | right
-  iconSize = "md",
-  iconStroke = "medium",
+  iconSize = type === "icon" ? "xxl" : "md",
+  iconStroke = "thin",
   className,
   children,
   dropdownClassName,
@@ -66,29 +66,38 @@ export const Button = ({
   ...rest
 }) => {
   const [open, setOpen] = useState(false);
-
   const isDropdown = type === "dropdown";
+  const base = "trvm-btn";
+  // const showLabel = type !== "icon"; //icon button
 
   const handleClick = (e) => {
     if (isDropdown) {
       e.preventDefault();
       setOpen((prev) => !prev);
+
+      const outsideClickListener = (event) => {
+        if (!event.target.closest('.trvm-btn')){
+          setOpen(false);
+          document.removeEventListener('click', outsideClickListener);
+        }
+      };
+
+      if (!open) {
+        document.addEventListener('click', outsideClickListener);
+      }
+      return;
     }
     if (rest.onClick) {
       rest.onClick(e);
     }
   };
 
-  const base = "trvm-btn";
-
   const typeClass = {
     default: "",
-    icon: "trvm-btn-icon",
+    icon: "trvm-icon-btn",
     toggle: active ? "trvm-toggle-btn-active" : "trvm-toggle-btn",
     dropdown: "trvm-dropdown-btn",
   }[type] || "";
-
-  const showLabel = type !== "icon"; //icon button
 
   return (
     <div className={clsx(isDropdown && "relative inline-block w-full")}>
@@ -118,10 +127,10 @@ export const Button = ({
         )}
 
         {/* LABEL / TEKST – skjules for icon-type */}
-        {showLabel && children && (
-          <>
+        {children && (
+          <div className="w-full">
             {children}
-          </>
+          </div>
 
         )}
 
@@ -141,7 +150,7 @@ export const Button = ({
       {isDropdown && open && (
         <div
           className={clsx(
-            "absolute overflow-y-auto top-full wrap truncate mt-4 w-full bg-base-100 border border-muted rounded-lg shadow-lg p-8 z-25",
+            "trvm-dropdown-content absolute overflow-y-auto top-full wrap truncate mt-4 w-full bg-base-100 border border-muted rounded-lg shadow-lg p-8 z-25",
             dropdownClassName,
             dropLeft && "left-0",
             dropRight && "right-0",

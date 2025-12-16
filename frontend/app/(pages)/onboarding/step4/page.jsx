@@ -5,6 +5,7 @@ import { useOnboarding } from "@/utils/userOnboardingContext";
 import { useRouter } from "next/navigation";
 import { Button } from "@/ui/Button/Button";
 import Input from "@/ui/Input/Input";
+import Image from "next/image";
 
 export default function Step4() {
   const router = useRouter();
@@ -36,72 +37,76 @@ export default function Step4() {
     advanceStep();
     router.push("/onboarding/step5");
   };
+  const spacingStyle = "flex flex-col gap-12 justify-center";
+
   return (
-    <div className="flex flex-col h-full justify-between w-full">
-      <div className="flex flex-col gap-10 justify-center flex-1">
-        <h2 className="font-medium">First & Last Name</h2>
-        <Input
-          className="w-full border-muted rounded p-6 mb-4 placeholder:text-center"
-          placeholder="Enter your name & last name"
-          value={formData.name}
-          onChange={(e) => setFormData({ ...formData, name: e.target.value })}
-        />
-        <h2 className="font-medium">Phone Number</h2>
-        <div className="flex gap-10 mb-4">
-          <div className="border border-muted rounded px-9 flex items-center justify-center">
-            {/* Quick method of getting a danish flag for country codes. */}
-            {/*  This is NTH, and will likely be implemented at a later point */}
-            <svg
-              className="w-12 h-8"
-              viewBox="0 0 37 28"
-              xmlns="http://www.w3.org/2000/svg"
-            >
-              <rect width="37" height="28" fill="#C8102E" />
-              <rect x="12" width="4" height="28" fill="white" />
-              <rect y="12" width="37" height="4" fill="white" />
-            </svg>
-          </div>
+    <div className="flex flex-col h-full justify-between items-center w-full">
+      <div className="flex flex-col gap-30 justify-center flex-1">
+        <div className={spacingStyle}>
+          <h2 className="text-h2 font-medium">First & Last Name</h2>
           <Input
-            className="w-full border-muted rounded p-6 placeholder:text-center"
-            placeholder="Enter your phone number"
-            value={formData.phone_number}
+            placeholder="Enter your first & last name"
+            value={formData.name}
+            onChange={(e) => setFormData({ ...formData, name: e.target.value })}
+          />
+        </div>
+
+        <div className={spacingStyle}>
+          <h2 className="text-h2 font-medium">Phone Number</h2>
+          <div className="flex gap-12 mb-4">
+            <Button variant="secondary" size="sm" className="px-12! rounded-lg border-muted! h-full">
+              <span className="flex justify-center gap-8">
+                <Image src="/icons/DA.svg" alt="Danish Flag" width={24} height={24} />
+              </span>
+            </Button>
+            <Input
+              type="tel"
+              placeholder="Enter your phone number"
+              value={formData.phone_number}
+              onChange={(e) =>
+                setFormData({ ...formData, phone_number: e.target.value })
+              }
+            />
+          </div>
+        </div>
+
+        <div className={spacingStyle}>
+          {/* change year of birth input to a date picker if possible */}
+          <h2 className="text-h2 font-medium">Year of Birth</h2>
+          <Input
+            type="date"
+            placeholder="Year of Birth"
+            value={formData.birthdate}
             onChange={(e) =>
-              setFormData({ ...formData, phone_number: e.target.value })
+              setFormData({ ...formData, birthdate: e.target.value })
             }
           />
         </div>
-        {/* change year of birth input to a date picker if possible */}
-        <h2 className="font-medium">Year of Birth</h2>
-        <Input
-          className="w-full border-muted rounded p-6 mb-4 placeholder:text-center"
-          placeholder="Year of Birth"
-          value={formData.birthdate}
-          onChange={(e) =>
-            setFormData({ ...formData, birthdate: e.target.value })
-          }
-        />
-        <h2 className="font-medium">City</h2>
-        <Input
-          className="w-full border-muted rounded p-6 mb-6 placeholder:text-center"
-          placeholder="Enter your city"
-          value={formData.city}
-          onChange={(e) => setFormData({ ...formData, city: e.target.value })}
-        />
-        <h2 className="font-medium">Business Name</h2>
-        <Input
-          className="w-full border-muted rounded p-6 mb-6 placeholder:text-center"
-          placeholder="Name of your business"
-          value={formData.business_name}
-          onChange={(e) =>
-            setFormData({ ...formData, business_name: e.target.value })
-          }
-        />
+
+        <div className={spacingStyle}>
+          <h2 className="text-h2 font-medium">City</h2>
+          <Input
+            placeholder="Enter your city"
+            value={formData.city}
+            onChange={(e) => setFormData({ ...formData, city: e.target.value })}
+          />
+        </div>
+
+        <div className={spacingStyle}>
+          <h2 className="text-h2 font-medium">Business Name</h2>
+          <Input
+            placeholder="Name of your business"
+            value={formData.business_name}
+            onChange={(e) =>
+              setFormData({ ...formData, business_name: e.target.value })
+            }
+          />
+        </div>
       </div>
 
       <div className="items-end self-center pb-4">
         <Button
           variant="primary"
-          size="sm"
           onClick={handleNext}
           className="ml-4 w-fit"
         >

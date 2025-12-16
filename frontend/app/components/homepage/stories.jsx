@@ -1,10 +1,12 @@
 import { useEffect, useState } from "react";
 import Image from "next/image";
+import { userAvatarInitials } from "@/utils/helpers";
+import { authenticatedFetch } from "@/utils/auth";
 export default function Stories() {
   const [stories, setStories] = useState([]);
   const fetchStories = async () => {
     try {
-      const res = await fetch(
+      const res = await authenticatedFetch(
         `${process.env.NEXT_PUBLIC_DATABASE_URL}/stories`,
         {
           cache: "no-store",
@@ -27,27 +29,28 @@ export default function Stories() {
     loadStories();
   }, []);
 
+  const defaultAvatarStyle = "background=ffcf70&color=1e1e1e&size=40";
 
   return (
-    <section className="w-full flex gap-4 overflow-x-auto py-4 px-2">
+    <section className="hide-scrollbar w-full h-fit min-h-120 flex gap-12 overflow-x-auto py-12 px-16 full-bleed">
       {stories.map((story) => (
-        <div key={story.id} className=" flex  ">
-          <div>
+        <div key={story.id} className="flex flex-col items-center gap-6 h-full w-full">
+   
             <div className="rounded-full w-70 h-70">
               <Image
                 src={
                   story.image_url && story.image_url !== ""
                     ? story.image_url
-                    : "/placeholder-image.png"
+                    : `https://ui-avatars.com/api/?name=${encodeURIComponent(userAvatarInitials(story.name))}&${defaultAvatarStyle}&size=128`
                 }
                 alt={story.name}
-                className=" w-70 h-70 rounded-full object-cover border-1 border-primary"
-                width={48}
-                height={48}
+                className="w-74 h-74 rounded-full object-cover border-brand"
+                width={77}
+                height={77}
               />
             </div>
-            <p className="text-sm text-center">{story.name}</p>
-          </div>
+            <p className="text-sm text-center leading-16!">{story.name}</p>
+    
         </div>
       ))}
     </section>

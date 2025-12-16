@@ -2,6 +2,7 @@
 
 import React, { useId, useState } from "react";
 import clsx from "clsx";
+import Input from '@/ui/Input/Input';
 
 const variantClass = (variant) => {
   switch (variant) {
@@ -45,6 +46,8 @@ const Tag = ({
   onCheckableChange,
   checkboxProps = {},
   colorScheme = "default",
+  label,
+  htmlForLabel,
   ...rest
 }) => {
   const generatedCheckboxId = useId();
@@ -92,22 +95,22 @@ const Tag = ({
         className,
         colorSchemeClass(colorScheme)
       )}
-      htmlFor={checkable ? checkboxId : undefined}
+      htmlFor={checkable ? checkboxId : htmlForLabel}
       {...rest}
     >
       {checkable ? (
         <>
-          <input
+          <Input
             id={checkboxId}
             type="checkbox"
-            className={clsx("checkbox checkbox-sm peer", checkboxClassName)}
+            className={clsx("checkbox peer", checkboxClassName)}
             checked={isChecked}
             onChange={handleCheckboxChange}
             {...restCheckboxProps}
           />
           <span className="text-label text-body flex items-center gap-2">
             {icon && <span className="w-icon h-icon">{icon}</span>}
-            {children}
+            {children || label}
           </span>
         </>
       ) : (

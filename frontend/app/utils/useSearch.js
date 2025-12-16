@@ -1,5 +1,6 @@
 'use client';
 import { useEffect, useRef, useState } from "react";
+import { authenticatedFetch } from "./auth";
 
 const API_BASE = process.env.NEXT_PUBLIC_DATABASE_URL || "";
 
@@ -46,7 +47,7 @@ export function useSearch({
         // Debounce API call
         debounceRef.current = setTimeout(async () => {
             try {
-                const response = await fetch(
+                const response = await authenticatedFetch(
                     `${API_BASE}${endpoint}?query=${encodeURIComponent(trimmed)}`
                 )
 
