@@ -58,14 +58,17 @@ TODO: indsæt når teksten er færdig.
     - `zod`
 - Frontend: `next.js` app med server-side
   rendering
-  - **tailwind**
-    - Utility-first CSS framework der gør det nemt
-      og hurtigt at style komponenter direkte i JSX
-      uden at skulle skrive separate CSS-filer
-  - **flyonui**
-    - Komponent-bibliotek bygget oven på Tailwind
-      som giver os pre-designede, responsive komponenter
-      (modals, buttons, cards osv.) Det her tilaldt os at gøre komponenter markant hurtigere at udvikle.
+  - **Tailwind CSS**  
+    Utility-first CSS framework, der muliggør hurtig og konsistent styling direkte i JSX uden behov for separate CSS-filer.  
+    Valgt for høj udviklingshastighed, god performance og nem vedligeholdelse.
+  
+  - **FlyonUI**  
+    Komponentbibliotek bygget oven på Tailwind CSS, som leverer prædesignede og responsive UI-komponenter (fx modals, buttons og cards).  
+    Har gjort det muligt at udvikle komplekse komponenter markant hurtigere og sikre et ensartet visuelt udtryk.
+  
+  - **Lucide**  
+    Letvægts ikonbibliotek med konsistente, SVG-baserede ikoner.  
+    Anvendes til at skabe et klart og genkendeligt visuelt sprog på tværs af applikationen.
 
 ---
 
@@ -148,10 +151,11 @@ Strukturen er konsistent på tværs af views og skalerer op til desktop uden at 
 
 - **Bruger-profil tilgang**
   - Der er pt ikke nogen måde at komme ind på
-    andre brugeres profil, uden manuelt at
-    indtaste deres bruger-id i addressebaren. Her
+    andre brugeres profil end via search overlayet.
+    Derudover kan man også manuelt indtaste deres bruger-id i addressebaren. Her
     er et fungerende link til en brugerprofil:
     <https://trivium.lol/profile/1d83fc00-a50e-48f4-9e23-e423d1112dee>
+    Dette kræver dog adgang til bruger-id.
 - **Login tjek**
   - Vi har en fungerende redirect til `/login` i
     frontend, når brugeren ikke er logget ind, men
@@ -229,14 +233,17 @@ Strukturen er konsistent på tværs af views og skalerer op til desktop uden at 
 
 Vi har haft en moderat struktureret arbejdsproces.
 Vi har ikke arbejdet i deciderede sprints, men
-stadig agilt, hvor vi løbende har vurderet hvad
+stadig agilt, hvor vi har løbende har vurderet hvad
 der er lavet, hvad der mangler og hvilke ting der
-skal prioriteres.
+skal prioriteres. 
 
 Vi har gjort brug af GitHub issues til
 opgavebeskrivelser, samlet i et "kanban board" på
-et GitHub Project. Vi har fordelt arbejde ved at
-"assigne" os selv på den feature vi er i gang med.
+et GitHub Project. Vi har fordelt arbejde ved at mødes fysisk
+og aftale en prioriteringsliste for at opnå en optimal MVP. 
+
+Derefter ville vi oprette issues med små beskrivelser
+på opgaven og "assigne" os selv på den feature vi er i gang med.
 Udvikling har med undtagelser foregået på "feature
 branches". Når en feature har været færdig, er der
 blevet oprettet Pull Requests op imod vores `dev`
@@ -248,13 +255,20 @@ assisterende code review.
 Undtagelsesvis, fx ved små bug fixes, har vi lavet
 ændringer direkte i `dev` branch.
 
-## Interne design beslutninger, samt argumentation
+## 🎨 Interne designbeslutninger og argumentation
 
-Vi har generelt holdt os til Figma designet og
-forsøgt at efterligne deres stilistiske valg. Da
-vi ikke har haft løbende "kundekontakt", har vi
-følt det var bedst ikke at ændre for meget ved
-deres look-n-feel.
+Vi har overordnet set holdt os tæt op ad det udleverede Figma-design og det tilhørende design system. Vores tilgang har været at respektere de eksisterende stilistiske valg og sikre en så tro implementering som muligt.
+
+Da projektet er udviklet uden løbende kundekontakt, har vi bevidst valgt **ikke** at foretage større ændringer i look-and-feel. Dette for at undgå at introducere designbeslutninger, som potentielt kunne afvige fra kundens intentioner og visuelle identitet.
+
+### Overvejelser og potentielle forbedringer
+Undervejs i udviklingen har vi identificeret enkelte områder med forbedringspotentiale:
+
+- **Breadcrumbs / navigationskontekst**  
+  Vi har overvejet at tilføje breadcrumbs eller anden visuel kontekst, så brugeren tydeligere kan se, hvor i applikationens hierarki de befinder sig.  
+  I visse flows kan det være uklart, om brugeren befinder sig på en nested side eller et selvstændigt view.
+
+Denne forbedring er ikke implementeret i MVP’en, da den ikke fremgår af Figma-designet, men den er noteret som et oplagt næste skridt i en videreudvikling af løsningen.
 
 ## GitHub issues eksempler
 
@@ -284,12 +298,26 @@ deres look-n-feel.
 
 ---
 
-## Opsummering og refleksion
+## 🧠 Opsummering og refleksion (Post-mortem)
 
-> Post-mortem: En kort opsummering og refleksion
-> over hvad har fungeret godt i projektet, og hvad
-> I ville gøre anderledes hvis I skulle lave
-> projektet igen — både i forhold til tekniske
-> valg, samarbejde og projektstyring
+Overordnet set har projektet været en god og lærerig proces, hvor vi har fået omsat et omfattende koncept og et hi-fi Figma-design til en fungerende, deployet MVP.
+
+### Hvad fungerede godt
+- Brug af **GitHub Issues og Pull Requests** har givet et godt overblik over features, ansvar og progression.
+- Pull Requests har gjort det nemmere at reviewe kode og sikre en mere stabil kodebase.
+- Arbejdsdelingen omkring konkrete features har gjort det muligt for hver deltager at tage ejerskab fra analyse til implementering.
+- Den tekniske stack og arkitektur har fungeret stabilt og understøttet hurtig udvikling.
+
+### Hvad vi ville gøre anderledes
+Selvom vi har benyttet **GitHub Projects** til projektstyring, ser vi et klart forbedringspotentiale i, hvordan vi organiserer og følger op på arbejdet.
+
+- Projektstyring bør være mere eksplicit og struktureret, især i et team hvor nogle arbejder bedst alene og andre i tæt samarbejde.
+- **Kommunikation er afgørende** og bør prioriteres højere — særligt når størstedelen af arbejdet foregår remote.
+- Ændringer i fælles kode kræver tydelig kommunikation; selv mindre justeringer eller bugfixes bør meldes ud til resten af teamet.
+- Flere faste check-ins eller korte statusopdateringer kunne have mindsket misforståelser og dobbeltarbejde.
+
+> **Communication is key** — både i de store arkitektoniske beslutninger og i de små detaljer.
+
+Samlet set har samarbejdet fungeret godt, men projektet har tydeligt vist, hvor vigtigt det er at kombinere tekniske værktøjer med klare aftaler, løbende dialog og fælles ansvar for fremdrift.
 
 ---
