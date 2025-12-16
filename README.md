@@ -75,9 +75,14 @@ https://github.com/orgs/eaaa-dob-wu-e25a/projects/17`
     - `zod`
 - Frontend: `next.js` app med server-side
   rendering
-  - **react.js**
   - **tailwind**
+    - Utility-first CSS framework der gør det nemt
+      og hurtigt at style komponenter direkte i JSX
+      uden at skulle skrive separate CSS-filer
   - **flyonui**
+    - Komponent-bibliotek bygget oven på Tailwind
+      som giver os pre-designede, responsive komponenter
+      (modals, buttons, cards osv.) Det her tilaldt os at gøre komponenter markant hurtigere at udvikle.
 
 ---
 
@@ -102,32 +107,31 @@ https://github.com/orgs/eaaa-dob-wu-e25a/projects/17`
 
 ## Kendte issues
 
-    -
+-
 
 ## Manglende features
 
-    -
+- Create Stories(mangler design)
+- Notifications
 
 ## Ekstra implementeret features
 
-    -
-
----
+- ***
 
 ## Interne design beslutninger, samt arguementation
 
-    - ??
+- ??
 
 ---
 
 ## GitHub issues eksempler
 
-    - Et eksempel på et af jeres GitHub issues,
-      der illustrerer analyse og planlægning af en
-      feature eller user story
-    - Et eksempel på et af jeres pull requests,
-      der viser konstruktiv feedback og
-      forbedringer på en feature
+- Et eksempel på et af jeres GitHub issues,
+  der illustrerer analyse og planlægning af en
+  feature eller user story
+- Et eksempel på et af jeres pull requests,
+  der viser konstruktiv feedback og
+  forbedringer på en feature
 
 ---
 
