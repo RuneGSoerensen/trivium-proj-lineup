@@ -156,6 +156,10 @@ TODO: indsæt når teksten er færdig.
     endda undersøtter gruppechats, men desværre er
     det pt ikke muligt at _oprette_ hverken
     privat- eller gruppechats.
+- **Services**
+  - Vores Services feature bruger "hard-coded
+    data" i frontend, altså er der ikke nogen
+    kobling til backend eller database.
 
 ## Ekstra implementerede features
 
@@ -187,9 +191,34 @@ TODO: indsæt når teksten er færdig.
 
 # Arbejdsproces
 
-- ??
+Vi har haft en moderat struktureret arbejdsproces.
+Vi har ikke arbejdet i deciderede sprints, men
+stadig agilt, hvor vi løbende har vurderet hvad
+der er lavet, hvad der mangler og hvilke ting der
+skal prioriteres.
 
----
+Vi har gjort brug af GitHub issues til
+opgavebeskrivelser, samlet i et "kanban board" på
+et GitHub Project. Vi har fordelt arbejde ved at
+"assigne" os selv på den feature vi er i gang med.
+Udvikling har med undtagelser foregået på "feature
+branches". Når en feature har været færdig, er der
+blevet oprettet Pull Requests op imod vores `dev`
+branch, hvor der blev udført code review.
+
+Af og til har vi brugt GitHub Copilot som et
+assisterende code review.
+
+Undtagelsesvis, fx ved små bug fixes, har vi lavet
+ændringer direkte i `dev` branch.
+
+## Interne design beslutninger, samt argumentation
+
+Vi har generelt holdt os til Figma designet og
+forsøgt at efterligne deres stilistiske valg. Da
+vi ikke har haft løbende "kundekontakt", har vi
+følt det var bedst ikke at ændre for meget ved
+deres look-n-feel.
 
 ## GitHub issues eksempler
 
