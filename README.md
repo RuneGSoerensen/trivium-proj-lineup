@@ -171,6 +171,7 @@ Strukturen er konsistent på tværs af views og skalerer op til desktop uden at 
 ## Kendte issues
 
 - **Adgang til brugerprofiler**
+
   - Det er muligt at tilgå brugerprofiler via **search overlayet**.
   - Derudover kan profiler tilgås direkte via URL ved manuelt at indtaste brugerens ID.
   - Eksempel på fungerende brugerprofil:
@@ -184,6 +185,8 @@ Strukturen er konsistent på tværs af views og skalerer op til desktop uden at 
     det til at ske server-side, så der er et kort
     "content-flash" inden man lander på
     login-formularen.
+- **Login Desktop**
+  - lige nu bliver desktop nav vist på login og onboarding, dette er en issue som skal løses.
 - **Following/connections**
   - Vi har fejl og mangler i vores
     following-system som det er nu. I designet er
@@ -265,8 +268,8 @@ Vi har haft en moderat struktureret, men agil arbejdsproces. Projektet har ikke 
 - Issues er blevet organiseret i et **Kanban board** via GitHub Projects.
   - For at skabe overblik og prioritering er issues blevet suppleret med **labels** (fx feature, bug, frontend, backend) samt **milestones** knyttet til projektets overordnede faser.
 - Arbejdsfordelingen er primært sket gennem fysiske møder, hvor vi i fællesskab har prioriteret opgaver ud fra MVP-scope og tidsramme.
-- Derudover har vi anvendt et eksternt værktøj, **Notion**, til at dele og vedligeholde intern dokumentation. 
-  - Notion har været særligt nyttigt til at samle og opdatere **reference til `.env`-konfigurationer** (fx variabelnavne og struktur), så alle arbejdede med samme opsætning. Derudover har værktøjet været brugt til dokumentation af workflows samt noter fra interne standups. 
+- Derudover har vi anvendt et eksternt værktøj, **Notion**, til at dele og vedligeholde intern dokumentation.
+  - Notion har været særligt nyttigt til at samle og opdatere **reference til `.env`-konfigurationer** (fx variabelnavne og struktur), så alle arbejdede med samme opsætning. Derudover har værktøjet været brugt til dokumentation af workflows samt noter fra interne standups.
 
 ### Udviklingsworkflow
 
