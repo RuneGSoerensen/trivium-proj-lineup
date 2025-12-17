@@ -97,7 +97,7 @@ Fokus har været på klar onboarding, tydelig navigation og et solidt fundament 
 Onboarding introducerer brugeren til LineUps kerneidé og primære funktioner på en hurtig og letforståelig måde.  
 Flowet er designet til at give overblik uden at overvælde og skabe en klar forventning til platformens formål.
 
-<img width="360" height="500" alt="Onboarding flow" src="https://github.com/user-attachments/assets/b9d8737b-cc9f-4ab7-b4b1-ef715ba1bb1c" />
+![onboarding-signup](image-12.png)
 
 ---
 
@@ -106,7 +106,7 @@ Flowet er designet til at give overblik uden at overvælde og skabe en klar forv
 Brugerprofilen fungerer som en kombination af **CV og portfolio**.  
 Her kan brugere præsentere deres rolle, kompetencer, genre og tidligere arbejde, hvilket skaber transparens og tillid mellem aktører på platformen.
 
-<img width="360" height="500" alt="User profile" src="https://github.com/user-attachments/assets/9cddbb87-2574-496e-ab53-7cb20215ab64" />
+![user-profile](image-11.png)
 
 ---
 
@@ -115,7 +115,7 @@ Her kan brugere præsentere deres rolle, kompetencer, genre og tidligere arbejde
 Feedet samler relevant aktivitet fra platformen og fungerer som et socialt omdrejningspunkt.  
 Her kan brugere opdage nye profiler, requests og muligheder for samarbejde.
 
-<img width="360" height="748" alt="User feed" src="https://github.com/user-attachments/assets/09982e60-5b68-426a-bf6f-8590fea6ba9f" />
+![user-feed](image-4.png)
 
 ---
 
@@ -124,7 +124,7 @@ Her kan brugere opdage nye profiler, requests og muligheder for samarbejde.
 Services-siden giver overblik over de ydelser og kompetencer, som brugere og virksomheder tilbyder.  
 Formålet er at gøre det nemt at finde specifikke services og skabe kontakt på baggrund af konkrete behov.
 
-<img width="360" height="858" alt="Services" src="https://github.com/user-attachments/assets/8d8a44a2-f292-46a3-8868-2a2eb4e0d3d5" />
+![services](image-3.png)
 
 ---
 
@@ -133,7 +133,7 @@ Formålet er at gøre det nemt at finde specifikke services og skabe kontakt på
 Create-siden er omdrejningspunktet for at oprette nye requests og samarbejder.  
 Brugeren guides gennem en struktureret proces, hvor formål og deltagere tydeliggøres fra start.
 
-<img width="360" height="720" alt="Create page" src="https://github.com/user-attachments/assets/4c3340e7-a06a-4fa1-8374-1bbbb8204167" />
+![create](image-2.png)
 
 ---
 
@@ -142,7 +142,7 @@ Brugeren guides gennem en struktureret proces, hvor formål og deltagere tydelig
 Chats giver mulighed for direkte kommunikation mellem brugere og understøtter samarbejde efter en connection er etableret.  
 Løsningen er holdt simpel for at sikre hurtig og effektiv dialog.
 
-<img width="360" height="243" alt="Chats" src="https://github.com/user-attachments/assets/4373717a-962b-4008-82d5-e82731ff41ac" />
+![chat-view](image-5.png)
 
 ---
 
@@ -151,7 +151,7 @@ Løsningen er holdt simpel for at sikre hurtig og effektiv dialog.
 Søgefunktionen gør det muligt at finde relevante brugere, services og requests.  
 Søgningen er central for platformens networking-formål og understøtter hurtig discovery.
 
-<img width="360" height="842" alt="Search" src="https://github.com/user-attachments/assets/46fc6b2a-4f0f-450d-b54c-d201e332ff42" />
+![search-view](image-7.png)
 
 ---
 
@@ -160,11 +160,11 @@ Søgningen er central for platformens networking-formål og understøtter hurtig
 Navigationen er designet mobile-first og sikrer hurtig adgang til platformens kernefunktioner.  
 Strukturen er konsistent på tværs af views og skalerer op til desktop uden at miste overblik.
 
-<img width="360" height="600" alt="Navigation mobile" src="https://github.com/user-attachments/assets/29ee6660-3e45-48ed-8b14-3cc7f2d830be" />
+![mobile-bottom-nav](image-8.png)
 
-<img width="260" height="673" alt="Navigation expanded" src="https://github.com/user-attachments/assets/11db6084-5c46-4914-b66f-12c2e363902d" />
+![desktop-left-nav](image-9.png)
 
-<img width="360" height="657" alt="Navigation desktop" src="https://github.com/user-attachments/assets/8fd969e1-1fe4-4e75-b9d6-5b58b722f029" />
+![desktop-right-nav](image-10.png)
 
 - **Mobile-first design with desktop mode**
 
