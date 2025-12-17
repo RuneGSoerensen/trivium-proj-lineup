@@ -309,64 +309,72 @@ Denne forbedring er ikke implementeret i MVP’en, da den ikke fremgår af Figma
 
 ## Eksempel på GitHub issues (analyse og planlægning)
 
-  ### Feature: Create & edit chats  
-  https://github.com/eaaa-dob-wu-e25a/sem-proj-trivium/issues/86
+### Feature: Create & edit chats
 
-  Dette issue illustrerer vores tilgang til analyse og planlægning af en feature.  
-  Feature’en er markeret som en **“nice to have”**, da vi bevidst har prioriteret andre kernefunktioner i MVP’en først.
+https://github.com/eaaa-dob-wu-e25a/sem-proj-trivium/issues/86
 
-  Issue-beskrivelsen indeholder:
-  - En klar og kort beskrivelse af den **ønskede funktionalitet**
-  - En liste over **feature behaviours**, der specificerer hvordan funktionen forventes at opføre sig
-  - **Acceptance criteria**, som definerer hvornår feature’en kan betragtes som færdigimplementeret
-  - Supplerende noter med fokus på **user experience**, herunder overvejelser om modal-flow og brugerinteraktion
+Dette issue illustrerer vores tilgang til analyse og planlægning af en feature.  
+ Feature’en er markeret som en **“nice to have”**, da vi bevidst har prioriteret andre kernefunktioner i MVP’en først.
 
-  Denne struktur har gjort det muligt at afklare scope, vurdere kompleksitet og prioritere feature’en korrekt, selvom den ikke blev implementeret i den nuværende iteration.
+Issue-beskrivelsen indeholder:
 
-  ### Task: Create new note, story and request component  
-    https://github.com/eaaa-dob-wu-e25a/sem-proj-trivium/issues/95
-  
-    Dette issue er fuldt implementeret og efterfølgende lukket.  
-    Issue’et viser vores tilgang til konkret opgaveløsning og kravspecificering på komponentniveau.
-  
-    Issue-beskrivelsen indeholder:
-    - En kort og præcis **beskrivelse af opgaven**, herunder formålet med komponenten
-    - En specifikation af de **data og props**, komponenten skal understøtte (fx genre, paid/unpaid status og location)
-    - Et **refererende screenshot** af det ønskede UI, anvendt som visuel guideline under implementeringen
-    - En liste over **requirements / acceptance criteria**, som definerer hvornår opgaven kan godkendes
-  
-    Denne struktur har sikret fælles forståelse af opgaven, reduceret misforståelser under implementeringen og gjort det tydeligt, hvornår tasken var klar til review og lukning.
+- En klar og kort beskrivelse af den **ønskede funktionalitet**
+- En liste over **feature behaviours**, der specificerer hvordan funktionen forventes at opføre sig
+- **Acceptance criteria**, som definerer hvornår feature’en kan betragtes som færdigimplementeret
+- Supplerende noter med fokus på **user experience**, herunder overvejelser om modal-flow og brugerinteraktion
+
+Denne struktur har gjort det muligt at afklare scope, vurdere kompleksitet og prioritere feature’en korrekt, selvom den ikke blev implementeret i den nuværende iteration.
+
+### Task: Create new note, story and request component
+
+https://github.com/eaaa-dob-wu-e25a/sem-proj-trivium/issues/95
+
+Dette issue er fuldt implementeret og efterfølgende lukket.  
+ Issue’et viser vores tilgang til konkret opgaveløsning og kravspecificering på komponentniveau.
+
+Issue-beskrivelsen indeholder:
+
+- En kort og præcis **beskrivelse af opgaven**, herunder formålet med komponenten
+- En specifikation af de **data og props**, komponenten skal understøtte (fx genre, paid/unpaid status og location)
+- Et **refererende screenshot** af det ønskede UI, anvendt som visuel guideline under implementeringen
+- En liste over **requirements / acceptance criteria**, som definerer hvornår opgaven kan godkendes
+
+Denne struktur har sikret fælles forståelse af opgaven, reduceret misforståelser under implementeringen og gjort det tydeligt, hvornår tasken var klar til review og lukning.
 
 ## Eksempler på Pull Requests (code review og forbedringer)
 
-  ### Create page – top create selector (note, story, request)  
-  https://github.com/eaaa-dob-wu-e25a/sem-proj-trivium/pull/128
+### Create page – top create selector (note, story, request)
 
-  Dette Pull Request illustrerer vores brug af code reviews som en aktiv del af udviklingsprocessen.  
-  PR’en indeholder konstruktive kommentarer med forslag til forbedringer af kodekvalitet, struktur og læsbarhed samt begrundelser for, hvorfor ændringerne bør foretages.
+https://github.com/eaaa-dob-wu-e25a/sem-proj-trivium/pull/128
 
-  Derudover viser PR’en:
-  - Dialog omkring forbedringsforslag direkte i koden
-  - Efterfølgende **implementering af anbefalede ændringer**
-  - Bekræftelse og opfølgning, når forslag er blevet håndteret
+Dette Pull Request illustrerer vores brug af code reviews som en aktiv del af udviklingsprocessen.  
+ PR’en indeholder konstruktive kommentarer med forslag til forbedringer af kodekvalitet, struktur og læsbarhed samt begrundelser for, hvorfor ændringerne bør foretages.
 
-  Pull Requesten fungerer som et konkret eksempel på, hvordan vi har anvendt code reviews til at forbedre kvaliteten af løsningen og sikre fælles ejerskab over kodebasen.
-  
-  ### Implement search overlay with API integration and recent searches (peer review, Copilot review og faglig vurdering)
-  https://github.com/eaaa-dob-wu-e25a/sem-proj-trivium/pull/112
+Derudover viser PR’en:
 
-  Dette Pull Request demonstrerer vores brug af både **peer review** og **GitHub Copilot review** som en del af kvalitetssikringen.
+- Dialog omkring forbedringsforslag direkte i koden
+- Efterfølgende **implementering af anbefalede ændringer**
+- Bekræftelse og opfølgning, når forslag er blevet håndteret
 
-  PR’en indeholder:
-  - Feedback fra teammedlemmer med fokus på struktur, logik og brug af API
-  - Automatiske forslag fra Copilot, som er blevet vurderet kritisk
+Pull Requesten fungerer som et konkret eksempel på, hvordan vi har anvendt code reviews til at forbedre kvaliteten af løsningen og sikre fælles ejerskab over kodebasen.
 
-  Nogle forslag blev bevidst fravalgt, da de primært omhandlede mindre stilistiske eller præferencebaserede ændringer uden væsentlig indflydelse på funktionalitet eller ikke passede til projektets kontekst og arkitektur. Dette har krævet faglig vurdering frem for blind accept af automatiske forslag.
+### Implement search overlay with API integration and recent searches (peer review, Copilot review og faglig vurdering)
 
-  Derudover indeholder PR’en forslag til test og validering inden oprettelse af Pull Request.  
-  Under review-processen opstod der en mindre misforståelse omkring brugen af `user.role`, hvilket blev taget op i fællesskab og afklaret gennem dialog og justering af implementeringen.
+https://github.com/eaaa-dob-wu-e25a/sem-proj-trivium/pull/112
 
-  Pull Requesten viser dermed både teknisk samarbejde, kritisk brug af AI-værktøjer og fælles problemløsning i praksis.
+Dette Pull Request demonstrerer vores brug af både **peer review** og **GitHub Copilot review** som en del af kvalitetssikringen.
+
+PR’en indeholder:
+
+- Feedback fra teammedlemmer med fokus på struktur, logik og brug af API
+- Automatiske forslag fra Copilot, som er blevet vurderet kritisk
+
+Nogle forslag blev bevidst fravalgt, da de primært omhandlede mindre stilistiske eller præferencebaserede ændringer uden væsentlig indflydelse på funktionalitet eller ikke passede til projektets kontekst og arkitektur. Dette har krævet faglig vurdering frem for blind accept af automatiske forslag.
+
+Derudover indeholder PR’en forslag til test og validering inden oprettelse af Pull Request.  
+ Under review-processen opstod der en mindre misforståelse omkring brugen af `user.role`, hvilket blev taget op i fællesskab og afklaret gennem dialog og justering af implementeringen.
+
+Pull Requesten viser dermed både teknisk samarbejde, kritisk brug af AI-værktøjer og fælles problemløsning i praksis.
 
 ---
 
