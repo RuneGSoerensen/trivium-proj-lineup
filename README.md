@@ -171,7 +171,6 @@ Strukturen er konsistent på tværs af views og skalerer op til desktop uden at 
 ## Kendte issues
 
 - **Adgang til brugerprofiler**
-
   - Det er muligt at tilgå brugerprofiler via **search overlayet**.
   - Derudover kan profiler tilgås direkte via URL ved manuelt at indtaste brugerens ID.
   - Eksempel på fungerende brugerprofil:
@@ -269,8 +268,10 @@ Vi har haft en moderat struktureret, men agil arbejdsproces. Projektet har ikke 
 
 - Vi har anvendt **GitHub Issues** til at beskrive opgaver og features.
 - Issues er blevet organiseret i et **Kanban board** via GitHub Projects.
-- For at skabe overblik og prioritering er issues blevet suppleret med **labels** (fx feature, bug, frontend, backend) samt **milestones** knyttet til projektets overordnede faser.
+  - For at skabe overblik og prioritering er issues blevet suppleret med **labels** (fx feature, bug, frontend, backend) samt **milestones** knyttet til projektets overordnede faser.
 - Arbejdsfordelingen er primært sket gennem fysiske møder, hvor vi i fællesskab har prioriteret opgaver ud fra MVP-scope og tidsramme.
+- Derudover har vi anvendt et eksternt værktøj, **Notion**, til at dele og vedligeholde intern dokumentation. 
+  - Notion har været særligt nyttigt til at samle og opdatere **reference til `.env`-konfigurationer** (fx variabelnavne og struktur), så alle arbejdede med samme opsætning. Derudover har værktøjet været brugt til dokumentation af workflows samt noter fra interne standups. 
 
 ### Udviklingsworkflow
 
