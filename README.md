@@ -170,14 +170,6 @@ Strukturen er konsistent på tværs af views og skalerer op til desktop uden at 
 
 ## Kendte issues
 
-- **Adgang til brugerprofiler**
-
-  - Det er muligt at tilgå brugerprofiler via **search overlayet**.
-  - Derudover kan profiler tilgås direkte via URL ved manuelt at indtaste brugerens ID.
-  - Eksempel på fungerende brugerprofil:
-    <https://trivium.lol/profile/1d83fc00-a50e-48f4-9e23-e423d1112dee>
-    > Bemærk: Direkte adgang via URL kræver kendskab til brugerens ID og er derfor primært tænkt som en teknisk løsning i MVP-fasen.
-
 - **Login tjek**
   - Vi har en fungerende redirect til `/login` i
     frontend, når brugeren ikke er logget ind, men
@@ -223,8 +215,6 @@ Nedenstående features er identificeret som enten delvist implementerede eller i
 - Services-featuren anvender i øjeblikket **hard-coded data i frontend**.
 - Der er endnu ikke implementeret kobling til backend eller database.
 - Featuren fungerer derfor primært som et visuelt og konceptuelt proof-of-concept i MVP’en.
-
----
 
 ## Ekstra implementerede features
 
