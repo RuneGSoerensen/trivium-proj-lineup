@@ -26,7 +26,7 @@
 - [Ekstra implementerede features](#ekstra-implementerede-features)
 - [Database og bruger-autorisering](#database-og-bruger-autorisering)
 - [Interne designbeslutninger og argumentation](#interne-designbeslutninger-og-argumentation)
-- [Eksempeler på GitHub issues (analyse og planlægning)](#eksempler-på-github-issues-analyse-og-planlægning)
+- [Eksempler på GitHub issues (analyse og planlægning)](#eksempler-på-github-issues-analyse-og-planlægning)
 - [Eksempler på Pull Requests (code review og forbedringer)](#eksempler-på-pull-requests-code-review-og-forbedringer)
 - [Arbejdsproces](#arbejdsproces)
 - [ER Diagram](#er-diagram)
