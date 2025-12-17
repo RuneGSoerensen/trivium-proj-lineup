@@ -278,11 +278,36 @@ Undervejs i udviklingen har vi identificeret enkelte områder med forbedringspot
 
 Denne forbedring er ikke implementeret i MVP’en, da den ikke fremgår af Figma-designet, men den er noteret som et oplagt næste skridt i en videreudvikling af løsningen.
 
-## GitHub issues eksempler
+## Eksempel på GitHub issues (analyse og planlægning)
 
-- Et eksempel på et af jeres GitHub issues,
-  der illustrerer analyse og planlægning af en
-  feature eller user story
+  ### Feature: Create & edit chats  
+  https://github.com/eaaa-dob-wu-e25a/sem-proj-trivium/issues/86
+
+  Dette issue illustrerer vores tilgang til analyse og planlægning af en feature.  
+  Feature’en er markeret som en **“nice to have”**, da vi bevidst har prioriteret andre kernefunktioner i MVP’en først.
+
+  Issue-beskrivelsen indeholder:
+  - En klar og kort beskrivelse af den **ønskede funktionalitet**
+  - En liste over **feature behaviours**, der specificerer hvordan funktionen forventes at opføre sig
+  - **Acceptance criteria**, som definerer hvornår feature’en kan betragtes som færdigimplementeret
+  - Supplerende noter med fokus på **user experience**, herunder overvejelser om modal-flow og brugerinteraktion
+
+  Denne struktur har gjort det muligt at afklare scope, vurdere kompleksitet og prioritere feature’en korrekt, selvom den ikke blev implementeret i den nuværende iteration.
+
+### Task: Create new note, story and request component  
+  https://github.com/eaaa-dob-wu-e25a/sem-proj-trivium/issues/95
+
+  Dette issue er fuldt implementeret og efterfølgende lukket.  
+  Issue’et viser vores tilgang til konkret opgaveløsning og kravspecificering på komponentniveau.
+
+  Issue-beskrivelsen indeholder:
+  - En kort og præcis **beskrivelse af opgaven**, herunder formålet med komponenten
+  - En specifikation af de **data og props**, komponenten skal understøtte (fx genre, paid/unpaid status og location)
+  - Et **refererende screenshot** af det ønskede UI, anvendt som visuel guideline under implementeringen
+  - En liste over **requirements / acceptance criteria**, som definerer hvornår opgaven kan godkendes
+
+  Denne struktur har sikret fælles forståelse af opgaven, reduceret misforståelser under implementeringen og gjort det tydeligt, hvornår tasken var klar til review og lukning.
+  
 - Et eksempel på et af jeres pull requests,
   der viser konstruktiv feedback og
   forbedringer på en feature
@@ -306,7 +331,7 @@ Denne forbedring er ikke implementeret i MVP’en, da den ikke fremgår af Figma
 
 ---
 
-## 🧠 Opsummering og refleksion (Post-mortem)
+## Opsummering og refleksion (Post-mortem)
 
 Overordnet set har projektet været en god og lærerig proces, hvor vi har fået omsat et omfattende koncept og et hi-fi Figma-design til en fungerende, deployet MVP.
 
