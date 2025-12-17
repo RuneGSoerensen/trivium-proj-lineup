@@ -138,9 +138,8 @@ export const CommentItem = ({
 
         {/* REPLY INPUT */}
         {showReplyInput && (
-          <div className="mt-2 ml-10">
-            <div className="relative items-center h-fit flex gap-2 rounded-lg pb-12">
-
+          <div className="mt-2 ml-10 h-fit!">
+            <div className="relative items-center h-fit! flex gap-2 rounded-lg pb-12">
               <Input
                 type="text"
                 placeholder={`Reply to ${comment.user.name}`}

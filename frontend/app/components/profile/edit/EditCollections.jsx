@@ -21,7 +21,7 @@ export default function EditCollections({ formData, setFormData }) {
                 zIndex: i + 1,
               }}
             >
-              <Image src={src} alt={`artist-${i}`} className="w-full h-full object-cover position" />
+              <Image width={50} height={50} src={src} alt={`artist-${i}`} className="w-full h-full object-cover position" />
             </div>
           ))}
 
