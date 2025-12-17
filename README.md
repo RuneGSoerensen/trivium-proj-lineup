@@ -209,9 +209,22 @@ Strukturen er konsistent på tværs af views og skalerer op til desktop uden at 
 
 Nedenstående features er identificeret som enten delvist implementerede eller ikke fuldt færdiggjort inden for projektets tidsramme.
 
-### Role selection
+### Onboarding – signup flow
 
-- Onboarding del 4 når man vælger musician bliver man guidet til del 5, men hvis man vælger ikke musician bliver man guided til den samme onboarding.
+Onboarding-flowet tilpasser sig brugerens valg af rolle for at indsamle relevante oplysninger.
+
+- **Del 4:** Brugeren vælger rolle  
+  - *I am a musician*  
+  - *Not a musician*
+
+- **Del 5 (Musician):**  
+  Hvis brugeren vælger *musician*, guides vedkommende videre til et signup-flow målrettet musikere, hvor der indsamles personlige oplysninger såsom fornavn, efternavn m.m.
+
+- **Del 5.1 (Not a musician):**  
+  Hvis brugeren vælger *not a musician*, guides vedkommende i stedet til et signup-flow målrettet virksomheder/andre aktører, hvor der indsamles virksomhedsrelaterede oplysninger såsom business name m.m.
+
+Flowet sikrer, at brugeren kun præsenteres for relevante felter baseret på den valgte rolle.
+
 
 ### Chat
 
