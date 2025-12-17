@@ -115,7 +115,7 @@ Her kan brugere præsentere deres rolle, kompetencer, genre og tidligere arbejde
 Feedet samler relevant aktivitet fra platformen og fungerer som et socialt omdrejningspunkt.  
 Her kan brugere opdage nye profiler, requests og muligheder for samarbejde.
 
-![user-feed](image-4.png)
+![user-feed](image-13.png)
 
 ---
 
@@ -167,6 +167,11 @@ Strukturen er konsistent på tværs af views og skalerer op til desktop uden at 
 ![desktop-right-nav](image-10.png)
 
 - **Mobile-first design with desktop mode**
+### Desktop-design
+
+- Desktop-layoutet er designet særskilt og er ikke blot en opskalering af mobil-udgaven.
+- Målet har været at bevare samme indhold som på mobil, men præsentere det på en mere overskuelig og desktop-venlig måde.
+- Dette har krævet supplerende designbeslutninger ud over Figma-prototypen.
 
 ## Kendte issues
 
@@ -178,7 +183,7 @@ Strukturen er konsistent på tværs af views og skalerer op til desktop uden at 
     "content-flash" inden man lander på
     login-formularen.
 - **Login Desktop**
-  - lige nu bliver desktop nav vist på login og onboarding, dette er en issue som skal løses.
+  - Lige nu bliver desktop nav vist på login og onboarding, dette er en issue som skal løses.
 - **Following/connections**
   - Vi har fejl og mangler i vores
     following-system som det er nu. I designet er
@@ -215,16 +220,6 @@ Nedenstående features er identificeret som enten delvist implementerede eller i
 - Services-featuren anvender i øjeblikket **hard-coded data i frontend**.
 - Der er endnu ikke implementeret kobling til backend eller database.
 - Featuren fungerer derfor primært som et visuelt og konceptuelt proof-of-concept i MVP’en.
-
-## Ekstra implementerede features
-
-Udover de krævede funktioner har vi implementeret følgende ekstra features og forbedringer.
-
-### Desktop-design
-
-- Desktop-layoutet er designet særskilt og er ikke blot en opskalering af mobil-udgaven.
-- Målet har været at bevare samme indhold som på mobil, men præsentere det på en mere overskuelig og desktop-venlig måde.
-- Dette har krævet supplerende designbeslutninger ud over Figma-prototypen.
 
 ## Database og bruger-autorisering
 
@@ -366,7 +361,7 @@ Derudover indeholder PR’en forslag til test og validering inden oprettelse af 
 
 Pull Requesten viser dermed både teknisk samarbejde, kritisk brug af AI-værktøjer og fælles problemløsning i praksis.
 
----
+
 
 ## ER Diagram
 
