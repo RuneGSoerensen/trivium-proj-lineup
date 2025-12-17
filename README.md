@@ -297,7 +297,10 @@ Vi har overordnet set holdt os tæt op ad det udleverede Figma-design og det til
 
 Da projektet er udviklet uden løbende kundekontakt, har vi bevidst valgt **ikke** at foretage større ændringer i look-and-feel. Dette for at undgå at introducere designbeslutninger, som potentielt kunne afvige fra kundens intentioner og visuelle identitet.
 
-Mindre design beslutninger kan siges at være truffet på baggrund af teoretiske argumenter fx størrelse på knappen 
+Nogle af de mindre designbeslutninger er truffet med udgangspunkt i kendte UX-principper frem for personlige præferencer.
+
+Eksempelvis er størrelsen på knapper og klikbare elementer optimeret til mobil, for at mindske risikoen for fejltryk og forbedre brugervenligheden.
+Dette er baseret på Fitts’ Law, som beskriver, at større og tættere placerede klikmål er hurtigere og mere præcise at ramme – særligt på touch-enheder.
 
 ### Overvejelser og potentielle forbedringer
 
