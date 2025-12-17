@@ -21,7 +21,7 @@ export default function Home() {
   }, [setConfig]);
 
   return (
-    <section className="space-y-12 w-full h-full lg:max-w-full">
+    <section className="space-y-12 w-full h-full lg:pt-0!">
       {/* Stories - Full width on mobile, contained on desktop */}
       <div className="w-full">
         <Stories />

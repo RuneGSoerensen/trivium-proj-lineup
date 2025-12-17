@@ -93,15 +93,16 @@ export default function ProfileHeader({
               className="w-full min-w-180 rounded-full"
             >
               {profile?.is_following ? (
-                "Connect"
-              ) : (
                 "Connected"
+              ) : (
+                "Connect"
               )}
             </Button>
             <Button
               size="lg"
               variant="glass"
-              className="w-full min-w-180 py-3 rounded-full">
+              className="w-full min-w-180 py-3 rounded-full"
+              onClick={() => router.push(`/chat/${profile.id}`)}>
               Message
             </Button>
           </div>
