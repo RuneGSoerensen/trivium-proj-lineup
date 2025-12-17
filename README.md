@@ -18,7 +18,18 @@
 
 ## Indholdsfortegnelse
 
-TODO: indsæt når teksten er færdig.
+- [Links](#links)
+- [Login til test-brugere](#login-til-test-brugere)
+- [Tech Stack beskrivelse](#tech-stack-beskrivelse)
+- [Kendte issues](#kendte-issues)
+- [Manglende features](#manglende-features)
+- [Ekstra implementerede features](#ekstra-implementerede-features)
+- [Database og bruger-autorisering](#database-og-bruger-autorisering)
+- [Interne designbeslutninger og argumentation](#interne-designbeslutninger-og-argumentation)
+- [Arbejdsproces](#arbejdsproces)
+- [GitHub issues eksempler](#github-issues-eksempler)
+- [ER Diagram](#er-diagram)
+- [Opsummering og refleksion](#-opsummering-og-refleksion-post-mortem)
 
 ## Links
 
@@ -58,28 +69,30 @@ TODO: indsæt når teksten er færdig.
     - `zod`
 - Frontend: `next.js` app med server-side
   rendering
+
   - **Tailwind CSS**  
     Utility-first CSS framework, der muliggør hurtig og konsistent styling direkte i JSX uden behov for separate CSS-filer.  
     Valgt for høj udviklingshastighed, god performance og nem vedligeholdelse.
-  
+
   - **FlyonUI**  
     Komponentbibliotek bygget oven på Tailwind CSS, som leverer prædesignede og responsive UI-komponenter (fx modals, buttons og cards).  
     Har gjort det muligt at udvikle komplekse komponenter markant hurtigere og sikre et ensartet visuelt udtryk.
-  
+
   - **Lucide**  
     Letvægts ikonbibliotek med konsistente, SVG-baserede ikoner.  
     Anvendes til at skabe et klart og genkendeligt visuelt sprog på tværs af applikationen.
 
 ---
 
-# Implementeringsdetaljer
+## Implementeringsdetaljer
 
 Nedenfor ses en oversigt over de centrale features, der tilsammen udgør LineUp MVP’en.  
 Fokus har været på klar onboarding, tydelig navigation og et solidt fundament for networking og samarbejde i musikbranchen.
 
 ---
 
-## Onboarding flow
+### Onboarding flow
+
 Onboarding introducerer brugeren til LineUps kerneidé og primære funktioner på en hurtig og letforståelig måde.  
 Flowet er designet til at give overblik uden at overvælde og skabe en klar forventning til platformens formål.
 
@@ -87,7 +100,8 @@ Flowet er designet til at give overblik uden at overvælde og skabe en klar forv
 
 ---
 
-## User profil
+### User profil
+
 Brugerprofilen fungerer som en kombination af **CV og portfolio**.  
 Her kan brugere præsentere deres rolle, kompetencer, genre og tidligere arbejde, hvilket skaber transparens og tillid mellem aktører på platformen.
 
@@ -95,7 +109,8 @@ Her kan brugere præsentere deres rolle, kompetencer, genre og tidligere arbejde
 
 ---
 
-## User feed
+### User feed
+
 Feedet samler relevant aktivitet fra platformen og fungerer som et socialt omdrejningspunkt.  
 Her kan brugere opdage nye profiler, requests og muligheder for samarbejde.
 
@@ -103,7 +118,8 @@ Her kan brugere opdage nye profiler, requests og muligheder for samarbejde.
 
 ---
 
-## Services
+### Services
+
 Services-siden giver overblik over de ydelser og kompetencer, som brugere og virksomheder tilbyder.  
 Formålet er at gøre det nemt at finde specifikke services og skabe kontakt på baggrund af konkrete behov.
 
@@ -111,7 +127,8 @@ Formålet er at gøre det nemt at finde specifikke services og skabe kontakt på
 
 ---
 
-## Create (Requests & collaborations)
+### Create (Requests & collaborations)
+
 Create-siden er omdrejningspunktet for at oprette nye requests og samarbejder.  
 Brugeren guides gennem en struktureret proces, hvor formål og deltagere tydeliggøres fra start.
 
@@ -119,7 +136,8 @@ Brugeren guides gennem en struktureret proces, hvor formål og deltagere tydelig
 
 ---
 
-## Chats
+### Chats
+
 Chats giver mulighed for direkte kommunikation mellem brugere og understøtter samarbejde efter en connection er etableret.  
 Løsningen er holdt simpel for at sikre hurtig og effektiv dialog.
 
@@ -127,7 +145,8 @@ Løsningen er holdt simpel for at sikre hurtig og effektiv dialog.
 
 ---
 
-## Search
+### Search
+
 Søgefunktionen gør det muligt at finde relevante brugere, services og requests.  
 Søgningen er central for platformens networking-formål og understøtter hurtig discovery.
 
@@ -135,7 +154,8 @@ Søgningen er central for platformens networking-formål og understøtter hurtig
 
 ---
 
-## Navigation
+### Navigation
+
 Navigationen er designet mobile-first og sikrer hurtig adgang til platformens kernefunktioner.  
 Strukturen er konsistent på tværs af views og skalerer op til desktop uden at miste overblik.
 
@@ -150,11 +170,12 @@ Strukturen er konsistent på tværs af views og skalerer op til desktop uden at 
 ## Kendte issues
 
 - **Adgang til brugerprofiler**
+
   - Det er muligt at tilgå brugerprofiler via **search overlayet**.
   - Derudover kan profiler tilgås direkte via URL ved manuelt at indtaste brugerens ID.
   - Eksempel på fungerende brugerprofil:
     <https://trivium.lol/profile/1d83fc00-a50e-48f4-9e23-e423d1112dee>
-> Bemærk: Direkte adgang via URL kræver kendskab til brugerens ID og er derfor primært tænkt som en teknisk løsning i MVP-fasen.
+    > Bemærk: Direkte adgang via URL kræver kendskab til brugerens ID og er derfor primært tænkt som en teknisk løsning i MVP-fasen.
 
 - **Login tjek**
   - Vi har en fungerende redirect til `/login` i
@@ -194,11 +215,13 @@ Strukturen er konsistent på tværs af views og skalerer op til desktop uden at 
 Nedenstående features er identificeret som enten delvist implementerede eller ikke fuldt færdiggjort inden for projektets tidsramme.
 
 ### Chat
+
 - Chat-funktionaliteten er implementeret og understøtter både private beskeder og gruppechats.
 - Det er dog på nuværende tidspunkt **ikke muligt at oprette nye chats** (hverken private eller gruppechats) via brugergrænsefladen.
 - Funktionaliteten er teknisk forberedt, men mangler det afsluttende UI-flow.
 
 ### Services
+
 - Services-featuren anvender i øjeblikket **hard-coded data i frontend**.
 - Der er endnu ikke implementeret kobling til backend eller database.
 - Featuren fungerer derfor primært som et visuelt og konceptuelt proof-of-concept i MVP’en.
@@ -210,6 +233,7 @@ Nedenstående features er identificeret som enten delvist implementerede eller i
 Udover de krævede funktioner har vi implementeret følgende ekstra features og forbedringer.
 
 ### Desktop-design
+
 - Desktop-layoutet er designet særskilt og er ikke blot en opskalering af mobil-udgaven.
 - Målet har været at bevare samme indhold som på mobil, men præsentere det på en mere overskuelig og desktop-venlig måde.
 - Dette har krævet supplerende designbeslutninger ud over Figma-prototypen.
@@ -241,12 +265,14 @@ Udover de krævede funktioner har vi implementeret følgende ekstra features og 
 Vi har haft en moderat struktureret, men agil arbejdsproces. Projektet har ikke været opdelt i formelle sprints, men er i stedet blevet drevet iterativt, hvor vi løbende har vurderet fremdrift, mangler og prioriteringer med fokus på at levere en velfungerende MVP.
 
 ### Planlægning og opgavestyring
+
 - Vi har anvendt **GitHub Issues** til at beskrive opgaver og features.
 - Issues er blevet organiseret i et **Kanban board** via GitHub Projects.
 - For at skabe overblik og prioritering er issues blevet suppleret med **labels** (fx feature, bug, frontend, backend) samt **milestones** knyttet til projektets overordnede faser.
 - Arbejdsfordelingen er primært sket gennem fysiske møder, hvor vi i fællesskab har prioriteret opgaver ud fra MVP-scope og tidsramme.
 
 ### Udviklingsworkflow
+
 - For hver feature er der oprettet et issue med en kort, konkret beskrivelse.
 - Udviklere har selv assignet sig til issues for at skabe ejerskab.
 - Udvikling er som udgangspunkt foregået på **feature branches**.
@@ -254,10 +280,12 @@ Vi har haft en moderat struktureret, men agil arbejdsproces. Projektet har ikke 
 - Pull Requests er blevet brugt til code review og kvalitetssikring før merge.
 
 ### Code review og værktøjer
+
 - Code reviews er primært udført manuelt af teamet.
 - I enkelte tilfælde har vi benyttet **GitHub Copilot** som et assisterende værktøj til code review og forbedringsforslag.
 
 ### Afvigelser fra workflow
+
 - Ved mindre ændringer eller simple bug fixes er der i enkelte tilfælde arbejdet direkte i `dev`-branchen.
 - Disse afvigelser er vurderet acceptable for at opretholde momentum i projektets afsluttende fase.
 
@@ -270,6 +298,7 @@ Vi har overordnet set holdt os tæt op ad det udleverede Figma-design og det til
 Da projektet er udviklet uden løbende kundekontakt, har vi bevidst valgt **ikke** at foretage større ændringer i look-and-feel. Dette for at undgå at introducere designbeslutninger, som potentielt kunne afvige fra kundens intentioner og visuelle identitet.
 
 ### Overvejelser og potentielle forbedringer
+
 Undervejs i udviklingen har vi identificeret enkelte områder med forbedringspotentiale:
 
 - **Breadcrumbs / navigationskontekst**  
@@ -306,17 +335,19 @@ Denne forbedring er ikke implementeret i MVP’en, da den ikke fremgår af Figma
 
 ---
 
-## 🧠 Opsummering og refleksion (Post-mortem)
+## Opsummering og refleksion (Post-mortem)
 
 Overordnet set har projektet været en god og lærerig proces, hvor vi har fået omsat et omfattende koncept og et hi-fi Figma-design til en fungerende, deployet MVP.
 
 ### Hvad fungerede godt
+
 - Brug af **GitHub Issues og Pull Requests** har givet et godt overblik over features, ansvar og progression.
 - Pull Requests har gjort det nemmere at reviewe kode og sikre en mere stabil kodebase.
 - Arbejdsdelingen omkring konkrete features har gjort det muligt for hver deltager at tage ejerskab fra analyse til implementering.
 - Den tekniske stack og arkitektur har fungeret stabilt og understøttet hurtig udvikling.
 
 ### Hvad vi ville gøre anderledes
+
 Selvom vi har benyttet **GitHub Projects** til projektstyring, ser vi et klart forbedringspotentiale i, hvordan vi organiserer og følger op på arbejdet.
 
 - Projektstyring bør være mere eksplicit og struktureret, især i et team hvor nogle arbejder bedst alene og andre i tæt samarbejde.
