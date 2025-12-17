@@ -204,6 +204,10 @@ Strukturen er konsistent på tværs af views og skalerer op til desktop uden at 
 
 Nedenstående features er identificeret som enten delvist implementerede eller ikke fuldt færdiggjort inden for projektets tidsramme.
 
+### Role selection
+
+- Onboarding del 4 når man vælger musician bliver man guidet til del 5, men hvis man vælger ikke musician bliver man guided til den samme onboarding.
+
 ### Chat
 
 - Chat-funktionaliteten er implementeret og understøtter både private beskeder og gruppechats.
