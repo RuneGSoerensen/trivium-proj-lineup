@@ -23,7 +23,6 @@
 - [Tech Stack beskrivelse](#tech-stack-beskrivelse)
 - [Kendte issues](#kendte-issues)
 - [Manglende features](#manglende-features)
-- [Ekstra implementerede features](#ekstra-implementerede-features)
 - [Database og bruger-autorisering](#database-og-bruger-autorisering)
 - [Interne designbeslutninger og argumentation](#interne-designbeslutninger-og-argumentation)
 - [Eksempler på GitHub issues (analyse og planlægning)](#eksempler-på-github-issues-analyse-og-planlægning)
@@ -85,14 +84,14 @@
 
 ---
 
-## Implementeringsdetaljer
+## Implementeret features
 
 Nedenfor ses en oversigt over de centrale features, der tilsammen udgør LineUp MVP’en.  
 Fokus har været på klar onboarding, tydelig navigation og et solidt fundament for networking og samarbejde i musikbranchen.
 
 ---
 
-### Onboarding flow
+### Onboarding flow - Primær udvikler: Victoria og Rune
 
 Onboarding introducerer brugeren til LineUps kerneidé og primære funktioner på en hurtig og letforståelig måde.  
 Flowet er designet til at give overblik uden at overvælde og skabe en klar forventning til platformens formål.
@@ -101,7 +100,7 @@ Flowet er designet til at give overblik uden at overvælde og skabe en klar forv
 
 ---
 
-### User profil
+### User profil - Primær udvikler: Morten
 
 Brugerprofilen fungerer som en kombination af **CV og portfolio**.  
 Her kan brugere præsentere deres rolle, kompetencer, genre og tidligere arbejde, hvilket skaber transparens og tillid mellem aktører på platformen.
@@ -110,7 +109,7 @@ Her kan brugere præsentere deres rolle, kompetencer, genre og tidligere arbejde
 
 ---
 
-### User feed
+### User feed - Primær udvikler: Morten
 
 Feedet samler relevant aktivitet fra platformen og fungerer som et socialt omdrejningspunkt.  
 Her kan brugere opdage nye profiler, requests og muligheder for samarbejde.
@@ -119,7 +118,7 @@ Her kan brugere opdage nye profiler, requests og muligheder for samarbejde.
 
 ---
 
-### Services
+### Services - Primær udvikler: Victoria og Morten
 
 Services-siden giver overblik over de ydelser og kompetencer, som brugere og virksomheder tilbyder.  
 Formålet er at gøre det nemt at finde specifikke services og skabe kontakt på baggrund af konkrete behov.
@@ -128,7 +127,7 @@ Formålet er at gøre det nemt at finde specifikke services og skabe kontakt på
 
 ---
 
-### Create (Requests & collaborations)
+### Create (Requests & collaborations) - Primær udvikler: Rune(frontend) og Thomas(backend)
 
 Create-siden er omdrejningspunktet for at oprette nye requests og samarbejder.  
 Brugeren guides gennem en struktureret proces, hvor formål og deltagere tydeliggøres fra start.
@@ -137,7 +136,7 @@ Brugeren guides gennem en struktureret proces, hvor formål og deltagere tydelig
 
 ---
 
-### Chats
+### Chats - Primær udvikler: Victoria
 
 Chats giver mulighed for direkte kommunikation mellem brugere og understøtter samarbejde efter en connection er etableret.  
 Løsningen er holdt simpel for at sikre hurtig og effektiv dialog.
@@ -146,7 +145,7 @@ Løsningen er holdt simpel for at sikre hurtig og effektiv dialog.
 
 ---
 
-### Search
+### Search - Primær udvikler: Victoria
 
 Søgefunktionen gør det muligt at finde relevante brugere, services og requests.  
 Søgningen er central for platformens networking-formål og understøtter hurtig discovery.
@@ -155,7 +154,7 @@ Søgningen er central for platformens networking-formål og understøtter hurtig
 
 ---
 
-### Navigation
+### Navigation - Primær udvikler: Victoria og Rune
 
 Navigationen er designet mobile-first og sikrer hurtig adgang til platformens kernefunktioner.  
 Strukturen er konsistent på tværs af views og skalerer op til desktop uden at miste overblik.
@@ -168,7 +167,7 @@ Strukturen er konsistent på tværs af views og skalerer op til desktop uden at 
 
 - **Mobile-first design with desktop mode**
 
-### Desktop-design
+### Desktop design
 
 - Desktop-layoutet er designet særskilt og er ikke blot en opskalering af mobil-udgaven.
 - Målet har været at bevare samme indhold som på mobil, men præsentere det på en mere overskuelig og desktop-venlig måde.
