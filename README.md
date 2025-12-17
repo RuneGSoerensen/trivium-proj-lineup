@@ -218,7 +218,7 @@ Nedenstående features er identificeret som enten delvist implementerede eller i
 
 Udover de krævede funktioner har vi implementeret følgende ekstra features og forbedringer.
 
-### Desktop-design
+### Desktop design
 
 - Desktop-layoutet er designet særskilt og er ikke blot en opskalering af mobil-udgaven.
 - Målet har været at bevare samme indhold som på mobil, men præsentere det på en mere overskuelig og desktop-venlig måde.
@@ -243,8 +243,6 @@ Udover de krævede funktioner har vi implementeret følgende ekstra features og 
   til at oprette nye brugere og til authorization,
   bl.a. for at få en ny JWT token når brugere
   logger ind.
-
----
 
 ## Arbejdsproces
 
@@ -364,8 +362,6 @@ Derudover indeholder PR’en forslag til test og validering inden oprettelse af 
 
 Pull Requesten viser dermed både teknisk samarbejde, kritisk brug af AI-værktøjer og fælles problemløsning i praksis.
 
----
-
 ## ER Diagram
 
 - Vi bruger Supabase som vores
@@ -381,9 +377,8 @@ Pull Requesten viser dermed både teknisk samarbejde, kritisk brug af AI-værkt�
   authorization, bl.a. for at få en ny JWT
   token når brugere logger ind.
 - ER dagrammet som vi har brugt er lavet i ERD plus og derefter har Supabase genereret en ud fra vores Database
-  ![Billede af er diagram fra erdplus](image.png)
 
----
+![Billede af er diagram fra erdplus](image.png)
 
 ## Opsummering og refleksion (Post-mortem)
 
