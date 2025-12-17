@@ -70,7 +70,7 @@ export default function ProfileHeader({
             <Button
               size="lg"
               variant="glass"
-              className="w-full min-w-180 rounded-full"
+              className="w-full rounded-full"
               onClick={() => router.push("/profile/edit")}
             >
               Edit profile
@@ -78,7 +78,7 @@ export default function ProfileHeader({
             <Button
               size="lg"
               variant="glass"
-              className="w-full min-w-180 rounded-full">
+              className="w-full rounded-full">
               Share profile
             </Button>
           </div>
@@ -90,7 +90,7 @@ export default function ProfileHeader({
               icon={profile?.is_following ? <CircleCheck /> : <CirclePlus />}
               iconPosition="right"
               onClick={onFollow}
-              className="w-full min-w-180 rounded-full"
+              className="w-full rounded-full"
             >
               {profile?.is_following ? (
                 "Connected"
@@ -101,7 +101,7 @@ export default function ProfileHeader({
             <Button
               size="lg"
               variant="glass"
-              className="w-full min-w-180 py-3 rounded-full"
+              className="w-full py-3 rounded-full"
               onClick={() => router.push(`/chat/${profile.id}`)}>
               Message
             </Button>
