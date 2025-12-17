@@ -210,7 +210,7 @@ Strukturen er konsistent på tværs af views og skalerer op til desktop uden at 
 
 Nedenstående features er identificeret som enten delvist implementerede eller ikke fuldt færdiggjort inden for projektets tidsramme.
 
-### Onboarding – signup flow
+### Onboarding – user information
 
 Onboarding-flowet tilpasser sig brugerens valg af rolle for at indsamle relevante oplysninger.
 
@@ -298,6 +298,8 @@ Vi har overordnet set holdt os tæt op ad det udleverede Figma-design og det til
 
 Da projektet er udviklet uden løbende kundekontakt, har vi bevidst valgt **ikke** at foretage større ændringer i look-and-feel. Dette for at undgå at introducere designbeslutninger, som potentielt kunne afvige fra kundens intentioner og visuelle identitet.
 
+Mindre design beslutninger kan siges at være truffet på baggrund af teoretiske argumenter fx størrelse på knappen 
+
 ### Overvejelser og potentielle forbedringer
 
 Undervejs i udviklingen har vi identificeret enkelte områder med forbedringspotentiale:
@@ -330,7 +332,7 @@ Denne struktur har gjort det muligt at afklare scope, vurdere kompleksitet og pr
 
 https://github.com/eaaa-dob-wu-e25a/sem-proj-trivium/issues/95
 
-Dette issue er fuldt implementeret og efterfølgende lukket.  
+Dette issue er implementeret og efterfølgende lukket.  
  Issue’et viser vores tilgang til konkret opgaveløsning og kravspecificering på komponentniveau.
 
 Issue-beskrivelsen indeholder:
@@ -419,4 +421,3 @@ Selvom vi har benyttet **GitHub Projects** til projektstyring, ser vi et klart f
 
 Samlet set har samarbejdet fungeret godt, men projektet har tydeligt vist, hvor vigtigt det er at kombinere tekniske værktøjer med klare aftaler, løbende dialog og fælles ansvar for fremdrift.
 
----
