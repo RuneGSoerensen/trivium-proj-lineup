@@ -26,8 +26,9 @@
 - [Ekstra implementerede features](#ekstra-implementerede-features)
 - [Database og bruger-autorisering](#database-og-bruger-autorisering)
 - [Interne designbeslutninger og argumentation](#interne-designbeslutninger-og-argumentation)
+- [Eksempeler på GitHub issues (analyse og planlægning)](#eksempler-på-github-issues-analyse-og-planlægning)
+- [Eksempler på Pull Requests (code review og forbedringer)](#eksempler-på-pull-requests-code-review-og-forbedringer)
 - [Arbejdsproces](#arbejdsproces)
-- [GitHub issues eksempler](#github-issues-eksempler)
 - [ER Diagram](#er-diagram)
 - [Opsummering og refleksion](#-opsummering-og-refleksion-post-mortem)
 
@@ -170,7 +171,6 @@ Strukturen er konsistent på tværs af views og skalerer op til desktop uden at 
 ## Kendte issues
 
 - **Adgang til brugerprofiler**
-
   - Det er muligt at tilgå brugerprofiler via **search overlayet**.
   - Derudover kan profiler tilgås direkte via URL ved manuelt at indtaste brugerens ID.
   - Eksempel på fungerende brugerprofil:
@@ -263,8 +263,10 @@ Vi har haft en moderat struktureret, men agil arbejdsproces. Projektet har ikke 
 
 - Vi har anvendt **GitHub Issues** til at beskrive opgaver og features.
 - Issues er blevet organiseret i et **Kanban board** via GitHub Projects.
-- For at skabe overblik og prioritering er issues blevet suppleret med **labels** (fx feature, bug, frontend, backend) samt **milestones** knyttet til projektets overordnede faser.
+  - For at skabe overblik og prioritering er issues blevet suppleret med **labels** (fx feature, bug, frontend, backend) samt **milestones** knyttet til projektets overordnede faser.
 - Arbejdsfordelingen er primært sket gennem fysiske møder, hvor vi i fællesskab har prioriteret opgaver ud fra MVP-scope og tidsramme.
+- Derudover har vi anvendt et eksternt værktøj, **Notion**, til at dele og vedligeholde intern dokumentation. 
+  - Notion har været særligt nyttigt til at samle og opdatere **reference til `.env`-konfigurationer** (fx variabelnavne og struktur), så alle arbejdede med samme opsætning. Derudover har værktøjet været brugt til dokumentation af workflows samt noter fra interne standups. 
 
 ### Udviklingsworkflow
 
@@ -302,7 +304,7 @@ Undervejs i udviklingen har vi identificeret enkelte områder med forbedringspot
 
 Denne forbedring er ikke implementeret i MVP’en, da den ikke fremgår af Figma-designet, men den er noteret som et oplagt næste skridt i en videreudvikling af løsningen.
 
-## Eksempel på GitHub issues (analyse og planlægning)
+## Eksempler på GitHub issues (analyse og planlægning)
 
 ### Feature: Create & edit chats
 
