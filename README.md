@@ -171,7 +171,6 @@ Strukturen er konsistent på tværs af views og skalerer op til desktop uden at 
 ## Kendte issues
 
 - **Adgang til brugerprofiler**
-
   - Det er muligt at tilgå brugerprofiler via **search overlayet**.
   - Derudover kan profiler tilgås direkte via URL ved manuelt at indtaste brugerens ID.
   - Eksempel på fungerende brugerprofil:
@@ -194,11 +193,6 @@ Strukturen er konsistent på tværs af views og skalerer op til desktop uden at 
     har vi lavet en "pending-state" når man
     anmoder om at følge andre, men vi har endnu
     ikke funktionalitet til at godkende følgning.
-    Et andet problem vi har er, at "A-vil-følge-B"
-    og "B-vil-følge-A" bliver gemt i databasen som
-    to forskellige rækker. Det bør ikke være
-    muligt at lave en follow request fra B til A,
-    hvis der allerede er en fra A til B.
 - **Backend request-validering**
   - I enkelte endpoints har vi brugt Zod som
     løsning på at få valideret den input, der
@@ -267,8 +261,10 @@ Vi har haft en moderat struktureret, men agil arbejdsproces. Projektet har ikke 
 
 - Vi har anvendt **GitHub Issues** til at beskrive opgaver og features.
 - Issues er blevet organiseret i et **Kanban board** via GitHub Projects.
-- For at skabe overblik og prioritering er issues blevet suppleret med **labels** (fx feature, bug, frontend, backend) samt **milestones** knyttet til projektets overordnede faser.
+  - For at skabe overblik og prioritering er issues blevet suppleret med **labels** (fx feature, bug, frontend, backend) samt **milestones** knyttet til projektets overordnede faser.
 - Arbejdsfordelingen er primært sket gennem fysiske møder, hvor vi i fællesskab har prioriteret opgaver ud fra MVP-scope og tidsramme.
+- Derudover har vi anvendt et eksternt værktøj, **Notion**, til at dele og vedligeholde intern dokumentation. 
+  - Notion har været særligt nyttigt til at samle og opdatere **reference til `.env`-konfigurationer** (fx variabelnavne og struktur), så alle arbejdede med samme opsætning. Derudover har værktøjet været brugt til dokumentation af workflows samt noter fra interne standups. 
 
 ### Udviklingsworkflow
 
@@ -391,6 +387,8 @@ Pull Requesten viser dermed både teknisk samarbejde, kritisk brug af AI-værkt�
   library til at oprette nye brugere og til
   authorization, bl.a. for at få en ny JWT
   token når brugere logger ind.
+- ER dagrammet som vi har brugt er lavet i ERD plus og derefter har Supabase genereret en ud fra vores Database
+  ![Billede af er diagram fra erdplus](image.png)
 
 ---
 
