@@ -227,8 +227,6 @@ Nedenstående features er identificeret som enten delvist implementerede eller i
 - Der er endnu ikke implementeret kobling til backend eller database.
 - Featuren fungerer derfor primært som et visuelt og konceptuelt proof-of-concept i MVP’en.
 
----
-
 ## Ekstra implementerede features
 
 Udover de krævede funktioner har vi implementeret følgende ekstra features og forbedringer.
