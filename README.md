@@ -26,7 +26,7 @@
 - [Ekstra implementerede features](#ekstra-implementerede-features)
 - [Database og bruger-autorisering](#database-og-bruger-autorisering)
 - [Interne designbeslutninger og argumentation](#interne-designbeslutninger-og-argumentation)
-- [Eksempeler på GitHub issues (analyse og planlægning)](#eksempler-på-github-issues-analyse-og-planlægning)
+- [Eksempler på GitHub issues (analyse og planlægning)](#eksempler-på-github-issues-analyse-og-planlægning)
 - [Eksempler på Pull Requests (code review og forbedringer)](#eksempler-på-pull-requests-code-review-og-forbedringer)
 - [Arbejdsproces](#arbejdsproces)
 - [ER Diagram](#er-diagram)
@@ -97,7 +97,7 @@ Fokus har været på klar onboarding, tydelig navigation og et solidt fundament 
 Onboarding introducerer brugeren til LineUps kerneidé og primære funktioner på en hurtig og letforståelig måde.  
 Flowet er designet til at give overblik uden at overvælde og skabe en klar forventning til platformens formål.
 
-<img width="360" height="500" alt="Onboarding flow" src="https://github.com/user-attachments/assets/b9d8737b-cc9f-4ab7-b4b1-ef715ba1bb1c" />
+![onboarding-signup](image-12.png)
 
 ---
 
@@ -106,7 +106,7 @@ Flowet er designet til at give overblik uden at overvælde og skabe en klar forv
 Brugerprofilen fungerer som en kombination af **CV og portfolio**.  
 Her kan brugere præsentere deres rolle, kompetencer, genre og tidligere arbejde, hvilket skaber transparens og tillid mellem aktører på platformen.
 
-<img width="360" height="500" alt="User profile" src="https://github.com/user-attachments/assets/9cddbb87-2574-496e-ab53-7cb20215ab64" />
+![user-profile](image-11.png)
 
 ---
 
@@ -115,7 +115,7 @@ Her kan brugere præsentere deres rolle, kompetencer, genre og tidligere arbejde
 Feedet samler relevant aktivitet fra platformen og fungerer som et socialt omdrejningspunkt.  
 Her kan brugere opdage nye profiler, requests og muligheder for samarbejde.
 
-<img width="360" height="748" alt="User feed" src="https://github.com/user-attachments/assets/09982e60-5b68-426a-bf6f-8590fea6ba9f" />
+![user-feed](image-13.png)
 
 ---
 
@@ -124,7 +124,7 @@ Her kan brugere opdage nye profiler, requests og muligheder for samarbejde.
 Services-siden giver overblik over de ydelser og kompetencer, som brugere og virksomheder tilbyder.  
 Formålet er at gøre det nemt at finde specifikke services og skabe kontakt på baggrund af konkrete behov.
 
-<img width="360" height="858" alt="Services" src="https://github.com/user-attachments/assets/8d8a44a2-f292-46a3-8868-2a2eb4e0d3d5" />
+![services](image-3.png)
 
 ---
 
@@ -133,7 +133,7 @@ Formålet er at gøre det nemt at finde specifikke services og skabe kontakt på
 Create-siden er omdrejningspunktet for at oprette nye requests og samarbejder.  
 Brugeren guides gennem en struktureret proces, hvor formål og deltagere tydeliggøres fra start.
 
-<img width="360" height="720" alt="Create page" src="https://github.com/user-attachments/assets/4c3340e7-a06a-4fa1-8374-1bbbb8204167" />
+![create](image-2.png)
 
 ---
 
@@ -142,7 +142,7 @@ Brugeren guides gennem en struktureret proces, hvor formål og deltagere tydelig
 Chats giver mulighed for direkte kommunikation mellem brugere og understøtter samarbejde efter en connection er etableret.  
 Løsningen er holdt simpel for at sikre hurtig og effektiv dialog.
 
-<img width="360" height="243" alt="Chats" src="https://github.com/user-attachments/assets/4373717a-962b-4008-82d5-e82731ff41ac" />
+![chat-view](image-5.png)
 
 ---
 
@@ -151,7 +151,7 @@ Løsningen er holdt simpel for at sikre hurtig og effektiv dialog.
 Søgefunktionen gør det muligt at finde relevante brugere, services og requests.  
 Søgningen er central for platformens networking-formål og understøtter hurtig discovery.
 
-<img width="360" height="842" alt="Search" src="https://github.com/user-attachments/assets/46fc6b2a-4f0f-450d-b54c-d201e332ff42" />
+![search-view](image-7.png)
 
 ---
 
@@ -160,13 +160,18 @@ Søgningen er central for platformens networking-formål og understøtter hurtig
 Navigationen er designet mobile-first og sikrer hurtig adgang til platformens kernefunktioner.  
 Strukturen er konsistent på tværs af views og skalerer op til desktop uden at miste overblik.
 
-<img width="360" height="600" alt="Navigation mobile" src="https://github.com/user-attachments/assets/29ee6660-3e45-48ed-8b14-3cc7f2d830be" />
+![mobile-bottom-nav](image-8.png)
 
-<img width="260" height="673" alt="Navigation expanded" src="https://github.com/user-attachments/assets/11db6084-5c46-4914-b66f-12c2e363902d" />
+![desktop-left-nav](image-9.png)
 
-<img width="360" height="657" alt="Navigation desktop" src="https://github.com/user-attachments/assets/8fd969e1-1fe4-4e75-b9d6-5b58b722f029" />
+![desktop-right-nav](image-10.png)
 
 - **Mobile-first design with desktop mode**
+### Desktop-design
+
+- Desktop-layoutet er designet særskilt og er ikke blot en opskalering af mobil-udgaven.
+- Målet har været at bevare samme indhold som på mobil, men præsentere det på en mere overskuelig og desktop-venlig måde.
+- Dette har krævet supplerende designbeslutninger ud over Figma-prototypen.
 
 ## Kendte issues
 
@@ -178,7 +183,7 @@ Strukturen er konsistent på tværs af views og skalerer op til desktop uden at 
     "content-flash" inden man lander på
     login-formularen.
 - **Login Desktop**
-  - lige nu bliver desktop nav vist på login og onboarding, dette er en issue som skal løses.
+  - Lige nu bliver desktop nav vist på login og onboarding, dette er en issue som skal løses.
 - **Following/connections**
   - Vi har fejl og mangler i vores
     following-system som det er nu. I designet er
@@ -219,16 +224,6 @@ Nedenstående features er identificeret som enten delvist implementerede eller i
 - Services-featuren anvender i øjeblikket **hard-coded data i frontend**.
 - Der er endnu ikke implementeret kobling til backend eller database.
 - Featuren fungerer derfor primært som et visuelt og konceptuelt proof-of-concept i MVP’en.
-
-## Ekstra implementerede features
-
-Udover de krævede funktioner har vi implementeret følgende ekstra features og forbedringer.
-
-### Desktop-design
-
-- Desktop-layoutet er designet særskilt og er ikke blot en opskalering af mobil-udgaven.
-- Målet har været at bevare samme indhold som på mobil, men præsentere det på en mere overskuelig og desktop-venlig måde.
-- Dette har krævet supplerende designbeslutninger ud over Figma-prototypen.
 
 ## Database og bruger-autorisering
 
@@ -370,7 +365,7 @@ Derudover indeholder PR’en forslag til test og validering inden oprettelse af 
 
 Pull Requesten viser dermed både teknisk samarbejde, kritisk brug af AI-værktøjer og fælles problemløsning i praksis.
 
----
+
 
 ## ER Diagram
 
