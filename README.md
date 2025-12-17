@@ -21,6 +21,7 @@
 - [Links](#links)
 - [Login til test-brugere](#login-til-test-brugere)
 - [Tech Stack beskrivelse](#tech-stack-beskrivelse)
+- [Implementeret features](#implementeret-features)
 - [Kendte issues](#kendte-issues)
 - [Manglende features](#manglende-features)
 - [Database og bruger-autorisering](#database-og-bruger-autorisering)
@@ -422,4 +423,3 @@ Selvom vi har benyttet **GitHub Projects** til projektstyring, ser vi et klart f
 > **Communication is key** — både i de store arkitektoniske beslutninger og i de små detaljer.
 
 Samlet set har samarbejdet fungeret godt, men projektet har tydeligt vist, hvor vigtigt det er at kombinere tekniske værktøjer med klare aftaler, løbende dialog og fælles ansvar for fremdrift.
-
