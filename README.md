@@ -26,8 +26,9 @@
 - [Ekstra implementerede features](#ekstra-implementerede-features)
 - [Database og bruger-autorisering](#database-og-bruger-autorisering)
 - [Interne designbeslutninger og argumentation](#interne-designbeslutninger-og-argumentation)
+- [Eksempeler på GitHub issues (analyse og planlægning)](#eksempler-på-github-issues-analyse-og-planlægning)
+- [Eksempler på Pull Requests (code review og forbedringer)](#eksempler-på-pull-requests-code-review-og-forbedringer)
 - [Arbejdsproces](#arbejdsproces)
-- [GitHub issues eksempler](#github-issues-eksempler)
 - [ER Diagram](#er-diagram)
 - [Opsummering og refleksion](#-opsummering-og-refleksion-post-mortem)
 
@@ -307,7 +308,7 @@ Undervejs i udviklingen har vi identificeret enkelte områder med forbedringspot
 
 Denne forbedring er ikke implementeret i MVP’en, da den ikke fremgår af Figma-designet, men den er noteret som et oplagt næste skridt i en videreudvikling af løsningen.
 
-## Eksempel på GitHub issues (analyse og planlægning)
+## Eksempeler på GitHub issues (analyse og planlægning)
 
 ### Feature: Create & edit chats
 
