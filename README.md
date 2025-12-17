@@ -113,7 +113,7 @@ Her kan brugere præsentere deres rolle, kompetencer, genre og tidligere arbejde
 ### User feed
 
 Feedet samler relevant aktivitet fra platformen og fungerer som et socialt omdrejningspunkt.  
-Her kan brugere opdage nye profiler, requests og muligheder for samarbejde.
+Her kan brugere følge med i deres connections' gigs og arbejde.
 
 ![user-feed](image-13.png)
 
