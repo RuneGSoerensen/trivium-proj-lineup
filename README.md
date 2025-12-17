@@ -308,7 +308,7 @@ Undervejs i udviklingen har vi identificeret enkelte områder med forbedringspot
 
 Denne forbedring er ikke implementeret i MVP’en, da den ikke fremgår af Figma-designet, men den er noteret som et oplagt næste skridt i en videreudvikling af løsningen.
 
-## Eksempeler på GitHub issues (analyse og planlægning)
+## Eksempler på GitHub issues (analyse og planlægning)
 
 ### Feature: Create & edit chats
 
